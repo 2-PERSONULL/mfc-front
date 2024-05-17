@@ -7,7 +7,7 @@ export default function KakaoSignInButton() {
       action={async () => {
         'use server'
 
-        await signIn('kakao', { redirectTo: '/user' })
+        await signIn('kakao')
       }}
     >
       <button

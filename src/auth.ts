@@ -3,52 +3,66 @@ import Credentials from 'next-auth/providers/credentials'
 import kakao from 'next-auth/providers/kakao'
 
 interface User {
-  id: string
   name: string
+  password: string
   email: string
-}
-
-interface LoginRes {
-  success: boolean
-  data: {
-    user: {
-      ID: string
-      NAME: string
-      EMAIL: string
-    }
-  }
+  role: string
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  pages: {
+    signIn: '/signin',
+  },
   providers: [
     kakao,
     Credentials({
       credentials: {
-        id: { label: 'Username', type: 'text' },
+        email: { label: 'Username', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
-        if (credentials.id && credentials.password) {
-          const loginRes: LoginRes = {
-            success: true,
-            data: {
-              user: {
-                ID: 'user1',
-                NAME: '홍길동',
-                EMAIL: 'email@email.email',
-              },
-            },
-          }
-
-          const user = {
-            id: loginRes.data.user.ID ?? '',
-            name: loginRes.data.user.NAME ?? '',
-            email: loginRes.data.user.EMAIL ?? '',
-          } as User
-          return user
-        }
-        return null
+      async authorize(credentials): Promise<User | null> {
+        // 테스트용 임시 회원 정보
+        const users = [
+          {
+            name: 'user1',
+            password: 'test1',
+            role: 'partner',
+            email: 'test1@test1.com',
+          },
+          {
+            name: 'user2',
+            password: 'test2',
+            role: 'user',
+            email: 'test2@test2.com',
+          },
+        ]
+        const user = users.find(
+          (u) =>
+            u.email === credentials.email &&
+            u.password === credentials.password,
+        )
+        return user
+          ? {
+              name: user.name,
+              email: user.email,
+              password: user.password,
+              role: user.role,
+            }
+          : null
       },
     }),
   ],
+  callbacks: {
+    redirect: async ({ url, baseUrl }) => {
+      console.log(url, baseUrl)
+      return url.includes('callbackUrl') ? url : baseUrl
+    },
+    session: async ({ session, token }) => {
+      const updatedSession = { ...session, user: token }
+      return updatedSession
+    },
+    jwt: async ({ token, user }) => {
+      return { ...token, ...user }
+    },
+  },
 })
