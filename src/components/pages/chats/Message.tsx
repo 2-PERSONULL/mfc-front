@@ -12,6 +12,7 @@ export default function Message() {
 
   const scrollToBottom = () => {
     if (scrollRef.current) {
+      console.log(scrollRef.current.scrollTop, scrollRef.current.scrollHeight)
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
   }
@@ -20,10 +21,6 @@ export default function Message() {
   useEffect(() => {
     scrollToBottom()
   }, [realTimeMessage])
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [])
 
   return (
     <div
