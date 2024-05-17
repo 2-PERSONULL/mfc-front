@@ -53,10 +53,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    redirect: async ({ url, baseUrl }) => {
-      console.log(url, baseUrl)
-      return url.includes('callbackUrl') ? url : baseUrl
-    },
     session: async ({ session, token }) => {
       const updatedSession = { ...session, user: token }
       return updatedSession

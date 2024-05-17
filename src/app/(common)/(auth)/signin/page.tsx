@@ -2,7 +2,12 @@ import React from 'react'
 import KakaoSignInButton from '@/components/pages/auth/KakaoSignInButton'
 import { signIn } from '@/auth'
 
-export default function SignIn() {
+export default function SignIn({
+  searchParams,
+}: {
+  searchParams: { [key: string]: number }
+}) {
+  const { callbackUrl } = searchParams
   return (
     <div>
       <form
@@ -10,7 +15,9 @@ export default function SignIn() {
         action={async (formData) => {
           'use server'
 
-          await signIn('credentials', formData)
+          await signIn('credentials', formData, {
+            callbackUrl: callbackUrl ? `${callbackUrl}` : '/user',
+          })
         }}
       >
         <div className="flex gap-2">
