@@ -11,6 +11,8 @@ const withPWA = withPWAInit({
   }, //해당 옵션 설정해줘야 아래와 같은 workbox 콘솔이 안찍힌다!!!
 })
 
-const nextConfig = {}
+const nextConfig = {
+  output: 'standalone',
+}
 
 export default withPWA(nextConfig)
