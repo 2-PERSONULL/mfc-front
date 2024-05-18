@@ -53,6 +53,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
+    redirect: async ({ url, baseUrl }) => {
+      if (url.endsWith('signin')) return `${baseUrl}/user`
+      if (url) {
+        const { search, origin } = new URL(url)
+        const callbackUrl = new URLSearchParams(search).get('callbackUrl')
+        if (callbackUrl) {
+          return callbackUrl.startsWith('/')
+            ? `${baseUrl}${callbackUrl}`
+            : callbackUrl
+        }
+        if (origin === baseUrl) return url
+      }
+      return baseUrl
+    },
     session: async ({ session, token }) => {
       const updatedSession = { ...session, user: token }
       return updatedSession
