@@ -16,7 +16,7 @@ const BottomNav = () => {
   const active = pathname.replace(/\/(partner|user)/, '')
 
   return (
-    <div className="w-full h-[82px] sticky bottom-0 pb-10 pt-4 px-2 drop-shadow-[0_-4px_3px_rgba(0,0,0,0.07)] bg-white flex flex-row justify-around items-center">
+    <div className="w-full h-[82px] fixed bottom-0 pb-10 pt-4 px-2 drop-shadow-[0_-4px_3px_rgba(0,0,0,0.07)] bg-white flex flex-row justify-around items-center">
       <Link
         href={`/${role}`}
         className={`font-Pretendard  ${
