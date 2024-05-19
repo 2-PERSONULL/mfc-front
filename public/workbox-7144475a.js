@@ -1,3 +1,5 @@
+
+  /*
 define(['exports'], (function (exports) { 'use strict';
 
     // @ts-ignore
@@ -11,6 +13,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     const logger = (() => {
       // Don't overwrite this value if it's already set.
       // See https://github.com/GoogleChrome/workbox/pull/2284#issuecomment-560470923
@@ -68,6 +71,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     const messages$1 = {
       'invalid-value': ({
         paramName,
@@ -341,6 +345,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     const generatorFunction = (code, details = {}) => {
       const message = messages$1[code];
       if (!message) {
@@ -357,6 +362,8 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+
+  /*
     /**
      * Workbox errors should be thrown with this class.
      * This allows use to ensure the type easily in tests,
@@ -390,6 +397,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     /*
      * This method throws if the supplied value is not an array.
      * The destructed values are required to produce a meaningful error for users.
@@ -465,6 +473,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     /**
      * The default HTTP method, 'GET', used when there's no specific method
      * configured for a route.
@@ -530,6 +539,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     /**
      * A `Route` consists of a pair of callback functions, "match" and "handler".
      * The "match" callback determine if a route should be used to "handle" a
@@ -588,6 +598,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     /**
      * RegExpRoute makes it easy to create a regular expression based
      * {@link workbox-routing.Route}.
@@ -657,6 +668,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     const getFriendlyURL = url => {
       const urlObj = new URL(String(url), location.href);
       // See https://github.com/GoogleChrome/workbox/issues/2323
@@ -671,6 +683,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     /**
      * The Router can be used to process a `FetchEvent` using one or more
      * {@link workbox-routing.Route}, responding with a `Response` if
@@ -1086,6 +1099,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     let defaultRouter;
     /**
      * Creates a new, singleton Router instance if one does not exist. If one
@@ -1111,6 +1125,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     /**
      * Easily register a RegExp, string, or function with a caching
      * strategy to a singleton Router instance.
@@ -1194,6 +1209,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     const cacheOkAndOpaquePlugin = {
       /**
        * Returns a valid response (to allow caching) if the status is 200 (OK) or
@@ -1222,6 +1238,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     const _cacheNameDetails = {
       googleAnalytics: 'googleAnalytics',
       precache: 'precache-v2',
@@ -1268,6 +1285,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     function stripParams(fullURL, ignoreParams) {
       const strippedURL = new URL(fullURL);
       for (const param of ignoreParams) {
@@ -1314,6 +1332,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     /**
      * The Deferred class composes Promises in a way that allows for them to be
      * resolved or rejected from outside the constructor. In most cases promises
@@ -1341,6 +1360,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     // Callbacks to be executed whenever there's a quota error.
     // Can't change Function type right now.
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -1353,6 +1373,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     /**
      * Runs all of the callback functions, one at a time sequentially, in the order
      * in which they were registered.
@@ -1381,6 +1402,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     /**
      * Returns a promise that resolves and the passed number of milliseconds.
      * This utility is an async/await-friendly version of `setTimeout`.
@@ -1734,7 +1756,8 @@ define(['exports'], (function (exports) { 'use strict';
               mode,
               request: effectiveRequest,
               event: this.event,
-              // params has a type any can't change right now.
+              // params has a type any can't change right now
+  /*
               params: this.params // eslint-disable-line
             }));
           }
@@ -2127,6 +2150,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     const messages = {
       strategyStart: (strategyName, request) => `Using ${strategyName} to respond to '${getFriendlyURL(request.url)}'`,
       printFinalResponse: response => {
@@ -2145,6 +2169,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     /**
      * An implementation of a
      * [network first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-first-falling-back-to-cache)
@@ -2348,6 +2373,7 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+  /*
     /**
      * An implementation of a
      * [network-only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-only)
