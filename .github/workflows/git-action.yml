@@ -1,0 +1,45 @@
+name: CI/CD
+
+on:
+  push:
+    branches: ['dev']
+
+permissions:
+  contents: read
+
+jobs:
+  CI-CD:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release
+        uses: actions/checkout@v3
+
+      - name: Set env
+        run: echo "TAG=$VERSION" >> $GITHUB_ENV
+
+      - name: Confirm env
+        run: echo "RELEASE_VERSION=${{ env.TAG }}"
+
+      ## docker build & push to production
+      - name: Docker build & push to prod
+        run: |
+          docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }}
+          docker build -f Dockerfile -t ${{ secrets.DOCKERHUB }}/personull .
+          docker push ${{ secrets.DOCKERHUB }}/personull
+
+      ## deploy to production
+      - name: Deploy to prod
+        uses: appleboy/ssh-action@master
+        id: deploy-prod
+        with:
+          host: ${{ secrets.EC2IPADDRESS}} # EC2 퍼블릭 IPv4 DNS #ec2ip주소
+          username: ubuntu
+          key: ${{ secrets.EC2PEMKEY }}
+          envs: GITHUB_SHA
+          script: |
+            sudo docker ps
+            sudo docker stop next-server  
+            sudo docker rm next-server  
+            sudo docker pull ${{ secrets.USERNAME }}/personull
+            sudo docker run -d --name next-server -p 80:3000 ${{ secrets.USERNAME }}/personull
+            sudo docker image prune -f
