@@ -10,11 +10,13 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.577.0",
     "@ducanh2912/next-pwa": "^10.2.7",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.2.1",
+    "react-tag-input-component": "^2.0.2",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

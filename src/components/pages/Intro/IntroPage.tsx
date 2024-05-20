@@ -9,7 +9,7 @@ export default function IntroPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       router.replace('/partner/mypage')
-    }, 500)
+    }, 1000)
 
     return () => clearTimeout(timer) // 컴포넌트가 언마운트되면 타이머를 취소합니다.
   }, [router])

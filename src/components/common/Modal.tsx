@@ -10,7 +10,7 @@ function Modal() {
     <div>
       {isOpen && (
         <div className="bg-white fixed z-[200] top-0 left-0 w-full h-full">
-          <div className="h-[50px] flex items-center px-3 pt-5">
+          <div className="h-[60px] flex items-center px-3">
             <CloseModalButton />
           </div>
           {content}
