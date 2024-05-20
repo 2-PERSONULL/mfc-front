@@ -12,7 +12,7 @@ export default function KakaoSignInButton() {
     >
       <button
         type="submit"
-        className="bg-yellow-400 text-black w-full font-bold mx-5 py-2 px-4 rounded-xl"
+        className="bg-yellow-400 text-black font-bold mx-5 py-2 px-4 rounded-xl"
       >
         카카오 로그인
       </button>

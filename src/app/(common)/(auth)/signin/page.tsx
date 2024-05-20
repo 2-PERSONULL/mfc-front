@@ -1,5 +1,5 @@
 import React from 'react'
-import KakaoSignInButton from '@/components/pages/auth/KakaoSignInButton'
+import KakaoSignInButton from '@/components/pages/auth/signIn/KakaoSignInButton'
 import { signIn } from '@/auth'
 
 export default function SignIn() {
