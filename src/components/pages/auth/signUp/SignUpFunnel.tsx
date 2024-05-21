@@ -28,6 +28,7 @@ export default function SignUpFunnel() {
     | 'UserId'
     | 'PhoneNumAuthentication'
     | 'UserPassword'
+    | 'UserBirthAndGender'
     | 'UserNickname'
     | 'PreferredStyle'
     | 'ChooseRole'
@@ -55,9 +56,30 @@ export default function SignUpFunnel() {
           }}
         />
       )}
-      {step === 'PhoneNumAuthentication' && <PhoneNumAuthentication />}
-      {step === 'UserPassword' && <UserPassword />}
-      {step === 'UserNickname' && <UserNickname />}
+      {step === 'PhoneNumAuthentication' && (
+        <PhoneNumAuthentication
+          clickHandler={(data: string) => {
+            setRegisterData((prev) => ({ ...prev, phone: data }))
+            setStep('UserPassword')
+          }}
+        />
+      )}
+      {step === 'UserPassword' && (
+        <UserPassword
+          clickHandler={(data: string) => {
+            setRegisterData((prev) => ({ ...prev, password: data }))
+            setStep('UserNickname')
+          }}
+        />
+      )}
+      {step === 'UserNickname' && (
+        <UserNickname
+          clickHandler={(data: string) => {
+            setRegisterData((prev) => ({ ...prev, nickname: data }))
+            setStep('PreferredStyle')
+          }}
+        />
+      )}
       {step === 'PreferredStyle' && <PreferredStyle />}
       {step === 'ChooseRole' && <ChooseRole />}
     </main>

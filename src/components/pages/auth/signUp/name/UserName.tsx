@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
