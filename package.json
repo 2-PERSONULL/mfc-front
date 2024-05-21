@@ -14,7 +14,6 @@
     "@internationalized/date": "^3.5.3",
     "@nextui-org/date-input": "^2.0.3",
     "@react-aria/i18n": "^3.11.0",
-    "@toss/utils": "^1.5.0",
     "next": "14.2.3",
     "next-auth": "^5.0.0-beta.18",
     "react": "^18",

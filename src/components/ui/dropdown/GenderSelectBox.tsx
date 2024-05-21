@@ -5,7 +5,6 @@ export default function GenderSelectBox() {
     <select
       defaultValue="none"
       className="select select-bordered w-full max-w-xs"
-      onChange={(e) => console.log(e.target.value)}
     >
       <option value="none" disabled>
         성별을 선택하세요.
