@@ -1,7 +1,7 @@
 import {
   S3Client,
   PutObjectCommand,
-  // DeleteObjectCommand,
+  DeleteObjectCommand,
 } from '@aws-sdk/client-s3'
 
 const imageUrl = process.env.NEXT_PUBLIC_AWS_BUCKET_URL
@@ -34,4 +34,19 @@ const uploadImage = async (file: File, type: string): Promise<string> => {
   return fileName
 }
 
-export default uploadImage
+const deleteImage = async (oldFile: string, newFile: File, type: string) => {
+  const deleteFilName = oldFile.replace(imageUrl || '', '')
+  const params = {
+    Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME,
+    Key: deleteFilName,
+  }
+
+  const command = new DeleteObjectCommand(params)
+  await s3Client.send(command)
+
+  const imgName = `${type}/${String(Date.now())}`
+  const fileName = await uploadFileToS3(newFile, imgName)
+  return fileName
+}
+
+export { uploadImage, deleteImage }

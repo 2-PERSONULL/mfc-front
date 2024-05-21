@@ -1,13 +1,12 @@
 'use client'
 
 import React from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import partnerImageList from '@/libs/partnerSampleData'
-import useModal from '@/hooks/useModal'
-import StyleEditor from '@/components/pages/partnerMyPage/StyleEditor'
 
 export default function PartnerPostList() {
-  const { openModal } = useModal()
+  const router = useRouter()
 
   // 이미지를 불러온다.
   const images = partnerImageList
@@ -16,7 +15,7 @@ export default function PartnerPostList() {
       <div className="grid grid-cols-3 gap-2">
         <button
           type="button"
-          onClick={() => openModal({ content: <StyleEditor /> })}
+          onClick={() => router.push('/partner/mypage/styles/edit')}
           className="w-full h-[110px] border-dashed border-[3px] object-cover rounded-[10px] flex items-center justify-center"
         >
           <p className="text-[#dbdcdf]">+ Add</p>

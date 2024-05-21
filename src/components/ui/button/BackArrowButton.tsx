@@ -3,14 +3,22 @@
 import React from 'react'
 import { useRouter } from 'next/navigation'
 
-const BackArrowButton = () => {
+const BackArrowButton = ({ confirmExit }: { confirmExit?: boolean }) => {
   const router = useRouter()
+  const handleBackClick = () => {
+    if (confirmExit) {
+      if (
+        window.confirm(
+          '해당 페이지를 나가시겠습니까? 변경사항이 저장되지 않습니다.',
+        )
+      )
+        router.back()
+    } else {
+      router.back()
+    }
+  }
   return (
-    <button
-      type="button"
-      className="w-[50px] h-[42px] flex absolute left-0 top-0 bottom-0 items-center justify-center"
-      onClick={() => router.back()}
-    >
+    <button type="button" onClick={handleBackClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
