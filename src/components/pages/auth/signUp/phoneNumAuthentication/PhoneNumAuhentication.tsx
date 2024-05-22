@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 // import SeperatedBeforeAfterButton from '@/components/ui/button/SeperatedBeforeAfterButton'
@@ -22,20 +24,21 @@ export default function PhoneNumAuthentication({
   return (
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
       <SignUpTitle comment="휴대전화번호를 입력해주세요." />
-      <input
-        type="text"
-        placeholder="전화번호를 입력하세요."
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        className="input input-bordered w-full rounded-full border-black"
-      />
-      <br />
-      <input
-        disabled
-        type="text"
-        placeholder="인증번호를 입력하세요."
-        className="input input-bordered w-full rounded-full border-black"
-      />
+      <div className="grid gap-5 mt-8">
+        <input
+          type="text"
+          placeholder="전화번호를 입력하세요."
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className="input input-bordered w-full rounded-full border-black"
+        />
+        <input
+          disabled
+          type="text"
+          placeholder="인증번호를 입력하세요."
+          className="input input-bordered w-full rounded-full border-black"
+        />
+      </div>
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">
         {/* <SeperatedBeforeAfterButton /> */}
         {alert && (

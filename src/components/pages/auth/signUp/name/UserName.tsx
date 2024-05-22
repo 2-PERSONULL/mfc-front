@@ -23,7 +23,7 @@ export default function UserName({
   return (
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
       <SignUpTitle comment="이름을 입력해주세요." />
-      <div>
+      <div className="mt-8">
         <input
           type="text"
           value={value}

@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from 'react'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
@@ -67,7 +69,7 @@ export default function TermsOfUseAccept({
   return (
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
       <SignUpTitle comment="서비스 이용약관에 동의해주세요." />
-      <div className="flex flex-col form-control">
+      <div className="flex flex-col form-control mt-8">
         <label htmlFor="checkAll">
           <input
             type="checkbox"

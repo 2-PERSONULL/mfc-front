@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
@@ -22,7 +24,7 @@ export default function UserNickname({
   return (
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
       <SignUpTitle comment="활동명을 입력해주세요." />
-      <div>
+      <div className="mt-8">
         <input
           type="text"
           value={value}
