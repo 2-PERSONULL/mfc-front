@@ -13,6 +13,14 @@ const withPWA = withPWAInit({
 
 const nextConfig = {
   output: 'standalone',
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.amazonaws.com',
+      },
+    ],
+  },
 }
 
 export default withPWA(nextConfig)
