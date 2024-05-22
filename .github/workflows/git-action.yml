@@ -26,10 +26,10 @@ jobs:
 
       - name: make env file
         run: |
-          mkdir -p ./usr/src/app
-          cd ./usr/src/app
-          touch ./.env
-          echo "${{ secrets.NEXT_ENV }}" > ./.env
+          # mkdir -p ./usr/src/app
+          # cd ./usr/src/app
+          touch .env
+          echo '${{ secrets.NEXT_ENV }}' > .env
 
       ## docker build & push to production
       - name: Docker build & push to prod
