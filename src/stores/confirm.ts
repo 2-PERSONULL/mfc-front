@@ -1,18 +1,5 @@
 import { create } from 'zustand'
-import { ConfirmModalType } from '@/types/confirmModalType'
-
-type ConfirmState = {
-  content: string
-  yesButtonText: string
-  noButtonText: string
-  clickYes: (value: unknown) => void
-  clickNo: (value: unknown) => void
-  openConfirmModal: ({
-    content,
-    yesButtonText,
-    noButtonText,
-  }: ConfirmModalType) => Promise<boolean>
-}
+import { ConfirmModalType, ConfirmState } from '@/types/stores/confirmType'
 
 const useConfirmStore = create<ConfirmState>((set) => ({
   content: '',

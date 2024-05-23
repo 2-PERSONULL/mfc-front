@@ -1,11 +1,5 @@
 import { create } from 'zustand'
-import { ToastType } from '@/types/toastType'
-
-type ToastState = {
-  content: string
-  type: string
-  showToast: ({ content, type }: ToastType) => void
-}
+import { ToastState } from '@/types/stores/toastType'
 
 // type: 'success' | 'error' | 'warning'
 const useToast = create<ToastState>((set) => ({
