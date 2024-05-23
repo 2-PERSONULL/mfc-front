@@ -17,7 +17,7 @@ export default function TermsOfUseAccept({
 }: {
   clickHandler: () => void
 }) {
-  const [alert, setAlert] = useState(false)
+  const [error, setError] = useState(false)
   const [isCheckedAll, setIsCheckedAll] = useState(false)
   const [checkboxes, setCheckboxes] = useState({
     checkbox1: false,
@@ -62,7 +62,7 @@ export default function TermsOfUseAccept({
     ) {
       clickHandler()
     } else {
-      setAlert(true)
+      setError(true)
     }
   }
 
@@ -135,13 +135,13 @@ export default function TermsOfUseAccept({
             이벤트, 프로모션 문자(SMS) 수신 및 활용 (선택)
           </span>
         </label>
-      </div>
-      <div className="fixed bottom-5 w-full left-0 right-0 px-6">
-        {alert && (
+        {error && (
           <p className="text-red-500 font-bold text-xs text-center">
             **필수 항목에 동의해주세요.**
           </p>
         )}
+      </div>
+      <div className="fixed bottom-5 w-full left-0 right-0 px-6">
         <StretchedRoundedButton comment="다음으로" clickHandler={handleNext} />
       </div>
     </div>

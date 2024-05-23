@@ -1,10 +1,29 @@
 import React from 'react'
 import SignUpFunnel from '@/components/pages/auth/signUp/SignUpFunnel'
+import { SignUpType } from '@/types/signupTypes'
 
-export default function SignUp() {
+export default async function SignUp() {
+  const handleSubmit = async (data: SignUpType) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/member-service/auth/signup`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      },
+    )
+
+    const result = await response.json()
+    if (result.isSuccess) {
+      console.log('회원가입 성공')
+    }
+  }
+
   return (
     <main>
-      <SignUpFunnel />
+      <SignUpFunnel submit={(data: SignUpType) => handleSubmit(data)} />
     </main>
   )
 }

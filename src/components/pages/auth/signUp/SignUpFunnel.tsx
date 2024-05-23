@@ -1,8 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-// import { z } from 'zod'
-// import { zodResolver } from '@hookform/resolvers/zod'
 import UserId from '@/components/pages/auth/signUp/id/UserId'
 import UserName from '@/components/pages/auth/signUp/name/UserName'
 import UserPassword from '@/components/pages/auth/signUp/password/UserPassword'
@@ -12,42 +10,14 @@ import UserNickname from '@/components/pages/auth/signUp/nickname/UserNickname'
 import PreferredStyle from '@/components/pages/auth/signUp/preferredStyle/PreferredStyle'
 import ChooseRole from '@/components/pages/auth/signUp/role/ChooseRole'
 import UserBirthAndGender from '@/components/pages/auth/signUp/birthAndGender/UserBirthAndGender'
+import { SignUpType } from '@/types/signupTypes'
 
-// const UserNameSchema = z.object({
-//   name: z.string().min(1, 'Name is required'),
-// })
-
-// const UserIdSchema = z.object({
-//   email: z.string().email('Invalid email address'),
-// })
-
-// const PhoneNumSchema = z.object({
-//   phone: z.string().min(10, 'Phone number is required'),
-// })
-
-// const UserPasswordSchema = z.object({
-//   password: z.string().min(6, 'Password must be at least 6 characters long'),
-// })
-
-// const UserBirthAndGenderSchema = z.object({
-//   birth: z.string().min(1, 'Birth date is required'),
-//   gender: z.number(),
-// })
-
-// const UserNicknameSchema = z.object({
-//   nickname: z.string().min(1, 'Nickname is required'),
-// })
-
-// const PreferredStyleSchema = z.object({
-//   favoriteStyles: z.array(z.number()).min(1, 'At least one style is required'),
-// })
-
-// const ChooseRoleSchema = z.object({
-//   role: z.string().min(1, 'Role is required'),
-// })
-
-export default function SignUpFunnel() {
-  const [registerData, setRegisterData] = useState({
+export default function SignUpFunnel({
+  submit,
+}: {
+  submit: (data: SignUpType) => void
+}) {
+  const [registerData, setRegisterData] = useState<SignUpType>({
     name: '',
     email: '',
     phone: '',
@@ -69,8 +39,6 @@ export default function SignUpFunnel() {
     | 'PreferredStyle'
     | 'ChooseRole'
   >('TermsOfUseAccept')
-
-  console.log(registerData)
 
   const handleProgressBar = () => {
     switch (step) {
@@ -95,24 +63,8 @@ export default function SignUpFunnel() {
     }
   }
 
-  // const handleValidation = (
-  //   data: any,
-  //   schema: z.ZodSchema<any>,
-  //   nextStep: typeof step,
-  // ) => {
-  //   try {
-  //     schema.parse(data)
-  //     setRegisterData((prev) => ({ ...prev, ...data }))
-  //     setStep(nextStep)
-  //   } catch (error) {
-  //     if (error instanceof z.ZodError) {
-  //       console.error(error.errors)
-  //       // 여기서 에러 메시지를 UI에 표시할 수 있습니다.
-  //     }
-  //   }
-  // }
   return (
-    <main>
+    <form action={() => submit(registerData)}>
       <progress
         className="progress w-full absolute top-10"
         value={handleProgressBar()}
@@ -185,10 +137,9 @@ export default function SignUpFunnel() {
         <ChooseRole
           clickHandler={(data: string) => {
             setRegisterData((prev) => ({ ...prev, role: data }))
-            setStep('ChooseRole')
           }}
         />
       )}
-    </main>
+    </form>
   )
 }

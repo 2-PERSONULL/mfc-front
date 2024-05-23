@@ -5,7 +5,6 @@ import { DateInput } from '@nextui-org/date-input'
 import { parseAbsoluteToLocal } from '@internationalized/date'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-// import SeperatedBeforeAfterButton from '@/components/ui/button/SeperatedBeforeAfterButton'
 
 export default function UserBirthAndGender({
   clickHandler,
@@ -23,11 +22,26 @@ export default function UserBirthAndGender({
     parseAbsoluteToLocal(new Date(dateString).toISOString()),
   )
   const [gender, setGender] = useState('none')
+  const [dateError, setDateError] = useState(false)
+  const [genderError, setGenderError] = useState(false)
 
   const handleNext = () => {
+    const selectedDate = new Date(date.toString().split('T').shift()!)
+    const isToday = selectedDate.toDateString() === today.toDateString()
+
+    if (isToday) {
+      setDateError(true)
+      return
+    }
+
+    if (gender === 'none') {
+      setGenderError(true)
+      return
+    }
+
     if (date && gender) {
       const seperatedDate = date ? date.toString().split('T').shift() : ''
-      const birth = seperatedDate || '' // Ensure birth is always a string
+      const birth = seperatedDate || ''
       clickHandler({ birth, gender: Number(gender) })
     }
   }
@@ -39,7 +53,10 @@ export default function UserBirthAndGender({
         <p>성별</p>
         <select
           value={gender}
-          onChange={(e) => setGender(e.target.value)}
+          onChange={(e) => {
+            setGender(e.target.value)
+            setGenderError(false)
+          }}
           className="select select-bordered w-full border-black"
         >
           <option value="none" disabled>
@@ -48,16 +65,28 @@ export default function UserBirthAndGender({
           <option value={0}>남성</option>
           <option value={1}>여성</option>
         </select>
+        {genderError && (
+          <p className="text-red-500 font-bold text-xs text-center">
+            **성별을 선택해주세요.**
+          </p>
+        )}
       </div>
       <br />
       <DateInput
         granularity="day"
         label="생년월일"
         value={date}
-        onChange={setDate}
+        onChange={(newDate) => {
+          setDate(newDate)
+          setDateError(false)
+        }}
       />
+      {dateError && (
+        <p className="text-red-500 font-bold text-xs text-center">
+          **오늘 날짜는 선택할 수 없습니다.**
+        </p>
+      )}
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">
-        {/* <SeperatedBeforeAfterButton /> */}
         <StretchedRoundedButton comment="다음으로" clickHandler={handleNext} />
       </div>
     </div>

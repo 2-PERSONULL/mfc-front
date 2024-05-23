@@ -10,20 +10,21 @@ export default function UserNickname({
 }: {
   clickHandler: (data: string) => void
 }) {
-  const [alert, setAlert] = useState(false)
+  const [error, setError] = useState(false)
   const [value, setValue] = useState('')
 
   const handleNext = () => {
-    if (value.length > 0) {
+    if (value.length > 1) {
       clickHandler(value)
     } else {
-      setAlert(true)
+      setError(true)
     }
   }
 
   return (
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
       <SignUpTitle comment="활동명을 입력해주세요." />
+      <p className="font-bold text-gray-400">(최소 2자 ~ 최대 20자)</p>
       <div className="mt-8">
         <input
           type="text"
@@ -32,13 +33,13 @@ export default function UserNickname({
           placeholder="활동명을 입력하세요."
           className="input input-bordered w-full rounded-full border-black"
         />
-      </div>
-      <div className="fixed bottom-5 w-full left-0 right-0 px-6">
-        {alert && (
+        {error && (
           <p className="text-red-500 font-bold text-xs text-center">
-            **닉네임을 입력해주세요.**
+            **조건에 맞게 닉네임을 입력해주세요.**
           </p>
         )}
+      </div>
+      <div className="fixed bottom-5 w-full left-0 right-0 px-6">
         <StretchedRoundedButton comment="다음으로" clickHandler={handleNext} />
       </div>
     </div>

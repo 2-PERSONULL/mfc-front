@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
-// import SeperatedBeforeAfterButton from '@/components/ui/button/SeperatedBeforeAfterButton'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 
 export default function UserId({
@@ -10,14 +9,19 @@ export default function UserId({
 }: {
   clickHandler: (data: string) => void
 }) {
-  const [alert, setAlert] = useState(false)
+  const [error, setError] = useState('')
   const [value, setValue] = useState('')
 
+  const emailRegex = /^[a-zA-Z0-9]+@[a-z.]+\.[a-z]{2,}$/
+
   const handleNext = () => {
-    if (value.length > 0) {
-      clickHandler(value)
+    if (value.length === 0) {
+      setError('**이메일을 입력하세요.**')
+    } else if (!emailRegex.test(value)) {
+      setError('**이메일 형식에 맞게 다시 입력해주세요.**')
     } else {
-      setAlert(true)
+      setError('')
+      clickHandler(value)
     }
   }
 
@@ -32,14 +36,11 @@ export default function UserId({
           placeholder="이메일을 입력하세요."
           className="input input-bordered w-full rounded-full border-black"
         />
+        {error && (
+          <p className="text-red-500 font-bold text-xs text-center">{error}</p>
+        )}
       </div>
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">
-        {alert && (
-          <p className="text-red-500 font-bold text-xs text-center">
-            **아이디를 입력해주세요.**
-          </p>
-        )}
-        {/* <SeperatedBeforeAfterButton /> */}
         <StretchedRoundedButton comment="다음으로" clickHandler={handleNext} />
       </div>
     </div>
