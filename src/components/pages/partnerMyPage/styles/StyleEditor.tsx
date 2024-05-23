@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import UploadStyle from './UploadStyle'
-import StyleTagEditor from './StyleTagEditor'
+import UploadStyle from '@/components/pages/partnerMyPage/styles/UploadStyle'
+import StyleTagEditor from '@/components/pages/partnerMyPage/styles/StyleTagEditor'
 
 export default function StyleEditor() {
   const [image, setImage] = useState<string | null>('')
