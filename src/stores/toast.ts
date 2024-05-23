@@ -2,19 +2,22 @@ import { create } from 'zustand'
 import { ToastType } from '@/types/toastType'
 
 type ToastState = {
-  toast: ToastType
-  showToast: ({ content, type }: { content: string; type: string }) => void
+  content: string
+  type: string
+  showToast: ({ content, type }: ToastType) => void
 }
 
 // type: 'success' | 'error' | 'warning'
 const useToast = create<ToastState>((set) => ({
-  toast: { isOpen: false, content: 'test', type: '' },
+  content: '',
+  type: '',
   showToast: ({ content, type }: { content: string; type?: string }) => {
-    set(() => ({ toast: { isOpen: true, content, type } }))
+    set(() => ({ content, type }))
     setTimeout(
       () =>
         set(() => ({
-          toast: { isOpen: false, content: '', type: '' },
+          content: '',
+          type: '',
         })),
       1500,
     )
