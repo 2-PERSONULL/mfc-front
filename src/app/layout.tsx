@@ -37,7 +37,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
-        <Toast>{children}</Toast>
+        <Toast />
+        {children}
       </body>
     </html>
   )

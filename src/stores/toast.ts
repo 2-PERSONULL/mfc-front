@@ -6,16 +6,17 @@ type ToastState = {
   showToast: ({ content, type }: { content: string; type: string }) => void
 }
 
+// type: 'success' | 'error' | 'warning'
 const useToast = create<ToastState>((set) => ({
-  toast: { isOpen: false, content: 'test', bottom: 0, type: 'success' },
-  showToast: ({ content, type }) => {
+  toast: { isOpen: false, content: 'test', type: '' },
+  showToast: ({ content, type }: { content: string; type?: string }) => {
     set(() => ({ toast: { isOpen: true, content, type } }))
     setTimeout(
       () =>
         set(() => ({
           toast: { isOpen: false, content: '', type: '' },
         })),
-      3000,
+      1500,
     )
   },
 }))
