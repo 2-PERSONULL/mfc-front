@@ -73,7 +73,7 @@ export default function ChooseRole({
       </div>
       <div className="absolute bottom-40 left-1/4 w-2/4 px-6">
         <button
-          type="button"
+          type="submit"
           onClick={() => clickHandler(role)}
           className="btn bg-white drop-shadow-[0_5px_3px_rgba(0,0,0,0.5)] border-none w-full text-black font-bold text-lg rounded-full"
         >

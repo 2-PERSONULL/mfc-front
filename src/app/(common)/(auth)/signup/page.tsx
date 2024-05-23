@@ -4,6 +4,8 @@ import { SignUpType } from '@/types/signupTypes'
 
 export default async function SignUp() {
   const handleSubmit = async (data: SignUpType) => {
+    'use server'
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/member-service/auth/signup`,
       {
@@ -23,7 +25,7 @@ export default async function SignUp() {
 
   return (
     <main>
-      <SignUpFunnel submit={(data: SignUpType) => handleSubmit(data)} />
+      <SignUpFunnel submit={handleSubmit} />
     </main>
   )
 }
