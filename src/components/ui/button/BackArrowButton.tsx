@@ -2,17 +2,23 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
+import useConfirmStore from '@/stores/confirm'
 
 const BackArrowButton = ({ confirmExit }: { confirmExit?: boolean }) => {
   const router = useRouter()
+  const { openConfirmModal } = useConfirmStore()
+
+  const confirmOpen = async () => {
+    const confirm = await openConfirmModal({
+      content: `해당 페이지를 나가시겠습니까? \n 변경사항이 저장되지 않습니다.`,
+    })
+
+    if (confirm) router.back()
+  }
+
   const handleBackClick = () => {
     if (confirmExit) {
-      if (
-        window.confirm(
-          '해당 페이지를 나가시겠습니까? 변경사항이 저장되지 않습니다.',
-        )
-      )
-        router.back()
+      confirmOpen()
     } else {
       router.back()
     }

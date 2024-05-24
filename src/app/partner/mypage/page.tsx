@@ -8,7 +8,7 @@ import BottomNav from '@/components/layouts/BottomNav'
 export default function PartnerMyPage() {
   return (
     <div className="h-screen">
-      <TitleHeader title="MY PAGE" />
+      <TitleHeader title="MY PAGE" menu="/partner/mypage/menu" />
       <HeaderInfo />
       <PartnerPostList />
       <BottomNav />
