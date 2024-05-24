@@ -2,6 +2,9 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import PartnerMyPageMenuData from '@/libs/partnerMyPageData'
+import Logout from '@/components/pages/partner/mypage/menu/Logout'
+import SettingAlert from './SettingAlert'
+import ChangeRole from './ChangeRole'
 
 export default function MyPageMenu() {
   const menuData = PartnerMyPageMenuData
@@ -26,6 +29,9 @@ export default function MyPageMenu() {
           </li>
         ))}
       </ul>
+      <ChangeRole />
+      <SettingAlert />
+      <Logout />
     </div>
   )
 }

@@ -67,3 +67,39 @@ body::-webkit-scrollbar {
 .animate-slide-down {
   animation: slide-down 0.5s forwards;
 }
+
+.toggleSwitch {
+  width: 55px;
+  height: 25px;
+  display: block;
+  position: relative;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 16px 3px rgba(0 0 0 / 15%);
+  cursor: pointer;
+}
+
+.toggleSwitch .toggleButton {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #363636;
+}
+
+#toggle:checked ~ .toggleSwitch {
+  background: #363636;
+}
+
+#toggle:checked ~ .toggleSwitch .toggleButton {
+  left: calc(100% - 23px);
+  background: #fff;
+}
+
+.toggleSwitch,
+.toggleButton {
+  transition: all 0.2s ease-in;
+}

@@ -37,6 +37,12 @@
       2,
       { "namedComponents": ["arrow-function", "function-declaration"] }
     ],
-    "react/require-default-props": "warn"
+    "react/require-default-props": "warn",
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "some": ["nesting", "id"]
+      }
+    ]
   }
 }
