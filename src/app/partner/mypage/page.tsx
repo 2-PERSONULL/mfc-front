@@ -1,8 +1,8 @@
 import React from 'react'
 
 import TitleHeader from '@/components/layouts/TitleHeader'
-import HeaderInfo from '@/components/pages/partnerMyPage/HeaderInfo'
-import PartnerPostList from '@/components/pages/partnerMyPage/PartnerPostList'
+import HeaderInfo from '@/components/pages/partner/mypage/HeaderInfo'
+import PartnerPostList from '@/components/pages/partner/mypage/PartnerPostList'
 import BottomNav from '@/components/layouts/BottomNav'
 
 export default function PartnerMyPage() {

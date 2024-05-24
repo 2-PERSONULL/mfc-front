@@ -1,7 +1,7 @@
 import React from 'react'
 
 import GoBackHeader from '@/components/layouts/GoBackHeader'
-import StyleEditor from '@/components/pages/partnerMyPage/styles/StyleEditor'
+import StyleEditor from '@/components/pages/partner/mypage/style/StyleEditor'
 
 export default function PartnerStyleEditor() {
   return (
