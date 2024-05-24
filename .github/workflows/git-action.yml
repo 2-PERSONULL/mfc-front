@@ -2,6 +2,10 @@ name: CI/CD
 
 on:
   push:
+    branches: ['main']
+
+  pull_request:
+    types: [closed]
     branches: ['dev']
 
 permissions:
@@ -19,6 +23,13 @@ jobs:
 
       - name: Confirm env
         run: echo "RELEASE_VERSION=${{ env.TAG }}"
+
+      - name: make env file
+        run: |
+          # mkdir -p ./usr/src/app
+          # cd ./usr/src/app
+          touch .env
+          echo '${{ secrets.NEXT_ENV }}' > .env
 
       ## docker build & push to production
       - name: Docker build & push to prod

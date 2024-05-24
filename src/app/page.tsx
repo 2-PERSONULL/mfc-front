@@ -1,6 +1,7 @@
 import React from 'react'
-import Test from '@/components/test'
+
+import IntroPage from '@/components/pages/Intro/IntroPage'
 
 export default function page() {
-  return <Test />
+  return <IntroPage />
 }

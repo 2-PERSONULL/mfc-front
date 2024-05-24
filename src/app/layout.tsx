@@ -3,6 +3,9 @@ import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 
+import Toast from '@/components/common/Toast'
+import ConfirmModal from '@/components/common/ConfirmModal'
+
 // const inter = Inter({ subsets: ['latin'] })
 const pretendard = localFont({
   src: '../static/fonts/PretendardVariable.woff2',
@@ -34,7 +37,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${pretendard.variable}`}>
-      <body className={pretendard.className}>{children}</body>
+      <body className={pretendard.className}>
+        <Toast />
+        <ConfirmModal />
+        {children}
+      </body>
     </html>
   )
 }
