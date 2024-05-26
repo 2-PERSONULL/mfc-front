@@ -9,7 +9,7 @@ const GoBackHeader = ({
   confirmExit?: boolean
 }) => {
   return (
-    <div className="h-[50px] py-[11px] flex justify-center items-center bg-white">
+    <div className="sticky top-0 h-[50px] py-[11px] flex justify-center items-center bg-white w-full">
       <div className="w-[50px] h-[50px] flex absolute left-0 top-0 bottom-0 items-center justify-center">
         <BackArrowButton confirmExit={confirmExit} />
       </div>
