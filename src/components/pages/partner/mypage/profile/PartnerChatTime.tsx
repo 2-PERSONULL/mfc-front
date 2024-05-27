@@ -59,7 +59,7 @@ export default function PartnerChatTime({ chatTime }: { chatTime: string }) {
         content={
           <div>
             <p className="text-[14px]">
-              {chatTime || ' 파트너님의 연락 가능한 시간을 알려주세요.'}
+              {chatTime || '파트너님의 연락 가능한 시간을 알려주세요.'}
             </p>
           </div>
         }

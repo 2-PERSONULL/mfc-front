@@ -1,56 +1,122 @@
-import React from 'react'
-import Image from 'next/image'
+'use client'
 
-export default function PartnerSns() {
+import Image from 'next/image'
+import React, { useState } from 'react'
+import Modal from '@/components/common/Modal'
+import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profile/PartnerProfileTitleAndEdit'
+import PartnerSnsTag from '@/components/pages/partner/mypage/profile/PartnerSnsTag'
+import SnsSelectBox from '@/components/ui/dropdown/SnsSelectBox'
+import { PartnerSnsType } from '@/types/partnerProfileTypes'
+
+export default function PartnerSns({ snsList }: { snsList: PartnerSnsType[] }) {
+  const [data, setData] = useState<PartnerSnsType[]>(snsList)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+
+  const initialData = {
+    id: 0,
+    name: 'instagram',
+    url: '',
+  }
+
+  const addHandler = () => {
+    initialData.id = data.length + 1
+    setData([...data, initialData])
+  }
+
+  const changeHandler = (id: number, value: string) => {
+    const newData = data.map((item) =>
+      item.id === id ? { ...item, name: value } : item,
+    )
+    setData(newData)
+  }
+
+  const changeUrlHandler = (id: number, value: string) => {
+    const newData = data.map((item) =>
+      item.id === id ? { ...item, url: value } : item,
+    )
+    setData(newData)
+  }
+
+  const deleteHandler = (id: number) => {
+    const newData = data.filter((item) => item.id !== id)
+    setData(newData)
+  }
+
+  const saveHandler = () => {
+    console.log(data)
+    // setIsModalOpen(false)
+  }
+
+  const editHandler = () => {
+    setIsModalOpen(true)
+  }
+
   return (
-    <div className="border-b border-b-gray-200 py-8">
-      <div className="flex justify-between mb-2">
-        <h1 className="text-[18px] font-bold mr-2">SNS</h1>
-        <Image
-          src="/images/pencil-icon.svg"
-          alt="edit icon"
-          width={21}
-          height={21}
-        />
-      </div>
-      <ul className="flex flex-wrap w-full h-auto">
-        <li className="w-auto h-[32px] flex items-center justify-center bg-gray-100 rounded-full py-5 px-3 mr-[8px] mb-[5px]">
-          <Image
-            src="/icons/instagram.svg"
-            alt="edit icon"
-            width={21}
-            height={21}
-            className="mr-[5px]"
-          />
-          <p className="text-[14px] text-gray-600 font-semibold mr-[5px]">
-            Instagram
-          </p>
-        </li>
-        <li className="w-auto h-[32px] flex items-center justify-center bg-gray-100 rounded-full py-5 px-3 mr-[8px] mb-[5px]">
-          <Image
-            src="/icons/link.svg"
-            alt="edit icon"
-            width={21}
-            height={21}
-            className="mr-[5px]"
-          />
-          <p className="text-[14px] text-gray-600 font-semibold mr-[5px]">
-            쇼핑몰 바로가기
-          </p>
-        </li>
-        <li className="w-auto h-[32px] flex items-center justify-center bg-gray-100 rounded-full py-5 px-3 mr-[8px] mb-[5px]">
-          <Image
-            src="/icons/youtube.svg"
-            alt="edit icon"
-            width={21}
-            height={21}
-            className="mr-[5px]"
-          />
-          <p className="text-[14px] text-gray-600 font-semibold mr-[5px]">
-            Youtube
-          </p>
-        </li>
-      </ul>
+    <div>
+      {isModalOpen && (
+        <Modal title="SNS 설정" closeModal={() => setIsModalOpen(false)}>
+          <form action={saveHandler}>
+            <h1 className="font-semibold">최대 3개까지 등록이 가능합니다.</h1>
+            <ul className="mt-10">
+              {data.map((sns) => (
+                <li key={sns.id} className="flex items-center gap-2 mb-5">
+                  <SnsSelectBox
+                    selectedOption={sns}
+                    setSelectedOption={changeHandler}
+                  />
+                  <input
+                    className="rounded-[4px] border border-gray-200 w-full h-[40px] px-[10px] text-[14px]"
+                    placeholder="https://"
+                    type="text"
+                    value={sns.url}
+                    required
+                    onChange={(e) => changeUrlHandler(sns.id, e.target.value)}
+                  />
+                  <button type="button" onClick={() => deleteHandler(sns.id)}>
+                    <Image
+                      src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/delete-icon.svg"
+                      alt="edit icon"
+                      width={32}
+                      height={32}
+                    />
+                  </button>
+                </li>
+              ))}
+            </ul>
+            {data.length < 3 && (
+              <button
+                onClick={addHandler}
+                type="button"
+                className="w-[60px] h-[40px] mt-5 bg-[#ececec] text-[#222] text-[14px] font-semibold rounded-[4px]"
+              >
+                추가
+              </button>
+            )}
+            <div className="fixed bottom-7 w-full left-0 right-0 px-6">
+              <button
+                type="submit"
+                className="btn btn-neutral rounded-full w-full bg-black"
+              >
+                <span className="text-white">저장</span>
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
+      <PartnerProfileTitleAndEdit
+        title="SNS"
+        clickHandler={editHandler}
+        isEmpty={!snsList}
+        content={
+          <div>
+            <ul className="flex flex-wrap w-full h-auto">
+              {snsList.map((sns) => (
+                <PartnerSnsTag key={sns.id} sns={sns} />
+              ))}
+            </ul>
+          </div>
+        }
+      />
     </div>
   )
 }
