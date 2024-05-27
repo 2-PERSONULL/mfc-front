@@ -5,7 +5,6 @@ import SignOutButton from '@/components/pages/auth/SignOutButton'
 
 export default async function UserHome() {
   const session = await auth()
-  // console.log(session)
   return (
     <div>
       <p>유저 홈 화면입니다.</p>
@@ -25,7 +24,9 @@ export default async function UserHome() {
       </div>
       {session ? (
         <>
-          <pre className="text-wrap">{JSON.stringify(session, null, 2)}</pre>
+          <pre className="text-wrap">
+            {JSON.stringify(session.user, null, 2)}
+          </pre>
           <SignOutButton />
         </>
       ) : (
