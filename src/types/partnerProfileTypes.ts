@@ -5,6 +5,6 @@ export interface ChatTimeType {
 
 export interface PartnerSnsType {
   id: number
-  name: string
-  url: string
+  type: string
+  snsUrl: string
 }

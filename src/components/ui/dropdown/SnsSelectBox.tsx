@@ -9,11 +9,11 @@ export default function SnsSelectBox({
   setSelectedOption,
 }: {
   selectedOption: PartnerSnsType
-  setSelectedOption: (id: number, name: string) => void
+  setSelectedOption: (id: number, type: string) => void
 }) {
   const optionList = PartnerSnsData
   const [localSelectedOption, setLocalSelectedOption] = useState<string>(
-    selectedOption.name,
+    selectedOption.type,
   )
   const [openSelectBox, setOpenSelectBox] = useState(false)
 
@@ -21,7 +21,7 @@ export default function SnsSelectBox({
     if (setSelectedOption) {
       setSelectedOption(selectedOption.id, localSelectedOption)
     }
-  }, [localSelectedOption, selectedOption])
+  }, [localSelectedOption])
 
   const selectHandler = (option: string) => {
     setLocalSelectedOption(option)

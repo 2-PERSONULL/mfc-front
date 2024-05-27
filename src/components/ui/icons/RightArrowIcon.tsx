@@ -32,11 +32,4 @@ const RightArrowIcon: React.FC<RightArrowProps> = ({
   )
 }
 
-RightArrowIcon.defaultProps = {
-  width: 13,
-  height: 13,
-  color: 'black',
-  rotate: '0',
-}
-
 export default RightArrowIcon
