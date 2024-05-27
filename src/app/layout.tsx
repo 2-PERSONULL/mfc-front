@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 
+import { SessionProvider } from 'next-auth/react'
 import Toast from '@/components/common/Toast'
 import ConfirmModal from '@/components/common/ConfirmModal'
 
@@ -38,9 +39,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
-        <Toast />
-        <ConfirmModal />
-        {children}
+        <SessionProvider>
+          <Toast />
+          <ConfirmModal />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   )

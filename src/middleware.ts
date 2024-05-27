@@ -13,5 +13,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/user/mypage', '/user/chats'],
+  matcher: ['/user/mypage', '/user/chats', '/partner/:path*'],
 }
