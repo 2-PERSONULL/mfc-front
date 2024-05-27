@@ -7,7 +7,7 @@ export default async function SignUp() {
     'use server'
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/member-service/auth/signup`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/auth/signup`,
       {
         method: 'POST',
         headers: {

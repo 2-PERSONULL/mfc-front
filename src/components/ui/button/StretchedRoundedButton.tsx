@@ -5,7 +5,7 @@ export default function StretchedRoundedButton({
   clickHandler,
 }: {
   comment: string
-  clickHandler: () => void
+  clickHandler: (e: React.MouseEvent<HTMLButtonElement>) => void
 }) {
   return (
     <button
