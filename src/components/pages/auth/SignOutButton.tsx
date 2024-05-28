@@ -1,5 +1,5 @@
 import React from 'react'
-import { signOut } from '@/auth'
+import { signOut } from 'next-auth/react'
 
 export default function SignOutButton() {
   return (

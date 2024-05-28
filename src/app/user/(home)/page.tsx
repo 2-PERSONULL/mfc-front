@@ -1,10 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
-import { auth } from '@/auth'
+import { getServerSession } from 'next-auth'
 import SignOutButton from '@/components/pages/auth/SignOutButton'
 
 export default async function UserHome() {
-  const session = await auth()
+  const session = await getServerSession()
   return (
     <div>
       <p>유저 홈 화면입니다.</p>
