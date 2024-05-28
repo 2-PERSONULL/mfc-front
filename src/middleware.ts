@@ -1,17 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { auth } from '@/auth'
+// ort { NextRequest, NextResponse } from 'next/server'
 
-export default async function middleware(req: NextRequest) {
-  const session = await auth()
-  const reqUrl = new URL(req.url)
-  if (!session) {
-    return NextResponse.redirect(
-      `http://localhost:3000/signin?callbackUrl=${encodeURIComponent(reqUrl?.pathname)}`,
-    )
-  }
-  return NextResponse.next()
-}
-
+// eslint-disable-next-line import/prefer-default-export
 export const config = {
-  matcher: ['/user/mypage', '/user/chats', '/partner/:path*'],
+  matcher: ['/user/mypage', '/user/chats'],
 }

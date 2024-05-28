@@ -3,9 +3,9 @@ import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 
-import { SessionProvider } from 'next-auth/react'
 import Toast from '@/components/common/Toast'
 import ConfirmModal from '@/components/common/ConfirmModal'
+import AuthProvider from '@/components/provider/AuthProvider'
 
 // const inter = Inter({ subsets: ['latin'] })
 const pretendard = localFont({
@@ -39,11 +39,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
-        <SessionProvider>
+        <AuthProvider>
           <Toast />
           <ConfirmModal />
           {children}
-        </SessionProvider>
+        </AuthProvider>
       </body>
     </html>
   )
