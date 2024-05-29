@@ -20,7 +20,7 @@ export default function PartnerLeadTime({
   const [day, setDay] = useState<number>(0)
 
   const saveHandler = () => {
-    if (day === 0 || !sameDay) {
+    if (day < 0) {
       showToast({ content: '코디 소요기간을 선택해주세요.', type: 'warning' })
       return
     }
@@ -34,7 +34,7 @@ export default function PartnerLeadTime({
   }
 
   const getLadTime = () => {
-    if (!leadTime) return '파트너님의 평균적인 코디 소요기간을 알려주세요.'
+    if (leadTime < 0) return '파트너님의 평균적인 코디 소요기간을 알려주세요.'
     if (leadTime === 0) return '당일 가능'
     return `${leadTime}일`
   }
