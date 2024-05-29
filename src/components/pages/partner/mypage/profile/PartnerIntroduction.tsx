@@ -4,8 +4,16 @@ import React, { useEffect, useState } from 'react'
 import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profile/PartnerProfileTitleAndEdit'
 import Modal from '@/components/common/Modal'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
+import useToast from '@/stores/toast'
 
-export default function PartnerIntroduction({ data }: { data: string }) {
+export default function PartnerIntroduction({
+  data,
+  updateIntroduction,
+}: {
+  data: string
+  updateIntroduction: (description: string) => void
+}) {
+  const { showToast } = useToast()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [content, setContent] = useState<string>('')
   const [contentCount, setContentCount] = useState<number>(0)
@@ -17,7 +25,13 @@ export default function PartnerIntroduction({ data }: { data: string }) {
 
   const saveHandler = () => {
     // fetch로 데이터 저장
+    if (!content) {
+      showToast({ content: '소개를 입력해주세요.', type: 'warning' })
+      return
+    }
+    updateIntroduction(content)
     setIsModalOpen(false)
+    showToast({ content: '저장되었습니다.', type: 'success' })
   }
 
   useEffect(() => {
@@ -43,7 +57,7 @@ export default function PartnerIntroduction({ data }: { data: string }) {
                 className="outline-none min-h-[190px] overflow-y-auto py-[15px] pl-[11px] pr-[23px] bg-transparent w-full h-full text-[13px]"
                 maxLength={40}
                 onChange={onChangeContent}
-                defaultValue={content || '간단한 한줄소개를 남겨주세요.'}
+                defaultValue={content}
               />
 
               <span className="absolute bottom-[-28px] right-[7px] text-[12px] text-[#969696]">

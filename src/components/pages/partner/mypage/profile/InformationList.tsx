@@ -1,14 +1,27 @@
 import React from 'react'
 import { revalidateTag } from 'next/cache'
-import PartnerIntroduction from '@/components/pages/partner/mypage/profile/PartnerIntroduction'
-import PartnerChatTime from '@/components/pages/partner/mypage/profile/PartnerChatTime'
-import PartnerLeadTime from '@/components/pages/partner/mypage/profile/PartnerLeadTime'
 import PartnerSns from '@/components/pages/partner/mypage/profile/PartnerSns'
-import PartnerCareer from '@/components/pages/partner/mypage/profile/PartnerCareer'
+import PartnerCareer from '@/components/pages/partner/mypage/profile/career/PartnerCareer'
 import PartnerMainStyle from '@/components/pages/partner/mypage/profile/PartnerMainStyle'
 import PartnerPrice from './PartnerPrice'
 import { auth } from '@/auth'
 import { PartnerSnsType } from '@/types/partnerProfileTypes'
+import PartnerProfileInformation from './common/PartnerProfileInformation'
+
+export default async function InformationList() {
+  const session = await auth()
+  const snsList = await getSnsData(session?.user.uuid)
+
+  return (
+    <div className="px-6 mb-[50px]">
+      <PartnerProfileInformation />
+      <PartnerSns snsList={snsList} updateSnsData={updateSnsData} />
+      <PartnerCareer />
+      <PartnerMainStyle />
+      <PartnerPrice />
+    </div>
+  )
+}
 
 async function getSnsData(uuid: string | unknown) {
   if (!uuid) return
@@ -56,28 +69,4 @@ async function updateSnsData(snsList: PartnerSnsType[]) {
   } else {
     console.log(data.message)
   }
-}
-
-export default async function InformationList() {
-  const session = await auth()
-  const snsList = await getSnsData(session?.user.uuid)
-
-  // 프로필 정보 fetch
-  const profile = {
-    introduction: '빈티지 코디에 자신있습니다!',
-    chatTime: '',
-    leadTime: 1,
-  }
-
-  return (
-    <div className="px-6 mb-[50px]">
-      <PartnerIntroduction data={profile.introduction} />
-      <PartnerChatTime chatTime={profile.chatTime} />
-      <PartnerLeadTime leadTime={profile.leadTime} />
-      <PartnerSns snsList={snsList} updateSnsData={updateSnsData} />
-      <PartnerCareer />
-      <PartnerMainStyle />
-      <PartnerPrice />
-    </div>
-  )
 }

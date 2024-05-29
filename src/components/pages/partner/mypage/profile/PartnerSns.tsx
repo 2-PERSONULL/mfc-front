@@ -104,7 +104,7 @@ export default function PartnerSns({
             <div className="fixed bottom-7 w-full left-0 right-0 px-6">
               <button
                 type="submit"
-                className="btn btn-neutral rounded-full w-full bg-black"
+                className="btn btn-neutral rounded-full w-full bg-black h-[50px]"
               >
                 <span className="text-white">저장</span>
               </button>

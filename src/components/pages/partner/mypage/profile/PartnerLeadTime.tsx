@@ -5,13 +5,27 @@ import Modal from '@/components/common/Modal'
 import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profile/PartnerProfileTitleAndEdit'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 import LeadTimePicker from '@/components/ui/picker/LeadTimePicker'
+import useToast from '@/stores/toast'
 
-export default function PartnerLeadTime({ leadTime }: { leadTime: number }) {
+export default function PartnerLeadTime({
+  leadTime,
+  updateLeadTime,
+}: {
+  leadTime: number
+  updateLeadTime: (leadTime: number) => void
+}) {
+  const { showToast } = useToast()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [sameDay, setSameDay] = useState<boolean>(false)
   const [day, setDay] = useState<number>(0)
 
   const saveHandler = () => {
+    if (day === 0 || !sameDay) {
+      showToast({ content: '코디 소요기간을 선택해주세요.', type: 'warning' })
+      return
+    }
+
+    updateLeadTime(sameDay ? 0 : day)
     setIsModalOpen(false)
   }
 
@@ -19,8 +33,15 @@ export default function PartnerLeadTime({ leadTime }: { leadTime: number }) {
     setIsModalOpen(true)
   }
 
+  const getLadTime = () => {
+    if (!leadTime) return '파트너님의 평균적인 코디 소요기간을 알려주세요.'
+    if (leadTime === 0) return '당일 가능'
+    return `${leadTime}일`
+  }
+
   useEffect(() => {
-    setDay(leadTime)
+    if (leadTime === 0) setSameDay(true)
+    else setDay(leadTime)
   }, [leadTime])
 
   return (
@@ -32,17 +53,16 @@ export default function PartnerLeadTime({ leadTime }: { leadTime: number }) {
               파트너님의 평균적인 코디 소요기간을 알려주세요.
             </h1>
 
-            <div className="mt-10">
-              <label htmlFor="checkAll">
-                <input
-                  type="checkbox"
-                  name="checkAll"
-                  id="checkAll"
-                  className="checkbox mr-2 border-gray-400"
-                  checked={sameDay}
-                  onChange={() => setSameDay(!sameDay)}
-                />
-                <span className="font-semibold align-top">당일 가능</span>
+            <div className="mt-10 flex items-center">
+              <input
+                type="checkbox"
+                id="common-checkbox"
+                className="checkbox mr-2 "
+                checked={sameDay}
+                onChange={() => setSameDay(!sameDay)}
+              />
+              <label htmlFor="common-checkbox" className="font-semibold">
+                당일 가능
               </label>
             </div>
 
@@ -65,13 +85,10 @@ export default function PartnerLeadTime({ leadTime }: { leadTime: number }) {
         title="평균 코디 소요기간"
         clickHandler={editHandler}
         // 데이터 있는지 여부
-        isEmpty={!leadTime}
+        isEmpty={!leadTime && !sameDay}
         content={
           <div>
-            <p className="text-[14px]">
-              {`${leadTime}일` ||
-                '파트너님의 평균적인 코디 소요기간을 알려주세요.'}
-            </p>
+            <p className="text-[14px]">{getLadTime()}</p>
           </div>
         }
       />

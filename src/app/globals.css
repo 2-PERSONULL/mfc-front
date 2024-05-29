@@ -106,3 +106,11 @@ body::-webkit-scrollbar {
 .loading-lg {
   @apply w-10;
 }
+
+/* 공통 체크박스 */
+#common-checkbox {
+  accent-color: black;
+  border: 1px solid gray;
+  width: 20px;
+  height: 20px;
+}
