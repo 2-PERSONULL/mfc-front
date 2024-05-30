@@ -6,7 +6,6 @@ declare module 'next-auth' {
       uuid: string | unknown
       accessToken: string | unknown
       refreshToken: string | unknown
-      role: string | unknown
     } & DefaultSession['user']
   }
 }
@@ -16,6 +15,5 @@ declare module 'next-auth/jwt' {
     uuid: string
     accessToken: string
     refreshToken: string
-    role: string
   }
 }

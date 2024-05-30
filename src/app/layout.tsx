@@ -5,6 +5,7 @@ import './globals.css'
 
 import Toast from '@/components/common/Toast'
 import ConfirmModal from '@/components/common/ConfirmModal'
+import AuthProvider from '@/components/provider/AuthProvider'
 
 // const inter = Inter({ subsets: ['latin'] })
 const pretendard = localFont({
@@ -38,9 +39,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${pretendard.variable}`}>
       <body className={pretendard.className}>
-        <Toast />
-        <ConfirmModal />
-        {children}
+        <AuthProvider>
+          <Toast />
+          <ConfirmModal />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   )
