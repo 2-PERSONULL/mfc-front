@@ -8,3 +8,10 @@ export interface PartnerSnsType {
   type: string
   snsUrl: string
 }
+
+export interface PartnerCareerType {
+  title: string
+  startDate: string
+  finishDate: string
+  description: string
+}

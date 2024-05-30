@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
 
@@ -10,7 +12,7 @@ export default function PartnerProfileTitleAndEdit({
   title: string
   clickHandler: () => void
   content: JSX.Element | string
-  isEmpty: boolean
+  isEmpty?: boolean
 }) {
   return (
     <div className="border-b border-b-gray-200 py-8">
