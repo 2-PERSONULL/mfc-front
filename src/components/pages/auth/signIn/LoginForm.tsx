@@ -32,12 +32,13 @@ export default function LoginForm() {
       email: payload.email,
       password: payload.password,
       redirect: true,
-      callbackUrl: callbackUrl || '/signin',
+      callbackUrl: callbackUrl || '/user',
     })
     return null
   }
 
   const onChangePayload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
     setPayload({
       ...payload,
       [e.target.name]: e.target.value,

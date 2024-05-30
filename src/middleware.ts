@@ -13,12 +13,12 @@ export async function middleware(req: NextRequest) {
 
   // 로그인 시 유저의 role에 따라 페이지 이동
   // 로그인 시 role 정보가 오지 않으니 해당 코드 수정 필요
-  if (pathname.startsWith('/signin') && token?.role === 'PARTNER') {
-    return NextResponse.redirect(new URL('/partner', req.url))
-  }
-  if (pathname.startsWith('/signin') && token?.role === 'USER') {
-    return NextResponse.redirect(new URL('/user', req.url))
-  }
+  // if (pathname.startsWith('/signin') && token?.role === 'PARTNER') {
+  //   return NextResponse.redirect(new URL('/partner', req.url))
+  // }
+  // if (pathname.startsWith('/signin') && token?.role === 'USER') {
+  //   return NextResponse.redirect(new URL('/user', req.url))
+  // }
 
   // 유저 mypage, chats 페이지 접근 시 로그인이 되어있지 않다면 로그인 페이지로 이동
   if (pathname.endsWith('/user/mypage') && !token) {
