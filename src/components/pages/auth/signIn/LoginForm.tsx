@@ -22,7 +22,10 @@ export default function LoginForm() {
   const logInSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!payload.email && !payload.password) {
-      return alert('아이디와 비밀번호를 입력해주세요.')
+      // return alert('아이디와 비밀번호를 입력해주세요.')
+      console.log('아이디와 비밀번호를 입력해주세요.')
+      // 수정 필요
+      return null
     }
 
     signIn('credentials', {
