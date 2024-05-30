@@ -24,7 +24,7 @@ const nextConfig = {
   env: {
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
-    KAKAO_CLIENT_SECRET: process.env.AUTH_KAKKAKAO_CLIENT_SECRETAO_SECRET,
+    KAKAO_CLIENT_SECRET: process.env.KAKAO_CLIENT_SECRET,
   },
 }
 
