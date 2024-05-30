@@ -12,24 +12,29 @@ export const options: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) return null
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/auth/signin`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: credentials.email,
-              password: credentials.password,
-            }),
-          },
-        )
+        try {
+          if (!credentials?.email || !credentials.password) return null
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/auth/signin`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email: credentials.email,
+                password: credentials.password,
+              }),
+            },
+          )
 
-        if (response.ok) {
-          const user = await response.json()
-          return user.result
+          if (response.ok) {
+            const user = await response.json()
+            return user.result
+          }
+          return null
+        } catch (error) {
+          console.error(error)
+          return null
         }
-        return null
       },
     }),
     KakaoProvider({
