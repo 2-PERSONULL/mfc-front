@@ -24,8 +24,8 @@ export default async function SignUp() {
   }
 
   return (
-    <main>
+    <div>
       <SignUpFunnel submit={handleSubmit} />
-    </main>
+    </div>
   )
 }
