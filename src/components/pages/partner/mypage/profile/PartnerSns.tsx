@@ -64,7 +64,7 @@ export default function PartnerSns({
     <div>
       {isModalOpen && (
         <Modal title="SNS 설정" closeModal={() => setIsModalOpen(false)}>
-          <form action={saveHandler}>
+          <form className="mx-5" action={saveHandler}>
             <h1 className="font-semibold">최대 3개까지 등록이 가능합니다.</h1>
             <ul className="mt-10">
               {data.map((sns) => (

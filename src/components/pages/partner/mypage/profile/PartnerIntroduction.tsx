@@ -50,7 +50,7 @@ export default function PartnerIntroduction({
     <div>
       {isModalOpen && (
         <Modal title="한줄소개" closeModal={() => setIsModalOpen(false)}>
-          <div>
+          <div className="mx-5">
             <h1 className="font-semibold">한줄소개를 간단히 작성해주세요.</h1>
             <div className="relative border border-[#b6b6b6] bg-[#fff] rounded-[4px] mb-[28px] overflow-visible mt-3">
               <textarea

@@ -38,7 +38,7 @@ export default function PartnerCareerEditor() {
   return (
     <div>
       <SliderModal
-        isModalOpen={!!modalType}
+        isModalOpen={modalType !== ''}
         onChangeModal={() => setModalType('')}
         backgroundClose
         closeButton
@@ -81,10 +81,13 @@ export default function PartnerCareerEditor() {
                     : ''
                 }
                 onClick={() => {
-                  setModalType('start')
                   if (startDate.year === null && startDate.month === null) {
-                    setStartDate(initialDate)
+                    setStartDate({
+                      year: initialDate.year,
+                      month: initialDate.month,
+                    })
                   }
+                  setModalType('start')
                 }}
                 className="none-round-input outline-none border-b border-b-[#b6b6b6] py-1 w-full mt-2"
               />
@@ -100,10 +103,13 @@ export default function PartnerCareerEditor() {
                     : ''
                 }
                 onClick={() => {
-                  setModalType('end')
                   if (finishDate.year === null && finishDate.month === null) {
-                    setFinishDate(initialDate)
+                    setFinishDate({
+                      year: initialDate.year,
+                      month: initialDate.month,
+                    })
                   }
+                  setModalType('end')
                 }}
                 className="none-round-input outline-none border-b border-b-[#b6b6b6] py-1 w-full mt-2"
               />

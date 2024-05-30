@@ -48,7 +48,7 @@ export default function PartnerLeadTime({
     <div>
       {isModalOpen && (
         <Modal title="코디 소요기간" closeModal={() => setIsModalOpen(false)}>
-          <div>
+          <div className="mx-5">
             <h1 className="font-semibold">
               파트너님의 평균적인 코디 소요기간을 알려주세요.
             </h1>

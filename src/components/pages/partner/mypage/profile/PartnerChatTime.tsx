@@ -60,7 +60,7 @@ export default function PartnerChatTime({
     <div>
       {isModalOpen && (
         <Modal title="채팅 가능 시간" closeModal={() => setIsModalOpen(false)}>
-          <div>
+          <div className="mx-5">
             <h1 className="font-semibold">
               파트너님의 연락 가능한 시간을 알려주세요.
             </h1>
