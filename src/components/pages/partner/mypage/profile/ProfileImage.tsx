@@ -2,16 +2,29 @@
 
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
-import { uploadImage, deleteImage } from '@/utils/uploadImage'
+import {
+  uploadImage,
+  deleteImage,
+  deleteAndUpdateImage,
+} from '@/utils/uploadImage'
 import SliderModal from '@/components/common/SliderModal'
 
-export default function ProfileImage() {
+export default function ProfileImage({
+  profileImage,
+  updatePartnerProfileImage,
+}: {
+  profileImage: string
+  updatePartnerProfileImage: (image: string) => void
+}) {
   const basicImage = '/images/default-profile.svg'
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [image, setImage] = useState<string>(basicImage)
+  const [image, setImage] = useState<string>(
+    !profileImage ? basicImage : profileImage,
+  )
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('handleChange')
     setIsModalOpen(false)
     const targetFiles = (e.target as HTMLInputElement).files as FileList
     if (!targetFiles) return
@@ -19,23 +32,24 @@ export default function ProfileImage() {
     const targetFilesArray = Array.from(targetFiles)
     const file = targetFilesArray[0]
 
-    setImage('')
-
     // 만약 파일이 있다면 삭제하고 업로드한다.
-    if (image) {
-      const fileName = await deleteImage(image, file, 'style')
+    if (image && image !== basicImage) {
+      const fileName = await deleteAndUpdateImage(image, file, 'profile')
 
       setImage(fileName)
+      updatePartnerProfileImage(fileName)
       return
     }
 
-    const fileName = await uploadImage(file, 'style')
-
+    const fileName = await uploadImage(file, 'profile')
     setImage(fileName)
+    updatePartnerProfileImage(fileName)
   }
 
-  const handleBasicImage = () => {
+  const handleBasicImage = async () => {
     setImage(basicImage)
+    await deleteImage(image)
+    updatePartnerProfileImage('')
     setIsModalOpen(false)
   }
 
@@ -63,9 +77,13 @@ export default function ProfileImage() {
               사진 등록하기
             </li>
           </button>
-          <button type="button" onClick={handleBasicImage}>
-            <li className="w-full px-5 py-3">기본 이미지로 변경</li>
-          </button>
+          {image !== basicImage && (
+            <button type="button" onClick={handleBasicImage}>
+              <li className="w-full px-5 py-3 border-b-2 border-b-gray-200">
+                기본 이미지로 변경
+              </li>
+            </button>
+          )}
         </ul>
         <button
           className="w-full"
@@ -85,7 +103,6 @@ export default function ProfileImage() {
           src={image}
           alt="profile image"
           fill
-          priority
           sizes="(max-width: 100px) 100vw, 100px"
           className="object-cover rounded-full mr-1"
         />

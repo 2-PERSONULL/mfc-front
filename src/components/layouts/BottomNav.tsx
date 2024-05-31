@@ -7,25 +7,9 @@ import { usePathname } from 'next/navigation'
 import { NavigationType } from '@/types/navigationTypes'
 import NavigationData from '@/libs/navigationData'
 
-export interface SessionType {
-  expires: string
-  user: SessionUserType
-}
-
-export interface SessionUserType {
-  uuid: string
-  accessToken: string
-  refreshToken: string
-  role: string
-}
-
-const BottomNav = ({ session }: { session: SessionType }) => {
-  let role = ''
-  if (!session) {
-    role = 'user'
-  } else {
-    role = session.user.role.toLowerCase()
-  }
+const BottomNav = () => {
+  // 로컬에서 가져오는 코드로 수정
+  const role = 'partner'
   const pathname = usePathname()
   const active = pathname.replace(/\/(partner|user)/, '')
   return (
@@ -33,9 +17,7 @@ const BottomNav = ({ session }: { session: SessionType }) => {
       {NavigationData.map((nav: NavigationType) => (
         <Link
           href={
-            nav.title === 'HOME' ||
-            nav.title === 'RANKING' ||
-            nav.title === 'SEARCH'
+            nav.title === 'RANKING' || nav.title === 'SEARCH'
               ? `${nav.url}`
               : `/${role}${nav.url}`
           }
