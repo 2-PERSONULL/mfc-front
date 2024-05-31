@@ -11,19 +11,13 @@ export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret })
   const { pathname, search } = req.nextUrl
 
-  // 로그인 시 유저의 role에 따라 페이지 이동
-  // 로그인 시 role 정보가 오지 않으니 해당 코드 수정 필요
-  // if (pathname.startsWith('/signin') && token?.role === 'PARTNER') {
-  //   return NextResponse.redirect(new URL('/partner', req.url))
-  // }
-  // if (pathname.startsWith('/signin') && token?.role === 'USER') {
-  //   return NextResponse.redirect(new URL('/user', req.url))
-  // }
+  // 로컬에서 테스트 => NEXT_PUBLIC_API_LOCAL_URL
+  // 배포 => NEXT_PUBLIC_API_URL
 
   // 유저 mypage, chats 페이지 접근 시 로그인이 되어있지 않다면 로그인 페이지로 이동
   if (pathname.endsWith('/user/mypage') && !token) {
     return NextResponse.redirect(
-      `http://localhost:3000/signin?callbackUrl=${encodeURIComponent(pathname)}`,
+      `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/signin?callbackUrl=${encodeURIComponent(pathname)}`,
     )
   }
   if (pathname.endsWith('/user/chats') && !token) {

@@ -1,16 +1,19 @@
 'use client'
 
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
-export default function ChooseRole() {
+export default function ChooseRole({
+  clickHandler,
+}: {
+  clickHandler: (data: string) => void
+}) {
   const [role, setRole] = useState('USER')
+
   const handleSaveRole = (data: string) => {
+    clickHandler(data)
     localStorage.setItem('role', data)
   }
-  useEffect(() => {
-    handleSaveRole(role)
-  }, [role])
 
   return (
     <div className="flex flex-col gap-4 max-h-full max-w-full px-6 pt-28 content-around justify-between">

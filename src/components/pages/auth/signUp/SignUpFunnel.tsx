@@ -28,7 +28,7 @@ export default function SignUpFunnel({
     gender: 0,
     nickname: '',
     favoriteStyles: [] as number[],
-    role: 'USER',
+    role: '',
   })
   const [step, setStep] = useState<
     | 'TermsOfUseAccept'
@@ -141,7 +141,13 @@ export default function SignUpFunnel({
           }}
         />
       )}
-      {step === 'ChooseRole' && <ChooseRole />}
+      {step === 'ChooseRole' && (
+        <ChooseRole
+          clickHandler={(data: string) => {
+            setRegisterData((prev) => ({ ...prev, role: data }))
+          }}
+        />
+      )}
     </form>
   )
 }
