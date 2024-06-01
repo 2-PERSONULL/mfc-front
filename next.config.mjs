@@ -23,6 +23,8 @@ const nextConfig = {
   },
   env: {
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    NEXT_PUBLIC_API_LOCAL_URL: process.env.NEXT_PUBLIC_API_LOCAL_URL,
     KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
     KAKAO_CLIENT_SECRET: process.env.KAKAO_CLIENT_SECRET,
   },

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import UserId from '@/components/pages/auth/signUp/id/UserId'
 import UserName from '@/components/pages/auth/signUp/name/UserName'
 import UserPassword from '@/components/pages/auth/signUp/password/UserPassword'
@@ -17,6 +18,7 @@ export default function SignUpFunnel({
 }: {
   submit: (data: SignUpType) => void
 }) {
+  const router = useRouter()
   const [registerData, setRegisterData] = useState<SignUpType>({
     name: '',
     email: '',
@@ -63,8 +65,14 @@ export default function SignUpFunnel({
     }
   }
 
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
+    submit(registerData)
+    router.push('/signin')
+  }
+
   return (
-    <form action={() => submit(registerData)}>
+    <form onSubmit={handleSubmit}>
       <progress
         className="progress w-full absolute top-10"
         value={handleProgressBar()}
