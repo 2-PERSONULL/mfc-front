@@ -10,6 +10,11 @@ export default function ChooseRole({
 }) {
   const [role, setRole] = useState('USER')
 
+  const handleSaveRole = (data: string) => {
+    clickHandler(data)
+    localStorage.setItem('role', data)
+  }
+
   return (
     <div className="flex flex-col gap-4 max-h-full max-w-full px-6 pt-28 content-around justify-between">
       <p className="text-2xl font-black text-center">역할을 선택하세요.</p>
@@ -74,7 +79,7 @@ export default function ChooseRole({
       <div className="absolute bottom-40 left-1/4 w-2/4 px-6">
         <button
           type="submit"
-          onClick={() => clickHandler(role)}
+          onClick={() => handleSaveRole(role)}
           className="btn bg-white drop-shadow-[0_5px_3px_rgba(0,0,0,0.5)] border-none w-full text-black font-bold text-lg rounded-full"
         >
           <p>시작하기</p>
