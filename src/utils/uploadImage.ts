@@ -34,7 +34,22 @@ const uploadImage = async (file: File, type: string): Promise<string> => {
   return fileName
 }
 
-const deleteImage = async (oldFile: string, newFile: File, type: string) => {
+const deleteImage = async (oldFile: string) => {
+  const deleteFilName = oldFile.replace(imageUrl || '', '')
+  const params = {
+    Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME,
+    Key: deleteFilName,
+  }
+
+  const command = new DeleteObjectCommand(params)
+  await s3Client.send(command)
+}
+
+const deleteAndUpdateImage = async (
+  oldFile: string,
+  newFile: File,
+  type: string,
+) => {
   const deleteFilName = oldFile.replace(imageUrl || '', '')
   const params = {
     Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME,
@@ -49,4 +64,4 @@ const deleteImage = async (oldFile: string, newFile: File, type: string) => {
   return fileName
 }
 
-export { uploadImage, deleteImage }
+export { uploadImage, deleteImage, deleteAndUpdateImage }

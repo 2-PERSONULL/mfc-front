@@ -20,7 +20,7 @@ export interface SessionUserType {
 }
 
 const BottomNav = () => {
-  let role = '/partner'
+  const role = 'partner'
 
   const pathname = usePathname()
   const active = pathname.replace(/\/(partner|user)/, '')

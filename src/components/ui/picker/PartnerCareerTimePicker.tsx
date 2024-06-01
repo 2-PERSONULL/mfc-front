@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 interface CareerDateProps {
@@ -24,9 +24,6 @@ export default function PartnerCareerTimePicker({
     { length: date.year === currentYear ? currentMonth : 12 },
     (_, i) => i + 1,
   )
-  useEffect(() => {
-    console.log('date', date)
-  }, [date])
 
   // date값이 없을 경우 initialSlide를 현재 년도와 월로 설정
   const initialYearIndex = yearData.findIndex((y) => y === date.year)
@@ -44,7 +41,6 @@ export default function PartnerCareerTimePicker({
         centeredSlides
         initialSlide={initialYearIndex}
         onSlideChange={(swiper) => {
-          console.log('year', swiper)
           setDate({ ...date, year: yearData[swiper.realIndex] })
         }}
       >
@@ -68,7 +64,6 @@ export default function PartnerCareerTimePicker({
         centeredSlides
         initialSlide={initialMonthIndex}
         onSlideChange={(swiper) => {
-          console.log('month', swiper)
           setDate({ ...date, month: monthData[swiper.realIndex] })
         }}
       >
