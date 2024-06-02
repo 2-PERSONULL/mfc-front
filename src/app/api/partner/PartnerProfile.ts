@@ -28,7 +28,7 @@ const partnerCode = '4667920240531032544835'
 //   return await response.json()
 // }
 
-export async function getPartnerProfileImage() {
+export async function getPartnerProfileBasic() {
   const header = await getFetchHeader()
 
   if (!header) {
@@ -46,10 +46,10 @@ export async function getPartnerProfileImage() {
 
   const data = await response.json()
   if (data.isSuccess) {
-    return data.result.profileImage
+    return data.result
   }
 
-  console.log('get partner image error:', data)
+  console.log('get partner basic error:', data)
   return null
 }
 
@@ -134,6 +134,7 @@ export async function updateSnsData(snsList: PartnerSnsType[]) {
   } else {
     console.log(data.message)
   }
+  return null
 }
 
 export async function getPartnerProfile() {
@@ -282,6 +283,8 @@ export async function addPartnerCareer(partnerCareer: PartnerCareerType) {
   } else {
     console.log('career add error', data)
   }
+
+  return null
 }
 
 export async function updatePartnerCareer(
