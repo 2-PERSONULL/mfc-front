@@ -1,10 +1,10 @@
 import React from 'react'
-import GoBackHeader from '@/components/layouts/GoBackHeader'
+import PartnerProfileHeader from '@/components/pages/partner/profile/PartnerProfileHeader'
 
 export default function PartnerProfilePreview() {
   return (
     <div>
-      <GoBackHeader />
+      <PartnerProfileHeader />
     </div>
   )
 }
