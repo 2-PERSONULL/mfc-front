@@ -18,24 +18,24 @@ export async function middleware(req: NextRequest) {
   // 유저 mypage, chats 페이지 접근 시 로그인이 되어있지 않다면 로그인 페이지로 이동
   if (pathname.endsWith('/user/mypage') && !token) {
     return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_API_LOCAL_URL}/signin?callbackUrl=${encodeURIComponent(pathname)}`,
+      `${process.env.NEXTAUTH_URL}/signin?callbackUrl=${encodeURIComponent(pathname)}`,
     )
   }
   if (pathname.endsWith('/user/chats') && !token) {
     return NextResponse.redirect(
-      `http://localhost:3000/signin?callbackUrl=${encodeURIComponent(pathname)}`,
+      `${process.env.NEXTAUTH_URL}/signin?callbackUrl=${encodeURIComponent(pathname)}`,
     )
   }
 
   // 로그인 후 쿼리스트링이 있는 경우 해당 페이지로 이동
   if (search && token) {
-    return NextResponse.redirect(`http://localhost:3000/${pathname}`)
+    return NextResponse.redirect(`${process.env.NEXTAUTH_URL}/${pathname}`)
   }
 
   // 파트너 페이지 접근 시 로그인이 되어있지 않다면 로그인 페이지로 이동
   if (pathname.startsWith('/partner') && !token) {
     return NextResponse.redirect(
-      `http://localhost:3000/signin?callbackUrl=${encodeURIComponent(pathname)}`,
+      `${process.env.NEXTAUTH_URL}/signin?callbackUrl=${encodeURIComponent(pathname)}`,
     )
   }
 
