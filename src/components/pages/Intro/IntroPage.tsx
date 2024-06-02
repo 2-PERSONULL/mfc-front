@@ -12,6 +12,8 @@ export default function IntroPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       const role = localStorage.getItem('role')
+        ? localStorage.getItem('role')
+        : 'user'
       if (session) {
         router.replace(`/${role}`)
       }

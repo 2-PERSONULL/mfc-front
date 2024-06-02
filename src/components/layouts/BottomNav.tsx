@@ -21,6 +21,8 @@ export interface SessionUserType {
 
 const BottomNav = () => {
   const role = localStorage.getItem('role')
+    ? localStorage.getItem('role')
+    : 'user'
 
   const pathname = usePathname()
   const active = pathname.replace(/\/(partner|user)/, '')
