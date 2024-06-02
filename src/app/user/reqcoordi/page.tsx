@@ -1,5 +1,13 @@
 import React from 'react'
+import GoBackHeader from '@/components/layouts/GoBackHeader'
 
 export default function UserCoordinatingRequest() {
-  return <div>코디 요청 페이지입니다.</div>
+  return (
+    <>
+      <GoBackHeader title="코디 예약" />
+      <div>
+        <h1>Request Coordinating</h1>
+      </div>
+    </>
+  )
 }
