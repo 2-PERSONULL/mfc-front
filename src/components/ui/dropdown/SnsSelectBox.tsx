@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import RightArrowIcon from '@/components/ui/icons/RightArrowIcon'
-import PartnerSnsData from '@/libs/partnerSnsData'
+import { partnerSnsData } from '@/libs/partnerSampleData'
 import { PartnerSnsType } from '@/types/partnerProfileTypes'
 
 export default function SnsSelectBox({
@@ -11,7 +11,7 @@ export default function SnsSelectBox({
   selectedOption: PartnerSnsType
   setSelectedOption: (id: number, type: string) => void
 }) {
-  const optionList = PartnerSnsData
+  const optionList = partnerSnsData
   const [localSelectedOption, setLocalSelectedOption] = useState<string>(
     selectedOption.type,
   )
