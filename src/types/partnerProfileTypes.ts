@@ -12,6 +12,10 @@ export interface PartnerSnsType {
 export interface PartnerCareerType {
   title: string
   startDate: string
-  finishDate: string
+  finishDate: string | null
   description: string
+}
+
+export interface PartnerCareerFetchType extends PartnerCareerType {
+  careerId: number
 }

@@ -13,24 +13,7 @@ export default function PartnerPrice() {
           height={21}
         />
       </div>
-      <div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>옵션명</th>
-              <th>금액</th>
-              <th>설명</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>코디 1회</td>
-              <td>10,000</td>
-              <td>아이템 수 무관</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div />
     </div>
   )
 }

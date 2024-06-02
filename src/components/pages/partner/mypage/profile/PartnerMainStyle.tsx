@@ -1,17 +1,38 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import useModal from '@/stores/modal'
+import FavoriteStyleList from '@/components/pages/member/profile/FavoriteStyleList'
 
 export default function PartnerMainStyle() {
+  const [selectedStyle, setSelectedStyle] = useState<number[]>([])
+
+  const { showModal } = useModal()
+  const onClickHandler = () => {
+    showModal({
+      title: '주요 스타일',
+      content: <FavoriteStyleList favoriteStyle={selectedStyle} />,
+    })
+  }
+
+  useEffect(() => {
+    // fetch data
+    setSelectedStyle([1, 2, 3])
+  }, [])
+
   return (
     <div className="border-b border-b-gray-200 py-8">
       <div className="flex justify-between mb-2">
         <h1 className="text-[18px] font-bold mr-2">주요 스타일</h1>
-        <Image
-          src="/images/pencil-icon.svg"
-          alt="edit icon"
-          width={21}
-          height={21}
-        />
+        <button type="button" onClick={onClickHandler}>
+          <Image
+            src="/images/pencil-icon.svg"
+            alt="edit icon"
+            width={21}
+            height={21}
+          />
+        </button>
       </div>
 
       <ul className="flex flex-wrap w-full h-auto">

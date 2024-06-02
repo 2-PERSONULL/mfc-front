@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import RightArrowIcon from '@/components/ui/icons/RightArrowIcon'
-import PartnerSnsData from '@/libs/PartnerSnsData'
+import PartnerSnsData from '@/libs/partnerSnsData'
 import { PartnerSnsType } from '@/types/partnerProfileTypes'
 
 export default function SnsSelectBox({

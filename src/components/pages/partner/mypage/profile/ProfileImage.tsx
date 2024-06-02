@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import {
   uploadImage,
@@ -8,23 +8,27 @@ import {
   deleteAndUpdateImage,
 } from '@/utils/uploadImage'
 import SliderModal from '@/components/common/SliderModal'
-
-export default function ProfileImage({
-  profileImage,
+import {
+  getPartnerProfileImage,
   updatePartnerProfileImage,
-}: {
-  profileImage: string
-  updatePartnerProfileImage: (image: string) => void
-}) {
+} from '@/app/api/partner/PartnerProfile'
+
+export default function ProfileImage() {
   const basicImage = '/images/default-profile.svg'
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [image, setImage] = useState<string>(
-    !profileImage ? basicImage : profileImage,
-  )
   const inputRef = useRef<HTMLInputElement>(null)
+  const [image, setImage] = useState<string>(basicImage)
+
+  useEffect(() => {
+    const fetchProfileImage = async () => {
+      const profileImage = await getPartnerProfileImage()
+      console.log(profileImage)
+      setImage(!profileImage ? basicImage : profileImage)
+    }
+    fetchProfileImage()
+  }, [])
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('handleChange')
     setIsModalOpen(false)
     const targetFiles = (e.target as HTMLInputElement).files as FileList
     if (!targetFiles) return

@@ -6,14 +6,9 @@ import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profil
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 import LeadTimePicker from '@/components/ui/picker/LeadTimePicker'
 import useToast from '@/stores/toast'
+import { updateLeadTime } from '@/app/api/partner/PartnerProfile'
 
-export default function PartnerLeadTime({
-  leadTime,
-  updateLeadTime,
-}: {
-  leadTime: number
-  updateLeadTime: (leadTime: number) => void
-}) {
+export default function PartnerLeadTime({ leadTime }: { leadTime: number }) {
   const { showToast } = useToast()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [sameDay, setSameDay] = useState<boolean>(false)
@@ -34,7 +29,8 @@ export default function PartnerLeadTime({
   }
 
   const getLadTime = () => {
-    if (leadTime < 0) return '파트너님의 평균적인 코디 소요기간을 알려주세요.'
+    if (leadTime === null)
+      return '파트너님의 평균적인 코디 소요기간을 알려주세요.'
     if (leadTime === 0) return '당일 가능'
     return `${leadTime}일`
   }
@@ -48,7 +44,7 @@ export default function PartnerLeadTime({
     <div>
       {isModalOpen && (
         <Modal title="코디 소요기간" closeModal={() => setIsModalOpen(false)}>
-          <div className="mx-5">
+          <div className="m-5">
             <h1 className="font-semibold">
               파트너님의 평균적인 코디 소요기간을 알려주세요.
             </h1>
@@ -84,8 +80,6 @@ export default function PartnerLeadTime({
       <PartnerProfileTitleAndEdit
         title="평균 코디 소요기간"
         clickHandler={editHandler}
-        // 데이터 있는지 여부
-        isEmpty={!leadTime && !sameDay}
         content={
           <div>
             <p className="text-[14px]">{getLadTime()}</p>

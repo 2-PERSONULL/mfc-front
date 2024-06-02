@@ -5,28 +5,25 @@ import PartnerSns from '@/components/pages/partner/mypage/profile/PartnerSns'
 import PartnerCareer from '@/components/pages/partner/mypage/profile/career/PartnerCareer'
 import PartnerMainStyle from '@/components/pages/partner/mypage/profile/PartnerMainStyle'
 import PartnerPrice from '@/components/pages/partner/mypage/profile/PartnerPrice'
-import PartnerProfileInformation from '@/components/pages/partner/mypage/profile/PartnerProfileInformation'
-import {
-  getPartnerProfileImage,
-  updatePartnerProfileImage,
-  getSnsData,
-  updateSnsData,
-} from '@/app/api/partner/PartnerProfile'
+import PartnerIntroduction from '@/components/pages/partner/mypage/profile/PartnerIntroduction'
+import PartnerChatTime from '@/components/pages/partner/mypage/profile/PartnerChatTime'
+import PartnerLeadTime from '@/components/pages/partner/mypage/profile/PartnerLeadTime'
+import { getPartnerProfile, getSnsData } from '@/app/api/partner/PartnerProfile'
 
 export default async function PartnerMyPageProfile() {
+  const { description, startTime, endTime, averageDate } =
+    await getPartnerProfile()
   const snsList = await getSnsData()
-  const profileImage = await getPartnerProfileImage()
 
   return (
     <div>
       <GoBackHeader title="프로필 관리" />
-      <ProfileImage
-        profileImage={profileImage}
-        updatePartnerProfileImage={updatePartnerProfileImage}
-      />
+      <ProfileImage />
       <div className="px-6 mb-[50px]">
-        <PartnerProfileInformation />
-        <PartnerSns snsList={snsList} updateSnsData={updateSnsData} />
+        <PartnerIntroduction data={description} />
+        <PartnerChatTime startChatTime={startTime} endChatTime={endTime} />
+        <PartnerLeadTime leadTime={averageDate} />
+        <PartnerSns snsList={snsList} />
         <PartnerCareer />
         <PartnerMainStyle />
         <PartnerPrice />

@@ -17,7 +17,7 @@ export default function PartnerProfileEditButton({
   return (
     <button type="button" onClick={onClickHandler}>
       <Image
-        src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/pencil-icon.svg"
+        src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/add-icon.svg"
         alt="edit icon"
         width={21}
         height={21}

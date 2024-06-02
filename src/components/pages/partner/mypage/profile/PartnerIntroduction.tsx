@@ -4,15 +4,10 @@ import React, { useEffect, useState } from 'react'
 import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profile/PartnerProfileTitleAndEdit'
 import Modal from '@/components/common/Modal'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
+import { updateIntroduction } from '@/app/api/partner/PartnerProfile'
 import useToast from '@/stores/toast'
 
-export default function PartnerIntroduction({
-  data,
-  updateIntroduction,
-}: {
-  data: string
-  updateIntroduction: (description: string) => void
-}) {
+export default function PartnerIntroduction({ data }: { data: string }) {
   const { showToast } = useToast()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [content, setContent] = useState<string>('')
@@ -50,7 +45,7 @@ export default function PartnerIntroduction({
     <div>
       {isModalOpen && (
         <Modal title="한줄소개" closeModal={() => setIsModalOpen(false)}>
-          <div className="mx-5">
+          <div className="m-5">
             <h1 className="font-semibold">한줄소개를 간단히 작성해주세요.</h1>
             <div className="relative border border-[#b6b6b6] bg-[#fff] rounded-[4px] mb-[28px] overflow-visible mt-3">
               <textarea
@@ -76,8 +71,6 @@ export default function PartnerIntroduction({
       <PartnerProfileTitleAndEdit
         title="소개"
         clickHandler={editHandler}
-        // 데이터 있는지 여부
-        isEmpty={!data}
         content={
           <p className="text-[14px]">
             {data || '한 줄 소개로 간단하게 파트너님의 개성을 드러내보세요.'}

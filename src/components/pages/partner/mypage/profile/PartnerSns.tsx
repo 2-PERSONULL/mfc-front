@@ -8,14 +8,9 @@ import PartnerSnsTag from '@/components/pages/partner/mypage/profile/PartnerSnsT
 import SnsSelectBox from '@/components/ui/dropdown/SnsSelectBox'
 import { PartnerSnsType } from '@/types/partnerProfileTypes'
 import useToast from '@/stores/toast'
+import { updateSnsData } from '@/app/api/partner/PartnerProfile'
 
-export default function PartnerSns({
-  snsList,
-  updateSnsData,
-}: {
-  snsList: PartnerSnsType[]
-  updateSnsData: (snsList: PartnerSnsType[]) => void
-}) {
+export default function PartnerSns({ snsList }: { snsList: PartnerSnsType[] }) {
   const { showToast } = useToast()
   const [data, setData] = useState<PartnerSnsType[]>(snsList)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -64,7 +59,7 @@ export default function PartnerSns({
     <div>
       {isModalOpen && (
         <Modal title="SNS 설정" closeModal={() => setIsModalOpen(false)}>
-          <form className="mx-5" action={saveHandler}>
+          <form className="m-5" action={saveHandler}>
             <h1 className="font-semibold">최대 3개까지 등록이 가능합니다.</h1>
             <ul className="mt-10">
               {data.map((sns) => (

@@ -1,15 +1,33 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import SliderModal from '@/components/common/SliderModal'
 import PartnerCareerTimePicker from '@/components/ui/picker/PartnerCareerTimePicker'
+import BlackCheckBox from '@/components/ui/input/BlackCheckBox'
+import useToast from '@/stores/toast'
+import useModal from '@/stores/modal'
+import { PartnerCareerFetchType } from '@/types/partnerProfileTypes'
+import { formatCareerDate } from '@/utils/formatTime'
+import {
+  updatePartnerCareer,
+  addPartnerCareer,
+} from '@/app/api/partner/PartnerProfile'
 
 interface CareerDateType {
   year: number | null
   month: number | null
 }
 
-export default function PartnerCareerEditor() {
+export default function PartnerCareerEditor({
+  career,
+  type,
+}: {
+  career?: PartnerCareerFetchType
+  type?: string
+}) {
+  const { showToast } = useToast()
+  const { closeModal } = useModal()
+  const titleRef = useRef<HTMLInputElement>(null)
   // year는 올해 년도로 설정 month는 현재 달로 설정
   const initialDate = {
     year: new Date().getFullYear(),
@@ -27,8 +45,40 @@ export default function PartnerCareerEditor() {
     year: null,
     month: null,
   })
+  const [isCurrent, setIsCurrent] = useState<boolean>(false)
   const [description, setDescription] = useState<string>('')
   const [descriptionCount, setDescriptionCount] = useState<number>(0)
+
+  useEffect(() => {
+    if (type === 'edit' && career) {
+      setTitle(career.title)
+      setTitleCount(career.title.length)
+      setDescription(career.description)
+      setDescriptionCount(career.description.length)
+      setStartDate({
+        year: parseInt(career.startDate.split('-')[0], 10),
+        month: parseInt(career.startDate.split('-')[1], 10),
+      })
+      setFinishDate({
+        year: career.finishDate
+          ? parseInt(career.finishDate.split('-')[0], 10)
+          : null,
+        month: career.finishDate
+          ? parseInt(career.finishDate.split('-')[1], 10)
+          : null,
+      })
+      setIsCurrent(career.finishDate === null)
+    }
+  }, [type, career])
+
+  useEffect(() => {
+    if (isCurrent) {
+      setFinishDate({
+        year: null,
+        month: null,
+      })
+    }
+  }, [isCurrent])
 
   const dateErrorMessage = () => {
     if (
@@ -47,6 +97,16 @@ export default function PartnerCareerEditor() {
     }
   }
 
+  const dateEmptyCheck = () => {
+    if (!isCurrent && (startDate.year === null || finishDate.year === null)) {
+      return true
+    }
+
+    if (startDate.year === null && isCurrent) {
+      return true
+    }
+  }
+
   const titleChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
     setTitle(value)
@@ -59,8 +119,44 @@ export default function PartnerCareerEditor() {
     setDescriptionCount(value.length)
   }
 
-  const saveHandler = (formData: FormData) => {
-    console.log(formData.get('startDate'))
+  const saveHandler = () => {
+    if (title === '') {
+      titleRef.current?.focus()
+      return
+    }
+
+    if (dateEmptyCheck()) {
+      return showToast({
+        content: '시작연월과 종료연월을 모두 입력해주세요',
+        type: 'warning',
+      })
+    }
+
+    if (type === 'edit' && career) {
+      updatePartnerCareer(career.careerId, {
+        title,
+        startDate: formatCareerDate(startDate.year!, startDate.month!),
+        finishDate: isCurrent
+          ? null
+          : formatCareerDate(finishDate.year!, finishDate.month!),
+        description,
+      })
+    } else {
+      addPartnerCareer({
+        title,
+        startDate: formatCareerDate(startDate.year!, startDate.month!),
+        finishDate: isCurrent
+          ? null
+          : formatCareerDate(finishDate.year!, finishDate.month!),
+        description,
+      })
+    }
+
+    closeModal()
+    showToast({
+      content: `경력이 ${type === 'edit' ? '수정' : '저장'}되었습니다`,
+      type: 'success',
+    })
   }
 
   return (
@@ -85,13 +181,13 @@ export default function PartnerCareerEditor() {
         </p>
 
         <section className="mt-5">
-          <h1>경력 타이틀</h1>
+          <h1>경력 타이틀*</h1>
           <input
             type="text"
             name="title"
-            required
             value={title}
             maxLength={20}
+            ref={titleRef}
             onChange={titleChangeHandler}
             className="border border-[#b6b6b6] rounded-[4px] py-2 px-2 w-full mt-2"
           />
@@ -103,11 +199,10 @@ export default function PartnerCareerEditor() {
         <section className="mt-10">
           <div className="flex gap-10">
             <div>
-              <h1>시작 연월</h1>
+              <h1>시작 연월*</h1>
               <input
                 type="text"
                 name="startDate"
-                required
                 readOnly
                 value={
                   startDate.year && startDate.month
@@ -127,11 +222,11 @@ export default function PartnerCareerEditor() {
               />
             </div>
             <div>
-              <h1>종료 연월</h1>
+              <h1>종료 연월*</h1>
               <input
                 type="text"
                 name="finishDate"
-                required
+                disabled={isCurrent}
                 readOnly
                 value={
                   finishDate.year && finishDate.month
@@ -147,9 +242,16 @@ export default function PartnerCareerEditor() {
                   }
                   setModalType('end')
                 }}
-                className="none-round-input outline-none border-b border-b-[#b6b6b6] py-1 w-full mt-2"
+                className={`none-round-input outline-none border-b border-b-[#b6b6b6] py-1 w-full mt-2 ${isCurrent ? 'bg-gray-100' : ''}`}
               />
             </div>
+          </div>
+          <div className="flex items-center mt-3">
+            <BlackCheckBox
+              checked={isCurrent}
+              onChangeCheck={() => setIsCurrent(!isCurrent)}
+            />
+            <label htmlFor="common-checkbox">현재 진행 중</label>
           </div>
           {/* finishDate가 startDate보다 빠르면 보여준다. */}
           {dateErrorMessage()}
@@ -159,9 +261,8 @@ export default function PartnerCareerEditor() {
           <h1>상세 설명</h1>
           <div className="relative border border-[#b6b6b6] bg-[#fff] rounded-[4px] mb-[28px] overflow-visible mt-3">
             <textarea
-              required
               name="description"
-              className="outline-none min-h-[190px] overflow-y-auto py-[15px] pl-[11px] pr-[23px] bg-transparent w-full h-full text-[13px]"
+              className="outline-none min-h-[80px] overflow-y-auto py-[15px] pl-[11px] pr-[23px] bg-transparent w-full h-full text-[13px]"
               maxLength={40}
               placeholder="경력에 대한 상세 설명을 입력해주세요. (최대 40자)"
               onChange={onChangeDescription}
