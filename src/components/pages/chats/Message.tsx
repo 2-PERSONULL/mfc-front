@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import useChat from '@/hooks/useChat'
-import formatTime from '@/utils/formatTime'
+import { formatChatTime } from '@/utils/formatTime'
 
 export default function Message() {
   const userName = 'jinny'
@@ -31,7 +31,7 @@ export default function Message() {
         message.sender === userName ? (
           <div className="flex justify-end mb-3 gap-1" key={message.id}>
             <div className="flex items-end text-xs text-[#959595]">
-              {formatTime(message.createdAt)}
+              {formatChatTime(message.createdAt)}
             </div>
             <div className="bg-[#FFFFFF] py-3 px-4 leading-5 rounded-bl-xl rounded-br-xl rounded-tl-xl sm:max-w-[350px] max-w-[260px]">
               {message.msg.length > 500
@@ -62,7 +62,7 @@ export default function Message() {
               {message.msg}
             </div>
             <div className="flex items-end text-xs text-[#959595]">
-              {formatTime(message.createdAt)}
+              {formatChatTime(message.createdAt)}
             </div>
           </div>
         ),

@@ -1,0 +1,28 @@
+const timePickerData = [
+  { label: '오전 12시', value: 0 },
+  { label: '오전 01시', value: 1 },
+  { label: '오전 02시', value: 2 },
+  { label: '오전 03시', value: 3 },
+  { label: '오전 04시', value: 4 },
+  { label: '오전 05시', value: 5 },
+  { label: '오전 06시', value: 6 },
+  { label: '오전 07시', value: 7 },
+  { label: '오전 08시', value: 8 },
+  { label: '오전 09시', value: 9 },
+  { label: '오전 10시', value: 10 },
+  { label: '오전 11시', value: 11 },
+  { label: '오후 00시', value: 12 },
+  { label: '오후 01시', value: 13 },
+  { label: '오후 02시', value: 14 },
+  { label: '오후 03시', value: 15 },
+  { label: '오후 04시', value: 16 },
+  { label: '오후 05시', value: 17 },
+  { label: '오후 06시', value: 18 },
+  { label: '오후 07시', value: 19 },
+  { label: '오후 08시', value: 20 },
+  { label: '오후 09시', value: 21 },
+  { label: '오후 10시', value: 22 },
+  { label: '오후 11시', value: 23 },
+]
+
+export default timePickerData

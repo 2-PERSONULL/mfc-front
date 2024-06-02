@@ -9,6 +9,7 @@ const secret = process.env.NEXTAUTH_SECRET
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret })
+
   const { pathname, search } = req.nextUrl
 
   // 로컬에서 테스트 => NEXT_PUBLIC_API_LOCAL_URL

@@ -19,13 +19,11 @@ export interface SessionUserType {
   role: string
 }
 
-const BottomNav = ({ session }: { session: SessionType }) => {
-  let role = ''
-  if (!session) {
-    role = 'user'
-  } else {
-    role = session.user.role.toLowerCase()
-  }
+const BottomNav = () => {
+  const role = localStorage.getItem('role')
+    ? localStorage.getItem('role')
+    : 'user'
+
   const pathname = usePathname()
   const active = pathname.replace(/\/(partner|user)/, '')
   return (
@@ -33,9 +31,7 @@ const BottomNav = ({ session }: { session: SessionType }) => {
       {NavigationData.map((nav: NavigationType) => (
         <Link
           href={
-            nav.title === 'HOME' ||
-            nav.title === 'RANKING' ||
-            nav.title === 'SEARCH'
+            nav.title === 'RANKING' || nav.title === 'SEARCH'
               ? `${nav.url}`
               : `/${role}${nav.url}`
           }

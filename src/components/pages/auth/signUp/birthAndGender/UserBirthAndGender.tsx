@@ -26,13 +26,13 @@ export default function UserBirthAndGender({
   const [genderError, setGenderError] = useState(false)
 
   const handleNext = () => {
-    const selectedDate = new Date(date.toString().split('T').shift()!)
-    const isToday = selectedDate.toDateString() === today.toDateString()
+    // const selectedDate = new Date(date.toString().split('T').shift()!)
+    // const isToday = selectedDate.toDateString() === today.toDateString()
 
-    if (isToday) {
-      setDateError(true)
-      return
-    }
+    // if (isToday) {
+    //   setDateError(true)
+    //   return
+    // }
 
     if (gender === 'none') {
       setGenderError(true)

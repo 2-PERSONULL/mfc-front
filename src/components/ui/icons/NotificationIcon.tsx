@@ -3,19 +3,27 @@ import React from 'react'
 const NotificationIcon = () => {
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
-      viewBox="0 0 32 32"
+      viewBox="0 0 24 24"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M27 25C27 26.6569 22.0751 28 16 28C9.92487 28 5 26.6569 5 25M27 25C27 23.5294 23.1202 22.306 18 22.0495M27 25C27 23 26.8 18.8 24 16C21.0141 13.0141 23.4867 8.57266 19 7.33224M5 25C5 23.5294 8.87976 22.306 14 22.0495M5 25C4.99999 23 5.2 18.8 8 16C10.9859 13.0141 8.51331 8.57266 13 7.33224M14 22.0495C14.6486 22.017 15.317 22 16 22C16.683 22 17.3514 22.017 18 22.0495M14 22.0495V23C14 24.1046 14.8954 25 16 25C17.1046 25 18 24.1046 18 23V22.0495M13 7.33224C13.7726 7.11866 14.7514 6.99999 16 6.99999C17.2486 6.99999 18.2275 7.11866 19 7.33224M13 7.33224V7C13 5.34315 14.3432 4 16 4C17.6569 4 19 5.34315 19 7V7.33224"
+        d="M6 19V10C6 6.68629 8.68629 4 12 4V4C15.3137 4 18 6.68629 18 10V19M6 19H18M6 19H4M18 19H20"
         stroke="white"
-        strokeWidth="2"
+        strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+      <path
+        d="M11 22L13 22"
+        stroke="white"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="3" r="1" stroke="white" strokeWidth="2.5" />
     </svg>
   )
 }

@@ -5,6 +5,7 @@ import './globals.css'
 
 import Toast from '@/components/common/Toast'
 import ConfirmModal from '@/components/common/ConfirmModal'
+import GlobalModal from '@/components/common/GlobalModal'
 import AuthProvider from '@/components/provider/AuthProvider'
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -42,6 +43,7 @@ export default function RootLayout({
         <AuthProvider>
           <Toast />
           <ConfirmModal />
+          <GlobalModal />
           {children}
         </AuthProvider>
       </body>
