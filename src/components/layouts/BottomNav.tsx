@@ -1,28 +1,22 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { NavigationType } from '@/types/navigationTypes'
 import NavigationData from '@/libs/navigationData'
 
-export interface SessionType {
-  expires: string
-  user: SessionUserType
-}
-
-export interface SessionUserType {
-  uuid: string
-  accessToken: string
-  refreshToken: string
-  role: string
-}
-
 const BottomNav = () => {
-  const role = localStorage.getItem('role')
-    ? localStorage.getItem('role')
-    : 'user'
+  const [role, setRole] = useState<string>('user')
+  useEffect(() => {
+    const memberRole = localStorage.getItem('role')
+    if (memberRole) {
+      setRole(memberRole)
+    } else {
+      setRole('user')
+    }
+  }, [])
 
   const pathname = usePathname()
   const active = pathname.replace(/\/(partner|user)/, '')
