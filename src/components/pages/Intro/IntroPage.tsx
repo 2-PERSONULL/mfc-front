@@ -3,25 +3,19 @@
 import React, { useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import { Session } from 'next-auth'
 
-export default function IntroPage() {
+export default function IntroPage({ session }: { session: Session }) {
   const router = useRouter()
-  const { data: session } = useSession()
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const role = localStorage.getItem('role')
-        ? localStorage.getItem('role')
-        : 'user'
-      if (session) {
-        router.replace(`/${role}`)
-      }
-      router.replace('/user')
-    }, 1000)
-
-    return () => clearTimeout(timer) // 컴포넌트가 언마운트되면 타이머를 취소합니다.
-  }, [router])
+    const role = localStorage.getItem('role')
+      ? localStorage.getItem('role')
+      : 'user'
+    if (session) {
+      router.replace(`/${role}`)
+    } else router.replace('/user')
+  }, [])
 
   return (
     <div>
