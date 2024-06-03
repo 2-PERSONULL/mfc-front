@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import UploadStyle from '@/components/pages/partner/mypage/style/UploadStyle'
 import StyleTagEditor from '@/components/pages/partner/mypage/style/StyleTagEditor'
-import addPartnerPost from '@/app/api/partner/PartnerPost'
+import { addPartnerPost } from '@/app/api/partner/PartnerPost'
 import useToast from '@/stores/toast'
 
 export default function StyleEditor() {
