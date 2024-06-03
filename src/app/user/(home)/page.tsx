@@ -28,6 +28,12 @@ export default async function UserHome() {
           <pre className="text-wrap">
             {JSON.stringify(session.user, null, 2)}
           </pre>
+          <Link
+            href="/user/coordinator/1/reqcoordi"
+            className="px-5 py-5 bg-green-500 text-white rounded-2xl"
+          >
+            코디 예약
+          </Link>
           <SignOutButton />
         </>
       ) : (
@@ -42,7 +48,6 @@ export default async function UserHome() {
               회원가입
             </p>
           </Link>
-          <Link href="/user/coordinator/1/reqcoordi">코디 예약</Link>
         </>
       )}
     </div>

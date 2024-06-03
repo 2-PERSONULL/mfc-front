@@ -14,7 +14,8 @@ import {
 } from '@/app/api/partner/PartnerProfile'
 
 export default function ProfileImage() {
-  const basicImage = '/images/default-profile.svg'
+  const basicImage =
+    'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const [image, setImage] = useState<string>(basicImage)

@@ -14,7 +14,7 @@ export default function SeperatedButton() {
       >
         취소
       </button>
-      <button type="button" className="bg-black w-1/2 text-white py-3 text-lg">
+      <button type="submit" className="bg-black w-1/2 text-white py-3 text-lg">
         예약
       </button>
     </div>
