@@ -53,3 +53,21 @@ export async function getPartnerPost(partnerCode: string) {
     return null
   }
 }
+
+export async function getPartnerPostDetail(postId: string) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/${postId}`,
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
+    )
+
+    const data = await response.json()
+    if (!data.isSuccess) console.log('get post detail error:', data)
+    return data.result
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
