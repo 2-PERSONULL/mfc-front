@@ -42,6 +42,7 @@ export default async function UserHome() {
               회원가입
             </p>
           </Link>
+          <Link href="/user/coordinator/1/reqcoordi">코디 예약</Link>
         </>
       )}
     </div>
