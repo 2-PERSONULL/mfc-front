@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react'
 
 import Image from 'next/image'
-import { uploadImage, deleteImage } from '@/utils/uploadImage'
+import { uploadImage, deleteAndUpdateImage } from '@/utils/uploadImage'
 import LoadingText from '@/components/common/LoadingText'
 
 export default function UploadStyle({
@@ -28,7 +28,7 @@ export default function UploadStyle({
 
     // 만약 파일이 있다면 삭제하고 업로드한다.
     if (image) {
-      const fileName = await deleteImage(image, file, 'style')
+      const fileName = await deleteAndUpdateImage(image, file, 'style')
       setLoading(false)
       setImage(fileName)
       return

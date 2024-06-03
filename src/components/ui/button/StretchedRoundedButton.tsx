@@ -11,7 +11,7 @@ export default function StretchedRoundedButton({
     <button
       type="button"
       onClick={clickHandler}
-      className="btn btn-neutral rounded-full w-full bg-black"
+      className="rounded-full w-full h-[50px] bg-black"
     >
       <span className="text-white">{comment}</span>
     </button>

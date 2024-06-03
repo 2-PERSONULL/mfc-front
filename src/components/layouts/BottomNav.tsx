@@ -1,31 +1,23 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { NavigationType } from '@/types/navigationTypes'
 import NavigationData from '@/libs/navigationData'
 
-export interface SessionType {
-  expires: string
-  user: SessionUserType
-}
+const BottomNav = () => {
+  const [role, setRole] = useState<string>('user')
+  useEffect(() => {
+    const memberRole = localStorage.getItem('role')
+    if (memberRole) {
+      setRole(memberRole)
+    } else {
+      setRole('user')
+    }
+  }, [])
 
-export interface SessionUserType {
-  uuid: string
-  accessToken: string
-  refreshToken: string
-  role: string
-}
-
-const BottomNav = ({ session }: { session: SessionType }) => {
-  let role = ''
-  if (!session) {
-    role = 'user'
-  } else {
-    role = session.user.role.toLowerCase()
-  }
   const pathname = usePathname()
   const active = pathname.replace(/\/(partner|user)/, '')
   return (
@@ -33,9 +25,7 @@ const BottomNav = ({ session }: { session: SessionType }) => {
       {NavigationData.map((nav: NavigationType) => (
         <Link
           href={
-            nav.title === 'HOME' ||
-            nav.title === 'RANKING' ||
-            nav.title === 'SEARCH'
+            nav.title === 'RANKING' || nav.title === 'SEARCH'
               ? `${nav.url}`
               : `/${role}${nav.url}`
           }

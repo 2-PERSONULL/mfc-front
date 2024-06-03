@@ -3,16 +3,16 @@ import React from 'react'
 const MenuLineIcon = () => {
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
-      viewBox="0 0 32 32"
+      viewBox="0 0 24 24"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M5 8H27M5 16H27M5 24H27"
+        d="M3 6H21M3 12H21M3 18H21"
         stroke="white"
-        strokeWidth="2"
+        strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

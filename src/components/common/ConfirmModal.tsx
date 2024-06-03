@@ -15,12 +15,9 @@ export default function ConfirmModal() {
     <div className="fixed z-[200] top-0 left-0 w-full h-full bg-[#424242] bg-opacity-60 flex items-center justify-center">
       <div className="flex flex-col items-center justify-around w-[80%] h-[180px] py-[10px] px-[20px] bg-white bg-opacity-90 rounded-xl shadow-xl flex-shrink-0">
         <div>
-          {content.split('.').map((sentence, index) => (
-            <p key={index} className="text-[16px] text-center">
-              {sentence.trim() +
-                (index < content.split('.').length - 1 ? '.' : '')}
-            </p>
-          ))}
+          <p className="text-[16px] text-center whitespace-pre-wrap">
+            {content}
+          </p>
         </div>
         <div className="w-full flex justify-around">
           <button
