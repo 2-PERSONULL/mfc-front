@@ -5,8 +5,12 @@ import PartnerCareerEditor from '@/components/pages/partner/mypage/profile/caree
 import PartnerProfileEditButton from '@/components/ui/button/PartnerProfileEditButton'
 import { getCareer } from '@/app/api/partner/PartnerProfile'
 
-export default async function PartnerCareer() {
-  const careers = await getCareer()
+export default async function PartnerCareer({
+  partnerCode,
+}: {
+  partnerCode: string
+}) {
+  const careers = await getCareer(partnerCode)
 
   return (
     <div className="border-b border-b-gray-200 pt-8">

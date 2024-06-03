@@ -16,12 +16,14 @@ import {
   getPartnerProfileBasic,
 } from '@/app/api/partner/PartnerProfile'
 import PartnerNickname from '@/components/pages/partner/mypage/profile/PartnerNickname'
+import getPartnerCode from '@/utils/getPartnerCode'
 
 export default async function PartnerMyPageProfile() {
-  const { description, startTime, endTime, averageDate } =
-    await getPartnerProfile()
+  const partnerCode = await getPartnerCode()
+  const { description, startTime, endTime, averageDate, averagePrice } =
+    await getPartnerProfile(partnerCode)
   const { nickname, email, profileImage } = await getPartnerProfileBasic()
-  const snsList = await getSnsData()
+  const snsList = await getSnsData(partnerCode)
   const progress = 40
 
   return (
@@ -32,15 +34,15 @@ export default async function PartnerMyPageProfile() {
         <ProfileImage profileImage={profileImage} />
         <PartnerNickname nickName={nickname} email={email} />
       </div>
-      <PartnerProfilePreviewButton />
+      <PartnerProfilePreviewButton partnerCode={partnerCode} />
       <div className="px-6 mb-[50px]">
         <PartnerIntroduction data={description} />
         <PartnerChatTime startChatTime={startTime} endChatTime={endTime} />
         <PartnerLeadTime leadTime={averageDate} />
         <PartnerSns snsList={snsList} />
-        <PartnerCareer />
+        <PartnerCareer partnerCode={partnerCode} />
         <PartnerMainStyle />
-        <PartnerPrice />
+        <PartnerPrice averagePrice={averagePrice} />
       </div>
     </div>
   )

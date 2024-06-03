@@ -1,5 +1,5 @@
 import React from 'react'
-import Progress from '@/components/ui/progress/progress'
+import Progress from '@/components/ui/progress/Progress'
 
 export default function PartnerProfileProgress({
   progress,

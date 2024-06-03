@@ -14,7 +14,7 @@ const BottomNav = () => {
     if (memberRole) {
       setRole(memberRole)
     } else {
-      setRole('user')
+      setRole('partner')
     }
   }, [])
 
