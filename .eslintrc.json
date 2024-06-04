@@ -37,7 +37,6 @@
       2,
       { "namedComponents": ["arrow-function", "function-declaration"] }
     ],
-    "react/require-default-props": "warn",
     "jsx-a11y/no-static-element-interactions": "warn",
     "react-hooks/exhaustive-deps": "warn",
     "consistent-return": "warn",
@@ -46,6 +45,7 @@
       {
         "some": ["nesting", "id"]
       }
-    ]
+    ],
+    "react/require-default-props": "off"
   }
 }
