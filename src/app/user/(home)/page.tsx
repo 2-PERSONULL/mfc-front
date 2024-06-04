@@ -30,7 +30,7 @@ export default async function UserHome() {
           </pre>
           <Link
             href="/user/coordinator/1/reqcoordi"
-            className="px-5 py-5 bg-green-500 text-white rounded-2xl"
+            className="px-5 py-3 bg-green-500 text-white rounded-2xl"
           >
             코디 예약
           </Link>

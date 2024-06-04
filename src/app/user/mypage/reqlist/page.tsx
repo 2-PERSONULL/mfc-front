@@ -1,5 +1,6 @@
 import React from 'react'
+import ReqListContent from '@/components/pages/user/reqCoordi/ReqListContent'
 
-export default function page() {
-  return <div>요청서 목록 페이지 입니다.</div>
+export default function ReqList() {
+  return <ReqListContent />
 }
