@@ -1,17 +1,17 @@
 import React from 'react'
-import Progress from '@/components/ui/progress/Progress'
+import ProgressBar from '@/components/ui/progress/ProgressBar'
 
 export default function PartnerProfileProgress({
-  progress,
+  progressPercent,
 }: {
-  progress: number
+  progressPercent: number
 }) {
   return (
     <div className="w-full px-5 pt-3 pb-5 mb-3 ">
       <p className="text-[14px] mb-1">
-        완성도 <strong>{progress}%</strong>
+        완성도 <strong>{progressPercent}%</strong>
       </p>
-      <Progress value={progress} className="bg-[#F5F5F5]" />
+      <ProgressBar value={progressPercent} className="bg-[#F5F5F5]" />
     </div>
   )
 }

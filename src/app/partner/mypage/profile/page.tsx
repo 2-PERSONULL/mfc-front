@@ -24,12 +24,12 @@ export default async function PartnerMyPageProfile() {
     await getPartnerProfile(partnerCode)
   const { nickname, email, profileImage } = await getPartnerProfileBasic()
   const snsList = await getSnsData(partnerCode)
-  const progress = 40
+  const progressPercent = 40
 
   return (
     <div>
       <GoBackHeader title="프로필 관리" />
-      <ProfileProgress progress={progress} />
+      <ProfileProgress progressPercent={progressPercent} />
       <div className="flex">
         <ProfileImage profileImage={profileImage} />
         <PartnerNickname nickName={nickname} email={email} />
