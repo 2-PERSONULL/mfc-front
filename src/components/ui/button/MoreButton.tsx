@@ -9,7 +9,12 @@ import {
   MenubarTrigger,
 } from '@/components/ui/menubar'
 
-export default function MoreButton() {
+interface MoreButtonType {
+  text: string
+  clickHandler: () => void
+}
+
+export default function MoreButton({ actions }: { actions: MoreButtonType[] }) {
   return (
     <Menubar className="border-none">
       <MenubarMenu>
@@ -21,11 +26,18 @@ export default function MoreButton() {
             height={25}
           />
         </MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>수정</MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem>삭제</MenubarItem>
-        </MenubarContent>
+        {actions && (
+          <MenubarContent className="w-[50px]">
+            {actions.map((action: MoreButtonType, index) => (
+              <React.Fragment key={action.text}>
+                <MenubarItem key={action.text} onClick={action.clickHandler}>
+                  {action.text}
+                </MenubarItem>
+                {index < actions.length - 1 && <MenubarSeparator />}
+              </React.Fragment>
+            ))}
+          </MenubarContent>
+        )}
       </MenubarMenu>
     </Menubar>
   )

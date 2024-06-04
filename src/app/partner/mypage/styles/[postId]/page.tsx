@@ -6,10 +6,15 @@ import PartnerPostLikeCount from '@/components/pages/partner/mypage/style/Partne
 import PartnerPostTagList from '@/components/pages/partner/mypage/style/PartnerPostTagList'
 import PartnerPostTop from '@/components/pages/partner/mypage/style/PartnerPostTop'
 
+interface TagType {
+  tagId: number
+  value: string
+}
+
 export default async function PartnerPostDetailPage({
   params,
 }: {
-  params: { postId: string }
+  params: { postId: number }
 }) {
   const { postId } = params
   const { imageUrl, tags, bookmarkCnt } = await getPartnerPostDetail(postId)
@@ -17,7 +22,11 @@ export default async function PartnerPostDetailPage({
   return (
     <div>
       <GoBackHeader title="스타일 상세보기" />
-      <PartnerPostTop />
+      <PartnerPostTop
+        postId={postId}
+        imageUrl={imageUrl}
+        tags={tags.map((tag: TagType) => tag.tagId)}
+      />
       <PartnerPostImage imageUrl={imageUrl} />
       <PartnerPostLikeCount likeCount={bookmarkCnt} />
       <PartnerPostTagList tags={tags} />

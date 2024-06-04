@@ -58,13 +58,6 @@ export async function updatePartnerProfileImage(image: string) {
 
 export async function getSnsData(partnerCode: string) {
   try {
-    const header = await getFetchHeader()
-
-    if (!header) {
-      console.log('session not found')
-      return null
-    }
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/sns/${partnerCode}`,
       {
@@ -213,13 +206,6 @@ export async function updateLeadTime(averageDate: number) {
 }
 
 export async function getCareer(partnerCode: string) {
-  const header = await getFetchHeader()
-
-  if (!header) {
-    console.log('session not found')
-    return null
-  }
-
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/career/${partnerCode}`,
     {
