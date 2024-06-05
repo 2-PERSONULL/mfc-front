@@ -2,42 +2,65 @@ import React from 'react'
 import CircleProfile from '@/components/ui/avatar/CircleProfile'
 import Steps from '@/components/ui/step/Step'
 import { formatDday } from '@/utils/formatTime'
+import ChatBoxButton from './ChatBoxButton'
 
-export default function ChatBox() {
-  const basicImage =
-    'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
+interface ChatBoxProps {
+  id: number
+  requestId: number
+  userId: string
+  userImageUrl: string
+  userNickName: string
+  userGender: number
+  userAge: number
+  partnerId: string
+  createdDate: string
+  status: string
+  title: string
+  description: string
+  deadline: string
+}
 
-  const sampleData = {
-    id: 1,
-    deadLine: '2024-06-28',
-    state: '거래대기',
-    requestId: '1',
-    title: '패션 테러리스트를 구해주세요 너무 급해요ㅠ',
-    userImageUrl: basicImage,
-    userNickName: '패션테러리스트',
-    userGender: '남',
-    userAge: 27,
-    requestDate: '2024-06-18',
-  }
+export default function ChatBox({
+  requestData,
+}: {
+  requestData: ChatBoxProps
+}) {
+  const roomId = 1
+  const steps = ['요청', '거래대기', '거래확정', '코디완료']
 
   return (
-    <div className="border-2 rounded-[7px] p-3 relative">
-      <section className="flex items-center">
-        <CircleProfile size={50} imageUrl={sampleData.userImageUrl} />
-        <h1 className="ml-2 font-semibold">{sampleData.userNickName}</h1>
-        <div className="ml-2 text-gray-500 flex gap-1">
-          <span>{sampleData.userGender}</span>
-          <span>|</span>
-          <span>{sampleData.userAge}</span>
-        </div>
-        <h1 className="font-bold text-[20px] absolute right-3">
-          {formatDday(sampleData.deadLine)}
-        </h1>
-      </section>
+    <div className="border-y-2 border-y-gray-100 bg-white relative">
+      <div className="p-5">
+        {/* 유저정보 */}
+        <section className="flex items-center">
+          <CircleProfile size={50} imageUrl={requestData.userImageUrl} />
+          <h1 className="ml-2 font-semibold">{requestData.userNickName}</h1>
+          <div className="ml-2 text-gray-500 flex gap-1">
+            <span>{requestData.userGender ? '여성' : '남성'}</span>
+            <span>|</span>
+            <span>{requestData.userAge}</span>
+          </div>
+          <h1 className="text-gray-700 font-bold text-[20px] absolute right-4">
+            {formatDday(requestData.deadline)}
+          </h1>
+        </section>
 
-      <Steps />
-      <p>{sampleData.title}</p>
-      <section>button</section>
+        {/* 진행률 */}
+        <section className="mt-3 mb-4">
+          <Steps steps={steps} currentStep={2} />
+        </section>
+
+        {/* 요청서명&일시 */}
+        <div className="relative h-[50px]">
+          <p className="mb-3">{requestData.title}</p>
+          <span className="text-gray-400 flex text-[14px] absolute right-0 bottom-0">
+            요청일시: {requestData.createdDate}
+          </span>
+        </div>
+      </div>
+
+      {/* 액션 */}
+      <ChatBoxButton status={requestData.status} roomId={roomId} />
     </div>
   )
 }

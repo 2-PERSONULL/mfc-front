@@ -12,7 +12,7 @@ export default function PartnerChatListLayout({
     <>
       <TitleHeader title="채팅" menu="/partner/mypage/menu" />
       <ChatListTabs />
-      <div className="px-3">{children}</div>
+      {children}
       <BottomNav />
     </>
   )
