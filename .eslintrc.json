@@ -46,6 +46,7 @@
         "some": ["nesting", "id"]
       }
     ],
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "no-restricted-exports": "off"
   }
 }
