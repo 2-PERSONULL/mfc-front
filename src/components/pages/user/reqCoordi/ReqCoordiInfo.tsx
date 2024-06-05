@@ -10,7 +10,7 @@ export default function ReqCoordiInfo() {
   const [deadline, setDeadline] = useState('')
   console.log(deadline)
   return (
-    <form className="w-full min-h-screen">
+    <form className="w-full min-h-full">
       <div className="w-full bg-white py-6 border border-gray-400 px-6 grid gap-2">
         <p>코디 요청서</p>
         <Link
@@ -21,8 +21,8 @@ export default function ReqCoordiInfo() {
         </Link>
         <CoordinationRequest
           title="요청서 1"
-          tag="상황"
-          content="이런저런 내용"
+          situation="상황"
+          description="이런저런 내용"
         />
       </div>
       <SpecifyDate deadline={setDeadline} />

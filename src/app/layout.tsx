@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 
+import React from 'react'
 import Toast from '@/components/common/Toast'
 import ConfirmModal from '@/components/common/ConfirmModal'
 import GlobalModal from '@/components/common/GlobalModal'
