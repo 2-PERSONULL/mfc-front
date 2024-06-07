@@ -1,7 +1,8 @@
 import React from 'react'
-import ChatBox from '@/components/pages/chats/box/ChatBox'
+import PartnerChatList from '@/components/pages/chats/list/PartnerChatList'
 
-export default function PartnerChatListAll() {
+export default async function PartnerChatListAll() {
+  // const initialData = await getPost(0, 10)
   const basicImage =
     'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
 
@@ -23,7 +24,7 @@ export default function PartnerChatListAll() {
       deadline: '2024-06-23',
     },
     {
-      id: 1,
+      id: 2,
       requestId: 13,
       userId: 'da',
       userImageUrl: basicImage,
@@ -38,7 +39,7 @@ export default function PartnerChatListAll() {
       deadline: '2024-06-23',
     },
     {
-      id: 1,
+      id: 3,
       requestId: 13,
       userId: 'da',
       userImageUrl: basicImage,
@@ -53,7 +54,7 @@ export default function PartnerChatListAll() {
       deadline: '2024-06-23',
     },
     {
-      id: 1,
+      id: 4,
       requestId: 13,
       userId: 'da',
       userImageUrl: basicImage,
@@ -69,11 +70,5 @@ export default function PartnerChatListAll() {
     },
   ]
 
-  return (
-    <div className="flex flex-col gap-3 bg-gray-100 pb-[100px]">
-      {sampleData.map((data) => (
-        <ChatBox key={data.id} requestData={data} />
-      ))}
-    </div>
-  )
+  return <PartnerChatList initialData={sampleData} />
 }
