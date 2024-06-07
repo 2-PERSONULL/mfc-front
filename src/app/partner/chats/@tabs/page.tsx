@@ -70,7 +70,7 @@ export default function PartnerChatListAll() {
   ]
 
   return (
-    <div className="flex flex-col gap-3 bg-gray-100">
+    <div className="flex flex-col gap-3 bg-gray-100 pb-[100px]">
       {sampleData.map((data) => (
         <ChatBox key={data.id} requestData={data} />
       ))}

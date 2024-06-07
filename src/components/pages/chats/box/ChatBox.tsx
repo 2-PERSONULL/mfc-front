@@ -60,7 +60,12 @@ export default function ChatBox({
       </div>
 
       {/* 액션 */}
-      <ChatBoxButton status={requestData.status} roomId={roomId} />
+      <ChatBoxButton
+        status={requestData.status}
+        roomId={roomId}
+        userId={requestData.userId}
+        requestId={requestData.requestId}
+      />
     </div>
   )
 }

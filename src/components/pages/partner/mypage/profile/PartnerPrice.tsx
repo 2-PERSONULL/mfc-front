@@ -37,13 +37,13 @@ export default function PartnerPrice({
 
     updatePartnerPrice(price)
     showToast({ content: '저장되었습니다.', type: 'success' })
-    setIsModalOpen(false)
+    return setIsModalOpen(false)
   }
 
   return (
     <div>
       {isModalOpen && (
-        <Modal title="한줄소개" closeModal={() => setIsModalOpen(false)}>
+        <Modal title="코디 평균가" closeModal={() => setIsModalOpen(false)}>
           <div className="m-5">
             <h1 className="font-semibold">
               파트너님의 코디 평균가를 등록해주세요.
