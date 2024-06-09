@@ -39,9 +39,9 @@ export default function ChatForm() {
   }
 
   return (
-    <div className="bg-white w-full flex items-center">
+    <div className="bg-white w-full flex items-center pb-[10px]">
       <form
-        className="my-3 mx-[12px] flex gap-5 items-center w-full"
+        className="my-3 mx-[12px] flex gap-4 items-center w-full"
         onSubmit={handleSubmit}
       >
         <button className="hover:brightness-110" type="submit">
@@ -68,8 +68,8 @@ export default function ChatForm() {
           disabled={!inputMessage?.trim()}
         >
           <Image
-            width={25}
-            height={25}
+            width={35}
+            height={35}
             src="/images/chat-send-button.svg"
             alt="button"
           />
