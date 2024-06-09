@@ -19,14 +19,6 @@ export default function ReqPreferredStyle({
   }
 
   const addBrand = () => {
-    if (inputText.length === 0) {
-      showToast({
-        content: '선호 브랜드를 입력해주세요.',
-        type: 'warning',
-      })
-      return
-    }
-
     if (count >= 3) {
       showToast({
         content: '브랜드는 3개까지만 선택 가능합니다.',

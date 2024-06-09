@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
 import Image from 'next/image'
+import useToast from '@/stores/toast'
 
 interface LoginFormType {
   email: string
@@ -13,6 +14,10 @@ interface LoginFormType {
 export default function SignInForm() {
   const param = useSearchParams()
   const callbackUrl = param.get('callbackUrl')
+  const error = param.get('error')
+  const { showToast } = useToast()
+
+  console.log(error)
 
   const [payload, setPayload] = useState<LoginFormType>({
     email: '',
@@ -22,17 +27,34 @@ export default function SignInForm() {
 
   const logInSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!payload.email && !payload.password) {
-      // return alert('아이디와 비밀번호를 입력해주세요.')
-      console.log('아이디와 비밀번호를 입력해주세요.')
-      // 수정 필요
+    if (!payload.email) {
+      showToast({
+        content: '이메일을 입력해주세요.',
+        type: 'warning',
+      })
+      return null
+    }
+    if (!payload.password) {
+      showToast({
+        content: '비밀번호를 입력해주세요.',
+        type: 'warning',
+      })
       return null
     }
     signIn('credentials', {
       email: payload.email,
       password: payload.password,
-      redirect: true,
-      callbackUrl: callbackUrl || '/user',
+      redirect: false,
+    }).then((result) => {
+      if (result && result.error === 'CredentialsSignin') {
+        e.preventDefault()
+        showToast({
+          content: '이메일 또는 비밀번호가 일치하지 않습니다.',
+          type: 'error',
+        })
+      } else {
+        window.location.href = callbackUrl || '/user'
+      }
     })
     return null
   }

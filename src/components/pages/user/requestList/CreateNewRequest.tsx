@@ -1,17 +1,18 @@
 'use client'
 
 import React, { useState } from 'react'
+import useToast from '@/stores/toast'
+import { RequestType } from '@/types/requestType'
 import RequestTitle from '../createRequest/RequestTitle'
 import RequestDetail from '../createRequest/RequestDetail'
 import ReqCodiSituation from '../createRequest/ReqCodiSituation'
 import ReqPreferredBrands from '../createRequest/ReqPreferredBrands'
 import ReqCodiOptions from '../createRequest/ReqCodiOptions'
 import ReqCodiBudget from '../createRequest/ReqCodiBudget'
-import ReqAddInfo from '../createRequest/ReqAddInfo'
-import { RequestType } from '@/types/requestType'
-import useToast from '@/stores/toast'
 import ReqAddRefImage from '../createRequest/ReqAddRefImage'
 import ReqAddMyImage from '../createRequest/ReqAddMyImage'
+import ReqAddInfo from '../createRequest/ReqAddInfo'
+import createNewRequest from '@/app/api/user/UserRequest'
 
 export default function CreateNewRequest() {
   const { showToast } = useToast()
@@ -45,6 +46,14 @@ export default function CreateNewRequest() {
       return null
     }
 
+    if (registerData.brand.length === 0) {
+      showToast({
+        content: '선호 브랜드를 입력해주세요.',
+        type: 'warning',
+      })
+      return null
+    }
+
     if (registerData.category.length === 0) {
       showToast({
         content: '최소한 옵션 1개는 선택되어야 합니다.',
@@ -52,20 +61,18 @@ export default function CreateNewRequest() {
       })
       return null
     }
-    // try {
-    //   const response = await fetch(
-    //     `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests`,
-    //     {
-    //       method: 'POST',
-    //       headers: {
-    //         uuid: '',
-    //         'Content-Type': 'application/json',
-    //       },
-    //     },
-    //   )
-    // } catch (error) {
-    //   console.log(error)
-    // }
+
+    if (registerData.budget === 0) {
+      showToast({
+        content: '예산을 입력해주세요.',
+        type: 'warning',
+      })
+      return null
+    }
+    // 500 에러 발생
+    const data = createNewRequest({ registerData })
+    console.log(data)
+    return data
   }
 
   return (
