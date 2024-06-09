@@ -26,27 +26,31 @@ export default function StyleEditor({
   const [image, setImage] = useState<string | null>(imageUrl || null)
   const [tags, setTags] = useState<string[]>(tagList || [])
 
-  const uploadStyle = () => {
+  const uploadStyle = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     if (!image) {
       showToast({ content: '이미지를 업로드해주세요.', type: 'warning' })
       return
     }
 
     if (postId) {
+      // *** return 예외 처리 추가
       updatePartnerPost(postId, image, tags)
+      // *** content, type 메시지 백엔드에서 받아서 처리하는 것을 추천
       showToast({ content: '스타일이 수정되었습니다.', type: 'success' })
       closeModal()
-    } else {
-      addPartnerPost(image, tags)
-      showToast({ content: '스타일이 업로드되었습니다.', type: 'success' })
-      router.replace('/partner/mypage')
+      return
     }
+
+    addPartnerPost(image, tags)
+    showToast({ content: '스타일이 업로드되었습니다.', type: 'success' })
+    router.replace('/partner/mypage')
   }
 
   return (
-    <div>
+    <form onSubmit={uploadStyle}>
       <UploadStyle image={image} setImage={setImage} />
-      <StyleTagEditor tags={tags} setTags={setTags} uploadStyle={uploadStyle} />
-    </div>
+      <StyleTagEditor tags={tags} setTags={setTags} />
+    </form>
   )
 }
