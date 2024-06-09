@@ -33,7 +33,12 @@ export default function ChatBoxButton({
       <div className="h-[50px] w-full border-t">
         {status === 'WAITING' ? (
           <div className="h-full flex items-center justify-center">
-            <button type="button">요청 상세보기</button>
+            <button
+              type="button"
+              onClick={() => router.push(`/partner/reqcoordi/${requestId}`)}
+            >
+              요청 상세보기
+            </button>
           </div>
         ) : (
           <div className="h-full flex items-center justify-around">
