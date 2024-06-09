@@ -8,9 +8,10 @@ import ReqPreferredBrands from '../createRequest/ReqPreferredBrands'
 import ReqCodiOptions from '../createRequest/ReqCodiOptions'
 import ReqCodiBudget from '../createRequest/ReqCodiBudget'
 import ReqAddInfo from '../createRequest/ReqAddInfo'
-import ReqAddImage from '../createRequest/ReqAddImage'
 import { RequestType } from '@/types/requestType'
 import useToast from '@/stores/toast'
+import ReqAddRefImage from '../createRequest/ReqAddRefImage'
+import ReqAddMyImage from '../createRequest/ReqAddMyImage'
 
 export default function CreateNewRequest() {
   const { showToast } = useToast()
@@ -27,7 +28,7 @@ export default function CreateNewRequest() {
   })
   console.log(registerData)
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (registerData.description.length === 0) {
       showToast({
         content: '요청 내용을 입력해주세요.',
@@ -57,11 +58,11 @@ export default function CreateNewRequest() {
     //     {
     //       method: 'POST',
     //       headers: {
-    //         'uuid':
+    //         uuid: '',
     //         'Content-Type': 'application/json',
     //       },
-    //       }
-    //     }
+    //     },
+    //   )
     // } catch (error) {
     //   console.log(error)
     // }
@@ -99,17 +100,15 @@ export default function CreateNewRequest() {
           setRegisterData((prev) => ({ ...prev, budget: value }))
         }
       />
-      <ReqAddImage
-        title="참고 스타일"
-        // setRefImages={(value: string[]) =>
-        //   setRegisterData((prev) => ({ ...prev, referenceImages: value }))
-        // }
+      <ReqAddRefImage
+        setRefImages={(value: string[]) =>
+          setRegisterData((prev) => ({ ...prev, referenceImages: value }))
+        }
       />
-      <ReqAddImage
-        title="내 이미지"
-        // setMyImage={(value: string[]) =>
-        //   setRegisterData((prev) => ({ ...prev, myImages: value }))
-        // }
+      <ReqAddMyImage
+        setMyImage={(value: string[]) =>
+          setRegisterData((prev) => ({ ...prev, myImages: value }))
+        }
       />
       <ReqAddInfo
         setAddInfo={(value: string) =>
