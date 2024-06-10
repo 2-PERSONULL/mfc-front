@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Image from 'next/image'
 import {
   uploadImage,
@@ -8,26 +8,19 @@ import {
   deleteAndUpdateImage,
 } from '@/utils/uploadImage'
 import SliderModal from '@/components/common/SliderModal'
-import {
-  getPartnerProfileImage,
-  updatePartnerProfileImage,
-} from '@/app/api/partner/PartnerProfile'
-
-export default function ProfileImage() {
+import { updatePartnerProfileImage } from '@/app/api/partner/PartnerProfile'
+export default function ProfileImage({
+  profileImage,
+}: {
+  profileImage: string
+}) {
   const basicImage =
     'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [image, setImage] = useState<string>(basicImage)
-
-  useEffect(() => {
-    const fetchProfileImage = async () => {
-      const profileImage = await getPartnerProfileImage()
-      console.log(profileImage)
-      setImage(!profileImage ? basicImage : profileImage)
-    }
-    fetchProfileImage()
-  }, [])
+  const [image, setImage] = useState<string>(
+    !profileImage ? basicImage : profileImage,
+  )
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsModalOpen(false)
@@ -103,24 +96,26 @@ export default function ProfileImage() {
         </button>
       </SliderModal>
 
-      <div className="w-[100px] h-[100px] left-1/2 translate-x-[-50%] relative">
-        <Image
-          src={image}
-          alt="profile image"
-          fill
-          sizes="(max-width: 100px) 100vw, 100px"
-          className="object-cover rounded-full mr-1"
-        />
-
-        <button type="button" onClick={() => setIsModalOpen(true)}>
+      <div className="pl-6">
+        <div className="w-[100px] h-[100px] relative">
           <Image
-            src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/edit.svg"
-            alt="edit icon"
-            width={26}
-            height={26}
-            className="absolute bottom-2 right-[-5px]"
+            src={image}
+            alt="profile image"
+            fill
+            sizes="(max-width: 100px) 100vw, 100px"
+            className="object-cover rounded-full mr-1"
           />
-        </button>
+
+          <button type="button" onClick={() => setIsModalOpen(true)}>
+            <Image
+              src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/edit.svg"
+              alt="edit icon"
+              width={26}
+              height={26}
+              className="absolute bottom-2 right-[-5px]"
+            />
+          </button>
+        </div>
       </div>
     </div>
   )

@@ -53,6 +53,7 @@ export const options: NextAuthOptions = {
           uuid: token.uuid,
           accessToken: `Bearer ${token.accessToken}`,
           refreshToken: `${token.refreshToken}`,
+          partnerCode: token.partnerCode,
         },
       }
       return updatedSession

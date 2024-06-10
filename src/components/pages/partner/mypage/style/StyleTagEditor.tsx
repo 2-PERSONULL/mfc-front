@@ -3,16 +3,13 @@
 import React, { useState } from 'react'
 import useToast from '@/stores/toast'
 import TagBadge from '@/components/ui/TagBadge'
-import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 
 export default function StyleTagEditor({
   tags,
   setTags,
-  uploadStyle,
 }: {
   tags: string[]
   setTags: React.Dispatch<React.SetStateAction<string[]>>
-  uploadStyle: () => void
 }) {
   const [inputText, setInputText] = useState('')
   const { showToast } = useToast()
@@ -73,7 +70,10 @@ export default function StyleTagEditor({
         value={inputText}
         placeholder="#태그입력(최대10개)"
         onChange={(e) => setInputText(e.target.value)}
-        onKeyDown={(e: React.KeyboardEvent) => activeEnter(e)}
+        onKeyDown={(e: React.KeyboardEvent) => {
+          e.preventDefault()
+          activeEnter(e)
+        }}
       />
 
       {/* 태그 박스 */}
@@ -86,7 +86,9 @@ export default function StyleTagEditor({
       </div>
 
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">
-        <StretchedRoundedButton clickHandler={uploadStyle} comment="저장" />
+        <button type="submit" className="rounded-full w-full h-[50px] bg-black">
+          <span className="text-white">저장</span>
+        </button>
       </div>
     </div>
   )

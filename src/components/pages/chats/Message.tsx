@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
-import Image from 'next/image'
 import useChat from '@/hooks/useChat'
 import { formatChatTime } from '@/utils/formatTime'
+import CircleProfile from '@/components/ui/avatar/CircleProfile'
 
 export default function Message() {
   const userName = 'jinny'
@@ -25,15 +25,23 @@ export default function Message() {
   return (
     <div
       ref={scrollRef}
-      className="p-[10px] bg-[#F5F5F5] overflow-y-auto no-scrollbar flex-grow"
+      className="p-[10px] bg-white overflow-y-auto no-scrollbar flex-grow mt-[100px]"
     >
-      {realTimeMessage.map((message) =>
-        message.sender === userName ? (
-          <div className="flex justify-end mb-3 gap-1" key={message.id}>
+      {realTimeMessage.map((message, index) => {
+        const isOwnMessage = message.sender === userName
+        const isFirstOwnMessage =
+          isOwnMessage &&
+          (index === 0 || realTimeMessage[index - 1].sender !== userName)
+
+        return isOwnMessage ? (
+          <div
+            className={`flex justify-end mb-3 gap-1 text-[15px] ${isFirstOwnMessage ? 'mt-6' : ''}`} // 자신의 첫 번째 메시지에는 상단 마진 추가
+            key={message.id}
+          >
             <div className="flex items-end text-xs text-[#959595]">
               {formatChatTime(message.createdAt)}
             </div>
-            <div className="bg-[#FFFFFF] py-3 px-4 leading-5 rounded-bl-xl rounded-br-xl rounded-tl-xl sm:max-w-[350px] max-w-[260px]">
+            <div className="bg-[#FDF5D3] py-3 px-4 leading-5 rounded-[40px] sm:max-w-[350px] max-w-[260px]">
               {message.msg.length > 500
                 ? `${message.msg.substring(0, 500)}...`
                 : message.msg}
@@ -48,25 +56,20 @@ export default function Message() {
             </div>
           </div>
         ) : (
-          <div className="flex gap-1 mb-3" key={message.id}>
-            <div>
-              <Image
-                src="/images/profile.png"
-                width={40}
-                height={40}
-                alt="profile image"
-                className="object-cover rounded-full mr-1"
-              />
-            </div>
-            <div className="bg-[#FFFFFF] py-3 px-4 leading-5 rounded-bl-xl rounded-br-xl rounded-tr-xl sm:max-w-[330px] max-w-[260px]">
+          <div
+            className={`flex gap-1 mb-3 ${realTimeMessage[index - 1]?.sender === userName ? 'mt-6' : ''}`} // 이전 메시지가 자신의 메시지인 경우 상단 마진 추가
+            key={message.id}
+          >
+            <CircleProfile size={40} imageUrl={null} />
+            <div className="bg-[#f1f1f1] py-3 px-4 leading-5 rounded-[40px] sm:max-w-[330px] max-w-[260px] text-[15px]">
               {message.msg}
             </div>
             <div className="flex items-end text-xs text-[#959595]">
               {formatChatTime(message.createdAt)}
             </div>
           </div>
-        ),
-      )}
+        )
+      })}
     </div>
   )
 }

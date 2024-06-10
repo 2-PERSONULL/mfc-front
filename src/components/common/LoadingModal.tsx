@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LoadingModal = ({ message }: { message?: string }) => {
+export default function LoadingModal({ message }: { message?: string }) {
   return (
     <div className="fixed z-[200] top-0 left-0 w-full h-full bg-[#424242] bg-opacity-60">
       <div className="w-full h-full flex flex-col justify-center items-center">
@@ -10,9 +10,3 @@ const LoadingModal = ({ message }: { message?: string }) => {
     </div>
   )
 }
-
-LoadingModal.defaultProps = {
-  message: '',
-}
-
-export default LoadingModal

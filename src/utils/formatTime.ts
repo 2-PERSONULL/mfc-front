@@ -57,4 +57,23 @@ const formatCareerPeriod = (
   return `${startYear}년 ${startMonth}월 - 현재 · ${years ? `${years}년` : ''} ${months ? `${months}개월` : ''}`
 }
 
-export { formatTime, formatChatTime, formatCareerDate, formatCareerPeriod }
+const formatDday = (date: string): string => {
+  // 오늘로 부터 data까지 몇일이 남았는지 D-7 형태로 반환
+  const today = new Date()
+  const targetDate = new Date(date)
+  const diff = targetDate.getTime() - today.getTime()
+  const diffDays = Math.ceil(diff / (1000 * 3600 * 24))
+  if (diffDays === 0) {
+    return 'D-day'
+  }
+
+  return `D-${diffDays}`
+}
+
+export {
+  formatTime,
+  formatChatTime,
+  formatCareerDate,
+  formatCareerPeriod,
+  formatDday,
+}
