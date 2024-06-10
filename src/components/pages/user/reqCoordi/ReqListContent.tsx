@@ -11,13 +11,11 @@ export default function ReqListContent() {
   const { openConfirmModal } = useConfirmStore()
 
   const handleCloseModal = async () => {
-    if (isModalOpen) {
-      const confirm = await openConfirmModal({
-        content: `해당 페이지를 나가시겠습니까? \n 변경사항이 저장되지 않습니다.`,
-      })
+    const confirm = await openConfirmModal({
+      content: `해당 페이지를 나가시겠습니까? \n 변경사항이 저장되지 않습니다.`,
+    })
 
-      if (confirm) setIsModalOpen(false)
-    }
+    if (confirm) setIsModalOpen(false)
   }
 
   return (
@@ -40,7 +38,7 @@ export default function ReqListContent() {
       </div>
       {isModalOpen && (
         <Modal title="신규 요청서 작성" closeModal={handleCloseModal}>
-          <CreateNewRequest />
+          <CreateNewRequest setIsModalOpen={setIsModalOpen} />
         </Modal>
       )}
     </>

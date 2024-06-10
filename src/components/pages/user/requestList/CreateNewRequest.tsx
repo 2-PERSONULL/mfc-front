@@ -12,9 +12,15 @@ import ReqCodiBudget from '../createRequest/ReqCodiBudget'
 import ReqAddImage from '../createRequest/ReqAddImage'
 import ReqAddInfo from '../createRequest/ReqAddInfo'
 import createNewRequest from '@/app/api/user/UserCreateRequest'
+import useConfirmStore from '@/stores/confirm'
 
-export default function CreateNewRequest() {
+export default function CreateNewRequest({
+  setIsModalOpen,
+}: {
+  setIsModalOpen: (value: boolean) => void
+}) {
   const { showToast } = useToast()
+  const { openConfirmModal } = useConfirmStore()
   const [registerData, setRegisterData] = useState<RequestType>({
     title: '',
     description: '',
@@ -26,9 +32,9 @@ export default function CreateNewRequest() {
     myImages: [],
     otherRequirements: '',
   })
-  console.log(registerData)
 
   const handleSubmit = async () => {
+    // 검증 부분 리펙토링 필요
     if (registerData.description.length === 0) {
       showToast({
         content: '요청 내용을 입력해주세요.',
@@ -68,9 +74,20 @@ export default function CreateNewRequest() {
       })
       return null
     }
-    const data = createNewRequest({ registerData })
-    console.log(data)
-    return data
+
+    const save = await openConfirmModal({
+      content: `요청서를 저장하시겠습니까?`,
+    })
+    if (save) {
+      const data = createNewRequest({ registerData })
+      console.log(data)
+      setIsModalOpen(false)
+      showToast({
+        content: '요청서가 저장되었습니다.',
+        type: 'success',
+      })
+    }
+    return null
   }
 
   return (

@@ -15,6 +15,7 @@ export default function ReqPreferredStyle({
   const { showToast } = useToast()
 
   const activeEnter = (e: React.KeyboardEvent) => {
+    e.preventDefault()
     if (e.key === 'Enter') {
       addBrand()
     }

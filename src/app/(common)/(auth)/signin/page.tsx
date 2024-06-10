@@ -8,7 +8,7 @@ import LicenseInfo from '@/components/common/LicenseInfo'
 export default function SignIn() {
   return (
     <div className="bg-white min-h-screen w-full flex flex-col items-center px-6">
-      <SignInLogo />
+      <SignInLogo title="LOGIN" />
       <Suspense>
         <SignInForm />
       </Suspense>

@@ -14,10 +14,7 @@ interface LoginFormType {
 export default function SignInForm() {
   const param = useSearchParams()
   const callbackUrl = param.get('callbackUrl')
-  const error = param.get('error')
   const { showToast } = useToast()
-
-  console.log(error)
 
   const [payload, setPayload] = useState<LoginFormType>({
     email: '',
@@ -27,16 +24,9 @@ export default function SignInForm() {
 
   const logInSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!payload.email) {
+    if (!payload.email || !payload.password) {
       showToast({
-        content: '이메일을 입력해주세요.',
-        type: 'warning',
-      })
-      return null
-    }
-    if (!payload.password) {
-      showToast({
-        content: '비밀번호를 입력해주세요.',
+        content: '이메일 또는 비밀번호를 입력해주세요.',
         type: 'warning',
       })
       return null
@@ -52,15 +42,16 @@ export default function SignInForm() {
           content: '이메일 또는 비밀번호가 일치하지 않습니다.',
           type: 'error',
         })
-      } else {
+      } else if (localStorage.getItem('role')) {
         window.location.href = callbackUrl || '/user'
+      } else {
+        window.location.href = '/selectrole'
       }
     })
     return null
   }
 
   const onChangePayload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
     setPayload({
       ...payload,
       [e.target.name]: e.target.value,
@@ -111,11 +102,25 @@ export default function SignInForm() {
           className="absolute left-[80%] text-xs"
           onClick={() => setIsVisible(!isVisible)}
         >
-          {isVisible ? '보임' : '안보임'}
-          {/* 
-          aws 접속이 되지 않는 문제로 아이콘 적용 못함
-          추후에 눈모양 아이콘으로 수정할 예정 
-          */}
+          {isVisible ? (
+            <Image
+              src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/eye.svg"
+              alt="비밀번호 보이기"
+              width={0}
+              height={0}
+              style={{ width: 'auto', height: 'auto' }}
+              priority
+            />
+          ) : (
+            <Image
+              src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/eye-off.svg"
+              alt="비밀번호 가리기"
+              width={0}
+              height={0}
+              style={{ width: 'auto', height: 'auto' }}
+              priority
+            />
+          )}
         </button>
       </div>
       <button
