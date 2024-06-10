@@ -4,31 +4,7 @@ import { revalidateTag } from 'next/cache'
 import { PartnerSnsType, PartnerCareerType } from '@/types/partnerProfileTypes'
 import getFetchHeader from '@/utils/getFetchHeader'
 
-const partnerCode = '4667920240531032544835'
-// const sessionError = {
-//   isSuccess: false,
-//   message: 'session not found',
-//   httpStatus: '',
-//   code: 0,
-//   result: null,
-// }
-
-// export const getPartnerProfileImage = async (): Promise<FetchResponse> => {
-//   const header = await getFetchHeader()
-//   if (!header) return sessionError
-
-//   const response = await fetch(
-//     `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/members`,
-//     {
-//       headers: header,
-//       next: { tags: ['profile-image'] },
-//     },
-//   )
-
-//   return await response.json()
-// }
-
-export async function getPartnerProfileImage() {
+export async function getPartnerProfileBasic() {
   const header = await getFetchHeader()
 
   if (!header) {
@@ -46,10 +22,10 @@ export async function getPartnerProfileImage() {
 
   const data = await response.json()
   if (data.isSuccess) {
-    return data.result.profileImage
+    return data.result
   }
 
-  console.log('get partner image error:', data)
+  console.log('get partner basic error:', data)
   return null
 }
 
@@ -80,15 +56,8 @@ export async function updatePartnerProfileImage(image: string) {
   }
 }
 
-export async function getSnsData() {
+export async function getSnsData(partnerCode: string) {
   try {
-    const header = await getFetchHeader()
-
-    if (!header) {
-      console.log('session not found')
-      return null
-    }
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/sns/${partnerCode}`,
       {
@@ -134,9 +103,10 @@ export async function updateSnsData(snsList: PartnerSnsType[]) {
   } else {
     console.log(data.message)
   }
+  return null
 }
 
-export async function getPartnerProfile() {
+export async function getPartnerProfile(partnerCode: string) {
   const header = await getFetchHeader()
 
   if (!header) {
@@ -235,14 +205,7 @@ export async function updateLeadTime(averageDate: number) {
   }
 }
 
-export async function getCareer() {
-  const header = await getFetchHeader()
-
-  if (!header) {
-    console.log('session not found')
-    return null
-  }
-
+export async function getCareer(partnerCode: string) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/career/${partnerCode}`,
     {
@@ -282,6 +245,8 @@ export async function addPartnerCareer(partnerCareer: PartnerCareerType) {
   } else {
     console.log('career add error', data)
   }
+
+  return null
 }
 
 export async function updatePartnerCareer(
@@ -358,5 +323,30 @@ export async function updateFavoriteStyle(styleId: number[]) {
     console.log(data)
   } else {
     console.log('favorite style update error', data)
+  }
+}
+
+export async function updatePartnerPrice(averagePrice: number) {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return
+  }
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/averagePrice`,
+    {
+      method: 'PUT',
+      headers: header,
+      body: JSON.stringify({ averagePrice }),
+    },
+  )
+
+  const data = await response.json()
+  if (data.isSuccess) {
+    revalidateTag('profile')
+  } else {
+    console.log('price update error', data)
   }
 }
