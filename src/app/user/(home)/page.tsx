@@ -28,6 +28,12 @@ export default async function UserHome() {
           <pre className="text-wrap">
             {JSON.stringify(session.user, null, 2)}
           </pre>
+          <Link
+            href="/user/coordinator/1/reqcoordi"
+            className="px-5 py-3 bg-green-500 text-white rounded-2xl"
+          >
+            코디 예약
+          </Link>
           <SignOutButton />
         </>
       ) : (

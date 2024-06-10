@@ -9,7 +9,6 @@ import {
 } from '@/utils/uploadImage'
 import SliderModal from '@/components/common/SliderModal'
 import { updatePartnerProfileImage } from '@/app/api/partner/PartnerProfile'
-
 export default function ProfileImage({
   profileImage,
 }: {

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-export default function SignInLogo() {
+export default function SignInLogo({ title }: { title?: string }) {
   return (
     <div className="flex flex-col items-center gap-2 bg-white w-full mb-14 mt-[45%]">
       <Image
@@ -11,7 +11,7 @@ export default function SignInLogo() {
         height={0}
         style={{ width: 'auto', height: 'auto' }}
       />
-      <span className="font-black text-xl">LOGIN</span>
+      <span className="font-black text-xl">{title}</span>
     </div>
   )
 }

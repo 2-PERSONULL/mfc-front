@@ -18,16 +18,14 @@ export default async function SignUp() {
           body: JSON.stringify(data),
         },
       )
+      // 회원가입 성공 & 실패 여부 toast 추가 필요
       const signUpResult = await signUpResponse.json()
       if (signUpResult.isSuccess) {
-        console.log('회원가입 성공')
         return signUpResult
       }
-      console.log('회원가입 실패')
       return null // or appropriate value
     } catch (error) {
-      console.log(error)
-      return null
+      return error
     }
   }
 
