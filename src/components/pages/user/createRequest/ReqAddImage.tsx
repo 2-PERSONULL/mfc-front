@@ -1,43 +1,49 @@
+'use client'
+
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import useToast from '@/stores/toast'
 import { uploadImage } from '@/utils/uploadImage'
+import useToast from '@/stores/toast'
 
-export default function ReqAddMyImage({
-  setMyImage,
+export default function ReqAddImage({
+  title,
+  id,
+  setImages,
 }: {
-  setMyImage?: (value: string[]) => void
+  title: string
+  id: string
+  setImages: (value: string[]) => void
 }) {
   const [count, setCount] = useState<number>(0)
-  const [myImgs, setMyImgs] = useState<string[]>([])
+  const [imgs, setImgs] = useState<string[]>([])
   const { showToast } = useToast()
-  const myImgRef = useRef<React.RefObject<HTMLImageElement>[]>([])
+  const imgRef = useRef<React.RefObject<HTMLImageElement>[]>([])
 
   useEffect(() => {
-    setMyImage?.(myImgs)
-  }, [myImgs])
+    setImages?.(imgs)
+  }, [imgs])
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
+    if (e.target.files) {
       const file = e.target.files[0]
-      const fileName = await uploadImage(file, 'my-image')
-      if (myImgs.includes(fileName)) {
+      const fileName = await uploadImage(file, 'reference')
+      if (imgs.includes(fileName)) {
         showToast({
           content: '이미 업로드된 이미지입니다.',
           type: 'warning',
         })
         return
       }
-      if (myImgs.length >= 3) {
+      if (imgs.length >= 3) {
         showToast({
           content: '이미지는 최대 3개까지 업로드할 수 있습니다.',
           type: 'warning',
         })
         return
       }
-      setMyImgs((prevImgs) => {
+      setImgs((prevImgs) => {
         const newImgs = [...prevImgs, fileName]
-        myImgRef.current = newImgs.map((_, i) => myImgRef.current[i] || null)
+        imgRef.current = newImgs.map((_, i) => imgRef.current[i] || null)
         return newImgs
       })
       setCount((prevCount) => prevCount + 1)
@@ -45,9 +51,9 @@ export default function ReqAddMyImage({
   }
 
   const handleDelete = (idx: number) => {
-    setMyImgs((prevImgs) => {
+    setImgs((prevImgs) => {
       const newImgs = prevImgs.filter((_, i) => i !== idx)
-      myImgRef.current = newImgs.map((_, i) => myImgRef.current[i] || null)
+      imgRef.current = newImgs.map((_, i) => imgRef.current[i] || null)
       return newImgs
     })
     setCount((prevCount) => prevCount - 1)
@@ -55,16 +61,18 @@ export default function ReqAddMyImage({
 
   return (
     <div>
-      <p className="text-xs pb-1">내 이미지 ({count}/3)</p>
+      <p className="text-xs pb-1">
+        {title} ({count}/3)
+      </p>
       <div className="flex-row flex items-center gap-1">
         <label
-          htmlFor="userImgFile"
+          htmlFor={id}
           className="w-28 min-h-24 py-10 rounded-lg border-dashed border-[2px] border-gray-600 flex items-center justify-center flex-shrink-0"
         >
           <p>+</p>
         </label>
         <input
-          id="userImgFile"
+          id={id}
           type="file"
           onChange={handleChange}
           accept="image/*"
@@ -72,14 +80,14 @@ export default function ReqAddMyImage({
           style={{ display: 'none' }}
         />
         <ul className="flex gap-2 justify-start overflow-x-scroll whitespace-nowrap">
-          {myImgs.map((img, idx) => (
+          {imgs.map((img, idx) => (
             <li key={idx} className="flex h-24 relative flex-shrink-0">
               <Image
                 src={img}
                 width={112}
                 height={96}
                 style={{ width: '112px', height: '96px' }}
-                alt="사용자 이미지"
+                alt="참고 스타일 이미지"
               />
               <button
                 type="button"

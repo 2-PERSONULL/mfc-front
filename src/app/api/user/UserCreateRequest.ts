@@ -14,8 +14,6 @@ export default async function createNewRequest({
     console.log('session not found')
     return
   }
-
-  // 500 에러 발생
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests`,
     {
@@ -25,7 +23,7 @@ export default async function createNewRequest({
         Authorization: `${header.Authorization}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ registerData }),
+      body: JSON.stringify(registerData),
     },
   )
   const data = await response.json()

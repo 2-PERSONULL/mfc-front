@@ -4,9 +4,22 @@ import React, { useState } from 'react'
 import CoordinationRequest from '../requestList/CoordinationRequest'
 import Modal from '@/components/common/Modal'
 import CreateNewRequest from '../requestList/CreateNewRequest'
+import useConfirmStore from '@/stores/confirm'
 
 export default function ReqListContent() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { openConfirmModal } = useConfirmStore()
+
+  const handleCloseModal = async () => {
+    if (isModalOpen) {
+      const confirm = await openConfirmModal({
+        content: `해당 페이지를 나가시겠습니까? \n 변경사항이 저장되지 않습니다.`,
+      })
+
+      if (confirm) setIsModalOpen(false)
+    }
+  }
+
   return (
     <>
       <div className="w-full min-h-screen">
@@ -26,10 +39,7 @@ export default function ReqListContent() {
         />
       </div>
       {isModalOpen && (
-        <Modal
-          title="신규 요청서 작성"
-          closeModal={() => setIsModalOpen(false)}
-        >
+        <Modal title="신규 요청서 작성" closeModal={handleCloseModal}>
           <CreateNewRequest />
         </Modal>
       )}

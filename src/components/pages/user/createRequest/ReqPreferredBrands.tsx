@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import TagBadge from '@/components/ui/TagBadge'
 import useToast from '@/stores/toast'
@@ -61,7 +63,7 @@ export default function ReqPreferredStyle({
         onKeyDown={(e: React.KeyboardEvent) => activeEnter(e)}
         className="pl-2 border border-black w-full py-1 rounded-lg"
       />
-      <div className="max-h-[50px] overflow-y-auto">
+      <div className="mt-2 max-h-[50px] overflow-y-auto">
         <div className="flex flex-wrap w-full h-auto">
           {tags.map((tag, index) => (
             <TagBadge key={index} word={tag} removeTag={removeTag} />

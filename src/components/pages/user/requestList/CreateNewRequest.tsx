@@ -9,10 +9,9 @@ import ReqCodiSituation from '../createRequest/ReqCodiSituation'
 import ReqPreferredBrands from '../createRequest/ReqPreferredBrands'
 import ReqCodiOptions from '../createRequest/ReqCodiOptions'
 import ReqCodiBudget from '../createRequest/ReqCodiBudget'
-import ReqAddRefImage from '../createRequest/ReqAddRefImage'
-import ReqAddMyImage from '../createRequest/ReqAddMyImage'
+import ReqAddImage from '../createRequest/ReqAddImage'
 import ReqAddInfo from '../createRequest/ReqAddInfo'
-import createNewRequest from '@/app/api/user/UserRequest'
+import createNewRequest from '@/app/api/user/UserCreateRequest'
 
 export default function CreateNewRequest() {
   const { showToast } = useToast()
@@ -69,7 +68,6 @@ export default function CreateNewRequest() {
       })
       return null
     }
-    // 500 에러 발생
     const data = createNewRequest({ registerData })
     console.log(data)
     return data
@@ -107,13 +105,17 @@ export default function CreateNewRequest() {
           setRegisterData((prev) => ({ ...prev, budget: value }))
         }
       />
-      <ReqAddRefImage
-        setRefImages={(value: string[]) =>
+      <ReqAddImage
+        title="참고 스타일"
+        id="refImgFile"
+        setImages={(value: string[]) =>
           setRegisterData((prev) => ({ ...prev, referenceImages: value }))
         }
       />
-      <ReqAddMyImage
-        setMyImage={(value: string[]) =>
+      <ReqAddImage
+        title="내 이미지"
+        id="userImgFile"
+        setImages={(value: string[]) =>
           setRegisterData((prev) => ({ ...prev, myImages: value }))
         }
       />

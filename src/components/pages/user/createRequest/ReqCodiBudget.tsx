@@ -9,8 +9,8 @@ export default function ReqCodiBudget({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const replacedValue = Number(e.target.value.replace(/,/g, ''))
-    setBudget(Number(replacedValue))
-    setValue(Number(replacedValue))
+    setBudget(replacedValue)
+    setValue(replacedValue)
   }
   return (
     <div>
