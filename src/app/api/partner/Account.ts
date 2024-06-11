@@ -1,12 +1,13 @@
 'use server'
 
+import getFetchHeader from '@/utils/getFetchHeader'
+
 // access-token 발급 api
 export async function getAccessToken() {
   try {
     const response = await fetch(`https://api.iamport.kr/users/getToken`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer df7e11eae087d3d91ded0c6c70522b50ae9efd72`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -56,6 +57,35 @@ export async function getAccountRealName(account: string, bankCode: string) {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
+      },
+    )
+
+    const result = await response.json()
+    return result
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+// 정산 계좌 정보 저장 API
+export async function saveAccountInfo(account: string, bankCode: string) {
+  const header = await getFetchHeader()
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/account`,
+      {
+        method: 'PUT',
+        headers: header,
+        body: JSON.stringify({
+          bank: bankCode,
+          account,
+        }),
       },
     )
 

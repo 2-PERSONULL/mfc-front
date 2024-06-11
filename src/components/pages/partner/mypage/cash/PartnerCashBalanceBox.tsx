@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function PartnerCashBalanceBox() {
   return (
@@ -15,12 +16,14 @@ export default function PartnerCashBalanceBox() {
         <Image src="/icons/pig.svg" width={120} height={120} alt="cash" />
       </div>
       <div className="flex justify-center mb-4">
-        <button
-          type="button"
-          className="bg-black w-[80vw] h-[50px] rounded-full text-[17px] text-white font-bold"
-        >
-          환전하기
-        </button>
+        <Link href="/partner/mypage/cash/exchange">
+          <button
+            type="button"
+            className="bg-black w-[80vw] h-[50px] rounded-full text-[17px] text-white font-bold"
+          >
+            환전하기
+          </button>
+        </Link>
       </div>
     </div>
   )

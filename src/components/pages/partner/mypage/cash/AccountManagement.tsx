@@ -6,7 +6,7 @@ import RightArrowIcon from '@/components/ui/icons/RightArrowIcon'
 import FormLabel from '@/components/ui/input/FormLabel'
 import BankList from '@/components/pages/partner/mypage/cash/BankList'
 import useToast from '@/stores/toast'
-import { getAccountRealName } from '@/app/api/partner/Account'
+import { getAccountRealName, saveAccountInfo } from '@/app/api/partner/Account'
 import LoadingModal from '@/components/common/LoadingModal'
 import BottomFixedSubmitButton from '@/components/ui/button/BottomFixedSubmitButton'
 
@@ -55,10 +55,19 @@ export default function AccountManagement({
       const holder = result.response.bank_holder
       if (holder === name) {
         // 파트너 정산 계좌 정보 저장 API 호출
-        router.replace('/partner/mypage/cash')
+        const res = await saveAccountInfo(bankAccount, selectedBank.code)
+        if (res.isSuccess) {
+          showToast({
+            content: '저장되었습니다',
+            type: 'success',
+          })
+          router.replace('/partner/mypage/cash')
+          return
+        }
+
         showToast({
-          content: '저장되었습니다',
-          type: 'success',
+          content: '서버에 오류가 발생했습니다.',
+          type: 'warning',
         })
         return
       }
