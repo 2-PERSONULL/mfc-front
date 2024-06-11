@@ -3,18 +3,18 @@
 import React, { useState } from 'react'
 import useToast from '@/stores/toast'
 import { RequestType } from '@/types/requestType'
-import RequestTitle from '../createRequest/RequestTitle'
-import RequestDetail from '../createRequest/RequestDetail'
-import ReqCodiSituation from '../createRequest/ReqCodiSituation'
-import ReqPreferredBrands from '../createRequest/ReqPreferredBrands'
-import ReqCodiOptions from '../createRequest/ReqCodiOptions'
-import ReqCodiBudget from '../createRequest/ReqCodiBudget'
-import ReqAddImage from '../createRequest/ReqAddImage'
-import ReqAddInfo from '../createRequest/ReqAddInfo'
+import RequestTitle from './RequestTitle'
+import RequestDetail from './RequestContents'
+import ReqCodiSituation from './ReqCodiSituation'
+import ReqPreferredBrands from './ReqPreferredBrands'
+import ReqCodiOptions from './ReqCodiOptions'
+import ReqCodiBudget from './ReqCodiBudget'
+import ReqAddImage from './ReqAddImage'
+import ReqAddInfo from './ReqAddInfo'
 import createNewRequest from '@/app/api/user/UserCreateRequest'
 import useConfirmStore from '@/stores/confirm'
 
-export default function CreateNewRequest({
+export default function CreateModifyRequest({
   setIsModalOpen,
 }: {
   setIsModalOpen: (value: boolean) => void

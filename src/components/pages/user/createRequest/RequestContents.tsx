@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function RequestDetail({
+export default function RequestContents({
   setDetail,
 }: {
   setDetail: (value: string) => void

@@ -1,6 +1,6 @@
 import React from 'react'
-import ReqListContent from '@/components/pages/user/reqCoordi/ReqListContent'
+import ReqListContents from '@/components/pages/user/reqCoordi/ReqListContents'
 
 export default function ReqList() {
-  return <ReqListContent />
+  return <ReqListContents />
 }
