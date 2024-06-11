@@ -20,6 +20,7 @@ const config: Config = {
     },
     extend: {
       colors: {
+        'primary-pink': '#FF4893',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
