@@ -67,7 +67,7 @@ export default function ReqAddImage({
       <div className="flex-row flex items-center gap-1">
         <label
           htmlFor={id}
-          className="w-28 min-h-24 py-10 rounded-lg border-dashed border-[2px] border-gray-600 flex items-center justify-center flex-shrink-0"
+          className="w-28 min-h-[110px] py-10 rounded-lg border-dashed border-[2px] border-gray-600 flex items-center justify-center flex-shrink-0"
         >
           <p>+</p>
         </label>
@@ -85,8 +85,8 @@ export default function ReqAddImage({
               <Image
                 src={img}
                 width={112}
-                height={96}
-                style={{ width: '112px', height: '96px' }}
+                height={110}
+                style={{ width: '112px', height: '110px' }}
                 alt="참고 스타일 이미지"
               />
               <button
