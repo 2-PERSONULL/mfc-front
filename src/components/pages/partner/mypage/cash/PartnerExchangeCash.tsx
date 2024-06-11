@@ -29,6 +29,11 @@ export default function PartnerExchangeCash() {
 
   const deleteHandler = () => {
     if (amount === null) return
+    const newAmount = Math.floor(amount / 10)
+    if (newAmount === 0) {
+      setAmount(null)
+      return
+    }
     setAmount(Math.floor(amount / 10))
   }
 
@@ -50,16 +55,28 @@ export default function PartnerExchangeCash() {
       </div>
 
       <div className="flex items-center justify-between bg-white px-6">
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
           <div className="text-sm font-medium text-gray-500">
-            내 계좌로 얼마나 환전할까요?
+            내 정산 계좌로
           </div>
-          {/* <input
-            type="text"
-            inputMode="none"
-            value={amount?.toLocaleString()}
-            className="h-[50px] border-b focus:outline-none text-2xl"
-          /> */}
+          {amount ? (
+            <div className="h-[50px] text-2xl w-[60vw] font-semibold">
+              {amount ? `${amount.toLocaleString()} 원` : ''}
+            </div>
+          ) : (
+            <input
+              type="text"
+              inputMode="none"
+              placeholder="얼마나 환전할까요?"
+              className="h-[50px] focus:outline-none text-2xl w-[60vw] font-semibold"
+            />
+          )}
+          {amount && (
+            <div className="bg-gray-300">
+              수수료 10%제외 환전 금액
+              <span>{(amount * 0.9).toLocaleString()}원</span>
+            </div>
+          )}
         </div>
       </div>
 
