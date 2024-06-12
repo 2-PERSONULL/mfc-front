@@ -12,6 +12,7 @@ import PreferredStyle from '@/components/pages/auth/signUp/preferredStyle/Prefer
 import ChooseRole from '@/components/pages/auth/signUp/role/ChooseRole'
 import UserBirthAndGender from '@/components/pages/auth/signUp/birthAndGender/UserBirthAndGender'
 import { SignUpType } from '@/types/signupTypes'
+import ProgressBar from '@/components/ui/progress/ProgressBar'
 
 export default function SignUpFunnel({
   submit,
@@ -73,10 +74,9 @@ export default function SignUpFunnel({
 
   return (
     <form onSubmit={handleSubmit}>
-      <progress
+      <ProgressBar
         className="progress w-full absolute top-10"
-        value={handleProgressBar()}
-        max="100"
+        value={Number(handleProgressBar(), 10)}
       />
       {step === 'TermsOfUseAccept' && (
         <TermsOfUseAccept clickHandler={() => setStep('UserName')} />

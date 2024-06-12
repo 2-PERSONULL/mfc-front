@@ -27,16 +27,18 @@ export default function ReqAddImage({
     if (e.target.files) {
       const file = e.target.files[0]
       const fileName = await uploadImage(file, 'reference')
-      if (imgs.includes(fileName)) {
+      if (imgs.length >= 3) {
+        e.preventDefault()
         showToast({
-          content: '이미 업로드된 이미지입니다.',
+          content: '이미지는 최대 3개까지 업로드할 수 있습니다.',
           type: 'warning',
         })
         return
       }
-      if (imgs.length >= 3) {
+      if (imgs.includes(fileName)) {
+        e.preventDefault()
         showToast({
-          content: '이미지는 최대 3개까지 업로드할 수 있습니다.',
+          content: '이미 업로드된 이미지입니다.',
           type: 'warning',
         })
         return
@@ -84,9 +86,9 @@ export default function ReqAddImage({
             <li key={idx} className="flex h-24 relative flex-shrink-0">
               <Image
                 src={img}
-                width={112}
-                height={110}
-                style={{ width: '112px', height: '110px' }}
+                width={100}
+                height={96}
+                style={{ width: '100px', height: '96px' }}
                 alt="참고 스타일 이미지"
               />
               <button
