@@ -55,7 +55,7 @@ export default function StyleGuideTabs({
   }, [tabs])
 
   return (
-    <div className="flex h-[60px] bg-[#ececec]">
+    <div className="flex h-[60px] bg-[#ececec] z-[100]">
       <ul
         ref={tabsContainerRef}
         className="flex h-full flex-nowrap items-end overflow-x-auto no-scrollbar"
