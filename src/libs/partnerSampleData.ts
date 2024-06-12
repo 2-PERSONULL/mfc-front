@@ -106,4 +106,84 @@ const partnerSnsData = [
   },
 ]
 
-export { partnerImageList, partnerSnsData }
+const cashHistorySampleData = [
+  {
+    id: 1,
+    dateTime: '01:00',
+    type: 'add',
+    amount: 10000,
+    description: '코디완료',
+  },
+  {
+    id: 2,
+    dateTime: '01:00',
+    type: 'add',
+    amount: 10000,
+    description: '코디완료',
+  },
+  {
+    id: 3,
+    dateTime: '01:00',
+    type: 'add',
+    amount: 10000,
+    description: '코디완료',
+  },
+  {
+    id: 4,
+    dateTime: '01:00',
+    type: 'calculation',
+    amount: 10000,
+    description: '환전',
+  },
+  {
+    id: 5,
+    dateTime: '01:00',
+    type: 'calculation',
+    amount: 10000,
+    description: '환전',
+  },
+  {
+    id: 6,
+    dateTime: '01:00',
+    type: 'calculation',
+    amount: 10000,
+    description: '코디완료',
+  },
+  {
+    id: 7,
+    dateTime: '01:00',
+    type: 'calculation',
+    amount: 10000,
+    description: '코디완료',
+  },
+  {
+    id: 8,
+    dateTime: '01:00',
+    type: 'calculation',
+    amount: 10000,
+    description: '코디완료',
+  },
+  {
+    id: 9,
+    dateTime: '01:00',
+    type: 'calculation',
+    amount: 10000,
+    description: '코디완료',
+  },
+  {
+    id: 10,
+    dateTime: '01:00',
+    type: 'calculation',
+    amount: 10000,
+    description: '코디완료',
+  },
+  {
+    id: 11,
+    dateTime: '01:00',
+    type: 'calculation',
+    amount: 10000,
+    description: '코디완료',
+  },
+]
+
+export { partnerImageList, partnerSnsData, cashHistorySampleData }
