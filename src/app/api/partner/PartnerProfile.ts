@@ -2,7 +2,7 @@
 
 import { revalidateTag } from 'next/cache'
 import { PartnerSnsType, PartnerCareerType } from '@/types/partnerProfileTypes'
-import getFetchHeader from '@/utils/getFetchHeader'
+import { getFetchHeader, getPartnerIdHeader } from '@/utils/getFetchHeader'
 
 export async function getPartnerProfileBasic() {
   const header = await getFetchHeader()
@@ -56,12 +56,18 @@ export async function updatePartnerProfileImage(image: string) {
   }
 }
 
-export async function getSnsData(partnerCode: string) {
+export async function getSnsData(partnerCode?: string) {
+  const header = await getPartnerIdHeader(partnerCode)
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/sns/${partnerCode}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/sns`,
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: header,
         next: { tags: ['sns'] },
       },
     )
@@ -106,8 +112,9 @@ export async function updateSnsData(snsList: PartnerSnsType[]) {
   return null
 }
 
-export async function getPartnerProfile(partnerCode: string) {
-  const header = await getFetchHeader()
+export async function getPartnerProfile(partnerCode?: string) {
+  console.log(partnerCode)
+  const header = await getPartnerIdHeader()
 
   if (!header) {
     console.log('session not found')
@@ -115,7 +122,7 @@ export async function getPartnerProfile(partnerCode: string) {
   }
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/${partnerCode}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners`,
     {
       headers: header,
       next: { tags: ['profile'] },
@@ -123,6 +130,7 @@ export async function getPartnerProfile(partnerCode: string) {
   )
 
   const data = await response.json()
+  console.log(data)
   if (data.isSuccess) {
     return data.result
   }
@@ -205,11 +213,17 @@ export async function updateLeadTime(averageDate: number) {
   }
 }
 
-export async function getCareer(partnerCode: string) {
+export async function getCareer(partnerCode?: string) {
+  const header = await getPartnerIdHeader(partnerCode)
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/career/${partnerCode}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/career`,
     {
-      headers: { 'Content-Type': 'application/json' },
+      headers: header,
       next: { tags: ['career'] },
     },
   )

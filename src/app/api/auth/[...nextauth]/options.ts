@@ -15,7 +15,7 @@ export const options: NextAuthOptions = {
         try {
           if (!credentials?.email || !credentials.password) return null
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/auth/signin`,
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth-service/auth/signin`,
             {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -53,7 +53,6 @@ export const options: NextAuthOptions = {
           uuid: token.uuid,
           accessToken: `Bearer ${token.accessToken}`,
           refreshToken: `${token.refreshToken}`,
-          partnerCode: token.partnerCode,
         },
       }
       return updatedSession

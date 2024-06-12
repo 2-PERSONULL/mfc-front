@@ -46,7 +46,9 @@ export default function PartnerPrice({
         <Modal title="코디 평균가" closeModal={() => setIsModalOpen(false)}>
           <div className="m-5">
             <h1 className="font-semibold">
-              파트너님의 코디 평균가를 등록해주세요.
+              {averagePrice
+                ? averagePrice.toLocaleString()
+                : '파트너님의 코디 평균가를 등록해주세요.'}
             </h1>
 
             <div className="flex flex-wrap relative w-full  items-center">
