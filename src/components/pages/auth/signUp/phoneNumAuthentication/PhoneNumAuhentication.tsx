@@ -3,17 +3,18 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
-// import SeperatedBeforeAfterButton from '@/components/ui/button/SeperatedBeforeAfterButton'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
+import useToast from '@/stores/toast'
+import FormInput from '@/components/ui/input/FormInput'
 
 export default function PhoneNumAuthentication({
   clickHandler,
 }: {
   clickHandler: (data: string) => void
 }) {
+  const { showToast } = useToast()
   const [second, setSecond] = useState(0)
   const [minutes, setMinutes] = useState(5)
-  const [error, setError] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [requestSMS, setRequestSMS] = useState(false)
   const [verificationCode, setVerificationCode] = useState('')
@@ -37,20 +38,29 @@ export default function PhoneNumAuthentication({
     return () => {
       clearInterval(timer)
     }
-  })
+  }, [requestSMS, minutes, second])
 
   const phoneNumberRegex = /^010[0-9]{4}[0-9]{4}$/
 
   const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!phoneNumberRegex.test(phoneNumber)) {
       e.preventDefault()
-      setError('**전화번호 형식에 맞게 다시 입력해주세요.**')
+      showToast({
+        content: '전화번호 형식에 맞게 입력해주세요.',
+        type: 'warning',
+      })
     } else if (!isVerified) {
       e.preventDefault()
-      setError('**휴대전화 인증이 필요합니다.**')
+      showToast({
+        content: '휴대전화 인증번호가 필요합니다.',
+        type: 'warning',
+      })
     } else if (phoneNumber.length === 0) {
       e.preventDefault()
-      setError('**전화번호를 입력해주세요.**')
+      showToast({
+        content: '전화번호를 입력해주세요.',
+        type: 'warning',
+      })
     } else if (isVerified && phoneNumber.length > 0) {
       clickHandler(phoneNumber)
     }
@@ -58,7 +68,7 @@ export default function PhoneNumAuthentication({
 
   const handlePhoneNumSubmit = async () => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/auth/sms/send`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth-service/auth/sms/send`,
       {
         method: 'POST',
         headers: {
@@ -71,17 +81,24 @@ export default function PhoneNumAuthentication({
     const data = await response.json()
     if (data.isSuccess) {
       console.log('인증번호 발송 성공')
+      showToast({
+        content: '인증번호 발송 성공. 문자메시지를 확인해주세요.',
+        type: 'success',
+      })
       setRequestSMS(true)
     } else {
       setRequestSMS(false)
       console.log('인증번호 발송 실패')
-      setError(`**${data.message}**`)
+      showToast({
+        content: `${data.message}`,
+        type: 'warning',
+      })
     }
   }
 
   const handleVerifyAuthCode = async () => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/auth/sms/verify`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth-service/auth/sms/verify`,
       {
         method: 'POST',
         headers: {
@@ -94,25 +111,34 @@ export default function PhoneNumAuthentication({
     const data = await response.json()
     if (data.isSuccess) {
       console.log('인증번호 확인 성공')
+      showToast({
+        content: '인증번호 확인 성공',
+        type: 'success',
+      })
       setIsVerified(true)
     } else {
       console.log('인증번호 확인 실패')
       setIsVerified(false)
-      setError(`**${data.message}**`)
+      showToast({
+        content: `${data.message}`,
+        type: 'warning',
+      })
     }
   }
 
   return (
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
       <SignUpTitle comment="휴대전화번호를 입력해주세요." />
-      <div className="grid  mt-8">
+      <div className="grid  mt-8 gap-3">
         <div className="flex items-center justify-end">
-          <input
+          <FormInput
+            disabled={requestSMS}
             type="text"
-            placeholder="전화번호를 입력하세요."
             value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            className="input input-bordered w-full rounded-full border-black"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPhoneNumber(e.target.value)
+            }
+            placeholder="전화번호를 입력하세요."
           />
           {requestSMS ? (
             <p className="absolute px-5 py-1 text-black font-bold">
@@ -134,61 +160,46 @@ export default function PhoneNumAuthentication({
             </button>
           )}
         </div>
-        {error && (
-          <p className="text-red-500 font-bold text-xs text-center">{error}</p>
-        )}
-        {requestSMS && (
-          <p className="text-blue-500 font-bold text-xs text-center">
-            인증번호가 발송되었습니다.
-          </p>
-        )}
         {requestSMS ? (
           <div className="flex items-center justify-end">
-            <input
+            <FormInput
+              disabled={isVerified}
               type="text"
-              placeholder="인증번호를 입력하세요."
               value={verificationCode}
               onChange={(e) => setVerificationCode(e.target.value)}
-              className="mt-5 input input-bordered w-full rounded-full border-black"
+              placeholder="인증번호를 입력하세요."
             />
-            {/* {minutes === 0 && second === 0 ? (
+            {minutes === 0 && second === 0 ? (
               <span className="absolute mr-3 mt-5">❌</span>
-            ) : ( */}
-            <div className="flex items-center justify-end">
-              {isVerified ? (
-                <p className="absolute px-5 pt-5 text-black font-bold">
-                  <Image
-                    style={{ width: 'auto', height: 'auto' }}
-                    width={0}
-                    height={0}
-                    alt="check-icon"
-                    src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/check.svg"
-                  />
-                </p>
-              ) : (
-                <>
-                  <span className="countdown absolute pr-14 pt-5">
-                    <span
-                      className="text-gray-600"
-                      style={{ '--value': `${minutes}` } as React.CSSProperties}
+            ) : (
+              <div className="flex items-center justify-end">
+                {isVerified ? (
+                  <p className="absolute px-5 text-black font-bold">
+                    <Image
+                      style={{ width: 'auto', height: 'auto' }}
+                      width={0}
+                      height={0}
+                      alt="check-icon"
+                      src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/check.svg"
                     />
-                    :
-                    <span
-                      className="text-gray-600"
-                      style={{ '--value': `${second}` } as React.CSSProperties}
-                    />
-                  </span>
-                  <button
-                    type="button"
-                    onClick={handleVerifyAuthCode}
-                    className="absolute px-5 pt-5 font-bold"
-                  >
-                    확인
-                  </button>
-                </>
-              )}
-            </div>
-            {/* )} */}
+                  </p>
+                ) : (
+                  <>
+                    <div className="absolute pr-14">
+                      <span className="text-gray-600">{minutes}</span>:
+                      <span className="text-gray-600">{second}</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleVerifyAuthCode}
+                      className="absolute px-5 font-bold"
+                    >
+                      확인
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         ) : null}
       </div>

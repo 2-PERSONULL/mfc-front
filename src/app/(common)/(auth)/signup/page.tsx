@@ -1,5 +1,4 @@
 import React from 'react'
-// import { signIn } from 'next-auth/react'
 import SignUpFunnel from '@/components/pages/auth/signUp/SignUpFunnel'
 import { SignUpType } from '@/types/signupTypes'
 
@@ -23,6 +22,7 @@ export default async function SignUp() {
       if (signUpResult.isSuccess) {
         return signUpResult
       }
+      console.log(signUpResult)
       return null // or appropriate value
     } catch (error) {
       return error

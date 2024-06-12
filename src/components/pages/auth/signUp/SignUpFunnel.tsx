@@ -75,8 +75,8 @@ export default function SignUpFunnel({
   return (
     <form onSubmit={handleSubmit}>
       <ProgressBar
-        className="progress w-full absolute top-10"
-        value={Number(handleProgressBar(), 10)}
+        className="w-[100%] absolute top-10 left-0 h-3 rounded-none"
+        value={parseInt(handleProgressBar(), 10)}
       />
       {step === 'TermsOfUseAccept' && (
         <TermsOfUseAccept clickHandler={() => setStep('UserName')} />
