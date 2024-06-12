@@ -7,12 +7,12 @@ export default function PartnerCashMenu() {
     {
       id: 1,
       title: '적립 내역',
-      url: '/partner/mypage/cash/history',
+      url: '/partner/mypage/cash/history/add',
     },
     {
       id: 2,
       title: '환전 내역',
-      url: '/partner/mypage/cash/exchange',
+      url: '/partner/mypage/cash/history/exchange',
     },
     {
       id: 3,

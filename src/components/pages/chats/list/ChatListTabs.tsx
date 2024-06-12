@@ -15,7 +15,7 @@ export default function ChatListTabs() {
   }
 
   return (
-    <div className="w-full sticky top-[60px] z-[200] bg-white px-3">
+    <div className="w-full sticky top-[60px] z-[100] bg-white px-3">
       <div className="flex w-full text-[16px] py-6 justify-evenly bg-white">
         {tabs.map((tab) => (
           <Link

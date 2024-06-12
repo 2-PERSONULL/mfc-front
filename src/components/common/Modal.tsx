@@ -13,7 +13,7 @@ function Modal({
   closeModal: () => void
 }) {
   return (
-    <div className="bg-white fixed z-[100] top-0 left-0 w-full h-full overflow-y-scroll overscroll-none">
+    <div className="bg-white fixed z-[201] top-0 left-0 w-full h-full overflow-y-scroll overscroll-none">
       <div
         className={`h-[50px] py-[11px] justify-center z-[300] bg-white font-Pretendard flex sticky top-0 "
             }`}

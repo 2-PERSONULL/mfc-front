@@ -18,11 +18,6 @@ const PartnerMyPageMenuData: MenuType[] = [
   },
   {
     id: 4,
-    title: '가격 관리',
-    url: '/partner/mypage/price',
-  },
-  {
-    id: 5,
     title: '정산 관리',
     url: '/partner/mypage/cash',
   },
