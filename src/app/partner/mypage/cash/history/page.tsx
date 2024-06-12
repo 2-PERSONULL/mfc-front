@@ -2,17 +2,10 @@ import React from 'react'
 import GoBackHeader from '@/components/layouts/GoBackHeader'
 import PartnerCashHistory from '@/components/pages/partner/mypage/cash/PartnerCashHistory'
 
-export default function PartnerCashHistoryPage({
-  params,
-}: {
-  params: { type: string }
-}) {
-  const { type } = params
+export default function PartnerCashHistoryPage() {
   return (
     <div>
-      <GoBackHeader
-        title={`${type === 'add' ? '적립 내역 조회' : '환전 내역 조회'}`}
-      />
+      <GoBackHeader title="이용내역조회" />
       <PartnerCashHistory />
     </div>
   )

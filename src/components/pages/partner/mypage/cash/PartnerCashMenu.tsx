@@ -6,16 +6,12 @@ export default function PartnerCashMenu() {
   const menuData = [
     {
       id: 1,
-      title: '적립 내역',
-      url: '/partner/mypage/cash/history/add',
+      title: '이용내역조회',
+      url: '/partner/mypage/cash/history',
     },
+
     {
       id: 2,
-      title: '환전 내역',
-      url: '/partner/mypage/cash/history/exchange',
-    },
-    {
-      id: 3,
       title: '정산 계좌 관리',
       url: '/partner/mypage/cash/account',
     },
