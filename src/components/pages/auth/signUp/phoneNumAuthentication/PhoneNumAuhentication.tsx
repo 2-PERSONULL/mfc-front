@@ -132,6 +132,7 @@ export default function PhoneNumAuthentication({
       <div className="grid  mt-8 gap-3">
         <div className="flex items-center justify-end">
           <FormInput
+            inputmode="tel"
             disabled={requestSMS}
             type="text"
             value={phoneNumber}
@@ -163,6 +164,8 @@ export default function PhoneNumAuthentication({
         {requestSMS ? (
           <div className="flex items-center justify-end">
             <FormInput
+              autocomplete="one-time-code"
+              inputmode="numeric"
               disabled={isVerified}
               type="text"
               value={verificationCode}
@@ -170,7 +173,7 @@ export default function PhoneNumAuthentication({
               placeholder="인증번호를 입력하세요."
             />
             {minutes === 0 && second === 0 ? (
-              <span className="absolute mr-3 mt-5">❌</span>
+              <span className="absolute mr-3">❌</span>
             ) : (
               <div className="flex items-center justify-end">
                 {isVerified ? (
@@ -187,7 +190,9 @@ export default function PhoneNumAuthentication({
                   <>
                     <div className="absolute pr-14">
                       <span className="text-gray-600">{minutes}</span>:
-                      <span className="text-gray-600">{second}</span>
+                      <span className="text-gray-600">
+                        {String(second).padStart(2, '0')}
+                      </span>
                     </div>
                     <button
                       type="button"

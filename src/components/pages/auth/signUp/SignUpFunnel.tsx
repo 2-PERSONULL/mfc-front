@@ -13,6 +13,7 @@ import ChooseRole from '@/components/pages/auth/signUp/role/ChooseRole'
 import UserBirthAndGender from '@/components/pages/auth/signUp/birthAndGender/UserBirthAndGender'
 import { SignUpType } from '@/types/signupTypes'
 import ProgressBar from '@/components/ui/progress/ProgressBar'
+import useToast from '@/stores/toast'
 
 export default function SignUpFunnel({
   submit,
@@ -20,6 +21,7 @@ export default function SignUpFunnel({
   submit: (data: SignUpType) => void
 }) {
   const router = useRouter()
+  const { showToast } = useToast()
   const [registerData, setRegisterData] = useState<SignUpType>({
     name: '',
     email: '',
@@ -70,6 +72,10 @@ export default function SignUpFunnel({
     event.preventDefault()
     submit(registerData)
     router.push('/signin')
+    showToast({
+      content: '회원가입이 완료되었습니다. ',
+      type: 'success',
+    })
   }
 
   return (

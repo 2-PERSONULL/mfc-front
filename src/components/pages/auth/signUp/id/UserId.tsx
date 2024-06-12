@@ -42,7 +42,17 @@ export default function UserId({
     }
   }
 
-  const handleIdDoubleCheck = async () => {
+  const handleIdDoubleCheck = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    if (!emailRegex.test(value)) {
+      e.preventDefault()
+      showToast({
+        content: '이메일 형식에 맞게 다시 입력해주세요.',
+        type: 'warning',
+      })
+      return
+    }
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth-service/auth/email/${value}`,
       {
@@ -54,19 +64,19 @@ export default function UserId({
     )
 
     const data = await response.json()
-    if (data.result) {
+    if (data.result === undefined) {
+      setIsEmailValid(false)
+      setIsDoubleCheck(false)
+      showToast({
+        content: '다시 시도해주세요.',
+        type: 'warning',
+      })
+    } else {
       setIsEmailValid(true)
       setIsDoubleCheck(true)
       showToast({
         content: '사용 가능한 이메일입니다.',
         type: 'success',
-      })
-    } else {
-      setIsEmailValid(false)
-      setIsDoubleCheck(false)
-      showToast({
-        content: '이미 사용중인 이메일입니다.',
-        type: 'warning',
       })
     }
   }
@@ -76,6 +86,7 @@ export default function UserId({
       <SignUpTitle comment="아이디를 입력해주세요." />
       <div className="flex items-center justify-end mt-8">
         <FormInput
+          inputmode="email"
           disabled={isDoubleCheck}
           type="email"
           value={value}
@@ -102,11 +113,6 @@ export default function UserId({
           </button>
         )}
       </div>
-      {/* {isEmailValid && error ? (
-        <p className="text-blue-500 font-bold text-xs text-center">{error}</p>
-      ) : (
-        <p className="text-red-500 font-bold text-xs text-center">{error}</p>
-      )} */}
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">
         <StretchedRoundedButton comment="다음으로" clickHandler={handleNext} />
       </div>

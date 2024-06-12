@@ -44,7 +44,7 @@ export default function CommonSelectBox({
         <RightArrowIcon width={10} height={10} rotate="90" color="gray" />
       </button>
       {openSelectBox && (
-        <ul className="absolute bg-white border border-gray-300 rounded-[5px] mt-[5px] h-[200px] w-full z-10 overflow-y-scroll">
+        <ul className="absolute bg-white border border-gray-300 rounded-[5px] mt-[5px] h-fit max-h-[200px] w-full z-10 overflow-y-scroll">
           {optionList.map((option, index) => (
             <li key={index}>
               <button

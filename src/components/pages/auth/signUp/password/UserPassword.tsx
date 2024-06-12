@@ -23,8 +23,8 @@ export default function UserPassword({
 
   const handleNext = () => {
     if (
-      password.length > 0 ||
-      checkPassword.length > 0 ||
+      password.length === 0 ||
+      checkPassword.length === 0 ||
       !isValidPs ||
       !isSamePs
     ) {

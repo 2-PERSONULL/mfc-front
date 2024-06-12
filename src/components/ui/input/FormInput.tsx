@@ -8,6 +8,7 @@ interface InputProps {
   rounded?: string
   disabled?: boolean
   autocomplete?: string
+  required?: boolean
   inputmode?:
     | 'search'
     | 'email'
@@ -28,9 +29,11 @@ export default function FormInput({
   disabled,
   inputmode,
   autocomplete,
+  required,
 }: InputProps) {
   return (
     <input
+      required={required}
       autoComplete={autocomplete}
       inputMode={inputmode}
       disabled={disabled}

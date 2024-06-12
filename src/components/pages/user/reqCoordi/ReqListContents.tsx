@@ -33,7 +33,7 @@ export default function ReqListContents() {
           >
             요청서 조회
           </button>
-          <p className="text-red-500 font-bold">UI 수정될 예정임</p>
+          <p className="text-red-500 font-bold">*UI 수정될 예정임*</p>
           <button
             type="button"
             onClick={() => setA(true)}

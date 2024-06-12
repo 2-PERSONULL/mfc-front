@@ -3,6 +3,8 @@
 import React, { useState } from 'react'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
+import FormInput from '@/components/ui/input/FormInput'
+import useToast from '@/stores/toast'
 // import SeperatedBeforeAfterButton from '@/components/ui/button/SeperatedBeforeAfterButton'
 
 export default function UserNickname({
@@ -10,23 +12,37 @@ export default function UserNickname({
 }: {
   clickHandler: (data: string) => void
 }) {
-  const [error, setError] = useState('')
+  const { showToast } = useToast()
   const [value, setValue] = useState('')
   const [isNicknameValid, setIsNicknameValid] = useState(false)
 
-  const handleNext = () => {
+  const handleNext = (e: React.FormEvent) => {
     if (value.length < 2) {
-      setError('**활동명은 최소 2자 이상 입력해주세요.**')
+      e.preventDefault()
+      showToast({
+        content: '활동명은 최소 2자 이상 입력해주세요.',
+        type: 'warning',
+      })
     } else if (!isNicknameValid) {
-      setError('**이미 사용중인 활동명입니다.**')
+      e.preventDefault()
+      showToast({
+        content: '닉네임 중복 확인을 진행해주세요.',
+        type: 'warning',
+      })
     } else {
       clickHandler(value)
     }
   }
 
-  const handleNicknameDoubleCheck = async () => {
+  const handleNicknameDoubleCheck = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     if (value.length < 2) {
-      setError('**활동명은 최소 2자 이상 입력해주세요.**')
+      e.preventDefault()
+      showToast({
+        content: '활동명은 최소 2자 이상 입력해주세요.',
+        type: 'warning',
+      })
     } else {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/auth/nickname/${value}`,
@@ -41,10 +57,16 @@ export default function UserNickname({
       const data = await response.json()
       if (data.result) {
         setIsNicknameValid(true)
-        setError('**사용 가능한 활동명입니다.**')
+        showToast({
+          content: '사용 가능한 활동명입니다.',
+          type: 'success',
+        })
       } else {
         setIsNicknameValid(false)
-        setError('**이미 사용중인 활동명입니다.**')
+        showToast({
+          content: '이미 사용중인 활동명입니다.',
+          type: 'warning',
+        })
       }
     }
   }
@@ -54,12 +76,11 @@ export default function UserNickname({
       <SignUpTitle comment="활동명을 입력해주세요." />
       <p className="font-bold text-gray-400">(최소 2자 ~ 최대 20자)</p>
       <div className="flex items-center justify-end mt-8">
-        <input
+        <FormInput
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="활동명을 입력하세요."
-          className="input input-bordered w-full rounded-full border-black"
         />
         <button
           type="button"
@@ -69,11 +90,6 @@ export default function UserNickname({
           <p className="text-black font-bold">확인</p>
         </button>
       </div>
-      {isNicknameValid && error ? (
-        <p className="text-blue-500 font-bold text-xs text-center">{error}</p>
-      ) : (
-        <p className="text-red-500 font-bold text-xs text-center">{error}</p>
-      )}
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">
         <StretchedRoundedButton comment="다음으로" clickHandler={handleNext} />
       </div>

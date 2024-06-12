@@ -1,10 +1,12 @@
 'use client'
 
 import React, { useState } from 'react'
-import { DateInput } from '@nextui-org/date-input'
-import { parseAbsoluteToLocal } from '@internationalized/date'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
+import CommonSelectBox from '@/components/ui/select/CommonSelectBox'
+import BirthPicker from '@/components/ui/picker/BirthPicker'
+import useToast from '@/stores/toast'
+import SliderModal from '@/components/common/SliderModal'
 
 export default function UserBirthAndGender({
   clickHandler,
@@ -12,83 +14,93 @@ export default function UserBirthAndGender({
   clickHandler: (data: { birth: string; gender: number }) => void
 }) {
   const today = new Date()
-
-  const year = today.getFullYear()
-  const month = `0${today.getMonth() + 1}`.slice(-2)
-  const day = `0${today.getDate()}`.slice(-2)
-
-  const dateString = `${year}-${month}-${day}`
-  const [date, setDate] = useState(
-    parseAbsoluteToLocal(new Date(dateString).toISOString()),
-  )
+  const [date, setDate] = useState({
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+    day: today.getDate(),
+  })
+  const { showToast } = useToast()
   const [gender, setGender] = useState('none')
-  const [dateError, setDateError] = useState(false)
-  const [genderError, setGenderError] = useState(false)
+  const [isBirthPickerOpen, setBirthPickerOpen] = useState(false)
+  const [tempDate, setTempDate] = useState(date)
 
-  const handleNext = () => {
-    // const selectedDate = new Date(date.toString().split('T').shift()!)
-    // const isToday = selectedDate.toDateString() === today.toDateString()
-
-    // if (isToday) {
-    //   setDateError(true)
-    //   return
-    // }
-
+  const handleNext = (e: React.FormEvent) => {
     if (gender === 'none') {
-      setGenderError(true)
+      e.preventDefault()
+      showToast({
+        content: '성별을 선택해주세요.',
+        type: 'warning',
+      })
       return
     }
 
-    if (date && gender) {
-      const seperatedDate = date ? date.toString().split('T').shift() : ''
-      const birth = seperatedDate || ''
-      clickHandler({ birth, gender: Number(gender) })
+    if (
+      date.year === today.getFullYear() &&
+      date.month === today.getMonth() + 1
+    ) {
+      e.preventDefault()
+      showToast({
+        content: '오늘 태어나셨군요. 탄생을 축하드립니다!',
+        type: 'error',
+      })
+      return
     }
+
+    const birth = `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`
+    clickHandler({ birth, gender: Number(gender) })
+  }
+
+  const handleComplete = () => {
+    setDate(tempDate)
+    setBirthPickerOpen(false)
   }
 
   return (
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
       <SignUpTitle comment="생년월일 및 성별을 선택해주세요." />
-      <div className="mt-8">
+      <div className="mt-5">
         <p>성별</p>
-        <select
-          value={gender}
-          onChange={(e) => {
-            setGender(e.target.value)
-            setGenderError(false)
+        <CommonSelectBox
+          optionList={['남성', '여성']}
+          selectedOption="성별을 선택하세요."
+          setSelectedOption={(value: string) => {
+            setGender(value)
           }}
-          className="select select-bordered w-full border-black"
-        >
-          <option value="none" disabled>
-            성별을 선택하세요.
-          </option>
-          <option value={0}>남성</option>
-          <option value={1}>여성</option>
-        </select>
-        {genderError && (
-          <p className="text-red-500 font-bold text-xs text-center">
-            **성별을 선택해주세요.**
-          </p>
-        )}
+        />
       </div>
       <br />
-      <DateInput
-        granularity="day"
-        label="생년월일"
-        value={date}
-        onChange={(newDate) => {
-          setDate(newDate)
-          setDateError(false)
-        }}
-      />
-      {dateError && (
-        <p className="text-red-500 font-bold text-xs text-center">
-          **오늘 날짜는 선택할 수 없습니다.**
-        </p>
-      )}
+      <div>
+        <p>생년월일</p>
+        <input
+          type="text"
+          readOnly
+          value={`${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`}
+          onClick={() => setBirthPickerOpen(true)}
+          className="w-full py-2 px-3 border border-gray-300 rounded-md cursor-pointer"
+        />
+      </div>
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">
         <StretchedRoundedButton comment="다음으로" clickHandler={handleNext} />
       </div>
+
+      <SliderModal
+        isModalOpen={isBirthPickerOpen}
+        onChangeModal={() => setBirthPickerOpen(false)}
+        backgroundClose
+        closeButton
+        onComplete={handleComplete} // 추가
+      >
+        <BirthPicker
+          date={tempDate}
+          setDate={(newDate) => {
+            setTempDate({
+              year: newDate.year || today.getFullYear(),
+              month: newDate.month || today.getMonth() + 1,
+              day: newDate.day || today.getDate(),
+            })
+          }}
+        />
+      </SliderModal>
     </div>
   )
 }
