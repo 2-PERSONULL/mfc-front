@@ -6,7 +6,7 @@ import { formatCareerPeriod } from '@/utils/formatTime'
 export default async function PartnerCareerBox({
   partnerId,
 }: {
-  partnerId: string
+  partnerId?: string
 }) {
   const careers = await getCareer(partnerId)
 

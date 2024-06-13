@@ -5,7 +5,7 @@ import { MemberFavoriteStyleType } from '@/types/commonTypes'
 export default async function PartnerMainStyleBox({
   partnerId,
 }: {
-  partnerId: string
+  partnerId?: string
 }) {
   const favoritStyle = await getFavoriteStyle(partnerId)
 

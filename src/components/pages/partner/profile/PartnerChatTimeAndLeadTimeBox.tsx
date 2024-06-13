@@ -5,7 +5,7 @@ import { formatTime } from '@/utils/formatTime'
 export default async function PartnerChatTimeAndLeadTimeBox({
   partnerId,
 }: {
-  partnerId: string
+  partnerId?: string
 }) {
   const { startTime, endTime, averageDate, averagePrice } =
     await getPartnerProfile(partnerId)

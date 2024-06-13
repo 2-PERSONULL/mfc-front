@@ -52,6 +52,7 @@ export default function PartnerPrice({
             <div className="flex flex-wrap relative w-full  items-center">
               <input
                 type="text"
+                inputMode="numeric"
                 value={formatPrice(price)}
                 onChange={handleChange}
                 min={0}

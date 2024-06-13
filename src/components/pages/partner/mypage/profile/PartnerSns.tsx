@@ -71,7 +71,7 @@ export default function PartnerSns({ snsList }: { snsList: PartnerSnsType[] }) {
                   <input
                     className="rounded-[4px] border border-gray-200 w-full h-[40px] px-[10px] text-[14px]"
                     placeholder="https://"
-                    type="text"
+                    type="url"
                     value={sns.snsUrl}
                     required
                     onChange={(e) => changeUrlHandler(sns.id, e.target.value)}

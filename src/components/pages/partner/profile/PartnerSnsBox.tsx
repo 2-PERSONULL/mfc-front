@@ -6,7 +6,7 @@ import { getSnsData } from '@/actions/partner/PartnerProfile'
 export default async function PartnerSnsBox({
   partnerId,
 }: {
-  partnerId: string
+  partnerId?: string
 }) {
   const snsList = await getSnsData(partnerId)
 

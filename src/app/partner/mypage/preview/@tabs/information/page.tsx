@@ -4,15 +4,13 @@ import PartnerSnsBox from '@/components/pages/partner/profile/PartnerSnsBox'
 import PartnerCareerBox from '@/components/pages/partner/profile/PartnerCareerBox'
 import PartnerMainStyleBox from '@/components/pages/partner/profile/PartnerMainStyleBox'
 
-export default function page({ params }: { params: { partnerCode: string } }) {
-  const { partnerCode } = params
-
+export default function page() {
   return (
     <>
-      <PartnerChatTimeAndLeadTimeBox partnerCode={partnerCode} />
-      <PartnerSnsBox partnerCode={partnerCode} />
-      <PartnerCareerBox partnerCode={partnerCode} />
-      <PartnerMainStyleBox partnerCode={partnerCode} />
+      <PartnerChatTimeAndLeadTimeBox />
+      <PartnerSnsBox />
+      <PartnerCareerBox />
+      <PartnerMainStyleBox />
     </>
   )
 }
