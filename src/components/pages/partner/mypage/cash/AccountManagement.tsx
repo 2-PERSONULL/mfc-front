@@ -6,7 +6,7 @@ import RightArrowIcon from '@/components/ui/icons/RightArrowIcon'
 import FormLabel from '@/components/ui/input/FormLabel'
 import BankList from '@/components/pages/partner/mypage/cash/BankList'
 import useToast from '@/stores/toast'
-import { getAccountRealName, saveAccountInfo } from '@/app/api/partner/Account'
+import { getAccountRealName, saveAccountInfo } from '@/actions/partner/Account'
 import LoadingModal from '@/components/common/LoadingModal'
 import BottomFixedSubmitButton from '@/components/ui/button/BottomFixedSubmitButton'
 
@@ -17,17 +17,23 @@ interface BankType {
 
 export default function AccountManagement({
   bankList,
+  bankHoler,
+  bankInfo,
+  bankAccountInfo,
 }: {
   bankList: BankType[]
+  bankHoler: string
+  bankInfo: BankType
+  bankAccountInfo: string
 }) {
-  // 파트너 본인의 이름을 서버에서 받아옵니다
   const router = useRouter()
-  const name = '서여진'
   const { showToast } = useToast()
   const [loading, setLoading] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedBank, setSelectedBank] = useState<BankType | null>(null)
-  const [bankAccount, setBankAccount] = useState<string>('')
+  const [selectedBank, setSelectedBank] = useState<BankType | null>(
+    bankInfo || null,
+  )
+  const [bankAccount, setBankAccount] = useState<string>(bankAccountInfo || '')
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -53,7 +59,7 @@ export default function AccountManagement({
 
     if (result.code === 0) {
       const holder = result.response.bank_holder
-      if (holder === name) {
+      if (holder === bankHoler) {
         // 파트너 정산 계좌 정보 저장 API 호출
         const res = await saveAccountInfo(bankAccount, selectedBank.code)
         if (res.isSuccess) {
@@ -95,7 +101,7 @@ export default function AccountManagement({
             <FormLabel text="예금주" />
             <input
               readOnly
-              value={name}
+              value={bankHoler}
               className="border border-gray-300 bg-gray-100 rounded-[4px] py-2 px-2 w-full h-[45px] text-[14px] focus:outline-none"
             />
           </div>

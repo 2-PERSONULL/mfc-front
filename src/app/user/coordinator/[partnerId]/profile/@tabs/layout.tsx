@@ -9,19 +9,19 @@ export default function layout({
   params,
 }: {
   children: React.ReactNode
-  params: { partnerCode: string }
+  params: { partnerId: string }
 }) {
-  const { partnerCode } = params
+  const { partnerId } = params
 
   return (
     <>
-      <PartnerProfileHeader />
-      <PartnerProfileIntroduction partnerCode={partnerCode} />
+      <PartnerProfileHeader partnerId={partnerId} />
+      <PartnerProfileIntroduction partnerId={partnerId} />
       <div className="w-full h-[8px] bg-[#f5f5f5] mb-6" />
-      <PartnerProfileTabs partnerCode={partnerCode} />
+      <PartnerProfileTabs partnerId={partnerId} />
       <div className="p-7">{children}</div>
       <div className="h-[100px] bg-white" />
-      <CoordiRequestButton partnerCode={partnerCode} />
+      <CoordiRequestButton partnerId={partnerId} />
     </>
   )
 }

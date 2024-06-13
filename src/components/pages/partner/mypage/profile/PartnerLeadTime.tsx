@@ -6,7 +6,7 @@ import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profil
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 import LeadTimePicker from '@/components/ui/picker/LeadTimePicker'
 import useToast from '@/stores/toast'
-import { updateLeadTime } from '@/app/api/partner/PartnerProfileUpdate'
+import { updateLeadTime } from '@/actions/partner/PartnerProfileUpdate'
 
 export default function PartnerLeadTime({ leadTime }: { leadTime: number }) {
   const { showToast } = useToast()

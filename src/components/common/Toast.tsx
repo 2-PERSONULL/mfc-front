@@ -8,7 +8,7 @@ export default function Toast() {
   const { content, type } = useToast()
 
   if (!content) {
-    return <div />
+    return null
   }
 
   return (

@@ -8,4 +8,5 @@ export interface MemberStyleType {
 export interface MemberFavoriteStyleType {
   favoriteId: number
   styleId: number
+  name: string
 }

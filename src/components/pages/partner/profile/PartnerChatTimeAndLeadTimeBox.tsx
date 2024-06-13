@@ -1,14 +1,14 @@
 import React from 'react'
-import { getPartnerProfile } from '@/app/api/partner/PartnerProfile'
+import { getPartnerProfile } from '@/actions/partner/PartnerProfile'
 import { formatTime } from '@/utils/formatTime'
 
 export default async function PartnerChatTimeAndLeadTimeBox({
-  partnerCode,
+  partnerId,
 }: {
-  partnerCode: string
+  partnerId: string
 }) {
   const { startTime, endTime, averageDate, averagePrice } =
-    await getPartnerProfile(partnerCode)
+    await getPartnerProfile(partnerId)
 
   const getLeadTime = () => {
     if (averageDate === null) return ''
@@ -18,19 +18,19 @@ export default async function PartnerChatTimeAndLeadTimeBox({
 
   return (
     <>
-      <section className="mb-8">
+      <section className="mb-10">
         <h1 className="text-[16px] font-semibold mb-1">채팅 가능시간</h1>
         <p className="text-[15px] text-gray-700">
           {startTime ? `${formatTime(startTime)} ~ ${formatTime(endTime)}` : ''}
         </p>
       </section>
 
-      <section className="mb-8">
+      <section className="mb-10">
         <h1 className="text-[16px] font-semibold mb-1">평균 코디 소요기간</h1>
         <p className="text-[15px] text-gray-700">{getLeadTime()}</p>
       </section>
 
-      <section className="mb-8">
+      <section className="mb-10">
         <h1 className="text-[16px] font-semibold mb-1">코디 평균가</h1>
         <p className="text-[15px] text-gray-700">{averagePrice}</p>
       </section>

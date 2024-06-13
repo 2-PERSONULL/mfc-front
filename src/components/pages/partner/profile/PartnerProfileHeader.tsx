@@ -1,12 +1,16 @@
 import React from 'react'
 import Image from 'next/image'
 import BackArrowButton from '@/components/ui/button/BackArrowButton'
-import { getPartnerProfileBasic } from '@/app/api/partner/PartnerProfile'
+import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 
-export default async function PartnerProfileHeader() {
+export default async function PartnerProfileHeader({
+  partnerId,
+}: {
+  partnerId?: string
+}) {
   const basicImage =
     'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
-  const { nickname, profileImage } = await getPartnerProfileBasic()
+  const { nickname, profileImage } = await getPartnerProfileBasic(partnerId)
   const imageUrl = profileImage || basicImage
 
   return (

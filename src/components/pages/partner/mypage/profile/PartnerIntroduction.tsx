@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profile/PartnerProfileTitleAndEdit'
 import Modal from '@/components/common/Modal'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-import { updateIntroduction } from '@/app/api/partner/PartnerProfileUpdate'
+import { updateIntroduction } from '@/actions/partner/PartnerProfileUpdate'
 import useToast from '@/stores/toast'
 
 export default function PartnerIntroduction({ data }: { data: string }) {
@@ -19,11 +19,6 @@ export default function PartnerIntroduction({ data }: { data: string }) {
   }
 
   const saveHandler = () => {
-    // fetch로 데이터 저장
-    if (!content) {
-      showToast({ content: '소개를 입력해주세요.', type: 'warning' })
-      return
-    }
     updateIntroduction(content)
     setIsModalOpen(false)
     showToast({ content: '저장되었습니다.', type: 'success' })

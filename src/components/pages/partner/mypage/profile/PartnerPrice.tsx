@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profile/PartnerProfileTitleAndEdit'
 import Modal from '@/components/common/Modal'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-import { updatePartnerPrice } from '@/app/api/partner/PartnerProfileUpdate'
+import { updatePartnerPrice } from '@/actions/partner/PartnerProfileUpdate'
 import useToast from '@/stores/toast'
 
 export default function PartnerPrice({
@@ -46,9 +46,7 @@ export default function PartnerPrice({
         <Modal title="코디 평균가" closeModal={() => setIsModalOpen(false)}>
           <div className="m-5">
             <h1 className="font-semibold">
-              {averagePrice
-                ? averagePrice.toLocaleString()
-                : '파트너님의 코디 평균가를 등록해주세요.'}
+              파트너님의 코디 평균가를 등록해주세요.
             </h1>
 
             <div className="flex flex-wrap relative w-full  items-center">
@@ -76,7 +74,8 @@ export default function PartnerPrice({
         clickHandler={() => setIsModalOpen(true)}
         content={
           <p className="text-[14px]">
-            {averagePrice || '코디 평균가를 등록해주세요'}
+            {`${averagePrice.toLocaleString()} 원` ||
+              '코디 평균가를 등록해주세요'}
           </p>
         }
       />

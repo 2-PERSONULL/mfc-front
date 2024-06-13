@@ -1,10 +1,12 @@
 'use server'
 
-import { getFetchHeader, getPartnerIdHeader } from '@/utils/getFetchHeader'
+import { getServerSession } from 'next-auth'
+import { getPartnerIdHeader } from '@/utils/getFetchHeader'
+import { options } from '@/app/api/auth/[...nextauth]/options'
 
 // 파트너 프로필 기본 정보(nickname, email, profileImage)
-export async function getPartnerProfileBasic() {
-  const header = await getFetchHeader()
+export async function getPartnerProfileBasic(partnerCode?: string) {
+  const header = await getPartnerIdHeader(partnerCode)
 
   if (!header) {
     console.log('session not found')
@@ -12,7 +14,7 @@ export async function getPartnerProfileBasic() {
   }
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/members`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/profile`,
     {
       headers: header,
       next: { tags: ['profile-image'] },
@@ -104,5 +106,30 @@ export async function getCareer(partnerCode?: string) {
     return data.result.careers
   }
   console.log('get career error', data)
+  return null
+}
+
+// 파트너 주요 스타일
+export async function getFavoriteStyle(partnerCode?: string) {
+  const session = await getServerSession(options)
+  if (partnerCode && !session) return null
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/members/favoritstyle`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        getUUID: `${partnerCode || session?.user.uuid}`,
+      },
+      next: { tags: ['favorite-style'] },
+    },
+  )
+
+  const data = await response.json()
+
+  if (data.isSuccess) {
+    return data.result.favoriteStyles
+  }
+  console.log('get favorite-style error', data)
   return null
 }

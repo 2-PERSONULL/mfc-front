@@ -3,7 +3,7 @@ import Image from 'next/image'
 import useToast from '@/stores/toast'
 import useModal from '@/stores/modal'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-import { updateFavoriteStyle } from '@/app/api/partner/PartnerProfileUpdate'
+import { updateFavoriteStyle } from '@/actions/partner/PartnerProfileUpdate'
 import { MemberStyleType } from '@/types/commonTypes'
 
 export default function FavoriteStyleList({

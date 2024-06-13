@@ -1,7 +1,7 @@
 import React from 'react'
 import GoBackHeader from '@/components/layouts/GoBackHeader'
 import PartnerPostImage from '@/components/pages/partner/mypage/style/PartnerPostImage'
-import { getPartnerPostDetail } from '@/app/api/partner/PartnerPost'
+import { getPartnerPostDetail } from '@/actions/partner/PartnerPost'
 import PartnerPostLikeCount from '@/components/pages/partner/mypage/style/PartnerPostLikeCount'
 import PartnerPostTagList from '@/components/pages/partner/mypage/style/PartnerPostTagList'
 import PartnerPostTop from '@/components/pages/partner/mypage/style/PartnerPostTop'

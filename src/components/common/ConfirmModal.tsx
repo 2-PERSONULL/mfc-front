@@ -8,7 +8,7 @@ export default function ConfirmModal() {
     useConfirmStore()
 
   if (!content) {
-    return <div />
+    return null
   }
 
   return (

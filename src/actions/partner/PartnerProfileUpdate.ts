@@ -234,17 +234,18 @@ export async function updateFavoriteStyle(styleId: number[]) {
   }
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/members/favoriteStyle`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/members/favoritestyle`,
     {
       method: 'POST',
       headers: header,
-      body: JSON.stringify({ favoriteStyle: styleId }),
+      body: JSON.stringify({ favoriteStyles: styleId }),
     },
   )
 
   const data = await response.json()
+  console.log(data)
   if (data.isSuccess) {
-    console.log(data)
+    revalidateTag('favorite-style')
   } else {
     console.log('favorite style update error', data)
   }
