@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function PartnerCashBalanceBox() {
   return (
-    <div className="p-4 border-b-2 border-b-gray-200">
+    <section className="p-4 border-b-2 border-b-gray-200">
       <div className="flex items-center justify-around">
         <div className="flex flex-col">
           <span className="text-[17px] font-bold">보유 캐시</span>
@@ -25,6 +25,6 @@ export default function PartnerCashBalanceBox() {
           </button>
         </Link>
       </div>
-    </div>
+    </section>
   )
 }

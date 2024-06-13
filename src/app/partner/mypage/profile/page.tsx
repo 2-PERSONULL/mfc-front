@@ -14,17 +14,36 @@ import {
   getPartnerProfile,
   getSnsData,
   getPartnerProfileBasic,
-} from '@/app/api/partner/PartnerProfile'
+  getFavoriteStyle,
+  getCareer,
+} from '@/actions/partner/PartnerProfile'
+import getStyleCategory from '@/actions/partner/Common'
 import PartnerNickname from '@/components/pages/partner/mypage/profile/PartnerNickname'
-import getPartnerCode from '@/utils/getPartnerCode'
 
 export default async function PartnerMyPageProfile() {
-  const partnerCode = await getPartnerCode()
+  const styleList = await getStyleCategory()
+  const favoritStyle = await getFavoriteStyle()
+
   const { description, startTime, endTime, averageDate, averagePrice } =
-    await getPartnerProfile(partnerCode)
-  const { nickname, email, profileImage } = await getPartnerProfileBasic()
-  const snsList = await getSnsData(partnerCode)
-  const progressPercent = 40
+    await getPartnerProfile()
+  const { nickname, profileImage } = await getPartnerProfileBasic()
+  const snsList = await getSnsData()
+  const careers = await getCareer()
+
+  // 프로필이미지, 소개, 채팅시간, 리드타임, SNS, 경력, 주력스타일, 가격
+  const fields = [
+    profileImage,
+    description,
+    startTime && endTime,
+    averageDate,
+    snsList.length > 0,
+    careers.length > 0,
+    favoritStyle.length > 0,
+    averagePrice,
+  ]
+  const completedFields = fields.filter(Boolean).length
+  const totalFields = fields.length
+  const progressPercent = Math.round((completedFields / totalFields) * 100)
 
   return (
     <div>
@@ -32,16 +51,16 @@ export default async function PartnerMyPageProfile() {
       <ProfileProgress progressPercent={progressPercent} />
       <div className="flex">
         <ProfileImage profileImage={profileImage} />
-        <PartnerNickname nickName={nickname} email={email} />
+        <PartnerNickname nickName={nickname} />
       </div>
-      <PartnerProfilePreviewButton partnerCode={partnerCode} />
+      <PartnerProfilePreviewButton />
       <div className="px-6 mb-[50px]">
         <PartnerIntroduction data={description} />
         <PartnerChatTime startChatTime={startTime} endChatTime={endTime} />
         <PartnerLeadTime leadTime={averageDate} />
         <PartnerSns snsList={snsList} />
-        <PartnerCareer partnerCode={partnerCode} />
-        <PartnerMainStyle />
+        <PartnerCareer careers={careers} />
+        <PartnerMainStyle styleList={styleList} favoritStyle={favoritStyle} />
         <PartnerPrice averagePrice={averagePrice} />
       </div>
     </div>

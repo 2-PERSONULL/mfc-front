@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import useObserver from '@/hooks/useObserver'
-import getPost from '@/app/api/partner/PartnerChats'
+import getPost from '@/actions/partner/PartnerChats'
 import ChatBox from '@/components/pages/chats/box/ChatBox'
 
 interface CoordinatesRequestType {

@@ -6,22 +6,28 @@ import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profil
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 import LeadTimePicker from '@/components/ui/picker/LeadTimePicker'
 import useToast from '@/stores/toast'
-import { updateLeadTime } from '@/app/api/partner/PartnerProfile'
+import { updateLeadTime } from '@/actions/partner/PartnerProfileUpdate'
 
 export default function PartnerLeadTime({ leadTime }: { leadTime: number }) {
   const { showToast } = useToast()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [sameDay, setSameDay] = useState<boolean>(false)
-  const [day, setDay] = useState<number>(0)
+  const [day, setDay] = useState<number>(1)
 
-  const saveHandler = () => {
+  const saveHandler = async () => {
     if (day < 0) {
       showToast({ content: '코디 소요기간을 선택해주세요.', type: 'warning' })
       return
     }
 
-    updateLeadTime(sameDay ? 0 : day)
-    setIsModalOpen(false)
+    const result = await updateLeadTime(sameDay ? 0 : day)
+    if (result.isSuccess) {
+      setIsModalOpen(false)
+      showToast({ content: '저장되었습니다.', type: 'success' })
+      return
+    }
+
+    showToast({ content: result.message, type: 'error' })
   }
 
   const editHandler = () => {
@@ -53,7 +59,7 @@ export default function PartnerLeadTime({ leadTime }: { leadTime: number }) {
               <input
                 type="checkbox"
                 id="common-checkbox"
-                className="checkbox mr-2 "
+                className="common-checkbox mr-2 "
                 checked={sameDay}
                 onChange={() => setSameDay(!sameDay)}
               />

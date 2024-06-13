@@ -1,17 +1,17 @@
 import React from 'react'
 import { PartnerCareerFetchType } from '@/types/partnerProfileTypes'
-import { getCareer } from '@/app/api/partner/PartnerProfile'
+import { getCareer } from '@/actions/partner/PartnerProfile'
 import { formatCareerPeriod } from '@/utils/formatTime'
 
 export default async function PartnerCareerBox({
-  partnerCode,
+  partnerId,
 }: {
-  partnerCode: string
+  partnerId?: string
 }) {
-  const careers = await getCareer(partnerCode)
+  const careers = await getCareer(partnerId)
 
   return (
-    <section className="mb-8">
+    <section className="mb-10">
       <h1 className="text-[16px] font-semibold mb-1">경력</h1>
       <ul>
         {careers.map((career: PartnerCareerFetchType, idx: number) => (

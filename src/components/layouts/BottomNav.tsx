@@ -10,7 +10,8 @@ import NavigationData from '@/libs/navigationData'
 const BottomNav = () => {
   const [role, setRole] = useState<string>('user')
   useEffect(() => {
-    const memberRole = localStorage.getItem('role')
+    const memberRole = localStorage.getItem('role')?.toLowerCase()
+
     if (memberRole) {
       setRole(memberRole)
     } else {

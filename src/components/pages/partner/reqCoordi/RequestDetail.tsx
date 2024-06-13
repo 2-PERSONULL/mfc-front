@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import ActionCoordinate from '@/app/api/partner/PartnerRequest'
+import ActionCoordinate from '@/actions/partner/PartnerRequest'
 
 export default function RequestDetail({ historyId }: { historyId: number }) {
   const actionHandler = async (action: string) => {

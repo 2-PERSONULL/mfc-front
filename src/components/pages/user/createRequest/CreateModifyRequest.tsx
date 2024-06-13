@@ -11,7 +11,7 @@ import ReqCodiOptions from './ReqCodiOptions'
 import ReqCodiBudget from './ReqCodiBudget'
 import ReqAddImage from './ReqAddImage'
 import ReqAddInfo from './ReqAddInfo'
-import createNewRequest from '@/app/api/user/UserCreateRequest'
+import createNewRequest from '@/actions/user/UserCreateRequest'
 import useConfirmStore from '@/stores/confirm'
 
 export default function CreateModifyRequest({

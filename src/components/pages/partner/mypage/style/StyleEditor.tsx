@@ -7,7 +7,7 @@ import StyleTagEditor from '@/components/pages/partner/mypage/style/StyleTagEdit
 import {
   addPartnerPost,
   updatePartnerPost,
-} from '@/app/api/partner/PartnerPost'
+} from '@/actions/partner/PartnerPost'
 import useToast from '@/stores/toast'
 import useModal from '@/stores/modal'
 
