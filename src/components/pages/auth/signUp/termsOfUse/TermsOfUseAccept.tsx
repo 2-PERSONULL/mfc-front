@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
+import useToast from '@/stores/toast'
 
 interface CheckboxState {
   checkbox1: boolean
@@ -17,7 +18,7 @@ export default function TermsOfUseAccept({
 }: {
   clickHandler: () => void
 }) {
-  const [error, setError] = useState(false)
+  const { showToast } = useToast()
   const [isCheckedAll, setIsCheckedAll] = useState(false)
   const [checkboxes, setCheckboxes] = useState({
     checkbox1: false,
@@ -62,7 +63,10 @@ export default function TermsOfUseAccept({
     ) {
       clickHandler()
     } else {
-      setError(true)
+      showToast({
+        content: '필수 항목에 동의해주세요.',
+        type: 'warning',
+      })
     }
   }
 
@@ -70,12 +74,12 @@ export default function TermsOfUseAccept({
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
       <SignUpTitle comment="서비스 이용약관에 동의해주세요." />
       <div className="flex flex-col form-control mt-8">
-        <label htmlFor="checkAll">
+        <label htmlFor="allCheck">
           <input
             type="checkbox"
             name="checkAll"
-            id="checkAll"
-            className="checkbox mr-2 border-gray-400"
+            id="allCheck"
+            className="common-checkbox mr-2 border-gray-400"
             checked={isCheckedAll}
             onChange={handleCheckAll}
           />
@@ -87,7 +91,7 @@ export default function TermsOfUseAccept({
             type="checkbox"
             name="checkbox1"
             id="checkbox1"
-            className="checkbox mr-2 border-gray-400"
+            className="common-checkbox mr-2 border-gray-400"
             checked={checkboxes.checkbox1}
             onChange={handleCheck('checkbox1')}
           />
@@ -96,8 +100,9 @@ export default function TermsOfUseAccept({
         <label htmlFor="checkbox2">
           <input
             type="checkbox"
+            name="checkbox2"
             id="checkbox2"
-            className="checkbox mr-2 border-gray-400"
+            className="common-checkbox mr-2 border-gray-400"
             checked={checkboxes.checkbox2}
             onChange={handleCheck('checkbox2')}
           />
@@ -106,8 +111,9 @@ export default function TermsOfUseAccept({
         <label htmlFor="checkbox3">
           <input
             type="checkbox"
+            name="checkbox3"
             id="checkbox3"
-            className="checkbox mr-2 border-gray-400"
+            className="common-checkbox mr-2 border-gray-400"
             checked={checkboxes.checkbox3}
             onChange={handleCheck('checkbox3')}
           />
@@ -116,8 +122,9 @@ export default function TermsOfUseAccept({
         <label htmlFor="checkbox4">
           <input
             type="checkbox"
+            name="checkbox4"
             id="checkbox4"
-            className="checkbox mr-2 border-gray-400"
+            className="common-checkbox mr-2 border-gray-400"
             checked={checkboxes.checkbox4}
             onChange={handleCheck('checkbox4')}
           />
@@ -126,8 +133,9 @@ export default function TermsOfUseAccept({
         <label htmlFor="checkbox5">
           <input
             type="checkbox"
+            name="checkbox5"
             id="checkbox5"
-            className="checkbox mr-2 border-gray-400"
+            className="common-checkbox mr-2 border-gray-400"
             checked={checkboxes.checkbox5}
             onChange={handleCheck('checkbox5')}
           />
@@ -135,11 +143,6 @@ export default function TermsOfUseAccept({
             이벤트, 프로모션 문자(SMS) 수신 및 활용 (선택)
           </span>
         </label>
-        {error && (
-          <p className="text-red-500 font-bold text-xs text-center">
-            **필수 항목에 동의해주세요.**
-          </p>
-        )}
       </div>
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">
         <StretchedRoundedButton comment="다음으로" clickHandler={handleNext} />

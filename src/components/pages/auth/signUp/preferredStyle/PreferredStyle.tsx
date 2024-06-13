@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
-// import SeperatedBeforeAfterButton from '@/components/ui/button/SeperatedBeforeAfterButton'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 
 export default function PreferredStyle({
@@ -106,7 +105,7 @@ export default function PreferredStyle({
             onClick={() => handleStyleClick(style.id)}
           >
             <div
-              className={`w-20 rounded-full bg-gray-300 text-center ${selectedStyle.includes(style.id) ? 'ring ring-black ring-offset-base-100 ring-offset-2' : ''}`}
+              className={`w-20 h-20 rounded-full bg-gray-300 text-center ${selectedStyle.includes(style.id) ? 'ring ring-black ring-offset-base-100 ring-offset-2' : ''}`}
             >
               {/* 실제 이미지 추가 필요 */}
               이미지

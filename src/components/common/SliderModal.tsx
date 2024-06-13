@@ -8,6 +8,7 @@ interface SliderModalProps {
   onChangeModal: () => void
   backgroundClose: boolean
   closeButton?: boolean
+  onComplete?: () => void // 추가
 }
 
 function SliderModal({
@@ -16,6 +17,7 @@ function SliderModal({
   onChangeModal,
   backgroundClose,
   closeButton,
+  onComplete, // 추가
 }: SliderModalProps) {
   // 모달 오픈시 body 스크롤 막기
   useEffect(() => {
@@ -35,7 +37,7 @@ function SliderModal({
         role="presentation"
         onClick={backgroundClose ? onChangeModal : () => {}}
         className={`
-                    fixed top-0  z-[300]
+                    fixed top-0 left-0  z-[300]
                     w-full h-full 
                     bg-[#747474] bg-opacity-50 
                     transition-all
@@ -51,7 +53,7 @@ function SliderModal({
         {closeButton && (
           <button
             type="button"
-            onClick={onChangeModal}
+            onClick={onComplete || onChangeModal} // 수정
             className="h-[50px] w-full flex items-center justify-end pr-5 bg-gray-100"
           >
             <span className="font-semibold ">완료</span>

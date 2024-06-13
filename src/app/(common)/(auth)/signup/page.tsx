@@ -1,5 +1,4 @@
 import React from 'react'
-// import { signIn } from 'next-auth/react'
 import SignUpFunnel from '@/components/pages/auth/signUp/SignUpFunnel'
 import { SignUpType } from '@/types/signupTypes'
 
@@ -9,7 +8,7 @@ export default async function SignUp() {
 
     try {
       const signUpResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/auth/signup`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth-service/auth/signup`,
         {
           method: 'POST',
           headers: {
@@ -23,6 +22,7 @@ export default async function SignUp() {
       if (signUpResult.isSuccess) {
         return signUpResult
       }
+      console.log(signUpResult)
       return null // or appropriate value
     } catch (error) {
       return error
