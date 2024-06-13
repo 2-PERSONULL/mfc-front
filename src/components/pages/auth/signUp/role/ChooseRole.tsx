@@ -80,7 +80,7 @@ export default function ChooseRole({
         <button
           type="submit"
           onClick={() => handleSaveRole(role)}
-          className="btn bg-white drop-shadow-[0_5px_3px_rgba(0,0,0,0.5)] border-none w-full text-black font-bold text-lg rounded-full"
+          className="btn bg-white drop-shadow-[0_5px_3px_rgba(0,0,0,0.5)] border-none w-full py-3 text-black font-bold text-lg rounded-full"
         >
           <p>시작하기</p>
         </button>

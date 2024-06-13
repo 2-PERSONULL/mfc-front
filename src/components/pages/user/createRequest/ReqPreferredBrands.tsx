@@ -9,14 +9,14 @@ export default function ReqPreferredStyle({
 }: {
   setBrands: (value: string[]) => void
 }) {
-  const [count, setCount] = useState(0)
-  const [inputText, setInputText] = useState('')
+  const [count, setCount] = useState<number>(0)
+  const [inputText, setInputText] = useState<string>('')
   const [tags, setTags] = useState<string[]>([])
   const { showToast } = useToast()
 
   const activeEnter = (e: React.KeyboardEvent) => {
-    e.preventDefault()
     if (e.key === 'Enter') {
+      e.preventDefault()
       addBrand()
     }
   }

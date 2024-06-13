@@ -147,7 +147,7 @@ body::-webkit-scrollbar {
 }
 
 /* 공통 체크박스 */
-#common-checkbox {
+.common-checkbox {
   accent-color: black;
   border: 1px solid gray;
   width: 20px;
@@ -159,3 +159,4 @@ body::-webkit-scrollbar {
   -webkit-border-radius: 0;
   -webkit-appearance: none;
 }
+

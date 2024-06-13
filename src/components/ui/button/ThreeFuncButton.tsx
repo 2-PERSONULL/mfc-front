@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ThreeFuncButton() {
   return (
-    <div className="sticky w-full h-12 bottom-0 left-0 right-0 flex flex-row items-center justify-around text-white ">
+    <div className="sticky w-full h-12 bottom-0 flex flex-row items-center justify-around text-white ">
       <button
         type="button"
         className="w-full h-full bg-gray-400 border border-gray-400"

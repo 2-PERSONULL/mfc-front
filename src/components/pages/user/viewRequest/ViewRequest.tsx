@@ -11,8 +11,8 @@ import ViewReqAddInfo from './ViewReqAddInfo'
 
 export default function ViewRequest() {
   return (
-    <>
-      <div className="grid gap-6 w-full px-5 pb-4">
+    <div>
+      <div className="relative grid gap-6 w-full min-h-screen px-5 pb-4">
         <ViewRequestTitle />
         <ViewRequestContents />
         <ViewReqSituation />
@@ -24,6 +24,6 @@ export default function ViewRequest() {
         <ViewReqAddInfo />
       </div>
       <ThreeFuncButton />
-    </>
+    </div>
   )
 }
