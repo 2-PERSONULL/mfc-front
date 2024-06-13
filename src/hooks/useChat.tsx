@@ -11,6 +11,7 @@ const useChat = () => {
   const { roomId } = useParams<{ roomId: string }>()
 
   const [realTimeMessage, setRealTimeMessage] = useState<MessageType[]>([])
+  const [inputImage, setInputImage] = useState<File[]>([])
   const [inputMessage, setInputMessage] = useState<string>('')
   const [card, setCard] = useState<object | null>(null)
   const [messageType, setMessageType] = useState<'msg' | 'card' | 'image'>(
@@ -38,6 +39,10 @@ const useChat = () => {
     }
   }
 
+  const sendImageHandler = async () => {
+    console.log(inputImage)
+  }
+
   useEffect(() => {
     const connectToSSE = () => {
       const EventSource = EventSourcePolyfill
@@ -49,7 +54,7 @@ const useChat = () => {
             Authorization: accessToken,
             UUID: uuid,
           },
-          // heartbeatTimeout: 1800 * 10000000,
+          heartbeatTimeout: 1800 * 10000000,
         },
       )
 
@@ -61,6 +66,7 @@ const useChat = () => {
       eventSource.onerror = () => {
         // console.error('EventSource failed:', error)
         eventSource.close()
+
         if (eventSource.readyState === 2) {
           setRealTimeMessage([])
           connectToSSE()
@@ -86,6 +92,8 @@ const useChat = () => {
     setMessageType,
     card,
     setCard,
+    setInputImage,
+    sendImageHandler,
   }
 }
 
