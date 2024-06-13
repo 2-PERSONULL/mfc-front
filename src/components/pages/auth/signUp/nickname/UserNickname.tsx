@@ -45,7 +45,7 @@ export default function UserNickname({
       })
     } else {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/auth/nickname/${value}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/members/nickname/${value}`,
         {
           method: 'GET',
           headers: {

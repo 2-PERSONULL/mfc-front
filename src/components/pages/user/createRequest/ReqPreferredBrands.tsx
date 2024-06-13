@@ -4,11 +4,7 @@ import React, { useState } from 'react'
 import TagBadge from '@/components/ui/TagBadge'
 import useToast from '@/stores/toast'
 
-export default function ReqPreferredStyle({
-  setBrands,
-}: {
-  setBrands: (value: string[]) => void
-}) {
+export default function ReqPreferredBrands() {
   const [count, setCount] = useState<number>(0)
   const [inputText, setInputText] = useState<string>('')
   const [tags, setTags] = useState<string[]>([])
@@ -40,29 +36,29 @@ export default function ReqPreferredStyle({
       return
     }
 
-    setTags([...tags, inputText])
-    setBrands([...tags, inputText])
+    const newTags = [...tags, inputText]
+    setTags(newTags)
     setInputText('')
     setCount(count + 1)
   }
 
   const removeTag = (tag: string) => {
-    setTags(tags.filter((t) => t !== tag))
+    const newTags = tags.filter((t) => t !== tag)
+    setTags(newTags)
     setCount(count - 1)
   }
 
   return (
     <div>
-      <p className="text-xs pb-1">
-        선호 브랜드({count}/3)
-        <span className="text-red-500 text-lg align-middle">*</span>
-      </p>
+      <p className="text-xs pb-1">선호 브랜드({count}/3)</p>
       <input
         type="text"
+        name="brandInput"
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
         onKeyDown={(e: React.KeyboardEvent) => activeEnter(e)}
-        className="pl-2 border border-black w-full py-1 rounded-lg"
+        className="form-input"
+        style={{ height: '3rem' }}
       />
       <div className="mt-2 max-h-[50px] overflow-y-auto">
         <div className="flex flex-wrap w-full h-auto">
@@ -70,6 +66,11 @@ export default function ReqPreferredStyle({
             <TagBadge key={index} word={tag} removeTag={removeTag} />
           ))}
         </div>
+      </div>
+      <div>
+        {tags.map((tag, index) => (
+          <input key={index} type="hidden" name="brand" value={tag} />
+        ))}
       </div>
     </div>
   )

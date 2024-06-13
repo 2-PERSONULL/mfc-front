@@ -1,5 +1,6 @@
 'use server'
 
+import { BaseResponseType } from '@/types/baseResponseType'
 import { RequestType } from '@/types/requestType'
 import getFetchHeader from '@/utils/getFetchHeader'
 
@@ -7,12 +8,12 @@ export default async function createNewRequest({
   registerData,
 }: {
   registerData: RequestType
-}) {
+}): Promise<boolean> {
   const header = await getFetchHeader()
 
   if (!header) {
     console.log('session not found')
-    return
+    return false
   }
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests`,
@@ -26,10 +27,10 @@ export default async function createNewRequest({
       body: JSON.stringify(registerData),
     },
   )
-  const data = await response.json()
+  const data: BaseResponseType = await response.json()
   if (data.isSuccess) {
-    console.log(data)
-  } else {
-    console.log('Failed to save new request', data)
+    return true
   }
+  console.log('Failed to save new request', data)
+  return false
 }

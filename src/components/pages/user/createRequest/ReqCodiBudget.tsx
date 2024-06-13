@@ -1,16 +1,12 @@
+'use client'
+
 import React, { useState } from 'react'
 
-export default function ReqCodiBudget({
-  setBudget,
-}: {
-  setBudget: (value: number) => void
-}) {
-  const [value, setValue] = useState(0)
+export default function ReqCodiBudget() {
+  const [value, setValue] = useState<number | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const replacedValue = Number(e.target.value.replace(/,/g, ''))
-    setBudget(replacedValue)
-    setValue(replacedValue)
+    setValue(Number(e.target.value.replace(/,/g, '')))
   }
   return (
     <div>
@@ -20,10 +16,13 @@ export default function ReqCodiBudget({
       </p>
       <div className="flex items-center gap-1">
         <input
-          value={value.toLocaleString()}
+          required
+          name="budget"
+          value={value ? value.toLocaleString() : ''}
           onChange={handleChange}
           type="text"
-          className="text-end px-2 border border-black w-[30%] py-1 rounded-lg"
+          className="form-input text-end"
+          style={{ width: '35%' }}
         />
         <p>₩</p>
       </div>
