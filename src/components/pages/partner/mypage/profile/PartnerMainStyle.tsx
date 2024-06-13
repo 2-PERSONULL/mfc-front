@@ -4,15 +4,25 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import useModal from '@/stores/modal'
 import FavoriteStyleList from '@/components/pages/member/profile/FavoriteStyleList'
+import { MemberStyleType } from '@/types/commonTypes'
 
-export default function PartnerMainStyle() {
+export default function PartnerMainStyle({
+  styleList,
+}: {
+  styleList: MemberStyleType[]
+}) {
   const [selectedStyle, setSelectedStyle] = useState<number[]>([])
 
   const { showModal } = useModal()
   const onClickHandler = () => {
     showModal({
       title: '주요 스타일',
-      content: <FavoriteStyleList favoriteStyle={selectedStyle} />,
+      content: (
+        <FavoriteStyleList
+          favoriteStyle={selectedStyle}
+          styleList={styleList}
+        />
+      ),
     })
   }
 

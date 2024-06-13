@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import styleInfo from '@/libs/memberFavoritStyleData'
 import useToast from '@/stores/toast'
 import useModal from '@/stores/modal'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-import { updateFavoriteStyle } from '@/app/api/partner/PartnerProfile'
+import { updateFavoriteStyle } from '@/app/api/partner/PartnerProfileUpdate'
+import { MemberStyleType } from '@/types/commonTypes'
 
 export default function FavoriteStyleList({
   favoriteStyle,
+  styleList,
 }: {
   favoriteStyle: number[]
+  styleList: MemberStyleType[]
 }) {
   const { closeModal } = useModal()
   const { showToast } = useToast()
@@ -48,27 +50,27 @@ export default function FavoriteStyleList({
         선호하는 스타일을 선택해주세요. (최대 3개)
       </h1>
       <div className="grid grid-cols-3 gap-3 mt-5">
-        {styleInfo.map((style) => (
+        {styleList.map((style) => (
           <div
-            key={style.id}
+            key={style.styleId}
             className="flex flex-col justify-center items-center"
           >
             <div
               role="presentation"
-              onClick={() => handleStyleClick(style.id)}
+              onClick={() => handleStyleClick(style.styleId)}
               className="w-[90px] h-[90px] relative my-4"
             >
               <Image
-                src={style.image}
-                alt="profile image"
+                src={style.imageUrl}
+                alt={style.alt}
                 fill
                 sizes="(max-width: 100px) 100vw, 100px"
-                className={`object-cover rounded-full ${selectedStyle?.includes(style.id) ? 'ring-4 ring-black ring-offset-base-100 ring-offset-2' : ''}`}
+                className={`object-cover rounded-full ${selectedStyle?.includes(style.styleId) ? 'ring-4 ring-black ring-offset-base-100 ring-offset-2' : ''}`}
               />
             </div>
 
             <span className="text-center font-semibold text-sm">
-              {style.value}
+              {style.name}
             </span>
           </div>
         ))}

@@ -15,13 +15,14 @@ import {
   getSnsData,
   getPartnerProfileBasic,
 } from '@/app/api/partner/PartnerProfile'
+import { getStyleCategory } from '@/app/api/partner/Common'
 import PartnerNickname from '@/components/pages/partner/mypage/profile/PartnerNickname'
 
 export default async function PartnerMyPageProfile() {
+  const styleList = await getStyleCategory()
   const { description, startTime, endTime, averageDate, averagePrice } =
     await getPartnerProfile()
 
-  console.log(description, averagePrice)
   const { nickname, email, profileImage } = await getPartnerProfileBasic()
   const snsList = await getSnsData()
   const progressPercent = 40
@@ -41,7 +42,7 @@ export default async function PartnerMyPageProfile() {
         <PartnerLeadTime leadTime={averageDate} />
         <PartnerSns snsList={snsList} />
         <PartnerCareer />
-        <PartnerMainStyle />
+        <PartnerMainStyle styleList={styleList} />
         <PartnerPrice averagePrice={averagePrice} />
       </div>
     </div>

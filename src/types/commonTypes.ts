@@ -1,7 +1,8 @@
 export interface MemberStyleType {
-  id: number
-  value: string
-  image: string
+  styleId: number
+  name: string
+  imageUrl: string
+  alt: string
 }
 
 export interface MemberFavoriteStyleType {

@@ -11,7 +11,7 @@ import { formatCareerDate } from '@/utils/formatTime'
 import {
   updatePartnerCareer,
   addPartnerCareer,
-} from '@/app/api/partner/PartnerProfile'
+} from '@/app/api/partner/PartnerProfileUpdate'
 
 interface CareerDateType {
   year: number | null
