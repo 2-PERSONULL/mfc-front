@@ -1,5 +1,6 @@
 'use server'
 
+import { BaseResponseType } from '@/types/baseResponseType'
 import { RequestType } from '@/types/requestType'
 import { getFetchHeader } from '@/utils/getFetchHeader'
 
@@ -26,10 +27,10 @@ export default async function createNewRequest({
       body: JSON.stringify(registerData),
     },
   )
-  const data = await response.json()
+  const data: BaseResponseType = await response.json()
   if (data.isSuccess) {
-    console.log(data)
-  } else {
-    console.log('Failed to save new request', data)
+    console.log('Successfully saved new request')
+    return
   }
+  console.log('Failed to save new request', data)
 }

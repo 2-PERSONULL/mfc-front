@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Image from 'next/image'
 import { uploadImage } from '@/utils/uploadImage'
 import useToast from '@/stores/toast'
@@ -8,20 +8,14 @@ import useToast from '@/stores/toast'
 export default function ReqAddImage({
   title,
   id,
-  setImages,
 }: {
   title: string
   id: string
-  setImages: (value: string[]) => void
 }) {
   const [count, setCount] = useState<number>(0)
   const [imgs, setImgs] = useState<string[]>([])
   const { showToast } = useToast()
   const imgRef = useRef<React.RefObject<HTMLImageElement>[]>([])
-
-  useEffect(() => {
-    setImages?.(imgs)
-  }, [imgs])
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -69,7 +63,7 @@ export default function ReqAddImage({
       <div className="flex-row flex items-center gap-1">
         <label
           htmlFor={id}
-          className="w-28 min-h-[110px] py-10 rounded-lg border-dashed border-[2px] border-gray-600 flex items-center justify-center flex-shrink-0"
+          className="w-28 min-h-[110px] py-10 rounded-lg border-dashed border-[2px] border-[#d1d5db] flex items-center justify-center flex-shrink-0"
         >
           <p>+</p>
         </label>
@@ -94,7 +88,7 @@ export default function ReqAddImage({
               <button
                 type="button"
                 onClick={() => handleDelete(idx)}
-                className="absolute top-1 right-1 px-1 bg-black rounded-full shadow-md"
+                className="absolute top-0 right-0 px-1 rounded-full shadow-md bg-black"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -113,6 +107,16 @@ export default function ReqAddImage({
             </li>
           ))}
         </ul>
+      </div>
+      <div>
+        {imgs.map((img, index) => (
+          <input
+            key={index}
+            type="hidden"
+            name={id === 'refImgFile' ? 'referenceImages' : 'myImages'}
+            value={img}
+          />
+        ))}
       </div>
     </div>
   )

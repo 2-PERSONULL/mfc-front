@@ -27,7 +27,7 @@ const codiOptionData: CodiOptionType[] = [
   },
   {
     id: 7,
-    optionName: '악세서리',
+    optionName: '액세서리',
   },
 ]
 
