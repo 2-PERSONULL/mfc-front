@@ -1,10 +1,14 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import useChat from '@/hooks/useChat'
 import { formatChatTime } from '@/utils/formatTime'
 import useClientSession from '@/hooks/useClientSession'
 import CircleProfile from '@/components/ui/avatar/CircleProfile'
+import ChatImage from '@/components/pages/chats/ChatImage'
+import ChatCardMessage from '@/components/pages/chats/ChatCardMessage'
+import { CardMessageType } from '@/types/chatTypes'
 
 export default function Message() {
   const { uuid } = useClientSession()
@@ -28,7 +32,7 @@ export default function Message() {
       className="p-[10px] bg-white overflow-y-auto no-scrollbar flex-grow mt-[100px]"
     >
       {realTimeMessage.map((message, index) => {
-        const isOwnMessage = message.sender === uuid
+        const isOwnMessage = message.sender === uuid && message.type !== 'card'
         const isFirstOwnMessage =
           isOwnMessage &&
           (index === 0 || realTimeMessage[index - 1].sender !== uuid)
@@ -41,29 +45,47 @@ export default function Message() {
             <div className="flex items-end text-xs text-[#959595]">
               {formatChatTime(message.createdAt)}
             </div>
-            <div className="bg-[#FDF5D3] py-3 px-4 leading-5 rounded-[40px] sm:max-w-[350px] max-w-[260px]">
-              {message.msg.length > 500
-                ? `${message.msg.substring(0, 500)}...`
-                : message.msg}
-              {message.msg.length > 500 && (
-                <button
-                  type="button"
-                  className="w-full my-2 py-2 border border-gray-300 rounded-md text-gray-500"
-                >
-                  전체보기
-                </button>
-              )}
-            </div>
+            {message.type === 'image' && <ChatImage imageUrl={message.msg} />}
+            {message.type === 'msg' && (
+              <div className="bg-[#FDF5D3] py-3 px-4 leading-5 rounded-[40px] sm:max-w-[350px] max-w-[260px]">
+                {message.msg.length > 500
+                  ? `${message.msg.substring(0, 500)}...`
+                  : message.msg}
+                {message.msg.length > 500 && (
+                  <button
+                    type="button"
+                    className="w-full my-2 py-2 border border-gray-300 rounded-md text-gray-500"
+                  >
+                    전체보기
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         ) : (
           <div
             className={`flex gap-1 mb-3 ${realTimeMessage[index - 1]?.sender === uuid ? 'mt-6' : ''}`} // 이전 메시지가 자신의 메시지인 경우 상단 마진 추가
             key={message.id}
           >
-            <CircleProfile size={40} imageUrl={null} />
-            <div className="bg-[#f1f1f1] py-3 px-4 leading-5 rounded-[40px] sm:max-w-[330px] max-w-[260px] text-[15px]">
-              {message.msg}
-            </div>
+            {message.type === 'card' ? (
+              <CircleProfile size={40} imageUrl="/icons/reminder.svg" />
+            ) : (
+              <CircleProfile size={40} imageUrl={null} />
+            )}
+            {message.type === 'card' && (
+              <ChatCardMessage
+                card={message.msg as unknown as CardMessageType}
+              />
+            )}
+            {message.type === 'image' && (
+              <Image src={message.msg} width={200} height={200} alt="image" />
+            )}
+            {message.type === 'msg' && (
+              <div className="bg-[#f1f1f1] py-3 px-4 leading-5 rounded-[40px] sm:max-w-[330px] max-w-[260px] text-[15px]">
+                {message.msg}
+              </div>
+            )}
+
             <div className="flex items-end text-xs text-[#959595]">
               {formatChatTime(message.createdAt)}
             </div>

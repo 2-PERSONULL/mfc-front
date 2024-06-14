@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { EventSourcePolyfill } from 'event-source-polyfill'
-import { MessageType } from '@/types/chatTypes'
+import { MessageType, CardMessageType } from '@/types/chatTypes'
 import useClientSession from '@/hooks/useClientSession'
 
 const useChat = () => {
@@ -11,15 +11,11 @@ const useChat = () => {
   const { roomId } = useParams<{ roomId: string }>()
 
   const [realTimeMessage, setRealTimeMessage] = useState<MessageType[]>([])
-  const [inputImage, setInputImage] = useState<File[]>([])
+  const [inputImage, setInputImage] = useState<string>('')
   const [inputMessage, setInputMessage] = useState<string>('')
-  const [card, setCard] = useState<object | null>(null)
-  const [messageType, setMessageType] = useState<'msg' | 'card' | 'image'>(
-    'msg',
-  )
 
   const sendMessage = async () => {
-    const msg = messageType === 'msg' ? inputMessage : card
+    if (!inputMessage) return
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/chatting-service/chat`,
@@ -30,7 +26,7 @@ const useChat = () => {
           Authorization: accessToken,
           UUID: uuid,
         },
-        body: JSON.stringify({ type: messageType, msg, roomId }),
+        body: JSON.stringify({ type: 'msg', msg: inputMessage, roomId }),
       },
     )
 
@@ -39,8 +35,46 @@ const useChat = () => {
     }
   }
 
-  const sendImageHandler = async () => {
-    console.log(inputImage)
+  const sendImage = async () => {
+    if (!inputImage) return
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/chatting-service/chat`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: accessToken,
+          UUID: uuid,
+        },
+        body: JSON.stringify({ type: 'image', msg: inputImage, roomId }),
+      },
+    )
+
+    if (response.ok) {
+      setInputMessage('')
+    }
+  }
+
+  const sendCard = async (card: CardMessageType) => {
+    if (!card) return
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/chatting-service/chat`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: accessToken,
+          UUID: uuid,
+        },
+        body: JSON.stringify({ type: 'card', msg: card, roomId }),
+      },
+    )
+
+    if (response.ok) {
+      console.log('send card success')
+    }
   }
 
   useEffect(() => {
@@ -88,12 +122,10 @@ const useChat = () => {
     inputMessage,
     setInputMessage,
     sendMessage,
-    messageType,
-    setMessageType,
-    card,
-    setCard,
+    sendCard,
     setInputImage,
-    sendImageHandler,
+    sendImage,
+    inputImage,
   }
 }
 

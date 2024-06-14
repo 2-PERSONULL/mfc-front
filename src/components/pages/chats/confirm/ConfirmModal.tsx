@@ -3,6 +3,7 @@ import SliderModal from '@/components/common/SliderModal'
 import { Calendar } from '@/components/ui/calendar'
 import FormLabel from '@/components/ui/input/FormLabel'
 import FormPriceInput from '@/components/ui/input/FormPriceInput'
+import useChat from '@/hooks/useChat'
 
 export default function ConfirmModal({
   isModalOpen,
@@ -11,6 +12,7 @@ export default function ConfirmModal({
   isModalOpen: boolean
   setIsModalOpen: (isModalOpen: boolean) => void
 }) {
+  const { sendCard } = useChat()
   const [date, setDate] = useState<Date | undefined>(new Date())
   const [amount, setAmount] = useState<number>(0)
 
@@ -20,7 +22,35 @@ export default function ConfirmModal({
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(date, amount)
+
+    if (!date) {
+      alert('코디 제출일을 선택해주세요.')
+      return
+    }
+    if (amount === 0) {
+      alert('금액을 입력해주세요.')
+      return
+    }
+
+    // 확정 제안 api 전송 로직 -> 확정 제안 ID 받아오기
+    const formattedDate = date?.toLocaleDateString()
+    const formattedAmount = `${amount.toLocaleString()}원`
+
+    const cardMessage = {
+      requestId: '123',
+      title: '확정제안',
+      description:
+        '협의한 코디 제출일과 금액이 맞는지 확인하고 결제를 진행해주세요.',
+      details: [
+        { subtitle: '코디 제출일', value: formattedDate },
+        { subtitle: '금액', value: formattedAmount },
+      ],
+      actions: [{ label: '결제하기', action: 'click', url: '' }],
+      target: 'user',
+    }
+
+    sendCard(cardMessage)
+    setIsModalOpen(false)
   }
 
   return (

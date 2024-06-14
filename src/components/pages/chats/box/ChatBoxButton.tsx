@@ -57,7 +57,7 @@ export default function ChatBoxButton({
             </button>
             <button
               type="button"
-              onClick={() => router.push(`/partner/chatroom/${roomId}`)}
+              onClick={() => router.push(`/user/chatroom/${roomId}`)}
               className="flex justify-center items-center basis-1/3 h-full"
             >
               <Image
