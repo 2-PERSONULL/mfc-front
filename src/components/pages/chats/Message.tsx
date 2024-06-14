@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { useParams } from 'next/navigation'
 import useChat from '@/hooks/useChat'
 import { formatChatTime } from '@/utils/formatTime'
 import useClientSession from '@/hooks/useClientSession'
@@ -13,6 +14,7 @@ import { CardMessageType } from '@/types/chatTypes'
 export default function Message() {
   const { uuid } = useClientSession()
   const { realTimeMessage } = useChat()
+  const { roomId } = useParams<{ roomId: string }>()
   const scrollRef = useRef<HTMLDivElement | null>(null)
 
   const scrollToBottom = () => {
@@ -74,6 +76,7 @@ export default function Message() {
             )}
             {message.type === 'card' && (
               <ChatCardMessage
+                roomId={roomId}
                 card={message.msg as unknown as CardMessageType}
               />
             )}

@@ -1,6 +1,6 @@
 import React from 'react'
 import GoBackHeader from '@/components/layouts/GoBackHeader'
-import CoordinatingPayment from '@/components/pages/user/payments/CoordinatingPayment'
+import ConfirmPayment from '@/components/pages/user/payments/ConfirmPayment'
 
 // 파트너의 확정 제안 결제 페이지
 export default function UserConfirmPage({
@@ -10,12 +10,12 @@ export default function UserConfirmPage({
     [confirmId: string]: number
   }
 }) {
-  const { confirmId, amount } = searchParams
+  const { confirmId, amount, roomId } = searchParams
 
   return (
     <div>
       <GoBackHeader title="결제" />
-      <CoordinatingPayment confirmId={confirmId} amount={amount} />
+      <ConfirmPayment confirmId={confirmId} amount={amount} roomId={roomId} />
     </div>
   )
 }

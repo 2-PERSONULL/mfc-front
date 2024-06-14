@@ -2,7 +2,13 @@ import React from 'react'
 import Link from 'next/link'
 import { CardMessageType } from '@/types/chatTypes'
 
-export default function ChatCardMessage({ card }: { card: CardMessageType }) {
+export default function ChatCardMessage({
+  card,
+  roomId,
+}: {
+  card: CardMessageType
+  roomId: string
+}) {
   // 해당 카드의 target이 자신인 경우에만 버튼이 보이도록 함
   const role = localStorage.getItem('role')
   const isTarget = card.target === role
@@ -29,7 +35,7 @@ export default function ChatCardMessage({ card }: { card: CardMessageType }) {
           {card.actions.map((action, index) => (
             <Link
               key={index}
-              href={`/user/confirm?confirmId=${1234}&amount=${amount}`}
+              href={`/user/confirm?confirmId=${1234}&amount=${amount}&roomId=${roomId}`}
               className="bg-black text-white text-center rounded-md py-2"
             >
               {action.label}
