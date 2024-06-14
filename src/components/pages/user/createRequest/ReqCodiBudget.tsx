@@ -16,7 +16,6 @@ export default function ReqCodiBudget() {
       </p>
       <div className="flex items-center gap-1">
         <input
-          required
           name="budget"
           value={value ? value.toLocaleString() : ''}
           onChange={handleChange}

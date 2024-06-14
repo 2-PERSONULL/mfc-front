@@ -3,7 +3,7 @@ import React from 'react'
 import PartnerCareerDashboard from '@/components/pages/partner/mypage/profile/career/PartnerCareerDashboard'
 import PartnerCareerEditor from '@/components/pages/partner/mypage/profile/career/PartnerCareerEditor'
 import PartnerProfileEditButton from '@/components/ui/button/PartnerProfileEditButton'
-import { getCareer } from '@/app/api/partner/PartnerProfile'
+import { getCareer } from '@/actions/partner/PartnerProfile'
 
 export default async function PartnerCareer({
   partnerCode,

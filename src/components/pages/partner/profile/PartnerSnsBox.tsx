@@ -1,7 +1,7 @@
 import React from 'react'
 import { PartnerSnsType } from '@/types/partnerProfileTypes'
 import PartnerSnsTag from '@/components/pages/partner/mypage/profile/PartnerSnsTag'
-import { getSnsData } from '@/app/api/partner/PartnerProfile'
+import { getSnsData } from '@/actions/partner/PartnerProfile'
 
 export default async function PartnerSnsBox({
   partnerCode,

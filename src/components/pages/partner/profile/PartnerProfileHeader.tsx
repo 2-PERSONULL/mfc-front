@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import BackArrowButton from '@/components/ui/button/BackArrowButton'
-import { getPartnerProfileBasic } from '@/app/api/partner/PartnerProfile'
+import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 
 export default async function PartnerProfileHeader() {
   const basicImage =

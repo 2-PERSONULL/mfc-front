@@ -6,7 +6,7 @@ import RightArrowIcon from '@/components/ui/icons/RightArrowIcon'
 import FormLabel from '@/components/ui/input/FormLabel'
 import BankList from '@/components/pages/partner/mypage/cash/BankList'
 import useToast from '@/stores/toast'
-import { getAccountRealName, saveAccountInfo } from '@/app/api/partner/Account'
+import { getAccountRealName, saveAccountInfo } from '@/actions/partner/Account'
 import LoadingModal from '@/components/common/LoadingModal'
 import BottomFixedSubmitButton from '@/components/ui/button/BottomFixedSubmitButton'
 

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profile/PartnerProfileTitleAndEdit'
 import Modal from '@/components/common/Modal'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-import { updatePartnerPrice } from '@/app/api/partner/PartnerProfile'
+import { updatePartnerPrice } from '@/actions/partner/PartnerProfile'
 import useToast from '@/stores/toast'
 
 export default function PartnerPrice({

@@ -18,15 +18,6 @@ export default function ReqPreferredBrands() {
   }
 
   const addBrand = () => {
-    if (count >= 3) {
-      showToast({
-        content: '브랜드는 3개까지만 선택 가능합니다.',
-        type: 'warning',
-      })
-      setInputText('')
-      return
-    }
-
     if (tags.includes(inputText)) {
       showToast({
         content: '이미 추가된 브랜드입니다.',
@@ -52,6 +43,7 @@ export default function ReqPreferredBrands() {
     <div>
       <p className="text-xs pb-1">선호 브랜드({count}/3)</p>
       <input
+        disabled={count === 3}
         type="text"
         name="brandInput"
         value={inputText}

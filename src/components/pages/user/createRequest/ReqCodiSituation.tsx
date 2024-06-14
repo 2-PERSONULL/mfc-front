@@ -7,8 +7,8 @@ export default function ReqCodiSituation() {
         코디 상황
         <span className="text-red-500 text-lg align-middle">*</span>
       </p>
-      <select required name="situation" className="form-input">
-        <option value="select">코디가 필요한 상황을 선택해주세요.</option>
+      <select name="situation" defaultValue="none" className="form-input">
+        <option value="none">코디가 필요한 상황을 선택해주세요.</option>
         <option value="wedding">결혼식</option>
         <option value="daily">데일리</option>
         <option value="date">데이트</option>

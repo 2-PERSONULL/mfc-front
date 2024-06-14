@@ -8,7 +8,6 @@ export default function RequestContents() {
         <span className="text-red-500 text-lg align-middle">*</span>
       </p>
       <textarea
-        required
         name="description"
         className="form-input"
         style={{ resize: 'none', height: '6rem' }}

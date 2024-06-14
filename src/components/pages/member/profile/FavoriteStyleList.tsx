@@ -4,7 +4,7 @@ import styleInfo from '@/libs/memberFavoritStyleData'
 import useToast from '@/stores/toast'
 import useModal from '@/stores/modal'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-import { updateFavoriteStyle } from '@/app/api/partner/PartnerProfile'
+import { updateFavoriteStyle } from '@/actions/partner/PartnerProfile'
 
 export default function FavoriteStyleList({
   favoriteStyle,

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import MoreButton from '@/components/ui/button/MoreButton'
 import useConfirm from '@/stores/confirm'
 import useToast from '@/stores/toast'
-import { deletePartnerPost } from '@/app/api/partner/PartnerPost'
+import { deletePartnerPost } from '@/actions/partner/PartnerPost'
 import useModal from '@/stores/modal'
 import StyleEditor from './StyleEditor'
 

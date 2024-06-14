@@ -5,11 +5,6 @@ import codiOptionData from '@/libs/codiOptionData'
 
 export default function ReqCodiOptions() {
   const [selectedOptions, setSelectedOptions] = React.useState<string[]>([])
-
-  // useEffect(() => {
-  //   setOptions(selectedOptions)
-  // }, [selectedOptions])
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       setSelectedOptions([...selectedOptions, e.target.value])

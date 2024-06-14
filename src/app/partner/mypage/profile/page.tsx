@@ -14,7 +14,7 @@ import {
   getPartnerProfile,
   getSnsData,
   getPartnerProfileBasic,
-} from '@/app/api/partner/PartnerProfile'
+} from '@/actions/partner/PartnerProfile'
 import PartnerNickname from '@/components/pages/partner/mypage/profile/PartnerNickname'
 import getPartnerCode from '@/utils/getPartnerCode'
 

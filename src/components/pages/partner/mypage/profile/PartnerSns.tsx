@@ -8,7 +8,7 @@ import PartnerSnsTag from '@/components/pages/partner/mypage/profile/PartnerSnsT
 import SnsSelectBox from '@/components/ui/dropdown/SnsSelectBox'
 import { PartnerSnsType } from '@/types/partnerProfileTypes'
 import useToast from '@/stores/toast'
-import { updateSnsData } from '@/app/api/partner/PartnerProfile'
+import { updateSnsData } from '@/actions/partner/PartnerProfile'
 
 export default function PartnerSns({ snsList }: { snsList: PartnerSnsType[] }) {
   const { showToast } = useToast()

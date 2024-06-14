@@ -1,6 +1,6 @@
 import React from 'react'
 import { PartnerCareerFetchType } from '@/types/partnerProfileTypes'
-import { getCareer } from '@/app/api/partner/PartnerProfile'
+import { getCareer } from '@/actions/partner/PartnerProfile'
 import { formatCareerPeriod } from '@/utils/formatTime'
 
 export default async function PartnerCareerBox({

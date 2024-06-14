@@ -8,12 +8,12 @@ export default async function createNewRequest({
   registerData,
 }: {
   registerData: RequestType
-}): Promise<boolean> {
+}) {
   const header = await getFetchHeader()
 
   if (!header) {
     console.log('session not found')
-    return false
+    return
   }
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests`,
@@ -29,8 +29,8 @@ export default async function createNewRequest({
   )
   const data: BaseResponseType = await response.json()
   if (data.isSuccess) {
-    return true
+    console.log('Successfully saved new request')
+    return
   }
   console.log('Failed to save new request', data)
-  return false
 }

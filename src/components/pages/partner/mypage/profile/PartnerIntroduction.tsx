@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profile/PartnerProfileTitleAndEdit'
 import Modal from '@/components/common/Modal'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-import { updateIntroduction } from '@/app/api/partner/PartnerProfile'
+import { updateIntroduction } from '@/actions/partner/PartnerProfile'
 import useToast from '@/stores/toast'
 
 export default function PartnerIntroduction({ data }: { data: string }) {

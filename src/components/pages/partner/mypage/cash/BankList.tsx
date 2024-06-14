@@ -34,22 +34,23 @@ export default function BankList({
           금융기관을 선택해주세요
         </h1>
         <ul className=" h-full overflow-y-scroll grid grid-cols-3 gap-3">
-          {bankList.map((bank) => (
-            <li
-              role="presentation"
-              onClick={() => clickHandler(bank)}
-              key={bank.code}
-              className="bg-gray-100 rounded-[14px] h-[90px] flex flex-col items-center justify-center"
-            >
-              <Image
-                src="/bank/032.svg"
-                alt="bank-icon"
-                width="40"
-                height="40"
-              />
-              {bank.name}
-            </li>
-          ))}
+          {bankList &&
+            bankList.map((bank) => (
+              <li
+                role="presentation"
+                onClick={() => clickHandler(bank)}
+                key={bank.code}
+                className="bg-gray-100 rounded-[14px] h-[90px] flex flex-col items-center justify-center"
+              >
+                <Image
+                  src="/bank/032.svg"
+                  alt="bank-icon"
+                  width="40"
+                  height="40"
+                />
+                {bank.name}
+              </li>
+            ))}
         </ul>
       </div>
     </SliderModal>

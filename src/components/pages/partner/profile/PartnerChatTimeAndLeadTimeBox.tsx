@@ -1,5 +1,5 @@
 import React from 'react'
-import { getPartnerProfile } from '@/app/api/partner/PartnerProfile'
+import { getPartnerProfile } from '@/actions/partner/PartnerProfile'
 import { formatTime } from '@/utils/formatTime'
 
 export default async function PartnerChatTimeAndLeadTimeBox({
