@@ -1,6 +1,6 @@
 'use server'
 
-import getFetchHeader from '@/utils/getFetchHeader'
+import { getFetchHeader } from '@/utils/getFetchHeader'
 
 // access-token 발급 api
 export async function getAccessToken() {
@@ -91,6 +91,30 @@ export async function saveAccountInfo(account: string, bankCode: string) {
 
     const result = await response.json()
     return result
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+// 정산 계좌 정보 조회 API
+export async function getAccountInfo() {
+  const header = await getFetchHeader()
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/account`,
+      {
+        headers: header,
+      },
+    )
+
+    const res = await response.json()
+    return res.result
   } catch (error) {
     console.log(error)
     return null

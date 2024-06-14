@@ -5,10 +5,10 @@ import PartnerCashMenu from '@/components/pages/partner/mypage/cash/PartnerCashM
 
 export default function PartnerCashManagement() {
   return (
-    <div>
+    <>
       <GoBackHeader title="정산 관리" />
       <PartnerCashBalanceBox />
       <PartnerCashMenu />
-    </div>
+    </>
   )
 }

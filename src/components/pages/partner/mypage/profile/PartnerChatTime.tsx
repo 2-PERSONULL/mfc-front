@@ -7,7 +7,7 @@ import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButto
 import TimepickerSwiper from '@/components/ui/picker/TimepickerSwiper'
 import useToast from '@/stores/toast'
 import { formatTime } from '@/utils/formatTime'
-import { updateChatTime } from '@/actions/partner/PartnerProfile'
+import { updateChatTime } from '@/actions/partner/PartnerProfileUpdate'
 
 export default function PartnerChatTime({
   startChatTime,

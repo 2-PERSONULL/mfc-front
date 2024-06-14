@@ -2,10 +2,10 @@ import React from 'react'
 import { getPartnerProfile } from '@/actions/partner/PartnerProfile'
 
 export default async function PartnerProfileIntroduction({
-  partnerCode,
+  partnerId,
 }: {
-  partnerCode: string
+  partnerId?: string
 }) {
-  const { description } = await getPartnerProfile(partnerCode)
+  const { description } = await getPartnerProfile(partnerId)
   return <div className="p-8 text-[16px] font-semibold">{description}</div>
 }

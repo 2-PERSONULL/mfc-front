@@ -8,7 +8,7 @@ import PartnerSnsTag from '@/components/pages/partner/mypage/profile/PartnerSnsT
 import SnsSelectBox from '@/components/ui/dropdown/SnsSelectBox'
 import { PartnerSnsType } from '@/types/partnerProfileTypes'
 import useToast from '@/stores/toast'
-import { updateSnsData } from '@/actions/partner/PartnerProfile'
+import { updateSnsData } from '@/actions/partner/PartnerProfileUpdate'
 
 export default function PartnerSns({ snsList }: { snsList: PartnerSnsType[] }) {
   const { showToast } = useToast()
@@ -71,7 +71,7 @@ export default function PartnerSns({ snsList }: { snsList: PartnerSnsType[] }) {
                   <input
                     className="rounded-[4px] border border-gray-200 w-full h-[40px] px-[10px] text-[14px]"
                     placeholder="https://"
-                    type="text"
+                    type="url"
                     value={sns.snsUrl}
                     required
                     onChange={(e) => changeUrlHandler(sns.id, e.target.value)}

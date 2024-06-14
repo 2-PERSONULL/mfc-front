@@ -1,11 +1,11 @@
 'use server'
 
 import { revalidateTag } from 'next/cache'
-import getFetchHeader from '@/utils/getFetchHeader'
+import { getPartnerIdHeader, getFetchHeader } from '@/utils/getFetchHeader'
 
-export async function getPartnerPost(partnerCode: string) {
+export async function getPartnerPost(partnerId?: string) {
   try {
-    const header = await getFetchHeader()
+    const header = await getPartnerIdHeader(partnerId)
 
     if (!header) {
       console.log('session not found')
@@ -13,14 +13,15 @@ export async function getPartnerPost(partnerCode: string) {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/list/${partnerCode}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/list`,
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: header,
         next: { tags: ['post'] },
       },
     )
 
     const data = await response.json()
+    console.log(data)
     if (!data.isSuccess) console.log('get post list error:', data)
     return data.result
   } catch (error) {

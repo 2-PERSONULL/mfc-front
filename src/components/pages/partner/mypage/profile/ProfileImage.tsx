@@ -8,7 +8,7 @@ import {
   deleteAndUpdateImage,
 } from '@/utils/uploadImage'
 import SliderModal from '@/components/common/SliderModal'
-import { updatePartnerProfileImage } from '@/actions/partner/PartnerProfile'
+import { updatePartnerProfileImage } from '@/actions/partner/PartnerProfileUpdate'
 
 export default function ProfileImage({
   profileImage,

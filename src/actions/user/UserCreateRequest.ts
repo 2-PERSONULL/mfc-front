@@ -2,7 +2,7 @@
 
 import { BaseResponseType } from '@/types/baseResponseType'
 import { RequestType } from '@/types/requestType'
-import getFetchHeader from '@/utils/getFetchHeader'
+import { getFetchHeader } from '@/utils/getFetchHeader'
 
 export default async function createNewRequest({
   registerData,

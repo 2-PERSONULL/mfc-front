@@ -3,15 +3,13 @@ import React from 'react'
 import PartnerCareerDashboard from '@/components/pages/partner/mypage/profile/career/PartnerCareerDashboard'
 import PartnerCareerEditor from '@/components/pages/partner/mypage/profile/career/PartnerCareerEditor'
 import PartnerProfileEditButton from '@/components/ui/button/PartnerProfileEditButton'
-import { getCareer } from '@/actions/partner/PartnerProfile'
+import { PartnerCareerFetchType } from '@/types/partnerProfileTypes'
 
 export default async function PartnerCareer({
-  partnerCode,
+  careers,
 }: {
-  partnerCode: string
+  careers: PartnerCareerFetchType[]
 }) {
-  const careers = await getCareer(partnerCode)
-
   return (
     <div className="border-b border-b-gray-200 pt-8">
       <div className="flex justify-between mb-2">

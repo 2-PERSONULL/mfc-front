@@ -1,6 +1,6 @@
 'use server'
 
-import getFetchHeader from '@/utils/getFetchHeader'
+import { getFetchHeader } from '@/utils/getFetchHeader'
 
 export default async function ActionCoordinate(
   historyId: number,

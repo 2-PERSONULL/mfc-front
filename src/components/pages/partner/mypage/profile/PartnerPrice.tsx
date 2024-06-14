@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import PartnerProfileTitleAndEdit from '@/components/pages/partner/mypage/profile/PartnerProfileTitleAndEdit'
 import Modal from '@/components/common/Modal'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-import { updatePartnerPrice } from '@/actions/partner/PartnerProfile'
+import { updatePartnerPrice } from '@/actions/partner/PartnerProfileUpdate'
 import useToast from '@/stores/toast'
 
 export default function PartnerPrice({
@@ -52,6 +52,7 @@ export default function PartnerPrice({
             <div className="flex flex-wrap relative w-full  items-center">
               <input
                 type="text"
+                inputMode="numeric"
                 value={formatPrice(price)}
                 onChange={handleChange}
                 min={0}
@@ -74,7 +75,8 @@ export default function PartnerPrice({
         clickHandler={() => setIsModalOpen(true)}
         content={
           <p className="text-[14px]">
-            {averagePrice || '코디 평균가를 등록해주세요'}
+            {`${averagePrice.toLocaleString()} 원` ||
+              '코디 평균가를 등록해주세요'}
           </p>
         }
       />
