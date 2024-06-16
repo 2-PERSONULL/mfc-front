@@ -43,10 +43,7 @@ export default function ConfirmPayment({
     <>
       {isModalOpen && (
         <Modal title="캐시충전" closeModal={() => setIsModalOpen(false)}>
-          <CashCharge
-            roomId={roomId}
-            closeModal={() => setIsModalOpen(false)}
-          />
+          <CashCharge closeModal={() => setIsModalOpen(false)} />
         </Modal>
       )}
       <div className="flex flex-col justify-center items-center pt-20">
@@ -65,7 +62,7 @@ export default function ConfirmPayment({
           <span className="text-[30px] font-semibold border-b border-b-gray-400 w-[70vw] text-center">
             {typeof amount === 'string'
               ? parseInt(amount, 10).toLocaleString()
-              : amount.toLocaleString()}
+              : amount?.toLocaleString()}
             원
           </span>
         </section>

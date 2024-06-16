@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
+import { usePathname, useSearchParams } from 'next/navigation'
 import BottomFixedButton from '@/components/ui/button/BottomFixedButton'
 import usePayment from '@/hooks/usePayment'
 
-export default function CashCharge({
-  roomId,
-  closeModal,
-}: {
-  roomId: number
-  closeModal: () => void
-}) {
+export default function CashCharge({ closeModal }: { closeModal: () => void }) {
+  const callbackUrl = usePathname()
+  const confirmId = useSearchParams().get('confirmId')
+  const amount = useSearchParams().get('amount')
+  const roomId = useSearchParams().get('roomId')
+
   const { requestPayment } = usePayment()
-  console.log(roomId)
+
   // 백엔드에서 받아온 캐시 정보
   const cashBalance = 10000
 
@@ -140,7 +140,14 @@ export default function CashCharge({
       <BottomFixedButton
         text="결제하기"
         disabled={chargeAmount === 0}
-        clickHandler={() => requestPayment(chargeAmount, payMethod, closeModal)}
+        clickHandler={() =>
+          requestPayment(
+            chargeAmount,
+            payMethod,
+            closeModal,
+            `${callbackUrl}?confirmId=${confirmId}&amount=${amount}&roomId=${roomId}`,
+          )
+        }
       />
     </div>
   )

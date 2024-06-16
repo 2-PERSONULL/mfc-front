@@ -10,18 +10,22 @@ const usePayment = () => {
     amount: number,
     payMethod: string,
     closeModal: () => void,
+    callbackUrl?: string,
   ) => {
+    const paymentId = v4()
+    const encodedCallbackUrl = encodeURIComponent(callbackUrl || '')
+
     if (payMethod === 'CARD') {
       const response = await PortOne.requestPayment({
         isTestChannel: true,
         storeId: 'store-3817e375-0dc1-428b-b5b8-e3c33c8ae5b2',
         channelKey: 'channel-key-f93be768-c800-46d6-b9f7-ef59d3ac5dda',
-        paymentId: `${v4()}`,
+        paymentId,
         orderName: 'MFC 캐시충전',
         totalAmount: amount,
         currency: 'CURRENCY_KRW',
         payMethod: 'CARD',
-        redirectUrl: `${process.env.NEXTAUTH_URL}/payment/confirm?value=${amount}`,
+        redirectUrl: `${process.env.NEXTAUTH_URL}/user/payment/confirm?value=${amount}&callback=${encodedCallbackUrl}`,
         windowType: {
           pc: 'IFRAME',
           mobile: 'REDIRECTION',
@@ -50,13 +54,13 @@ const usePayment = () => {
         isTestChannel: true,
         storeId: 'store-3817e375-0dc1-428b-b5b8-e3c33c8ae5b2',
         channelKey: 'channel-key-f93be768-c800-46d6-b9f7-ef59d3ac5dda',
-        paymentId: `${v4()}`,
+        paymentId,
         orderName: 'MFC 캐시충전',
         totalAmount: amount,
         currency: 'CURRENCY_KRW',
         payMethod: 'EASY_PAY',
         easyPay: { easyPayProvider: 'EASY_PAY_PROVIDER_NAVERPAY' },
-        redirectUrl: `${process.env.NEXTAUTH_URL}/payment/confirm?value=${amount}`,
+        redirectUrl: `${process.env.NEXTAUTH_URL}/user/payment/confirm?value=${amount}&callback=${encodedCallbackUrl}`,
         windowType: {
           pc: 'IFRAME',
           mobile: 'REDIRECTION',
@@ -85,13 +89,13 @@ const usePayment = () => {
         isTestChannel: true,
         storeId: 'store-3817e375-0dc1-428b-b5b8-e3c33c8ae5b2',
         channelKey: 'channel-key-f93be768-c800-46d6-b9f7-ef59d3ac5dda',
-        paymentId: `${v4()}`,
+        paymentId,
         orderName: 'MFC 캐시충전',
         totalAmount: amount,
         currency: 'CURRENCY_KRW',
         payMethod: 'EASY_PAY',
         easyPay: { easyPayProvider: 'EASY_PAY_PROVIDER_KAKAOPAY' },
-        redirectUrl: `${process.env.NEXTAUTH_URL}/payment/confirm?value=${amount}`,
+        redirectUrl: `${process.env.NEXTAUTH_URL}/user/payment/confirm?value=${amount}&callback=${encodedCallbackUrl}`,
         windowType: {
           pc: 'IFRAME',
           mobile: 'REDIRECTION',
@@ -120,13 +124,13 @@ const usePayment = () => {
         isTestChannel: true,
         storeId: 'store-3817e375-0dc1-428b-b5b8-e3c33c8ae5b2',
         channelKey: 'channel-key-f93be768-c800-46d6-b9f7-ef59d3ac5dda',
-        paymentId: `${v4()}`,
+        paymentId,
         orderName: 'MFC 캐시충전',
         totalAmount: amount,
         currency: 'CURRENCY_KRW',
         payMethod: 'EASY_PAY',
         easyPay: { easyPayProvider: 'EASY_PAY_PROVIDER_TOSSPAY' },
-        redirectUrl: `${process.env.NEXTAUTH_URL}/payment/confirm?value=${amount}`,
+        redirectUrl: `${process.env.NEXTAUTH_URL}/user/payment/confirm?value=${amount}&callback=${encodedCallbackUrl}`,
         windowType: {
           pc: 'IFRAME',
           mobile: 'REDIRECTION',

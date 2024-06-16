@@ -80,7 +80,6 @@ export async function checkPayment(value: number, paymentId: string) {
     },
   )
 
-  console.log(paymentId)
   if (!paymentResponse.ok)
     throw new Error(`signinResponse: ${paymentResponse.statusText}`)
 
