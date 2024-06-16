@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { useParams } from 'next/navigation'
 import SliderModal from '@/components/common/SliderModal'
 import { Calendar } from '@/components/ui/calendar'
 import FormLabel from '@/components/ui/input/FormLabel'
 import FormPriceInput from '@/components/ui/input/FormPriceInput'
-import useChat from '@/hooks/useChat'
+import sendCard from '@/actions/chat/chatCard'
+import useToast from '@/stores/toast'
 
 export default function ConfirmModal({
   isModalOpen,
@@ -12,7 +14,8 @@ export default function ConfirmModal({
   isModalOpen: boolean
   setIsModalOpen: (isModalOpen: boolean) => void
 }) {
-  const { sendCard } = useChat()
+  const { showToast } = useToast()
+  const { roomId } = useParams<{ roomId: string }>()
   const [date, setDate] = useState<Date | undefined>(new Date())
   const [amount, setAmount] = useState<number>(0)
 
@@ -24,11 +27,11 @@ export default function ConfirmModal({
     e.preventDefault()
 
     if (!date) {
-      alert('코디 제출일을 선택해주세요.')
+      showToast({ content: '코디 제출일을 선택해주세요', type: 'warning' })
       return
     }
     if (amount === 0) {
-      alert('금액을 입력해주세요.')
+      showToast({ content: '금액을 입력해주세요.', type: 'warning' })
       return
     }
 
@@ -46,10 +49,11 @@ export default function ConfirmModal({
         { subtitle: '금액', value: formattedAmount },
       ],
       actions: [{ label: '결제하기', action: 'click', url: '' }],
-      target: 'user',
+      target: 'USER',
+      type: 'confirm',
     }
 
-    sendCard(cardMessage)
+    sendCard(cardMessage, roomId)
     setIsModalOpen(false)
   }
 

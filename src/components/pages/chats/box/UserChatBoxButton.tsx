@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import Modal from '@/components/common/Modal'
 import StyleGuideEditor from '@/components/pages/partner/styleGuide/StyleGuideEditor'
 
-export default function ChatBoxButton({
+export default function UserChatBoxButton({
   status,
   roomId,
   userId,

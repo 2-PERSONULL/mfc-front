@@ -16,6 +16,11 @@ export default function ChatRoomMenu({
     >
       <ul className="mx-2 mb-2 bg-white rounded-lg text-center text-gray-600 font-semibold">
         <button className="w-full" type="button">
+          <li className="w-full px-5 py-3 border-b border-b-gray-200">
+            신고하기
+          </li>
+        </button>
+        <button className="w-full" type="button">
           <li className="w-full px-5 py-3">채팅방 나가기</li>
         </button>
       </ul>

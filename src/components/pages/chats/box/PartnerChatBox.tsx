@@ -2,7 +2,7 @@ import React from 'react'
 import CircleProfile from '@/components/ui/avatar/CircleProfile'
 import Steps from '@/components/ui/step/Step'
 import { formatDday } from '@/utils/formatTime'
-import ChatBoxButton from './ChatBoxButton'
+import PartnerChatBoxButton from '@/components/pages/chats/box/PartnerChatBoxButton'
 
 interface ChatBoxProps {
   id: number
@@ -20,7 +20,7 @@ interface ChatBoxProps {
   deadline: string
 }
 
-export default function ChatBox({
+export default function PartnerChatBox({
   requestData,
 }: {
   requestData: ChatBoxProps
@@ -60,7 +60,7 @@ export default function ChatBox({
       </div>
 
       {/* 액션 */}
-      <ChatBoxButton
+      <PartnerChatBoxButton
         status={requestData.status}
         roomId={roomId}
         userId={requestData.userId}

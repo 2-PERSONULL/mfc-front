@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import BottomFixedButton from '@/components/ui/button/BottomFixedButton'
-import requestPayment from '@/utils/requestPayment'
+import usePayment from '@/hooks/usePayment'
 
-export default function CashCharge({ roomId }: { roomId: number }) {
+export default function CashCharge({
+  roomId,
+  closeModal,
+}: {
+  roomId: number
+  closeModal: () => void
+}) {
+  const { requestPayment } = usePayment()
   console.log(roomId)
   // 백엔드에서 받아온 캐시 정보
   const cashBalance = 10000
@@ -102,6 +109,8 @@ export default function CashCharge({ roomId }: { roomId: number }) {
         <h1 className="text-[17px] font-semibold mb-2">결제방법</h1>
 
         <div
+          role="presentation"
+          onClick={() => setPayMethod('CARD')}
           className={`flex h-[50px] items-center justify-center p-3 mb-4 ${payMethod === 'CARD' ? 'border-black border-2' : 'border border-gray-300'} `}
         >
           신용 ‧ 체크카드
@@ -131,12 +140,7 @@ export default function CashCharge({ roomId }: { roomId: number }) {
       <BottomFixedButton
         text="결제하기"
         disabled={chargeAmount === 0}
-        clickHandler={() =>
-          requestPayment({
-            amount: chargeAmount,
-            payMethod,
-          })
-        }
+        clickHandler={() => requestPayment(chargeAmount, payMethod, closeModal)}
       />
     </div>
   )

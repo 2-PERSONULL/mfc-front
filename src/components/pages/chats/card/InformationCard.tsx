@@ -1,21 +1,15 @@
 import React from 'react'
-import Link from 'next/link'
 import { CardMessageType } from '@/types/chatTypes'
 
-// 확정 제안 카드
-export default function ConfirmCard({
+// 정보 전달 카드
+export default function InformationCard({
   card,
   roomId,
 }: {
   card: CardMessageType
   roomId: string
 }) {
-  // 해당 카드의 target이 자신인 경우에만 버튼이 보이도록 함
-  const role = localStorage.getItem('role')
-  const isTarget = card.target === role
-  const amount =
-    card.details && parseInt(card.details[1].value.replace(/,/g, ''), 10)
-
+  console.log(roomId)
   return (
     <div className="border-2 border-black w-[55vw] p-3 rounded-[14px] flex flex-col gap-3">
       <div className="text-[14px] text-gray-600 rounded-lg px-2 py-1 bg-gray-200 w-fit h-fit">
@@ -31,20 +25,6 @@ export default function ConfirmCard({
           <span>{detail.value}</span>
         </div>
       ))}
-
-      {isTarget && (
-        <>
-          {card.actions.map((action, index) => (
-            <Link
-              key={index}
-              href={`/user/confirm?confirmId=${1234}&amount=${amount}&roomId=${roomId}`}
-              className="bg-black text-white text-center rounded-md py-2"
-            >
-              {action.label}
-            </Link>
-          ))}
-        </>
-      )}
     </div>
   )
 }

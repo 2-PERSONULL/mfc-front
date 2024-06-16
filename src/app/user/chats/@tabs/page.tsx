@@ -1,5 +1,5 @@
 import React from 'react'
-import PartnerChatList from '@/components/pages/chats/list/PartnerChatList'
+import UserChatList from '@/components/pages/chats/list/UserChatList'
 
 export default async function PartnerChatListAll() {
   // const initialData = await getPost(0, 10)
@@ -70,5 +70,5 @@ export default async function PartnerChatListAll() {
     },
   ]
 
-  return <PartnerChatList initialData={sampleData} />
+  return <UserChatList initialData={sampleData} />
 }

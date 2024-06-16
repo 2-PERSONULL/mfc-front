@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { EventSourcePolyfill } from 'event-source-polyfill'
-import { MessageType, CardMessageType } from '@/types/chatTypes'
+import { MessageType } from '@/types/chatTypes'
 import useClientSession from '@/hooks/useClientSession'
 
 const useChat = () => {
@@ -56,27 +56,6 @@ const useChat = () => {
     }
   }
 
-  const sendCard = async (card: CardMessageType) => {
-    if (!card) return
-
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/chatting-service/chat`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: accessToken,
-          UUID: uuid,
-        },
-        body: JSON.stringify({ type: 'card', msg: card, roomId }),
-      },
-    )
-
-    if (response.ok) {
-      console.log('send card success')
-    }
-  }
-
   useEffect(() => {
     const connectToSSE = () => {
       const EventSource = EventSourcePolyfill
@@ -122,7 +101,6 @@ const useChat = () => {
     inputMessage,
     setInputMessage,
     sendMessage,
-    sendCard,
     setInputImage,
     sendImage,
     inputImage,

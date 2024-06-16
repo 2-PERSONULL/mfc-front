@@ -13,7 +13,7 @@ export default function PartnerProfilePreviewButton() {
       >
         <span className="font-semibold text-gray-500">미리보기</span>
         <Image
-          src="https://assets.cdn.soomgo.com/icons/icon-mypage-list-arrow.svg"
+          src="/icons/list-arrow.svg"
           alt="arrow-icon"
           width={24}
           height={24}

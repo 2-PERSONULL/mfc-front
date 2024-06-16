@@ -2,27 +2,51 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import Modal from '@/components/common/Modal'
 import CashCharge from './CashCharge'
+import sendCard from '@/actions/chat/chatCard'
 
 export default function ConfirmPayment({
   roomId,
   amount,
   confirmId,
+  cashBalance,
 }: {
   roomId: number
   amount: number
   confirmId: number
+  cashBalance: number
 }) {
-  console.log(confirmId)
+  const router = useRouter()
+
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const cashBalance = 10000
+
+  const paymentHandler = () => {
+    // 코디네이팅 결제 로직(캐시 차감)
+    const cardMessage = {
+      requestId: confirmId.toString(),
+      title: '결제완료',
+      description:
+        '고객님이 결제를 완료하여 코디 거래가 확정되었습니다. 파트너님은 제출기한내에 코디를 제출해주세요:)',
+      target: 'all',
+      details: [],
+      actions: [],
+      type: 'information',
+    }
+
+    sendCard(cardMessage, roomId.toString())
+    router.replace(`/user/chatroom/${roomId}`)
+  }
 
   return (
     <>
       {isModalOpen && (
         <Modal title="캐시충전" closeModal={() => setIsModalOpen(false)}>
-          <CashCharge roomId={roomId} />
+          <CashCharge
+            roomId={roomId}
+            closeModal={() => setIsModalOpen(false)}
+          />
         </Modal>
       )}
       <div className="flex flex-col justify-center items-center pt-20">
@@ -39,7 +63,10 @@ export default function ConfirmPayment({
           <p>결제완료 시 거래가 확정됩니다.</p>
 
           <span className="text-[30px] font-semibold border-b border-b-gray-400 w-[70vw] text-center">
-            {amount.toLocaleString()} 원
+            {typeof amount === 'string'
+              ? parseInt(amount, 10).toLocaleString()
+              : amount.toLocaleString()}
+            원
           </span>
         </section>
 
@@ -55,6 +82,7 @@ export default function ConfirmPayment({
         <section className="flex flex-col items-center justify-center gap-10">
           <button
             type="button"
+            onClick={paymentHandler}
             className="w-[80vw] bg-black text-white font-semibold text-[17px] h-[60px] rounded-full"
           >
             결제

@@ -26,4 +26,5 @@ export interface CardMessageType {
   details: CardDetailType[]
   actions: CardActionType[]
   target: string
+  type: string
 }
