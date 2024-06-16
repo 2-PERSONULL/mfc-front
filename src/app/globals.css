@@ -181,11 +181,11 @@ body::-webkit-scrollbar {
   box-shadow: 0 0 0 1px #6b7280;
 }
 
-input[type="radio"]:focus {
+input[type='radio']:focus {
   outline: none; /* 기본 포커스 스타일 제거 */
 }
 
-input[type="radio"] {
+input[type='radio'] {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -198,8 +198,8 @@ input[type="radio"] {
   cursor: pointer;
 }
 
-input[type="radio"]:checked::after {
-  content: "";
+input[type='radio']:checked::after {
+  content: '';
   width: 0.8em;
   height: 0.8em;
   background-color: black;
@@ -210,7 +210,7 @@ input[type="radio"]:checked::after {
   transform: translate(-50%, -50%);
 }
 
-input[type="radio"]:focus {
+input[type='radio']:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
 }

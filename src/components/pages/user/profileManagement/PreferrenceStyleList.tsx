@@ -26,11 +26,13 @@ export default function PreferrenceStyleList({
         selectedStyle.filter((selected: number) => selected !== style),
       )
     }
+    // 값 저장되는 부분 수정 필요
     setSelectedStyle([...selectedStyle, style])
   }
 
   const saveHandler = () => {
     console.log('저장')
+    console.log(selectedStyle)
     router.replace('/user/mypage/profile')
   }
   return (

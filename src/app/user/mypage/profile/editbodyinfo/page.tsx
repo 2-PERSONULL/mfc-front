@@ -1,6 +1,7 @@
 import React from 'react'
 import { redirect } from 'next/navigation'
 import UserBodyInfoForm from '@/components/pages/user/profileManagement/UserBodyInfoForm'
+import SectionTitle from '@/components/layouts/SectionTitle'
 
 export default async function EditBodyInfo() {
   const handleSave = async (formData: FormData) => {
@@ -10,10 +11,8 @@ export default async function EditBodyInfo() {
     redirect('/user/mypage/profile')
   }
   return (
-    <main>
-      <h1 className="font-extrabold text-xl px-6 my-5">
-        나의 신체 정보를 입력해주세요.
-      </h1>
+    <main className="min-h-full">
+      <SectionTitle title="나의 신체 정보를 입력해주세요." />
       <UserBodyInfoForm handleSave={handleSave} />
     </main>
   )
