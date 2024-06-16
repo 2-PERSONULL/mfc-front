@@ -18,8 +18,8 @@ export default function ProfileManagementLayout({
   if (search.endsWith('editstyle')) {
     title = '선호 스타일 수정'
   }
-  if (search.endsWith('editbodytype')) {
-    title = '체형 정보 수정'
+  if (search.endsWith('editbodyinfo')) {
+    title = '신체 정보 수정'
   }
   if (search.endsWith('editsize')) {
     title = '옷 사이즈 수정'

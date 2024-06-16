@@ -3,7 +3,7 @@ import UserProfileEditButton from '@/components/ui/button/UserProfileEditButton'
 
 export default function UserPreferrenceStyleInfo({ href }: { href: string }) {
   return (
-    <div className="w-full bg-white pt-2 pb-1">
+    <div className="w-full bg-white pb-1">
       <div className="flex items-center justify-between">
         <p className="text-gray-500">선호 스타일</p>
         <UserProfileEditButton href={href} />
