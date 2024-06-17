@@ -1,13 +1,10 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import PaymentProcess from '@/components/pages/user/payments/PaymentProcess'
 
-export default function PaymentConfirmPage({
-  params,
-}: {
-  params: { paymentId: string; value: string; callback: string }
-}) {
-  const { paymentId, value, callback } = params
+export default function PaymentConfirmPage() {
   return (
-    <PaymentProcess paymentId={paymentId} value={value} callback={callback} />
+    <Suspense>
+      <PaymentProcess />
+    </Suspense>
   )
 }
