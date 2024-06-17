@@ -8,7 +8,7 @@ export default async function LookBookTab({
   params: { partnerId: string }
 }) {
   const { partnerId } = params
-  const postList = await getPartnerPost(partnerId)
+  const { posts, last } = await getPartnerPost(partnerId, 0, 10)
 
-  return <PartnerLookbookList postList={postList} />
+  return <PartnerLookbookList initialData={posts} isLast={last} />
 }

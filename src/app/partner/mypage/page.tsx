@@ -9,7 +9,7 @@ import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 
 export default async function PartnerMyPage() {
   const { nickname, profileImage } = await getPartnerProfileBasic()
-  const postList = await getPartnerPost()
+  const { posts, last } = await getPartnerPost('', 0, 20)
 
   return (
     <div className="h-screen">
@@ -17,9 +17,9 @@ export default async function PartnerMyPage() {
       <HeaderInfo
         nickname={nickname}
         profileImage={profileImage}
-        postCount={postList.length}
+        postCount={posts.length}
       />
-      <PartnerPostList postList={postList} />
+      <PartnerPostList initialData={posts} isLast={last} />
       <BottomNav />
     </div>
   )

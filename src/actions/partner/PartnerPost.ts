@@ -3,7 +3,11 @@
 import { revalidateTag } from 'next/cache'
 import { getPartnerIdHeader, getFetchHeader } from '@/utils/getFetchHeader'
 
-export async function getPartnerPost(partnerId?: string) {
+export async function getPartnerPost(
+  partnerId?: string,
+  page?: number,
+  size?: number,
+) {
   try {
     const header = await getPartnerIdHeader(partnerId)
 
@@ -13,7 +17,7 @@ export async function getPartnerPost(partnerId?: string) {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/list`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/list?page=${page}&size=${size}`,
       {
         headers: {
           UUID: header.partnerId,
@@ -26,7 +30,7 @@ export async function getPartnerPost(partnerId?: string) {
     const data = await response.json()
 
     if (!data.isSuccess) console.log('get post list error:', data)
-    return data.result.posts
+    return data.result
   } catch (error) {
     console.log(error)
     return null

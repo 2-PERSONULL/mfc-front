@@ -71,8 +71,10 @@ export default function StyleTagEditor({
         placeholder="#태그입력(최대10개)"
         onChange={(e) => setInputText(e.target.value)}
         onKeyDown={(e: React.KeyboardEvent) => {
-          e.preventDefault()
-          activeEnter(e)
+          if (e.key === 'Enter') {
+            e.preventDefault()
+            activeEnter(e)
+          }
         }}
       />
 

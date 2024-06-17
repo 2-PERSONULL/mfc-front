@@ -1,21 +1,45 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
+import useObserver from '@/hooks/useObserver'
 import { PartnerPostListType } from '@/types/partnerPostTypes'
+import { getPartnerPost } from '@/actions/partner/PartnerPost'
+
+const NUMBER_OF_FETCH = 20
 
 export default function PartnerPostList({
-  postList,
+  initialData,
+  isLast,
 }: {
-  postList: PartnerPostListType[]
+  initialData: PartnerPostListType[]
+  isLast: boolean
 }) {
   const router = useRouter()
+  const [offset, setOffset] = useState(1)
+  const [postList, setPostList] = useState<PartnerPostListType[]>(initialData)
+  const [isLastData, setIsLastData] = useState(isLast)
+
+  const loadMorePosts = async () => {
+    if (isLastData) return
+
+    const { posts, last } = await getPartnerPost('', offset, NUMBER_OF_FETCH)
+
+    setIsLastData(last)
+    setPostList((prevPosts) => [...prevPosts, ...posts])
+    setOffset((prevOffset) => prevOffset + 1)
+  }
+
+  const observerRef = useObserver({
+    onIntersect: loadMorePosts,
+    enabled: true,
+  })
 
   return (
-    <section className="pt-5 px-4">
-      <div className="grid grid-cols-3 gap-2">
+    <section className="pt-5 px-4 pb-[100px]">
+      <div className="grid grid-cols-3 gap-2" ref={observerRef}>
         <button
           type="button"
           onClick={() => router.push('/partner/mypage/styles/edit')}
