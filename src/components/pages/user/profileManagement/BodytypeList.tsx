@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Image from 'next/image'
 import bodytypeData from '@/libs/bodyTypeData'
 
 interface BodyType {
@@ -8,6 +9,7 @@ interface BodyType {
   name: string
   value: string
   description: string
+  imageUrl: string
 }
 
 export default function BodytypeList() {
@@ -49,9 +51,19 @@ export default function BodytypeList() {
         체형
       </span>
       {selectedBodyType && (
-        <p className="text-sm text-center font-semibold text-gray-400">
-          {selectedBodyType.description}
-        </p>
+        <div className="flex flex-col items-center justify-center">
+          <Image
+            src={selectedBodyType.imageUrl}
+            alt={selectedBodyType.value}
+            width={0}
+            height={0}
+            priority
+            style={{ width: '80vmin', height: '80vmin' }}
+          />
+          <p className="text-sm text-center font-semibold text-gray-400">
+            {selectedBodyType.description}
+          </p>
+        </div>
       )}
     </div>
   )
