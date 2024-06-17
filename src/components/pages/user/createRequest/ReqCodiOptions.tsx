@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react'
+'use client'
+
+import React from 'react'
 import codiOptionData from '@/libs/codiOptionData'
 
-export default function ReqCodiOptions({
-  setOptions,
-}: {
-  setOptions: (value: string[]) => void
-}) {
+export default function ReqCodiOptions() {
   const [selectedOptions, setSelectedOptions] = React.useState<string[]>([])
-
-  useEffect(() => {
-    setOptions(selectedOptions)
-  }, [selectedOptions])
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       setSelectedOptions([...selectedOptions, e.target.value])
@@ -33,8 +26,9 @@ export default function ReqCodiOptions({
             <input
               value={data.optionName}
               onChange={handleChange}
+              name="category"
               type="checkbox"
-              id="common-checkbox"
+              className="common-checkbox"
             />
             <p>{data.optionName}</p>
           </label>
