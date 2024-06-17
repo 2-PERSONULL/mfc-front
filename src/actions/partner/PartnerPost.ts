@@ -15,15 +15,18 @@ export async function getPartnerPost(partnerId?: string) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/list`,
       {
-        headers: header,
+        headers: {
+          UUID: header.partnerId,
+          'Content-Type': 'application/json',
+        },
         next: { tags: ['post'] },
       },
     )
 
     const data = await response.json()
-    console.log(data)
+
     if (!data.isSuccess) console.log('get post list error:', data)
-    return data.result
+    return data.result.posts
   } catch (error) {
     console.log(error)
     return null

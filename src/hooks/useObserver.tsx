@@ -11,7 +11,7 @@ interface ObserverProps {
 const useObserver = ({
   root = null, // 교차할 부모 요소(default: document)
   rootMargin = '0px', // root와  target이 감지하는 여백의 거리
-  threshold = 0.1, // 관찰 대상 요소가 얼마나 root에 들어와야 교차되었다고 판단할지 결정 0.1: 요소의 10%가 뷰표트와 교차
+  threshold = 1.0, // 관찰 대상 요소가 얼마나 root에 들어와야 교차되었다고 판단할지 결정 0.1: 요소의 10%가 뷰표트와 교차
   onIntersect, // 교차할 때 실행할 함수
   enabled = true,
 }: ObserverProps) => {

@@ -1,17 +1,24 @@
 'use client'
 
 import React from 'react'
-import ActionCoordinate from '@/actions/partner/PartnerRequest'
+import { actionCoordinate } from '@/actions/partner/PartnerRequest'
+import { UserRequestDetailType } from '@/types/requestType'
 
-export default function RequestDetail({ historyId }: { historyId: number }) {
+export default function RequestDetail({
+  historyId,
+  requestDetail,
+}: {
+  historyId: string
+  requestDetail: UserRequestDetailType
+}) {
   const actionHandler = async (action: string) => {
-    const result = await ActionCoordinate(historyId, action)
+    const result = await actionCoordinate(historyId, action)
 
     console.log(result)
   }
   return (
     <div className="w-full">
-      <div className="p-3">요청상세 {historyId}</div>
+      <div className="p-3">요청상세 {requestDetail.description}</div>
 
       <div className="fixed bottom-0 h-[100px] w-full flex items-center bg-white gap-2 px-2 pb-[10px]">
         <button

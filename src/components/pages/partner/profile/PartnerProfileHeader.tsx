@@ -2,6 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 import BackArrowButton from '@/components/ui/button/BackArrowButton'
 import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
+import { getFollowStatus } from '@/actions/user/Follow'
+import PartnerFollowButton from '@/components/ui/button/PartnerFollowButton'
 
 export default async function PartnerProfileHeader({
   partnerId,
@@ -11,6 +13,7 @@ export default async function PartnerProfileHeader({
   const basicImage =
     'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
   const { nickname, profileImage } = await getPartnerProfileBasic(partnerId)
+  const isFollow = await getFollowStatus(partnerId)
   const imageUrl = profileImage || basicImage
 
   return (
@@ -44,12 +47,9 @@ export default async function PartnerProfileHeader({
 
       <section className="mt-7 flex flex-col items-center">
         <h1 className="text-center font-bold text-xl mb-3">{nickname}</h1>
-        <button
-          type="button"
-          className="rounded-full bg-black w-[120px] h-[42px] text-white"
-        >
-          Follow
-        </button>
+        {partnerId && (
+          <PartnerFollowButton partnerId={partnerId} isFollow={isFollow} />
+        )}
       </section>
 
       <section className="mt-7 flex justify-around">

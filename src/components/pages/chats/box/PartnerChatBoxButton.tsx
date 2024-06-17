@@ -31,7 +31,7 @@ export default function PartnerChatBoxButton({
         </Modal>
       )}
       <div className="h-[50px] w-full border-t">
-        {status === 'WAITING' ? (
+        {status === 'NONERESPONSE' ? (
           <div className="h-full flex items-center justify-center">
             <button
               type="button"
