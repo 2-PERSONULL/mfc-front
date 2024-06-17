@@ -19,7 +19,7 @@ export default function PartnerChatroomHeader() {
         isModalOpen={isConfirmOpen}
         setIsModalOpen={setIsConfirmOpen}
       />
-      <header className="fixed top-0 h-[100px] w-full bg-white z-10 shadow-sm py-3 px-3">
+      <header className="absoulte top-0 h-[100px] w-full bg-white z-10 shadow-sm py-3 px-3 mb-2">
         <div className="flex mb-3 justify-between">
           <div className="flex gap-4">
             <BackArrowButton />

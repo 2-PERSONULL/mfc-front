@@ -1,7 +1,7 @@
 import React from 'react'
 import UserChatList from '@/components/pages/chats/list/UserChatList'
 
-export default async function PartnerChatListAll() {
+export default async function UserChatListAll() {
   // const initialData = await getPost(0, 10)
   const basicImage =
     'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'

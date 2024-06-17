@@ -57,6 +57,8 @@ const useChat = () => {
   }
 
   useEffect(() => {
+    if (!uuid || !accessToken) return
+
     const connectToSSE = () => {
       const EventSource = EventSourcePolyfill
 
@@ -92,9 +94,11 @@ const useChat = () => {
     const eventSource = connectToSSE()
 
     return () => {
-      eventSource.close()
+      if (eventSource) {
+        eventSource.close()
+      }
     }
-  }, [roomId])
+  }, [roomId, uuid, accessToken])
 
   return {
     realTimeMessage,

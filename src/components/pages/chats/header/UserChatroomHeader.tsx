@@ -14,8 +14,8 @@ export default function UserChatroomHeader() {
     <>
       <ChatRoomMenu isModalOpen={isMenuOpen} setIsModalOpen={setIsMenuOpen} />
 
-      <header className="fixed top-0 h-[fit] w-full bg-white z-10 shadow-sm py-3 px-3">
-        <div className="flex mb-3 justify-between">
+      <header className="absoulte top-0 h-[fit] w-full bg-white z-10 shadow-sm py-3 px-3">
+        <div className="flex justify-between">
           <div className="flex gap-4">
             <BackArrowButton />
             <span className="font-semibold text-[18px]">Coordi.KIM</span>
