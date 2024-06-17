@@ -29,6 +29,7 @@ export default function ReqCoordiInfo() {
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">
         <StretchedRoundedButton
           comment="예약"
+          // 파트너 정보 연결 후 수정 진행 예정
           clickHandler={() => console.log('asd')}
         />
       </div>

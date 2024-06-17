@@ -180,3 +180,37 @@ body::-webkit-scrollbar {
   border-color: #6b7280;
   box-shadow: 0 0 0 1px #6b7280;
 }
+
+input[type='radio']:focus {
+  outline: none; /* 기본 포커스 스타일 제거 */
+}
+
+input[type='radio'] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid rgb(93, 93, 93);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+input[type='radio']:checked::after {
+  content: '';
+  width: 0.8em;
+  height: 0.8em;
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input[type='radio']:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+}
