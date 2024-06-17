@@ -22,7 +22,7 @@ export default async function PartnerPostDetailPage({
   const { nickname, profileImage } = await getPartnerProfileBasic(partnerId)
 
   return (
-    <div>
+    <>
       <GoBackHeader title="스타일 상세보기" />
       <PartnerPostTop
         nickname={nickname}
@@ -32,8 +32,8 @@ export default async function PartnerPostDetailPage({
         tags={tags.map((tag: TagType) => tag.tagId)}
       />
       <PartnerPostImage imageUrl={imageUrl} />
-      <PartnerPostLikeCount likeCount={bookmarkCnt} />
+      <PartnerPostLikeCount likeCount={bookmarkCnt} postId={postId} />
       <PartnerPostTagList tags={tags} />
-    </div>
+    </>
   )
 }

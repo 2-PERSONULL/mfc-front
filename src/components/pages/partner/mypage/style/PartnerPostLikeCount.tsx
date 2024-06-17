@@ -1,14 +1,19 @@
 import React from 'react'
 import LikeButton from '@/components/ui/button/LikeButton'
+import { getLikeStatus } from '@/actions/user/Bookmark'
 
-export default function PartnerPostLikeCount({
+export default async function PartnerPostLikeCount({
   likeCount,
+  postId,
 }: {
   likeCount: number
+  postId: number
 }) {
+  const isLike = await getLikeStatus(postId)
+
   return (
-    <div className="w-full p-3 flex">
-      <LikeButton />
+    <div className="w-full h-[55px] p-3 flex">
+      <LikeButton isLike={isLike} postId={postId} />
       <span className="ml-2">{likeCount}</span>
     </div>
   )

@@ -32,7 +32,7 @@ export default async function PartnerPostDetailPage({
         tags={tags.map((tag: TagType) => tag.tagId)}
       />
       <PartnerPostImage imageUrl={imageUrl} />
-      <PartnerPostLikeCount likeCount={bookmarkCnt} />
+      <PartnerPostLikeCount likeCount={bookmarkCnt} postId={postId} />
       <PartnerPostTagList tags={tags} />
     </div>
   )

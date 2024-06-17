@@ -66,12 +66,12 @@ export default function PartnerPostTop({
   ]
 
   return (
-    <div className="w-full h-[fit] border-t border-t-gray-200 flex items-center justify-between px-3 py-3">
+    <section className="w-full h-[fit] border-t border-t-gray-200 flex items-center justify-between px-3 py-3">
       <div className="flex gap-3 h-full items-center">
         <CircleProfile imageUrl={profileImage} size={40} />
         <span className="font-semibold">{nickname}</span>
       </div>
       {role === 'partner' && <MoreButton actions={actions} />}
-    </div>
+    </section>
   )
 }
