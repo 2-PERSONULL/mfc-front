@@ -3,10 +3,12 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import BackArrowButton from '@/components/ui/button/BackArrowButton'
-import ChatRoomMenu from './ChatRoomMenu'
-import ConfirmModal from './confirm/ConfirmModal'
+import ChatRoomMenu from '@/components/pages/chats/ChatRoomMenu'
+import ConfirmModal from '@/components/pages/chats/confirm/ConfirmModal'
 
-export default function ChatRoomHeader() {
+export default function PartnerChatroomHeader() {
+  // 요청 진행 상태에 따라 확정 제안 버튼 숨기기 처리 필요
+
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false)
 
@@ -17,7 +19,7 @@ export default function ChatRoomHeader() {
         isModalOpen={isConfirmOpen}
         setIsModalOpen={setIsConfirmOpen}
       />
-      <header className="fixed top-0 h-[100px] w-full bg-white z-10 shadow-sm py-3 px-3">
+      <header className="absoulte top-0 h-[100px] w-full bg-white z-10 shadow-sm py-3 px-3 mb-2">
         <div className="flex mb-3 justify-between">
           <div className="flex gap-4">
             <BackArrowButton />

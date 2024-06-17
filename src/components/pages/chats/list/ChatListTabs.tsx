@@ -5,13 +5,13 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import chatTabs from '@/libs/chatData'
 
-export default function ChatListTabs() {
+export default function ChatListTabs({ userRole }: { userRole: string }) {
   const pathName = usePathname()
   const tabs = chatTabs
 
   const isCurrentTab = (tab: string) => {
-    if (tab === '') return pathName === `/partner/chats`
-    return pathName === `/partner/chats/${tab}`
+    if (tab === '') return pathName === `/${userRole}/chats`
+    return pathName === `/${userRole}/chats/${tab}`
   }
 
   return (

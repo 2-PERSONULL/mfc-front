@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import Modal from '@/components/common/Modal'
 import StyleGuideEditor from '@/components/pages/partner/styleGuide/StyleGuideEditor'
 
-export default function ChatBoxButton({
+export default function UserChatBoxButton({
   status,
   roomId,
   userId,
@@ -57,7 +57,7 @@ export default function ChatBoxButton({
             </button>
             <button
               type="button"
-              onClick={() => router.push(`/partner/chatroom/${roomId}`)}
+              onClick={() => router.push(`/user/chatroom/${roomId}`)}
               className="flex justify-center items-center basis-1/3 h-full"
             >
               <Image

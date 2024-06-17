@@ -20,7 +20,7 @@ export default function MyPageMenu() {
             >
               <span>{menu.title}</span>
               <Image
-                src="https://assets.cdn.soomgo.com/icons/icon-mypage-list-arrow.svg"
+                src="/icons/list-arrow.svg"
                 alt="arrow-icon"
                 width={24}
                 height={24}

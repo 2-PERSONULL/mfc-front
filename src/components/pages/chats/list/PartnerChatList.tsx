@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import useObserver from '@/hooks/useObserver'
 import getPost from '@/actions/partner/PartnerChats'
-import ChatBox from '@/components/pages/chats/box/ChatBox'
+import PartnerChatBox from '@/components/pages/chats/box/PartnerChatBox'
 
 interface CoordinatesRequestType {
   id: number
@@ -46,7 +46,7 @@ export default function PartnerChatList({
   return (
     <div className="flex flex-col gap-3 bg-gray-100 pb-[100px]">
       {requests.map((request) => (
-        <ChatBox key={request.id} requestData={request} />
+        <PartnerChatBox key={request.id} requestData={request} />
       ))}
 
       <div ref={observerRef} />

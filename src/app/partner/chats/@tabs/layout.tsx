@@ -11,7 +11,7 @@ export default function PartnerChatListLayout({
   return (
     <>
       <TitleHeader title="채팅" menu="/partner/mypage/menu" />
-      <ChatListTabs />
+      <ChatListTabs userRole="partner" />
       {children}
       <BottomNav />
     </>
