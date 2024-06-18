@@ -12,7 +12,7 @@ export default async function EditBodyInfo() {
   }
   return (
     <main className="min-h-full">
-      <SectionTitle title="나의 신체 정보를 입력해주세요." />
+      <SectionTitle title="나의 신체 정보를 입력해주세요." describe />
       <UserBodyInfoForm handleSave={handleSave} />
     </main>
   )

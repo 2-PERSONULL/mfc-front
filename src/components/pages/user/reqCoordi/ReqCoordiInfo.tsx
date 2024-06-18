@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
-import CoordinationRequest from '../requestList/CoordinationRequest'
+
 import SpecifyDate from './SpecifyDate'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
+import EachRequest from '../requestList/EachRequest'
 
 export default function ReqCoordiInfo() {
   const [deadline, setDeadline] = useState('')
@@ -19,11 +20,7 @@ export default function ReqCoordiInfo() {
         >
           <p>요청서 선택</p>
         </Link>
-        <CoordinationRequest
-          title="요청서 1"
-          situation="상황"
-          description="이런저런 내용"
-        />
+        <EachRequest title="요청서 1" />
       </div>
       <SpecifyDate deadline={setDeadline} />
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">

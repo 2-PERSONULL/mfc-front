@@ -9,7 +9,7 @@ export default async function EditPreferrenceStyle() {
   const favoritStyle = await getFavoriteStyle()
   return (
     <main className="min-h-full">
-      <SectionTitle title="선호하는 스타일을 선택해주세요. \n (최대 3개)" />
+      <SectionTitle title="선호하는 스타일을 선택해주세요." describe />
       <PreferrenceStyleList
         styleList={styleList}
         favoriteStyle={favoritStyle}

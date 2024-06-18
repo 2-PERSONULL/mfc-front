@@ -1,12 +1,17 @@
 import React from 'react'
-import { redirect } from 'next/navigation'
 import { ZodError, ZodIssue } from 'zod'
-import createNewRequest from '@/actions/user/UserCreateRequest'
+import { redirect } from 'next/navigation'
 import RequestSchema from '@/schema/requestSchema'
-import RequestForm from '@/components/pages/user/createEditRequest/RequestForm'
+import { editRequest, getRequestDetail } from '@/actions/user/UserRequest'
+import EditRequestForm from '@/components/pages/user/createEditRequest/EditRequestForm'
+import { RequestDetailProps } from '@/types/requestDetailType'
 
-export default function NewRequest() {
-  const handleSubmit = async (
+export default async function EditRequest({
+  params,
+}: {
+  params: { requestid: string }
+}) {
+  const handleEdit = async (
     formData: FormData,
   ): Promise<{ error: ZodIssue[] } | undefined> => {
     'use server'
@@ -34,17 +39,15 @@ export default function NewRequest() {
         referenceImages: formData.getAll('referenceImages') as string[],
         myImages: formData.getAll('myImages') as string[],
       })
-      await createNewRequest({
-        registerData: {
-          title,
-          description,
-          situation,
-          brand,
-          category,
-          budget,
-          referenceImages,
-          myImages,
-        },
+      await editRequest(params.requestid, {
+        title,
+        description,
+        situation,
+        brand,
+        category,
+        budget,
+        referenceImages,
+        myImages,
       })
     } catch (error) {
       if (error instanceof ZodError) {
@@ -53,9 +56,13 @@ export default function NewRequest() {
     }
     return redirect('/user/mypage/reqlist')
   }
+
+  const requestContents: RequestDetailProps = await getRequestDetail(
+    params.requestid,
+  )
   return (
     <main>
-      <RequestForm action={handleSubmit} />
+      <EditRequestForm action={handleEdit} contents={requestContents} />
     </main>
   )
 }

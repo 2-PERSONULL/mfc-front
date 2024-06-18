@@ -7,7 +7,6 @@ export interface RequestType {
   budget: number
   brand: string[] | undefined
   category: string[]
-  otherRequirements: string | undefined
 }
 
 export interface PartnerChatListType {
