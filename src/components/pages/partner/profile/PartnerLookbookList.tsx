@@ -1,9 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { PartnerPostListType } from '@/types/partnerPostTypes'
 import { getPartnerPost } from '@/actions/partner/PartnerPost'
 import useObserver from '@/hooks/useObserver'
@@ -17,10 +16,35 @@ export default function PartnerLookbookList({
   isLast: boolean
   fetchNum: number
 }) {
+  const router = useRouter()
   const pathName = usePathname()
   const [offset, setOffset] = useState(1)
   const [postList, setPostList] = useState<PartnerPostListType[]>(initialData)
   const [isLastData, setIsLastData] = useState(isLast)
+  const [isScrollable, setIsScrollable] = useState(false)
+
+  const setStoredData = async () => {
+    const savedPosts = sessionStorage.getItem('POSTS')
+    const savedCurrentPage = sessionStorage.getItem('CURRENT_PAGE')
+    if (!savedCurrentPage || !savedPosts) return
+
+    setPostList(JSON.parse(savedPosts))
+    setOffset(parseInt(savedCurrentPage, 10))
+    sessionStorage.removeItem('POSTS')
+    sessionStorage.removeItem('CURRENT_PAGE')
+  }
+
+  useEffect(() => {
+    setStoredData()
+    setIsScrollable(true)
+  }, [])
+
+  useEffect(() => {
+    const savedScrollPosition = sessionStorage.getItem('SCROLL_HEIGHT')
+    if (!isScrollable || !savedScrollPosition) return
+    window.scrollTo(0, parseInt(savedScrollPosition, 10))
+    sessionStorage.removeItem('SCROLL_HEIGHT')
+  }, [isScrollable])
 
   const getPathName = () => {
     if (pathName.startsWith('/user')) {
@@ -44,12 +68,22 @@ export default function PartnerLookbookList({
     enabled: !isLastData,
   })
 
+  const onClickPost = (postId: number) => {
+    sessionStorage.setItem('POSTS', JSON.stringify(postList))
+    sessionStorage.setItem('SCROLL_HEIGHT', window.scrollY.toString())
+    sessionStorage.setItem('CURRENT_PAGE', offset.toString())
+    setIsScrollable(false)
+
+    router.push(`${getPathName()}/${postId}`)
+  }
+
   return (
     <section className="grid grid-cols-2 gap-2">
       {postList.map((post) => (
-        <Link
+        <button
           key={post.postId}
-          href={`${getPathName()}/${post.postId}`}
+          type="button"
+          onClick={() => onClickPost(post.postId)}
           className="relative h-[190px] mb-1"
         >
           <Image
@@ -59,7 +93,7 @@ export default function PartnerLookbookList({
             sizes="(max-width: 100px) 100vw, 100px"
             className="object-cover rounded-[12px] h-full w-full"
           />
-        </Link>
+        </button>
       ))}
       <div ref={observerRef} />
     </section>
