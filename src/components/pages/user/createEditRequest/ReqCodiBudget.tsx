@@ -9,12 +9,12 @@ export default function ReqCodiBudget({ budget }: { budget?: string }) {
     setValue(Number(e.target.value.replace(/,/g, '')))
   }
   return (
-    <div>
+    <section>
       <p className="text-xs pb-1">
         코디 예산
         <span className="text-red-500 text-lg align-middle">*</span>
       </p>
-      <div className="flex items-center gap-1">
+      <section className="flex items-center gap-1">
         <input
           name="budget"
           value={value ? value.toLocaleString() : ''}
@@ -24,7 +24,7 @@ export default function ReqCodiBudget({ budget }: { budget?: string }) {
           style={{ width: '35%' }}
         />
         <p>₩</p>
-      </div>
-    </div>
+      </section>
+    </section>
   )
 }

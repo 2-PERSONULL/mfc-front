@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { getRequestList } from '@/actions/user/UserRequest'
 import { BaseResponseType } from '@/types/baseResponseType'
@@ -14,7 +13,6 @@ interface RequestListType {
 }
 
 export default function ReqListContents() {
-  const router = useRouter()
   const [page, setPage] = useState(0)
   const [isLast, setIsLast] = useState(false)
   const [requestList, setRequestList] = useState<RequestListType[]>([])
@@ -42,23 +40,22 @@ export default function ReqListContents() {
 
   return (
     <div className="w-full min-h-screen pt-[50px]">
-      <div className="fixed top-[50px] w-full px-5 py-3 border border-t bg-white">
+      <section className="fixed top-[50px] w-full px-5 py-3 border border-t bg-white">
         <button type="button" className="text-blue-600 font-bold text-sm">
           <Link href="/user/mypage/reqlist/newreq">+ 신규 요청서</Link>
         </button>
-      </div>
-      {requestList.map((request: RequestListType) => (
-        <button
-          type="button"
-          onClick={() =>
-            router.push(`/user/mypage/reqlist/${request.requestId}`)
-          }
-          key={request.requestId}
-          className="w-full text-start"
-        >
-          <EachRequest title={request.title} />
-        </button>
-      ))}
+      </section>
+      <section>
+        {requestList.map((request: RequestListType) => (
+          <Link
+            href={`/user/mypage/reqlist/${request.requestId}`}
+            key={request.requestId}
+            className="w-full text-start"
+          >
+            <EachRequest title={request.title} />
+          </Link>
+        ))}
+      </section>
       <div ref={observerRef} />
     </div>
   )

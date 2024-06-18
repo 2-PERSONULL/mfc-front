@@ -20,7 +20,7 @@ export default function ViewRequest({
   return (
     <>
       {/* 코디 옵션, 참고 이미지, 내 이미지는 추후에 DB 수정되면 추가 진행할 예정 */}
-      <section className="relative grid gap-6 w-full min-h-screen px-5 pb-4">
+      <div className="relative grid gap-6 w-full min-h-screen px-5 pb-4">
         <ViewRequestTitle title={data.title} />
         <ViewRequestContents contents={data.description} />
         <ViewReqSituation situation={data.situation} />
@@ -32,7 +32,7 @@ export default function ViewRequest({
           refImgs={data.referenceImageUrls}
         />
         <ViewReqMyImages title="내 이미지" myImgs={data.myImageUrls} />
-      </section>
+      </div>
       <ThreeFuncButton params={params} />
     </>
   )

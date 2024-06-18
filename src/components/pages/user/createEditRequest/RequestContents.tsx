@@ -9,7 +9,7 @@ export default function RequestContents({
     description || '',
   )
   return (
-    <div>
+    <section>
       <p className="text-xs pb-1">
         요청 내용
         <span className="text-red-500 text-lg align-middle">*</span>
@@ -21,6 +21,6 @@ export default function RequestContents({
         className="form-input"
         style={{ resize: 'none', height: '6rem' }}
       />
-    </div>
+    </section>
   )
 }

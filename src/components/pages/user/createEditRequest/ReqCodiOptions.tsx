@@ -15,12 +15,12 @@ export default function ReqCodiOptions() {
     }
   }
   return (
-    <div>
+    <section>
       <p className="text-xs pb-1">
         코디 옵션
         <span className="text-red-500 text-lg align-middle">*</span>
       </p>
-      <div className="grid grid-cols-4 gap-1">
+      <section className="grid grid-cols-4 gap-1">
         {codiOptionData.map((data) => (
           <label key={data.id} className="flex gap-2 items-center">
             <input
@@ -33,7 +33,7 @@ export default function ReqCodiOptions() {
             <p>{data.optionName}</p>
           </label>
         ))}
-      </div>
-    </div>
+      </section>
+    </section>
   )
 }
