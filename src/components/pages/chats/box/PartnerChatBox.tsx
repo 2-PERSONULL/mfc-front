@@ -1,7 +1,7 @@
 import React from 'react'
 import CircleProfile from '@/components/ui/avatar/CircleProfile'
 import Steps from '@/components/ui/step/Step'
-import { formatDday } from '@/utils/formatTime'
+import { formatDday, formatRequestDate } from '@/utils/formatTime'
 import { PartnerChatListType } from '@/types/requestType'
 import PartnerChatBoxButton from '@/components/pages/chats/box/PartnerChatBoxButton'
 
@@ -10,8 +10,6 @@ export default function PartnerChatBox({
 }: {
   requestData: PartnerChatListType
 }) {
-  console.log(requestData)
-  const roomId = 1
   const steps = ['요청', '거래대기', '거래확정', '코디완료']
 
   const getCurrentStep = (status: string) => {
@@ -57,7 +55,7 @@ export default function PartnerChatBox({
         <div className="relative h-[50px]">
           <p className="mb-3">{requestData.title}</p>
           <span className="text-gray-400 flex text-[14px] absolute right-0 bottom-0">
-            요청일시: {requestData.createdDate}
+            요청일시: {formatRequestDate(requestData.createdDate)}
           </span>
         </div>
       </div>
@@ -65,9 +63,9 @@ export default function PartnerChatBox({
       {/* 액션 */}
       <PartnerChatBoxButton
         status={requestData.status}
-        roomId={roomId}
         userId={requestData.userId}
         requestId={requestData.requestId}
+        partnerId={requestData.partnerId}
       />
     </div>
   )

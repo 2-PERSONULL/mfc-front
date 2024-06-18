@@ -13,7 +13,7 @@ export default function PartnerProfilePreviewTabs() {
   }
 
   return (
-    <div className="flex w-full justify-around text-[16px] font-semibold">
+    <div className="sticky top-[50px] h-[30px] bg-white z-10 flex w-full justify-around text-[16px] font-semibold">
       <Link
         replace
         href="/partner/mypage/preview"

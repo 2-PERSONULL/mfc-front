@@ -12,9 +12,9 @@ export default async function RequestDeatailPage({
   const requestDetail = await getRequestDetail(requestId)
 
   return (
-    <div>
+    <>
       <GoBackHeader title="요청 상세보기" />
       <RequestDetail historyId={requestId} requestDetail={requestDetail} />
-    </div>
+    </>
   )
 }

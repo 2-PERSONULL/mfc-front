@@ -10,7 +10,7 @@ export interface RequestType {
 }
 
 export interface PartnerChatListType {
-  requestId: number
+  requestId: string
   userId: string
   userImageUrl: string
   userNickName: string

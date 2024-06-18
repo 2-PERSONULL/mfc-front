@@ -1,24 +1,38 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import Modal from '@/components/common/Modal'
 import StyleGuideEditor from '@/components/pages/partner/styleGuide/StyleGuideEditor'
+import getChatRoomId from '@/actions/chat/Chatroom'
 
 export default function PartnerChatBoxButton({
   status,
-  roomId,
   userId,
   requestId,
+  partnerId,
 }: {
   status: string
-  roomId?: number
   userId: string
-  requestId: number
+  requestId: string
+  partnerId: string
 }) {
+  const [roomNumber, setRoomNumber] = useState<string>('')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    if (status === 'NONERESPONSE') return
+
+    const getRoomId = async () => {
+      const { roomId, unreadCount } = await getChatRoomId(requestId, partnerId)
+      console.log(unreadCount)
+      setRoomNumber(roomId)
+    }
+
+    getRoomId()
+  }, [status])
 
   return (
     <>
@@ -35,7 +49,11 @@ export default function PartnerChatBoxButton({
           <div className="h-full flex items-center justify-center">
             <button
               type="button"
-              onClick={() => router.push(`/partner/reqcoordi/${requestId}`)}
+              onClick={() =>
+                router.push(
+                  `/partner/reqcoordi/${requestId}?status=nonresponse`,
+                )
+              }
             >
               요청 상세보기
             </button>
@@ -44,6 +62,9 @@ export default function PartnerChatBoxButton({
           <div className="h-full flex items-center justify-around">
             <button
               type="button"
+              onClick={() =>
+                router.push(`/partner/reqcoordi/${requestId}?status=accept`)
+              }
               className="flex justify-center items-center border-r basis-1/3 h-full"
             >
               요청 상세보기
@@ -57,7 +78,7 @@ export default function PartnerChatBoxButton({
             </button>
             <button
               type="button"
-              onClick={() => router.push(`/partner/chatroom/${roomId}`)}
+              onClick={() => router.push(`/partner/chatroom/${roomNumber}`)}
               className="flex justify-center items-center basis-1/3 h-full"
             >
               <Image
