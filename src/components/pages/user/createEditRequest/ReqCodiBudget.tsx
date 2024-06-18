@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react'
 
-export default function ReqCodiBudget() {
-  const [value, setValue] = useState<number | null>(null)
+export default function ReqCodiBudget({ budget }: { budget?: string }) {
+  const [value, setValue] = useState<number | null>(Number(budget) || null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(Number(e.target.value.replace(/,/g, '')))

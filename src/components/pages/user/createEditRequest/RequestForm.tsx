@@ -2,23 +2,25 @@
 
 import React, { useState } from 'react'
 import type { ZodIssue } from 'zod'
-import RequestContents from '@/components/pages/user/createRequest/RequestContents'
-import ReqAddImage from '@/components/pages/user/createRequest/ReqAddImage'
-import ReqAddInfo from '@/components/pages/user/createRequest/ReqAddInfo'
-import ReqCodiBudget from '@/components/pages/user/createRequest/ReqCodiBudget'
-import ReqCodiOptions from '@/components/pages/user/createRequest/ReqCodiOptions'
-import ReqCodiSituation from '@/components/pages/user/createRequest/ReqCodiSituation'
-import ReqPreferredBrands from '@/components/pages/user/createRequest/ReqPreferredBrands'
+import RequestContents from '@/components/pages/user/createEditRequest/RequestContents'
+import ReqAddImage from '@/components/pages/user/createEditRequest/ReqAddImage'
+import ReqCodiBudget from '@/components/pages/user/createEditRequest/ReqCodiBudget'
+import ReqCodiOptions from '@/components/pages/user/createEditRequest/ReqCodiOptions'
+import ReqCodiSituation from '@/components/pages/user/createEditRequest/ReqCodiSituation'
+import ReqPreferredBrands from '@/components/pages/user/createEditRequest/ReqPreferredBrands'
 import RequestTitle from './RequestTitle'
+import useToast from '@/stores/toast'
 
 export default function RequestForm({
   action,
 }: {
   action: (formData: FormData) => Promise<{ error: ZodIssue[] } | undefined>
 }) {
+  const { showToast } = useToast()
   const [errors, setErrors] = useState<
     { [key: string]: ZodIssue[] } | undefined
   >(undefined)
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const result = await action(new FormData(event.currentTarget))
@@ -36,7 +38,14 @@ export default function RequestForm({
       })
       setErrors(newErrors)
     }
+    if (!result?.error) {
+      showToast({
+        content: '요청서가 성공적으로 등록되었습니다.',
+        type: 'success',
+      })
+    }
   }
+
   return (
     <form onSubmit={handleSubmit} className="grid gap-7 w-full px-5 pb-4">
       <RequestTitle />
@@ -72,7 +81,6 @@ export default function RequestForm({
       )}
       <ReqAddImage title="참고 스타일" id="refImgFile" />
       <ReqAddImage title="내 이미지" id="userImgFile" />
-      <ReqAddInfo />
       <button
         type="submit"
         className="sticky bottom-5 rounded-full w-full h-[50px] bg-black"

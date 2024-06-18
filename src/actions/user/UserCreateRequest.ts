@@ -29,7 +29,6 @@ export default async function createNewRequest({
   )
   const data: BaseResponseType = await response.json()
   if (data.isSuccess) {
-    console.log('Successfully saved new request')
     return
   }
   console.log('Failed to save new request', data)

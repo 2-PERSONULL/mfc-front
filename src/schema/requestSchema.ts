@@ -16,7 +16,6 @@ const RequestSchema = z.object({
   budget: z.number().min(1, { message: '예산을 입력해주세요.' }),
   referenceImages: z.array(z.string()).optional(),
   myImages: z.array(z.string()).optional(),
-  otherRequirements: z.string().optional(),
 })
 
 export default RequestSchema

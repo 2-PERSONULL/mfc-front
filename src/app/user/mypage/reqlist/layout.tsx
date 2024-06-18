@@ -10,10 +10,20 @@ export default function RequestListLayout({
   children: React.ReactNode
 }) {
   const search = usePathname()
-  const title = search.endsWith('newreq') ? '신규 요청서 작성' : '요청서 관리'
+  let title = '요청서 관리'
+  if (search.endsWith('newreq')) {
+    title = '신규 요청서 작성'
+  } else if (search.endsWith('editrequest')) {
+    title = '요청서 수정'
+  }
   return (
     <>
-      <GoBackHeader title={title} confirmExit={search.endsWith('newreq')} />
+      <GoBackHeader
+        title={title}
+        confirmExit={
+          search.endsWith('newreq') || search.endsWith('editrequest')
+        }
+      />
       {children}
     </>
   )
