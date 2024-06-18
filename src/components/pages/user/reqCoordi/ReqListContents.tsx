@@ -16,8 +16,7 @@ interface RequestListType {
 export default function ReqListContents() {
   const router = useRouter()
   const [page, setPage] = useState(0)
-  const [isLast, setIsLast] = useState(true)
-  console.log(isLast)
+  const [isLast, setIsLast] = useState(false)
   const [requestList, setRequestList] = useState<RequestListType[]>([])
 
   const loadMoreRequests = async () => {
@@ -25,20 +24,20 @@ export default function ReqListContents() {
     if (data !== null) {
       const newRequestData = data.result as RequestListType[]
       if (newRequestData.length === 0) {
-        setIsLast(false)
+        setIsLast(true)
       } else {
         setRequestList((prev) => [...prev, ...newRequestData])
         setPage((prev) => prev + 1)
       }
     } else {
-      setIsLast(false)
+      setIsLast(true)
       console.log('No data received')
     }
   }
 
   const observerRef = useObserver({
     onIntersect: loadMoreRequests,
-    enabled: isLast,
+    enabled: !isLast,
   })
 
   return (
