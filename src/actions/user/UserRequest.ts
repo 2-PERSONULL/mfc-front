@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidateTag } from 'next/cache'
 import { BaseResponseType } from '@/types/baseResponseType'
 import { RequestDetailProps } from '@/types/requestDetailType'
 import { RequestType } from '@/types/requestType'
@@ -52,6 +53,7 @@ const editRequest = async (requestId: string, registerData: RequestType) => {
   )
   const data: BaseResponseType = await response.json()
   if (data.isSuccess) {
+    revalidateTag('RequestList')
     return
   }
   console.log('Failed to save new request', data)
@@ -73,6 +75,7 @@ const getRequestList = async (): Promise<BaseResponseType | null> => {
           Authorization: header.Authorization,
           'Content-Type': 'application/json',
         },
+        next: { tags: ['RequestList'] },
       },
     )
     const data: BaseResponseType = await response.json()

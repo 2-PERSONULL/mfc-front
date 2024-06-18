@@ -16,7 +16,6 @@ export default async function EditRequest({
   ): Promise<{ error: ZodIssue[] } | undefined> => {
     'use server'
 
-    console.log(formData)
     const parseBudget = (budget: string) => {
       return Number(budget.replace(/,/g, ''))
     }
