@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -8,26 +8,19 @@ import { PartnerPostListType } from '@/types/partnerPostTypes'
 import { getPartnerPost } from '@/actions/partner/PartnerPost'
 import useObserver from '@/hooks/useObserver'
 
-const NUMBER_OF_FETCH = 10
-
 export default function PartnerLookbookList({
   initialData,
   isLast,
+  fetchNum,
 }: {
   initialData: PartnerPostListType[]
   isLast: boolean
+  fetchNum: number
 }) {
   const pathName = usePathname()
   const [offset, setOffset] = useState(1)
   const [postList, setPostList] = useState<PartnerPostListType[]>(initialData)
   const [isLastData, setIsLastData] = useState(isLast)
-  const [observerEnabled, setObserverEnabled] = useState(false)
-  const topRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    // 초기 데이터 로드가 완료된 후에 Observer를 활성화합니다.
-    setObserverEnabled(true)
-  }, [])
 
   const getPathName = () => {
     if (pathName.startsWith('/user')) {
@@ -38,9 +31,8 @@ export default function PartnerLookbookList({
 
   const loadMorePosts = async () => {
     if (isLastData) return
-    console.log('loadMorePosts')
 
-    const { posts, last } = await getPartnerPost('', offset, NUMBER_OF_FETCH)
+    const { posts, last } = await getPartnerPost('', offset, fetchNum)
 
     setIsLastData(last)
     setPostList((prevPosts) => [...prevPosts, ...posts])
@@ -48,13 +40,12 @@ export default function PartnerLookbookList({
   }
 
   const observerRef = useObserver({
-    root: topRef.current,
     onIntersect: loadMorePosts,
-    enabled: observerEnabled && !isLastData,
+    enabled: !isLastData,
   })
 
   return (
-    <section className="grid grid-cols-2 gap-2" ref={observerRef}>
+    <section className="grid grid-cols-2 gap-2">
       {postList.map((post) => (
         <Link
           key={post.postId}
@@ -70,6 +61,7 @@ export default function PartnerLookbookList({
           />
         </Link>
       ))}
+      <div ref={observerRef} />
     </section>
   )
 }

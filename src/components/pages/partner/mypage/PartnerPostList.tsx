@@ -8,14 +8,14 @@ import useObserver from '@/hooks/useObserver'
 import { PartnerPostListType } from '@/types/partnerPostTypes'
 import { getPartnerPost } from '@/actions/partner/PartnerPost'
 
-const NUMBER_OF_FETCH = 20
-
 export default function PartnerPostList({
   initialData,
   isLast,
+  fetchCount,
 }: {
   initialData: PartnerPostListType[]
   isLast: boolean
+  fetchCount: number
 }) {
   const router = useRouter()
   const [offset, setOffset] = useState(1)
@@ -25,7 +25,7 @@ export default function PartnerPostList({
   const loadMorePosts = async () => {
     if (isLastData) return
 
-    const { posts, last } = await getPartnerPost('', offset, NUMBER_OF_FETCH)
+    const { posts, last } = await getPartnerPost('', offset, fetchCount)
 
     setIsLastData(last)
     setPostList((prevPosts) => [...prevPosts, ...posts])
@@ -34,12 +34,12 @@ export default function PartnerPostList({
 
   const observerRef = useObserver({
     onIntersect: loadMorePosts,
-    enabled: true,
+    enabled: !isLastData,
   })
 
   return (
     <section className="pt-5 px-4 pb-[100px]">
-      <div className="grid grid-cols-3 gap-2" ref={observerRef}>
+      <div className="grid grid-cols-3 gap-2">
         <button
           type="button"
           onClick={() => router.push('/partner/mypage/styles/edit')}
@@ -65,6 +65,7 @@ export default function PartnerPostList({
               />
             </Link>
           ))}
+        <div ref={observerRef} />
       </div>
     </section>
   )

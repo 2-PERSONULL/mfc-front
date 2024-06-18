@@ -7,9 +7,11 @@ import BottomNav from '@/components/layouts/BottomNav'
 import { getPartnerPost } from '@/actions/partner/PartnerPost'
 import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 
+const NUMBER_OF_FETCH = 20
+
 export default async function PartnerMyPage() {
   const { nickname, profileImage } = await getPartnerProfileBasic()
-  const { posts, last } = await getPartnerPost('', 0, 20)
+  const { posts, last } = await getPartnerPost('', 0, NUMBER_OF_FETCH)
 
   return (
     <div className="h-screen">
@@ -19,7 +21,11 @@ export default async function PartnerMyPage() {
         profileImage={profileImage}
         postCount={posts.length}
       />
-      <PartnerPostList initialData={posts} isLast={last} />
+      <PartnerPostList
+        initialData={posts}
+        isLast={last}
+        fetchCount={NUMBER_OF_FETCH}
+      />
       <BottomNav />
     </div>
   )
