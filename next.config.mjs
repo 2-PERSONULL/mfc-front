@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 import withPWAInit from '@ducanh2912/next-pwa'
-import exp from 'constants'
 
 const withPWA = withPWAInit({
   dest: 'public',
