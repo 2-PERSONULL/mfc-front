@@ -7,7 +7,7 @@ export default function ReqCodiSituation({
 }) {
   const [newSituation, setNewSituation] = useState<string>(situation || 'none')
   return (
-    <div>
+    <section>
       <p className="text-xs pb-1">
         코디 상황
         <span className="text-red-500 text-lg align-middle">*</span>
@@ -27,6 +27,6 @@ export default function ReqCodiSituation({
         <option value="상견례">상견례</option>
         <option value="소개팅">소개팅</option>
       </select>
-    </div>
+    </section>
   )
 }

@@ -29,9 +29,5 @@ export default async function SignUp() {
     }
   }
 
-  return (
-    <div>
-      <SignUpFunnel submit={handleSignUp} />
-    </div>
-  )
+  return <SignUpFunnel submit={handleSignUp} />
 }

@@ -24,7 +24,7 @@ export default function RequestListLayout({
           search.endsWith('newreq') || search.endsWith('editrequest')
         }
       />
-      {children}
+      <main>{children}</main>
     </>
   )
 }

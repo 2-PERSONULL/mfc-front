@@ -8,7 +8,7 @@ export default function ViewReqMyImages({
   myImgs: string[]
 }) {
   return (
-    <>
+    <section>
       <p className="text-base text-gray-400">{title}</p>
       <div className="flex overflow-x-scroll whitespace-nowrap">
         {myImgs ? (
@@ -23,6 +23,6 @@ export default function ViewReqMyImages({
           <p>참고 스타일 이미지가 없습니다.</p>
         )}
       </div>
-    </>
+    </section>
   )
 }

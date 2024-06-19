@@ -79,81 +79,83 @@ export default function SignUpFunnel({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       <ProgressBar
-        className="w-[100%] absolute top-10 left-0 h-3 rounded-none"
+        className="w-[100%] absolute top-0 left-0 h-1 rounded-none"
         value={parseInt(handleProgressBar(), 10)}
       />
-      {step === 'TermsOfUseAccept' && (
-        <TermsOfUseAccept clickHandler={() => setStep('UserName')} />
-      )}
-      {step === 'UserName' && (
-        <UserName
-          clickHandler={(data: string) => {
-            setRegisterData((prev) => ({ ...prev, name: data }))
-            setStep('UserId')
-          }}
-        />
-      )}
-      {step === 'UserId' && (
-        <UserId
-          clickHandler={(data: string) => {
-            setRegisterData((prev) => ({ ...prev, email: data }))
-            setStep('PhoneNumAuthentication')
-          }}
-        />
-      )}
-      {step === 'PhoneNumAuthentication' && (
-        <PhoneNumAuthentication
-          clickHandler={(data: string) => {
-            setRegisterData((prev) => ({ ...prev, phone: data }))
-            setStep('UserPassword')
-          }}
-        />
-      )}
-      {step === 'UserPassword' && (
-        <UserPassword
-          clickHandler={(data: string) => {
-            setRegisterData((prev) => ({ ...prev, password: data }))
-            setStep('UserBirthAndGender')
-          }}
-        />
-      )}
-      {step === 'UserBirthAndGender' && (
-        <UserBirthAndGender
-          clickHandler={(data: { birth: string; gender: number }) => {
-            setRegisterData((prev) => ({
-              ...prev,
-              birth: data.birth,
-              gender: data.gender,
-            }))
-            setStep('UserNickname')
-          }}
-        />
-      )}
-      {step === 'UserNickname' && (
-        <UserNickname
-          clickHandler={(data: string) => {
-            setRegisterData((prev) => ({ ...prev, nickname: data }))
-            setStep('PreferredStyle')
-          }}
-        />
-      )}
-      {step === 'PreferredStyle' && (
-        <PreferredStyle
-          clickHandler={(data: number[]) => {
-            setRegisterData((prev) => ({ ...prev, favoriteStyles: data }))
-            setStep('ChooseRole')
-          }}
-        />
-      )}
-      {step === 'ChooseRole' && (
-        <ChooseRole
-          clickHandler={(data: string) => {
-            setRegisterData((prev) => ({ ...prev, role: data }))
-          }}
-        />
-      )}
-    </form>
+      <form onSubmit={handleSubmit}>
+        {step === 'TermsOfUseAccept' && (
+          <TermsOfUseAccept clickHandler={() => setStep('UserName')} />
+        )}
+        {step === 'UserName' && (
+          <UserName
+            clickHandler={(data: string) => {
+              setRegisterData((prev) => ({ ...prev, name: data }))
+              setStep('UserId')
+            }}
+          />
+        )}
+        {step === 'UserId' && (
+          <UserId
+            clickHandler={(data: string) => {
+              setRegisterData((prev) => ({ ...prev, email: data }))
+              setStep('PhoneNumAuthentication')
+            }}
+          />
+        )}
+        {step === 'PhoneNumAuthentication' && (
+          <PhoneNumAuthentication
+            clickHandler={(data: string) => {
+              setRegisterData((prev) => ({ ...prev, phone: data }))
+              setStep('UserPassword')
+            }}
+          />
+        )}
+        {step === 'UserPassword' && (
+          <UserPassword
+            clickHandler={(data: string) => {
+              setRegisterData((prev) => ({ ...prev, password: data }))
+              setStep('UserBirthAndGender')
+            }}
+          />
+        )}
+        {step === 'UserBirthAndGender' && (
+          <UserBirthAndGender
+            clickHandler={(data: { birth: string; gender: number }) => {
+              setRegisterData((prev) => ({
+                ...prev,
+                birth: data.birth,
+                gender: data.gender,
+              }))
+              setStep('UserNickname')
+            }}
+          />
+        )}
+        {step === 'UserNickname' && (
+          <UserNickname
+            clickHandler={(data: string) => {
+              setRegisterData((prev) => ({ ...prev, nickname: data }))
+              setStep('PreferredStyle')
+            }}
+          />
+        )}
+        {step === 'PreferredStyle' && (
+          <PreferredStyle
+            clickHandler={(data: number[]) => {
+              setRegisterData((prev) => ({ ...prev, favoriteStyles: data }))
+              setStep('ChooseRole')
+            }}
+          />
+        )}
+        {step === 'ChooseRole' && (
+          <ChooseRole
+            clickHandler={(data: string) => {
+              setRegisterData((prev) => ({ ...prev, role: data }))
+            }}
+          />
+        )}
+      </form>
+    </>
   )
 }

@@ -40,7 +40,7 @@ export default function ReqPreferredBrands() {
   }
 
   return (
-    <div>
+    <section>
       <p className="text-xs pb-1">선호 브랜드({count}/3)</p>
       <input
         disabled={count === 3}
@@ -52,18 +52,18 @@ export default function ReqPreferredBrands() {
         className="form-input"
         style={{ height: '3rem' }}
       />
-      <div className="mt-2 max-h-[50px] overflow-y-auto">
-        <div className="flex flex-wrap w-full h-auto">
+      <section className="mt-2 max-h-[50px] overflow-y-auto">
+        <ul className="flex flex-wrap w-full h-auto">
           {tags.map((tag, index) => (
             <TagBadge key={index} word={tag} removeTag={removeTag} />
           ))}
-        </div>
-      </div>
-      <div>
+        </ul>
+      </section>
+      <section>
         {tags.map((tag, index) => (
           <input key={index} type="hidden" name="brand" value={tag} />
         ))}
-      </div>
-    </div>
+      </section>
+    </section>
   )
 }

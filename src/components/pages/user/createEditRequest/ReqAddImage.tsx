@@ -56,11 +56,11 @@ export default function ReqAddImage({
   }
 
   return (
-    <div>
+    <section>
       <p className="text-xs pb-1">
         {title} ({count}/3)
       </p>
-      <div className="flex-row flex items-center gap-1">
+      <section className="flex-row flex items-center gap-1">
         <label
           htmlFor={id}
           className="w-28 min-h-[110px] py-10 rounded-lg border-dashed border-[2px] border-[#d1d5db] flex items-center justify-center flex-shrink-0"
@@ -88,27 +88,21 @@ export default function ReqAddImage({
               <button
                 type="button"
                 onClick={() => handleDelete(idx)}
-                className="absolute top-0 right-0 px-1 rounded-full shadow-md bg-black"
+                className="absolute top-0 right-0 p-1 rounded-full shadow-md bg-slate-100"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 25 25"
-                  className="inline-block w-4 h-4 stroke-current text-white"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <Image
+                  src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/close.svg"
+                  alt="close"
+                  width={0}
+                  height={0}
+                  style={{ width: '18px', height: '18px' }}
+                />
               </button>
             </li>
           ))}
         </ul>
-      </div>
-      <div>
+      </section>
+      <section>
         {imgs.map((img, index) => (
           <input
             key={index}
@@ -117,7 +111,7 @@ export default function ReqAddImage({
             value={img}
           />
         ))}
-      </div>
-    </div>
+      </section>
+    </section>
   )
 }

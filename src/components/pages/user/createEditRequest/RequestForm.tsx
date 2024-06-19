@@ -85,7 +85,7 @@ export default function RequestForm({
         type="submit"
         className="sticky bottom-5 rounded-full w-full h-[50px] bg-black"
       >
-        <span className="text-white">저장</span>
+        <p className="text-white">저장</p>
       </button>
     </form>
   )

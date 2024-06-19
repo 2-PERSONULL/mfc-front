@@ -60,9 +60,5 @@ export default async function EditRequest({
   const requestContents: RequestDetailProps = await getRequestDetail(
     params.requestid,
   )
-  return (
-    <main>
-      <EditRequestForm action={handleEdit} contents={requestContents} />
-    </main>
-  )
+  return <EditRequestForm action={handleEdit} contents={requestContents} />
 }

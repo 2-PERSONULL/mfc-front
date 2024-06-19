@@ -38,7 +38,7 @@ export default function ThreeFuncButton({
     }
   }
   return (
-    <div className="sticky w-full h-12 bottom-0 flex flex-row items-center justify-around text-white ">
+    <section className="sticky w-full h-12 bottom-0 flex flex-row items-center justify-around text-white ">
       <button
         type="button"
         onClick={handleEdit}
@@ -59,6 +59,6 @@ export default function ThreeFuncButton({
       >
         선택
       </button>
-    </div>
+    </section>
   )
 }

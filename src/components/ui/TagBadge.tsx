@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React from 'react'
 
 const TagBadge = ({
@@ -13,19 +14,13 @@ const TagBadge = ({
         #{word}
       </p>
       <button type="button" onClick={() => removeTag(word)}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          className="inline-block w-4 h-4 stroke-current"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
+        <Image
+          src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/close.svg"
+          alt="close"
+          width={0}
+          height={0}
+          style={{ width: '18px', height: '18px' }}
+        />
       </button>
     </li>
   )

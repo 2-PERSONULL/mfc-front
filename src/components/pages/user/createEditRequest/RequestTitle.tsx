@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 export default function RequestTitle({ title }: { title?: string }) {
   const [newtitle, setNewTitle] = useState<string>(title || '')
   return (
-    <div>
+    <section>
       <p className="text-xs pb-1">
         요청서 이름
         <span className="text-red-500 text-lg align-middle">*</span>
@@ -15,6 +15,6 @@ export default function RequestTitle({ title }: { title?: string }) {
         onChange={(e) => setNewTitle(e.target.value)}
         className="form-input"
       />
-    </div>
+    </section>
   )
 }
