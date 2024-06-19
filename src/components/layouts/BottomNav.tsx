@@ -22,7 +22,7 @@ const BottomNav = () => {
   const pathname = usePathname()
   const active = pathname.replace(/\/(partner|user)/, '')
   return (
-    <div className="w-full h-[82px] fixed bottom-0 pb-10 pt-4 px-2 drop-shadow-[0_-4px_3px_rgba(0,0,0,0.07)] bg-white flex flex-row justify-around items-center">
+    <div className="w-full fixed bottom-0 pb-10 pt-5 px-2 drop-shadow-[0_-4px_3px_rgba(0,0,0,0.07)] bg-white flex flex-row justify-around items-center">
       {NavigationData.map((nav: NavigationType) => (
         <Link
           href={

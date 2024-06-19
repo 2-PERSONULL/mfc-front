@@ -5,14 +5,14 @@ import { PartnerSnsType, PartnerCareerType } from '@/types/partnerProfileTypes'
 import { getFetchHeader } from '@/utils/getFetchHeader'
 
 export async function updatePartnerProfileImage(image: string) {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
   try {
-    const header = await getFetchHeader()
-
-    if (!header) {
-      console.log('session not found')
-      return null
-    }
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/profileimage`,
       {

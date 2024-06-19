@@ -1,31 +1,15 @@
 import React from 'react'
 import CircleProfile from '@/components/ui/avatar/CircleProfile'
 import Steps from '@/components/ui/step/Step'
-import { formatDday } from '@/utils/formatTime'
+import { formatDday, formatRequestDate } from '@/utils/formatTime'
 import UserChatBoxButton from '@/components/pages/chats/box/UserChatBoxButton'
-
-interface ChatBoxProps {
-  id: number
-  requestId: number
-  userId: string
-  userImageUrl: string
-  userNickName: string
-  userGender: number
-  userAge: number
-  partnerId: string
-  createdDate: string
-  status: string
-  title: string
-  description: string
-  deadline: string
-}
+import { PartnerChatListType } from '@/types/requestType'
 
 export default function UserChatBox({
   requestData,
 }: {
-  requestData: ChatBoxProps
+  requestData: PartnerChatListType
 }) {
-  const roomId = 1
   const steps = ['요청', '거래대기', '거래확정', '코디완료']
 
   return (
@@ -54,7 +38,7 @@ export default function UserChatBox({
         <div className="relative h-[50px]">
           <p className="mb-3">{requestData.title}</p>
           <span className="text-gray-400 flex text-[14px] absolute right-0 bottom-0">
-            요청일시: {requestData.createdDate}
+            요청일시: {formatRequestDate(requestData.createdDate)}
           </span>
         </div>
       </div>
@@ -62,9 +46,9 @@ export default function UserChatBox({
       {/* 액션 */}
       <UserChatBoxButton
         status={requestData.status}
-        roomId={roomId}
         userId={requestData.userId}
         requestId={requestData.requestId}
+        partnerId={requestData.partnerId}
       />
     </div>
   )

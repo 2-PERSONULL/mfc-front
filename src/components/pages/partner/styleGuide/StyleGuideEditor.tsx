@@ -9,7 +9,7 @@ export default function StyleGuideEditor({
   requestId,
 }: {
   userId: string
-  requestId: number
+  requestId: string
 }) {
   // 백엔드에서 받아올 데이터
   const optionList = [

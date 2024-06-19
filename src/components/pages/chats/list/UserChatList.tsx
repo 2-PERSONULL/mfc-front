@@ -1,55 +1,22 @@
 'use client'
 
-import React, { useState } from 'react'
-import useObserver from '@/hooks/useObserver'
-import getPost from '@/actions/partner/PartnerChats'
+import React from 'react'
 import UserChatBox from '@/components/pages/chats/box/UserChatBox'
-
-interface CoordinatesRequestType {
-  id: number
-  requestId: number
-  userId: string
-  userImageUrl: string
-  userNickName: string
-  userGender: number
-  userAge: number
-  partnerId: string
-  createdDate: string
-  status: string
-  title: string
-  description: string
-  deadline: string
-}
-
-const NUMBER_OF_FETCH = 10
+import { PartnerChatListType } from '@/types/requestType'
 
 export default function UserChatList({
   initialData,
 }: {
-  initialData: CoordinatesRequestType[]
+  initialData: PartnerChatListType[]
 }) {
-  const [offset, setOffset] = useState(NUMBER_OF_FETCH)
-  const [requests, setRequests] =
-    useState<CoordinatesRequestType[]>(initialData)
-
-  const loadMorePosts = async () => {
-    const newRequests = await getPost(offset, NUMBER_OF_FETCH)
-    setRequests((prevPosts) => [...prevPosts, ...newRequests])
-    setOffset((prevOffset) => prevOffset + NUMBER_OF_FETCH)
-  }
-
-  const observerRef = useObserver({
-    onIntersect: loadMorePosts,
-    enabled: true,
-  })
+  // const [requestList, setRequestList] =
+  //   useState<PartnerChatListType[]>(initialData)
 
   return (
     <div className="flex flex-col gap-3 bg-gray-100 pb-[100px]">
-      {requests.map((request) => (
-        <UserChatBox key={request.id} requestData={request} />
+      {initialData.map((request, idx) => (
+        <UserChatBox key={idx} requestData={request} />
       ))}
-
-      <div ref={observerRef} />
     </div>
   )
 }

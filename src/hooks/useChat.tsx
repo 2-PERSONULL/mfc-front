@@ -63,13 +63,13 @@ const useChat = () => {
       const EventSource = EventSourcePolyfill
 
       const eventSource = new EventSource(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/chatting-service/chat/room/${roomId}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/chatting-service/chat/stream/${roomId}`,
         {
           headers: {
             Authorization: accessToken,
             UUID: uuid,
           },
-          heartbeatTimeout: 1800 * 10000000,
+          heartbeatTimeout: 86400000,
         },
       )
 

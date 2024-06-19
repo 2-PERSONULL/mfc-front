@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import useConfirmStore from '@/stores/confirm'
 
 const BackArrowButton = ({ confirmExit }: { confirmExit?: boolean }) => {
@@ -24,15 +24,20 @@ const BackArrowButton = ({ confirmExit }: { confirmExit?: boolean }) => {
       router.back()
     }
   }
+
   return (
-    <button type="button" onClick={handleBackClick}>
+    <div
+      role="presentation"
+      onClick={handleBackClick}
+      className="hover:opacity-20 cursor-pointer relative z-[50]"
+    >
       <Image
         src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/backArrow.svg"
         alt="backArrow"
         width={24}
         height={24}
       />
-    </button>
+    </div>
   )
 }
 

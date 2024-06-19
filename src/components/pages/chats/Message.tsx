@@ -31,7 +31,7 @@ export default function Message() {
   return (
     <div
       ref={scrollRef}
-      className="px-[10px] bg-white overflow-y-auto no-scrollbar flex-grow"
+      className="px-[10px] pt-2 bg-white overflow-y-auto no-scrollbar flex-grow"
     >
       {realTimeMessage.map((message, index) => {
         const isOwnMessage = message.sender === uuid && message.type !== 'card'

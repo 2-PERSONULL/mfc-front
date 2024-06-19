@@ -6,11 +6,11 @@ import PartnerMainStyleBox from '@/components/pages/partner/profile/PartnerMainS
 
 export default function page() {
   return (
-    <>
+    <div className="px-4">
       <PartnerChatTimeAndLeadTimeBox />
       <PartnerSnsBox />
       <PartnerCareerBox />
       <PartnerMainStyleBox />
-    </>
+    </div>
   )
 }
