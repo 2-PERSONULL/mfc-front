@@ -8,11 +8,11 @@ export default function page({ params }: { params: { partnerId: string } }) {
   const { partnerId } = params
 
   return (
-    <>
+    <div className="px-4">
       <PartnerChatTimeAndLeadTimeBox partnerId={partnerId} />
       <PartnerSnsBox partnerId={partnerId} />
       <PartnerCareerBox partnerId={partnerId} />
       <PartnerMainStyleBox partnerId={partnerId} />
-    </>
+    </div>
   )
 }
