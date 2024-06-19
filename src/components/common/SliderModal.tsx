@@ -32,7 +32,7 @@ function SliderModal({
   }, [isModalOpen])
 
   return (
-    <div className="w-100vw">
+    <section className="w-100vw">
       <div
         role="presentation"
         onClick={backgroundClose ? onChangeModal : () => {}}
@@ -43,7 +43,7 @@ function SliderModal({
                     transition-all
                     ${isModalOpen ? '' : 'hidden'}`}
       />
-      <div
+      <section
         style={{
           transform: isModalOpen ? 'translateY(0)' : 'translateY(100%)',
           transition: 'transform 0.3s ease-out',
@@ -60,8 +60,8 @@ function SliderModal({
           </button>
         )}
         {children}
-      </div>
-    </div>
+      </section>
+    </section>
   )
 }
 

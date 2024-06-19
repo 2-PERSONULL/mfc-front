@@ -11,13 +11,13 @@ export default function UserMultiDetailInfo({
   info: object | object[]
 }) {
   return (
-    <div className="w-full bg-white pb-1">
-      <div className="flex items-center justify-between">
-        <p className="text-gray-500">{title}</p>
+    <section className="w-full bg-white border-b border-b-gray-200 py-8">
+      <div className="flex items-center justify-between mb-2">
+        <p className="text-[18px] font-bold mr-2">{title}</p>
         <UserProfileEditButton href={href} />
       </div>
       <ul
-        className={`flex ${Array.isArray(info) ? 'flex-row' : 'flex-col'} gap-3`}
+        className={`flex ${Array.isArray(info) ? 'flex-row' : 'flex-col'} gap-3 text-sm`}
       >
         {Array.isArray(info)
           ? info.map((item) => (
@@ -32,7 +32,6 @@ export default function UserMultiDetailInfo({
               </li>
             ))}
       </ul>
-      <div className="border border-gray-300 mt-1" />
-    </div>
+    </section>
   )
 }
