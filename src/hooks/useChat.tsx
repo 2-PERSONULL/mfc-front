@@ -69,7 +69,7 @@ const useChat = () => {
             Authorization: accessToken,
             UUID: uuid,
           },
-          heartbeatTimeout: 1800 * 10000000,
+          heartbeatTimeout: 86400000,
         },
       )
 

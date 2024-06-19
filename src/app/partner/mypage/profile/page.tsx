@@ -48,12 +48,12 @@ export default async function PartnerMyPageProfile() {
   return (
     <div>
       <GoBackHeader title="프로필 관리" />
-      <ProfileProgress progressPercent={progressPercent} />
       <div className="flex">
         <ProfileImage profileImage={profileImage} />
         <PartnerNickname nickName={nickname} />
       </div>
       <PartnerProfilePreviewButton />
+      <ProfileProgress progressPercent={progressPercent} />
       <div className="px-6 mb-[50px]">
         <PartnerIntroduction data={description} />
         <PartnerChatTime startChatTime={startTime} endChatTime={endTime} />

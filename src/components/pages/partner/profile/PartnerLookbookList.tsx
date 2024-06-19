@@ -78,7 +78,7 @@ export default function PartnerLookbookList({
   }
 
   return (
-    <section className="grid grid-cols-2 gap-2">
+    <section className="grid grid-cols-2 gap-1">
       {postList.map((post) => (
         <button
           key={post.postId}

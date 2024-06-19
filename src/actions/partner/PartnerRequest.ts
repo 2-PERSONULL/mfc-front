@@ -94,6 +94,7 @@ export async function actionCoordinate(
   )
 
   const data = await response.json()
+  console.log(data)
   revalidateTag('partner-chatList')
   return data
 }

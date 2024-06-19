@@ -7,5 +7,19 @@ export default async function PartnerProfileIntroduction({
   partnerId?: string
 }) {
   const { description } = await getPartnerProfile(partnerId)
-  return <div className="p-8 text-[16px] font-semibold">{description}</div>
+
+  // const description = null
+  return (
+    <p className="p-8 text-sm w-full break-words">
+      {description || <NotData />}
+    </p>
+  )
+}
+
+export const NotData = ({ errorText = 'no data' }: { errorText?: string }) => {
+  return (
+    <p className="w-full rounded-md border-red-200 border text-red-200 text-sm text-center py-1">
+      {errorText}
+    </p>
+  )
 }

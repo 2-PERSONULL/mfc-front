@@ -14,8 +14,8 @@ export default function UserChatList({
 
   return (
     <div className="flex flex-col gap-3 bg-gray-100 pb-[100px]">
-      {initialData.map((request) => (
-        <UserChatBox key={request.requestId} requestData={request} />
+      {initialData.map((request, idx) => (
+        <UserChatBox key={idx} requestData={request} />
       ))}
     </div>
   )

@@ -9,7 +9,8 @@ export default function CoordiRequestButton({
   partnerId?: string
 }) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white h-[100px] flex justify-center pt-5">
+    <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white h-[100px] flex justify-center pt-5">
+      {/* <div className="fixed bottom-0 left-0 right-0 bg-white h-[100px] flex justify-center pt-5"> */}
       <Link
         href={`/user/coordinator/${partnerId}/reqcoordi`}
         className="w-[80vw] bg-black h-[60px] rounded-full"
