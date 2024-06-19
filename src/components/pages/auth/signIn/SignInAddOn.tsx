@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function SignInAddOn() {
   return (
-    <div className="italic flex flex-col items-center justify-center mt-3">
+    <section className="italic flex flex-col items-center justify-center mt-3">
       <p className="text-xs font-semibold text-rose-500 py-1">
         Forget Password
       </p>
@@ -13,6 +13,6 @@ export default function SignInAddOn() {
           Sign UP
         </Link>
       </div>
-    </div>
+    </section>
   )
 }
