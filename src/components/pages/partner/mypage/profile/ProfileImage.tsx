@@ -98,7 +98,11 @@ export default function ProfileImage({
       </SliderModal>
 
       <div className="pl-6">
-        <div className="w-[100px] h-[100px] relative">
+        <div
+          className="w-[100px] h-[100px] relative"
+          role="presentation"
+          onClick={() => setIsModalOpen(true)}
+        >
           <Image
             src={image}
             alt="profile image"
@@ -107,7 +111,7 @@ export default function ProfileImage({
             className="object-cover rounded-full mr-1"
           />
 
-          <button type="button" onClick={() => setIsModalOpen(true)}>
+          <button type="button">
             <Image
               src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/edit.svg"
               alt="edit icon"

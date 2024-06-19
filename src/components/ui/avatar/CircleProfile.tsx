@@ -12,7 +12,7 @@ export default function CircleProfile({
     'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
 
   return (
-    <div className={`w-[${size}px] h-[${size}px] relative`}>
+    <div className="relative" style={{ width: size, height: size }}>
       <Image
         src={imageUrl || basicImage}
         alt="profile image"

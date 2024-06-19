@@ -15,14 +15,14 @@ interface TagType {
 export default async function PartnerPostDetailPage({
   params,
 }: {
-  params: { postId: number }
+  params: { postId: number; partnerId: string }
 }) {
-  const { postId } = params
+  const { partnerId, postId } = params
   const { imageUrl, tags, bookmarkCnt } = await getPartnerPostDetail(postId)
-  const { nickname, profileImage } = await getPartnerProfileBasic()
+  const { nickname, profileImage } = await getPartnerProfileBasic(partnerId)
 
   return (
-    <div>
+    <>
       <GoBackHeader title="스타일 상세보기" />
       <PartnerPostTop
         nickname={nickname}
@@ -34,6 +34,6 @@ export default async function PartnerPostDetailPage({
       <PartnerPostImage imageUrl={imageUrl} />
       <PartnerPostLikeCount likeCount={bookmarkCnt} postId={postId} />
       <PartnerPostTagList tags={tags} />
-    </div>
+    </>
   )
 }

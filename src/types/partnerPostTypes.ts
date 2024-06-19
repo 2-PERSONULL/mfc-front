@@ -1,6 +1,11 @@
-interface PartnerPostType {
+export interface PartnerPostType {
   imageUrl: string
   tags: string[]
 }
 
-export default PartnerPostType
+export interface PartnerPostListType {
+  partnerId: string
+  postId: number
+  imageUrl: string
+  alt: string
+}

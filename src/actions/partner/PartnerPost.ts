@@ -3,25 +3,32 @@
 import { revalidateTag } from 'next/cache'
 import { getPartnerIdHeader, getFetchHeader } from '@/utils/getFetchHeader'
 
-export async function getPartnerPost(partnerId?: string) {
+export async function getPartnerPost(
+  partnerId?: string,
+  page?: number,
+  size?: number,
+) {
+  const header = await getPartnerIdHeader(partnerId)
+
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
   try {
-    const header = await getPartnerIdHeader(partnerId)
-
-    if (!header) {
-      console.log('session not found')
-      return null
-    }
-
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/list`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/list?page=${page}&size=${size}`,
       {
-        headers: header,
+        headers: {
+          UUID: header.partnerId,
+          'Content-Type': 'application/json',
+        },
         next: { tags: ['post'] },
       },
     )
 
     const data = await response.json()
-    console.log(data)
+
     if (!data.isSuccess) console.log('get post list error:', data)
     return data.result
   } catch (error) {
@@ -31,14 +38,14 @@ export async function getPartnerPost(partnerId?: string) {
 }
 
 export async function addPartnerPost(imageUrl: string | null, tags: string[]) {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
   try {
-    const header = await getFetchHeader()
-
-    if (!header) {
-      console.log('session not found')
-      return null
-    }
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts`,
       {
@@ -77,14 +84,14 @@ export async function getPartnerPostDetail(postId: number) {
 }
 
 export async function deletePartnerPost(postId: number) {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
   try {
-    const header = await getFetchHeader()
-
-    if (!header) {
-      console.log('session not found')
-      return null
-    }
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts`,
       {
@@ -109,14 +116,14 @@ export async function updatePartnerPost(
   imageUrl: string | null,
   tags: string[],
 ) {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
   try {
-    const header = await getFetchHeader()
-
-    if (!header) {
-      console.log('session not found')
-      return null
-    }
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/${postId}`,
       {

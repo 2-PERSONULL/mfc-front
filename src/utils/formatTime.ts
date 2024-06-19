@@ -70,10 +70,16 @@ const formatDday = (date: string): string => {
   return `D-${diffDays}`
 }
 
+const formatRequestDate = (dateString: string): string => {
+  const date = new Date(dateString)
+  return date.toISOString().split('T')[0]
+}
+
 export {
   formatTime,
   formatChatTime,
   formatCareerDate,
   formatCareerPeriod,
   formatDday,
+  formatRequestDate,
 }
