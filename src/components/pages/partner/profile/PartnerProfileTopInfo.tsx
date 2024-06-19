@@ -18,7 +18,7 @@ export default async function PartnerProfileTopInfo({
   const imageUrl = profileImage || basicImage
 
   return (
-    <section className="h-[500px] z-[20]">
+    <section className="h-[500px]">
       <div className="absolute top-[200px] bg-white w-full h-[fit] left-1/2 translate-x-[-50%] rounded-t-[20px] pt-[50px]">
         {/* 프로필이미지 */}
         <div className="absolute top-[-50px] left-1/2 translate-x-[-50%]">

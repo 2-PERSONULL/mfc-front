@@ -11,7 +11,7 @@ const MenuLineIcon = () => {
     >
       <path
         d="M3 6H21M3 12H21M3 18H21"
-        stroke="white"
+        stroke="#262B2E"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"

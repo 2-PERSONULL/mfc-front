@@ -1,5 +1,17 @@
 import React from 'react'
+import BottomNav from '@/components/layouts/BottomNav'
+import TitleHeader from '@/components/layouts/TitleHeader'
+import ChatListTabs from '@/components/pages/chats/list/ChatListTabs'
 
 export default function layout({ tabs }: { tabs: React.ReactNode }) {
-  return <div>{tabs}</div>
+  return (
+    <>
+      <TitleHeader title="채팅" />
+      <main>
+        <ChatListTabs userRole="user" />
+        {tabs}
+      </main>
+      <BottomNav />
+    </>
+  )
 }

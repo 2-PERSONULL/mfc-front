@@ -37,6 +37,7 @@ export default function PartnerLookbookList({
   }
 
   useEffect(() => {
+    // window.scrollTo(0, 100)
     setStoredData()
     setIsScrollable(true)
   }, [])
@@ -52,7 +53,7 @@ export default function PartnerLookbookList({
     if (pathName.startsWith('/user')) {
       return `${pathName.replace('/profile', '/posts')}`
     }
-    return `/partner/mypage/styles`
+    return `/partner/posts`
   }
 
   const loadMorePosts = async () => {

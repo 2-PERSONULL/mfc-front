@@ -8,7 +8,7 @@ export default async function LookBookTab() {
   const { posts, last } = await getPartnerPost('', 0, NUMBER_OF_FETCH)
 
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-white pb-[100px]">
       <PartnerLookbookList
         initialData={posts}
         isLast={last}
