@@ -3,5 +3,5 @@ export interface BaseResponseType {
   isSuccess: boolean
   message: string
   code: number
-  result: string[] | object[] | number[]
+  result: string[] | object[] | number[] | null
 }

@@ -59,7 +59,9 @@ const editRequest = async (requestId: string, registerData: RequestType) => {
   console.log('Failed to save new request', data)
 }
 
-const getRequestList = async (): Promise<BaseResponseType | null> => {
+const getRequestList = async (
+  page: number,
+): Promise<BaseResponseType | null> => {
   const header = await getFetchHeader()
   if (!header) {
     console.log('session not found')
@@ -67,7 +69,7 @@ const getRequestList = async (): Promise<BaseResponseType | null> => {
   }
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/my-requests?page=0&pageSize=30&sortType=LATEST`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/my-requests?page=${page}&pageSize=10&sortType=LATEST`,
       {
         method: 'GET',
         headers: {

@@ -6,7 +6,7 @@ export default function ViewReqCodiOptions({
   categories: string[]
 }) {
   return (
-    <div>
+    <section>
       <p className="text-base pb-3 text-gray-400">코디 옵션</p>
       <ul className="grid grid-cols-3">
         {categories.map((category) => (
@@ -17,6 +17,6 @@ export default function ViewReqCodiOptions({
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   )
 }
