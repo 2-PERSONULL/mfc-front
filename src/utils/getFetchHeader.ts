@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 
-const getPartnerIdHeader = async (partnerId?: string) => {
+const getPartnerIdHeader = async (partnerId?: string | null) => {
   const session = await getServerSession(options)
   if (!session) return null
 

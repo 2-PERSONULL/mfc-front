@@ -11,10 +11,12 @@ export default function PartnerLookbookList({
   initialData,
   isLast,
   fetchNum,
+  partnerId,
 }: {
   initialData: PartnerPostListType[]
   isLast: boolean
   fetchNum: number
+  partnerId?: string
 }) {
   const router = useRouter()
   const pathName = usePathname()
@@ -56,7 +58,7 @@ export default function PartnerLookbookList({
   const loadMorePosts = async () => {
     if (isLastData) return
 
-    const { posts, last } = await getPartnerPost('', offset, fetchNum)
+    const { posts, last } = await getPartnerPost(partnerId, offset, fetchNum)
 
     setIsLastData(last)
     setPostList((prevPosts) => [...prevPosts, ...posts])

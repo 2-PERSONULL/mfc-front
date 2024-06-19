@@ -8,14 +8,14 @@ export async function getPartnerPost(
   page?: number,
   size?: number,
 ) {
+  const header = await getPartnerIdHeader(partnerId)
+
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
   try {
-    const header = await getPartnerIdHeader(partnerId)
-
-    if (!header) {
-      console.log('session not found')
-      return null
-    }
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/list?page=${page}&size=${size}`,
       {
@@ -38,14 +38,14 @@ export async function getPartnerPost(
 }
 
 export async function addPartnerPost(imageUrl: string | null, tags: string[]) {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
   try {
-    const header = await getFetchHeader()
-
-    if (!header) {
-      console.log('session not found')
-      return null
-    }
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts`,
       {
@@ -84,14 +84,14 @@ export async function getPartnerPostDetail(postId: number) {
 }
 
 export async function deletePartnerPost(postId: number) {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
   try {
-    const header = await getFetchHeader()
-
-    if (!header) {
-      console.log('session not found')
-      return null
-    }
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts`,
       {
@@ -116,14 +116,14 @@ export async function updatePartnerPost(
   imageUrl: string | null,
   tags: string[],
 ) {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
   try {
-    const header = await getFetchHeader()
-
-    if (!header) {
-      console.log('session not found')
-      return null
-    }
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/${postId}`,
       {

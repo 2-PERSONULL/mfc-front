@@ -17,6 +17,7 @@ export default async function LookBookTab({
       initialData={posts}
       isLast={last}
       fetchNum={NUMBER_OF_FETCH}
+      partnerId={partnerId}
     />
   )
 }
