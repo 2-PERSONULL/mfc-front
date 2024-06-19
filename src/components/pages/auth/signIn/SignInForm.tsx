@@ -60,7 +60,7 @@ export default function SignInForm() {
 
   return (
     <form onSubmit={logInSubmit} className="bg-white w-full">
-      <div className="flex items-center justify-start w-full mb-2">
+      <section className="flex items-center justify-start w-full mb-2">
         <Image
           className="absolute pl-6"
           src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/person-black.svg"
@@ -78,8 +78,8 @@ export default function SignInForm() {
           maxLength={20}
           className="border border-gray-500 rounded-full text-md w-full pl-14 py-3"
         />
-      </div>
-      <div className="flex items-center justify-start w-full">
+      </section>
+      <section className="flex items-center justify-start w-full">
         <Image
           className="absolute pl-6"
           src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/lock.svg"
@@ -122,7 +122,7 @@ export default function SignInForm() {
             />
           )}
         </button>
-      </div>
+      </section>
       <button
         type="submit"
         className="mt-6 bg-black text-white font-bold w-full rounded-full py-3"

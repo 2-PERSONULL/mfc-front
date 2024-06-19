@@ -7,14 +7,16 @@ import LicenseInfo from '@/components/common/LicenseInfo'
 
 export default function SignIn() {
   return (
-    <div className="bg-white min-h-screen w-full flex flex-col items-center px-6">
+    <>
       <SignInLogo title="LOGIN" />
-      <Suspense>
-        <SignInForm />
-      </Suspense>
-      <SignInAddOn />
-      <SNSSignInButton />
-      <LicenseInfo />
-    </div>
+      <main className="bg-white min-h-screen w-full flex flex-col items-center px-6">
+        <Suspense>
+          <SignInForm />
+        </Suspense>
+        <SignInAddOn />
+        <SNSSignInButton />
+        <LicenseInfo />
+      </main>
+    </>
   )
 }
