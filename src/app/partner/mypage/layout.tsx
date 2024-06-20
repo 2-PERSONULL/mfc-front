@@ -8,7 +8,7 @@ export default function layout({ tabs }: { tabs: React.ReactNode }) {
   return (
     <>
       <PartnerProfileHeader />
-      <main className="mt-[50px] w-full relative">
+      <main className="mt-[50px] w-full bg-white ">
         <PartnerProfileTopInfo />
         <PartnerProfilePreviewTabs />
         {tabs}

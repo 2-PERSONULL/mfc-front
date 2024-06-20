@@ -79,7 +79,7 @@ export default function PartnerLookbookList({
   }
 
   return (
-    <section className="grid grid-cols-2 gap-1">
+    <div className="grid grid-cols-2 gap-2">
       <button
         type="button"
         onClick={() => router.push('/partner/posts/edit')}
@@ -105,6 +105,6 @@ export default function PartnerLookbookList({
         </button>
       ))}
       <div ref={observerRef} />
-    </section>
+    </div>
   )
 }
