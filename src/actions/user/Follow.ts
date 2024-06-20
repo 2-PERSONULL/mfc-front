@@ -54,7 +54,6 @@ export async function updateFollow(partnerId: string, method: string) {
     )
 
     const data = await response.json()
-    console.log(data)
 
     if (data.isSuccess) {
       revalidateTag('follow')

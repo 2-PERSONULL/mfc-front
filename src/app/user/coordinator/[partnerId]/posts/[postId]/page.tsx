@@ -1,5 +1,4 @@
 import React from 'react'
-import GoBackHeader from '@/components/layouts/GoBackHeader'
 import PartnerPostImage from '@/components/pages/partner/mypage/style/PartnerPostImage'
 import { getPartnerPostDetail } from '@/actions/partner/PartnerPost'
 import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
@@ -23,7 +22,6 @@ export default async function PartnerPostDetailPage({
 
   return (
     <>
-      <GoBackHeader title="스타일 상세보기" />
       <PartnerPostTop
         nickname={nickname}
         profileImage={profileImage}

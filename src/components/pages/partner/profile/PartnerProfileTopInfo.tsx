@@ -19,7 +19,7 @@ export default async function PartnerProfileTopInfo({
 
   return (
     <section className="h-[500px]">
-      <div className="absolute top-[200px] bg-white w-full h-[fit] left-1/2 translate-x-[-50%] rounded-t-[20px] pt-[50px]">
+      <div className="absolute top-[200px] bg-white w-full h-[fit] rounded-t-[20px] pt-[50px]">
         {/* 프로필이미지 */}
         <div className="absolute top-[-50px] left-1/2 translate-x-[-50%]">
           <div className="w-[110px] h-[110px] relative">

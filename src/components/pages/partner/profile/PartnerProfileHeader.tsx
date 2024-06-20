@@ -18,23 +18,27 @@ export default async function PartnerProfileHeader({
 
   return (
     <header className="w-full h-[50px] fixed top-0 left-0 bottom-0 flex items-center">
-      <div className="w-full px-3 flex items-center justify-between z-[20]">
-        <BackArrowButton />
-
-        <div className="flex gap-4">
-          <Link
-            href="/partner/management/alert"
-            className="hover:opacity-20 cursor-pointer relative"
-          >
-            <NotificationIcon />
-          </Link>
-          <Link
-            href="/partner/management/menu"
-            className="hover:opacity-20 cursor-pointer relative"
-          >
-            <MenuLineIcon />
-          </Link>
+      <div className="w-full px-3 fixed flex items-center justify-between z-[20]">
+        <div className="pl-2">
+          <BackArrowButton />
         </div>
+
+        {!partnerId && (
+          <div className="flex gap-4">
+            <Link
+              href="/partner/management/alert"
+              className="hover:opacity-20 cursor-pointer relative"
+            >
+              <NotificationIcon />
+            </Link>
+            <Link
+              href="/partner/management/menu"
+              className="hover:opacity-20 cursor-pointer relative"
+            >
+              <MenuLineIcon />
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* 배경이미지 */}

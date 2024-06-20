@@ -5,5 +5,5 @@ export default function UserChatListLayout({
 }: {
   children: React.ReactNode
 }) {
-  return { children }
+  return <div>{children}</div>
 }
