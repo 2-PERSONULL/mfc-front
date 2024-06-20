@@ -1,6 +1,7 @@
 'use server'
 
 import { BaseResponseType } from '@/types/baseResponseType'
+import { UserBodyInfoType, UserClothesSizeInfoType } from '@/types/userInfoType'
 import { UserProfile } from '@/types/userProfileType'
 import { getFetchHeader } from '@/utils/getFetchHeader'
 
@@ -84,7 +85,7 @@ const getPreferenceStyle = async () => {
   }
 }
 
-const updatePreferenceStyle = async (value: number[]) => {
+const updatePreferenceStyle = async (value: { favoriteStyles: number[] }) => {
   const header = await getFetchHeader()
   if (!header) {
     console.log('session not found')
@@ -98,8 +99,9 @@ const updatePreferenceStyle = async (value: number[]) => {
         headers: {
           UUID: header.UUID,
           Authorization: `${header.Authorization}`,
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ favoriteStyles: value }),
+        body: JSON.stringify(value),
       },
     )
     const data: BaseResponseType = await response.json()
@@ -137,15 +139,7 @@ const getBodyInfo = async () => {
   }
 }
 
-const updateBodyInfo = async ({
-  height,
-  weight,
-  bodyType,
-}: {
-  height: number
-  weight: number
-  bodyType: string
-}) => {
+const updateBodyInfo = async ({ formData }: { formData: UserBodyInfoType }) => {
   const header = await getFetchHeader()
   if (!header) {
     console.log('session not found')
@@ -155,16 +149,13 @@ const updateBodyInfo = async ({
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/users/bodytype`,
       {
-        method: 'GET',
+        method: 'PUT',
         headers: {
           UUID: header.UUID,
           Authorization: `${header.Authorization}`,
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          height,
-          weight,
-          bodyType,
-        }),
+        body: JSON.stringify(formData),
       },
     )
     const data: BaseResponseType = await response.json()
@@ -203,13 +194,9 @@ const getClothesSize = async () => {
 }
 
 const updateClothesSize = async ({
-  top,
-  bottom,
-  shoes,
+  formData,
 }: {
-  top: string
-  bottom: string
-  shoes: number
+  formData: UserClothesSizeInfoType
 }) => {
   const header = await getFetchHeader()
   if (!header) {
@@ -224,12 +211,9 @@ const updateClothesSize = async ({
         headers: {
           UUID: header.UUID,
           Authorization: `${header.Authorization}`,
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          topSize: top,
-          bottomSize: bottom,
-          shoeSize: shoes,
-        }),
+        body: JSON.stringify(formData),
       },
     )
     const data: BaseResponseType = await response.json()

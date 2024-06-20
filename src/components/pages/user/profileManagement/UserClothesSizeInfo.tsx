@@ -9,8 +9,20 @@ export default function UserClothesSizeInfo({
 }: {
   title: string
   href: string
-  info: UserClothesSizeInfoType
+  info: UserClothesSizeInfoType | null
 }) {
+  const translateKey = (key: string) => {
+    switch (key) {
+      case 'topSize':
+        return '상의'
+      case 'bottomSize':
+        return '하의'
+      case 'shoeSize':
+        return '신발'
+      default:
+        return key
+    }
+  }
   return (
     <section className="w-full bg-white border-b border-b-gray-200 py-8">
       <div className="flex items-center justify-between mb-2">
@@ -23,7 +35,7 @@ export default function UserClothesSizeInfo({
         {info &&
           Object.entries(info).map(([key, value]) => (
             <li key={key} className="flex gap-2">
-              <p>{key}:</p>
+              <p>{translateKey(key)}:</p>
               <p>{value !== null ? value : '정보 없음'}</p>
             </li>
           ))}

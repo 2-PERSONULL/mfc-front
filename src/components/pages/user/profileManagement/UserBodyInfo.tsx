@@ -11,6 +11,18 @@ export default function UserBodyInfo({
   href: string
   info: UserBodyInfoType | null
 }) {
+  const translateKey = (key: string) => {
+    switch (key) {
+      case 'height':
+        return '키'
+      case 'weight':
+        return '체중'
+      case 'bodyType':
+        return '체형'
+      default:
+        return key
+    }
+  }
   return (
     <section className="w-full bg-white border-b border-b-gray-200 py-8">
       <div className="flex items-center justify-between mb-2">
@@ -23,7 +35,7 @@ export default function UserBodyInfo({
         {info &&
           Object.entries(info).map(([key, value]) => (
             <li key={key} className="flex gap-2">
-              <p>{key}:</p>
+              <p>{translateKey(key)}:</p>
               <p>{value !== null ? value : '정보 없음'}</p>
             </li>
           ))}

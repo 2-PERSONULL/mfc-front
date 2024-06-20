@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import BodytypeList from './BodytypeList'
 
@@ -6,6 +8,7 @@ export default function UserBodyInfoForm({
 }: {
   handleSave: (formData: FormData) => void
 }) {
+  // const { showToast } = useToast(e)
   return (
     <form action={handleSave} className="w-full bg-white px-5">
       <section className="flex items-center gap-3 pb-5">

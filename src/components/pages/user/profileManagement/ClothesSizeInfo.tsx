@@ -111,8 +111,8 @@ export default function ClothesSizeInfo({
           <div className="relative w-full">
             <input
               type="number"
-              id="shoesSize"
-              name="shoesSize"
+              id="shoeSize"
+              name="shoeSize"
               value={shoesSize || ''}
               onChange={(e) => setShoesSize(Number(e.target.value))}
               placeholder="신발 사이즈를 입력하세요."

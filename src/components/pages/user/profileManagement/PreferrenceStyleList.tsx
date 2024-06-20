@@ -12,13 +12,13 @@ export default function PreferrenceStyleList({
   favoriteStyle,
 }: {
   styleList: MemberStyleType[]
-  favoriteStyle: number[]
+  favoriteStyle: object[]
 }) {
   const router = useRouter()
   const [selectedStyle, setSelectedStyle] = useState<number[]>([])
 
   useEffect(() => {
-    setSelectedStyle(favoriteStyle)
+    setSelectedStyle(favoriteStyle.map(Number))
   }, [favoriteStyle])
 
   const handleStyleClick = (style: number) => {
@@ -27,12 +27,14 @@ export default function PreferrenceStyleList({
         selectedStyle.filter((selected: number) => selected !== style),
       )
     }
-    // 값 저장되는 부분 수정 필요
+    if (favoriteStyle.length + selectedStyle.length >= 3) {
+      return
+    }
     setSelectedStyle([...selectedStyle, style])
   }
 
   const saveHandler = async () => {
-    await updatePreferenceStyle(selectedStyle)
+    await updatePreferenceStyle({ favoriteStyles: selectedStyle })
     router.replace('/user/mypage/profile')
   }
   return (
