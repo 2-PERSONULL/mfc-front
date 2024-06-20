@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { MemberStyleType } from '@/types/commonTypes'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
+import { updatePreferenceStyle } from '@/actions/user/UserProfile'
 
 export default function PreferrenceStyleList({
   styleList,
@@ -30,9 +31,8 @@ export default function PreferrenceStyleList({
     setSelectedStyle([...selectedStyle, style])
   }
 
-  const saveHandler = () => {
-    console.log('저장')
-    console.log(selectedStyle)
+  const saveHandler = async () => {
+    await updatePreferenceStyle(selectedStyle)
     router.replace('/user/mypage/profile')
   }
   return (
