@@ -3,6 +3,13 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import bodytypeData from '@/libs/bodyTypeData'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 interface BodyType {
   id: number
@@ -17,54 +24,60 @@ export default function BodytypeList() {
     null,
   )
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedData = bodytypeData.find(
-      (data) => data.value === e.target.value,
-    )
+  const handleChange = (value: string) => {
+    const selectedData = bodytypeData.find((data) => data.value === value)
     setSelectedBodyType(selectedData || null)
   }
   return (
-    <div className="mt-5">
-      <select
-        id="bodyType"
-        name="bodyType"
-        className="relative form-input"
-        onChange={handleChange}
-        // 화살표 위치 수정 필요
-        style={{
-          height: '58px',
-          borderRadius: '3rem',
-          paddingTop: '1.8rem',
-          paddingLeft: '1.3rem',
-        }}
-      >
-        <option value="" className="text-gray-400">
-          체형을 선택해주세요
-        </option>
-        {bodytypeData.map((data) => (
-          <option key={data.id} value={data.value}>
-            {data.name}
-          </option>
-        ))}
-      </select>
-      <span className="absolute left-11 top-[330px] text-sm font-bold text-gray-500">
-        체형
-      </span>
+    <section className="mt-5">
+      <div className="relative w-full">
+        <Select onValueChange={handleChange}>
+          <input
+            type="hidden"
+            name="bodyType"
+            value={selectedBodyType ? selectedBodyType.value : ''}
+          />
+          <SelectTrigger
+            id="bodyType"
+            name="bodyType"
+            value={selectedBodyType?.value || ''}
+            className="relative w-full rounded-full border border-gray-300"
+            style={{
+              height: '3.5rem',
+              borderRadius: '3rem',
+              paddingTop: '1.8rem',
+              paddingLeft: '1.3rem',
+            }}
+          >
+            <SelectValue placeholder="체형을 선택해주세요" />
+          </SelectTrigger>
+          <SelectContent>
+            {bodytypeData.map((data) => (
+              <SelectItem key={data.id} value={data.value}>
+                {data.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <span className="absolute left-5 top-2 text-sm font-bold text-gray-500">
+          체형
+        </span>
+      </div>
       {selectedBodyType && (
-        <div className="flex flex-col items-center justify-center">
+        <section className="flex flex-col items-center mt-5">
           <Image
             src={selectedBodyType.imageUrl}
             alt={selectedBodyType.value}
             width={0}
             height={0}
             priority
-            style={{ width: '80vmin', height: '80vmin' }}
+            style={{ width: '40dvh', height: '38dvh' }}
           />
           <p className="text-sm text-center font-semibold text-gray-400">
             {selectedBodyType.description}
           </p>
-        </div>
+        </section>
       )}
-    </div>
+    </section>
   )
 }

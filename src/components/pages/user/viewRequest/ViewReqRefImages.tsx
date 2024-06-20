@@ -9,7 +9,7 @@ export default function ViewReqRefImages({
 }) {
   return (
     <section>
-      <p className="text-base text-gray-400">{title}</p>
+      <p className="text-sm text-black font-semibold">{title}</p>
       <div className="flex overflow-x-scroll whitespace-nowrap">
         {refImgs ? (
           <ul className="flex justify-start gap-2">

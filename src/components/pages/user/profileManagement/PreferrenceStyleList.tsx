@@ -38,11 +38,11 @@ export default function PreferrenceStyleList({
   return (
     <section className="grid grid-cols-3 gap-3 mt-5 m-4">
       {styleList.map((style) => (
-        <div
+        <section
           key={style.styleId}
           className="flex flex-col justify-center items-center"
         >
-          <div
+          <figure
             role="presentation"
             onClick={() => handleStyleClick(style.styleId)}
             className="w-[90px] h-[90px] relative my-4"
@@ -55,11 +55,11 @@ export default function PreferrenceStyleList({
               sizes="(max-width: 100px) 100vw, 100px"
               className={`object-cover rounded-full ${selectedStyle?.includes(style.styleId) ? 'ring-4 ring-black ring-offset-base-100 ring-offset-2' : ''}`}
             />
-          </div>
+          </figure>
           <span className="text-center font-semibold text-sm">
             {style.name}
           </span>
-        </div>
+        </section>
       ))}
       <div className="fixed bottom-0 h-[90px] w-full left-0 right-0 px-6 bg-white">
         <StretchedRoundedButton comment="저장" clickHandler={saveHandler} />

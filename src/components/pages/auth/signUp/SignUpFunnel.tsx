@@ -79,7 +79,7 @@ export default function SignUpFunnel({
   }
 
   return (
-    <>
+    <section>
       <ProgressBar
         className="w-[100%] absolute top-0 left-0 h-1 rounded-none"
         value={parseInt(handleProgressBar(), 10)}
@@ -156,6 +156,6 @@ export default function SignUpFunnel({
           />
         )}
       </form>
-    </>
+    </section>
   )
 }

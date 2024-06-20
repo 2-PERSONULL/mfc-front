@@ -8,7 +8,7 @@ export default function UserBodyInfoForm({
 }) {
   return (
     <form action={handleSave} className="w-full bg-white px-5">
-      <div className="flex items-center gap-3 pb-5">
+      <section className="flex items-center gap-3 pb-5">
         <input
           type="number"
           id="height"
@@ -22,12 +22,12 @@ export default function UserBodyInfoForm({
             paddingLeft: '1.5rem',
           }}
         />
-        <span className="absolute left-11 text-sm font-bold top-[185px] text-gray-500">
+        <span className="absolute left-11 text-sm font-bold top-44 text-gray-500">
           키
         </span>
-        <span className="absolute right-12 top-52 text-gray-500">cm</span>
-      </div>
-      <div className="flex items-center gap-3">
+        <span className="absolute right-12 top-[195px] text-gray-500">cm</span>
+      </section>
+      <section className="flex items-center gap-3">
         <input
           type="number"
           id="weight"
@@ -41,11 +41,11 @@ export default function UserBodyInfoForm({
             paddingLeft: '1.5rem',
           }}
         />
-        <span className="absolute left-11 text-sm font-bold top-64 text-gray-500">
+        <span className="absolute left-11 text-sm font-bold top-[248px] text-gray-500">
           체중
         </span>
-        <span className="absolute right-12 top-[280px] text-gray-500">kg</span>
-      </div>
+        <span className="absolute right-12 top-[268px] text-gray-500">kg</span>
+      </section>
       <BodytypeList />
       <button
         type="submit"

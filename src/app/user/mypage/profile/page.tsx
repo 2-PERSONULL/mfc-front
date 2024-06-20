@@ -2,7 +2,7 @@ import React from 'react'
 import UserInfo from '@/components/pages/user/UserInfo'
 import UserSingleDetailInfo from '@/components/pages/user/profileManagement/UserSingleDetailInfo'
 import UserMultiDetailInfo from '@/components/pages/user/profileManagement/UserMultiDetailInfo'
-import SectionTitle from '@/components/layouts/SectionTitle'
+import ProfileAdvice from '@/components/layouts/ProfileAdvice'
 
 export default function UserProfileManagement() {
   const dummyStyleInfo = [
@@ -32,9 +32,11 @@ export default function UserProfileManagement() {
   return (
     <main>
       {/* props로 이미지 정보 받아올 수 있게 수정할 것 */}
-      <UserInfo />
-      <SectionTitle describe />
-      <section className="w-full bg-white grid gap-3 py-3 px-6">
+      <section>
+        <UserInfo editImg />
+      </section>
+      <ProfileAdvice describe />
+      <section className="w-full min-h-full bg-white gridpy-3 px-6">
         <UserSingleDetailInfo title="성별" value="남" />
         {/* props로 정보 전달 */}
         <UserMultiDetailInfo

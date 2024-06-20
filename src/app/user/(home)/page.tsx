@@ -7,22 +7,8 @@ import { options } from '@/app/api/auth/[...nextauth]/options'
 export default async function UserHome() {
   const session = await getServerSession(options)
   return (
-    <div>
+    <main>
       <p>유저 홈 화면입니다.</p>
-      <div className="flex justify-around">
-        <Link href="/explore">
-          <p className="text-black font-bold rounded-xl text-center">Explore</p>
-        </Link>
-        <Link href="/ranking">
-          <p className="text-black font-bold rounded-xl text-center">Ranking</p>
-        </Link>
-        <Link href="/user/mypage">
-          <p className="text-black font-bold rounded-xl text-center">MyPage</p>
-        </Link>
-        <Link href="/user/chats">
-          <p className="text-black font-bold rounded-xl text-center">Chats</p>
-        </Link>
-      </div>
       {session ? (
         <>
           <pre className="text-wrap">
@@ -50,6 +36,6 @@ export default async function UserHome() {
           </Link>
         </>
       )}
-    </div>
+    </main>
   )
 }

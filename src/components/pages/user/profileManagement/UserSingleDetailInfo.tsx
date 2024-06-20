@@ -13,17 +13,16 @@ export default function UserSingleDetailInfo({
   edit?: boolean
 }) {
   return (
-    <div className="w-full bg-white pt-2 pb-1">
+    <section className="w-full bg-white border-b border-b-gray-200 py-8">
       {edit ? (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-2">
           <p className="text-gray-500">{title}</p>
           {href && <UserProfileEditButton href={href} />}
         </div>
       ) : (
-        <p className="text-gray-500">{title}</p>
+        <p className="text-[18px] font-bold mr-2 mb-2">{title}</p>
       )}
-      <p>{value}</p>
-      <div className="border border-gray-300 mt-1" />
-    </div>
+      <p className="text-sm">{value}</p>
+    </section>
   )
 }

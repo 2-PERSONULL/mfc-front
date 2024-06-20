@@ -10,5 +10,9 @@ export default async function RequestDetail({
 }) {
   const result = await getRequestDetail(params.requestid)
   const data: RequestDetailProps = result as unknown as RequestDetailProps
-  return <ViewRequest data={data} params={params} />
+  return (
+    <main>
+      <ViewRequest data={data} params={params} />
+    </main>
+  )
 }

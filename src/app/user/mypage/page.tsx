@@ -1,23 +1,37 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import React from 'react'
+import UserMyPageMenuData from '@/libs/userMyPageMenuData'
+import ChangeRole from '@/components/pages/partner/mypage/menu/ChangeRole'
+import SettingAlert from '@/components/pages/partner/mypage/menu/SettingAlert'
+import Logout from '@/components/pages/partner/mypage/menu/Logout'
+import UserInfo from '@/components/pages/user/UserInfo'
 
 export default function UserMyPage() {
+  const menuData = UserMyPageMenuData
+
   return (
     <main>
-      <p>유저 마이페이지입니다.</p>
-      <section className="flex flex-col gap-5 items-center justify-around">
-        <Link
-          href="/user/mypage/profile"
-          className="bg-blue-500 px-3 py-3 rounded-xl w-full"
-        >
-          프로필 관리
-        </Link>
-        <Link
-          href="/user/mypage/reqlist"
-          className="bg-yellow-500 px-3 py-3 rounded-xl w-full"
-        >
-          요청서 관리
-        </Link>
+      <UserInfo editImg={false} />
+      <section className="w-full min-h-screen">
+        {menuData.map((menu) => (
+          <Link
+            key={menu.id}
+            href={menu.url}
+            className="flex items-center justify-between px-5 py-7"
+          >
+            <span>{menu.title}</span>
+            <Image
+              src="/icons/list-arrow.svg"
+              alt="arrow-icon"
+              width={24}
+              height={24}
+            />
+          </Link>
+        ))}
+        <ChangeRole />
+        <SettingAlert />
+        <Logout />
       </section>
     </main>
   )

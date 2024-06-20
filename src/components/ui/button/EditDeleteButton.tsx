@@ -6,7 +6,7 @@ import { deleteRequest } from '@/actions/user/UserRequest'
 import useToast from '@/stores/toast'
 import useConfirmStore from '@/stores/confirm'
 
-export default function ThreeFuncButton({
+export default function EditDeleteButton({
   params,
 }: {
   params: { requestid: string }
@@ -42,22 +42,16 @@ export default function ThreeFuncButton({
       <button
         type="button"
         onClick={handleEdit}
-        className="w-full h-full bg-gray-400 border border-gray-400"
+        className="w-full h-full text-black bg-gray-300 border border-gray-300"
       >
         수정
       </button>
       <button
         type="button"
         onClick={handleDelete}
-        className="w-full h-full bg-white text-black border border-white"
+        className="w-full h-full bg-black text-white border border-black"
       >
         삭제
-      </button>
-      <button
-        type="button"
-        className="w-full h-full bg-black border border-black"
-      >
-        선택
       </button>
     </section>
   )
