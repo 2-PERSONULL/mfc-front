@@ -1,5 +1,4 @@
 import React from 'react'
-import GoBackHeader from '@/components/layouts/GoBackHeader'
 import AccountManagement from '@/components/pages/partner/mypage/cash/AccountManagement'
 import { getBankCodeList, getAccountInfo } from '@/actions/partner/Account'
 import getMemberName from '@/actions/member/Account'
@@ -13,14 +12,11 @@ export default async function PartnerAccountPage() {
   )
 
   return (
-    <div>
-      <GoBackHeader title="정산 계좌 관리" />
-      <AccountManagement
-        bankList={bankList}
-        bankHoler={bankHoler}
-        bankInfo={bankCode || { code: '', name: '' }}
-        bankAccountInfo={account}
-      />
-    </div>
+    <AccountManagement
+      bankList={bankList}
+      bankHoler={bankHoler}
+      bankInfo={bankCode || { code: '', name: '' }}
+      bankAccountInfo={account}
+    />
   )
 }

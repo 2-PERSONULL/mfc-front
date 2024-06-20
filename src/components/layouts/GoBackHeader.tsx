@@ -10,7 +10,7 @@ const GoBackHeader = ({
 }) => {
   return (
     <header className="sticky top-0 h-[50px] py-[11px] flex justify-center items-center bg-white z-[10]">
-      <nav className="w-[50px] h-[50px] flex absolute left-0 top-0 bottom-0 items-center justify-center">
+      <nav className="w-[50px] h-[50px] flex absolute left-2 top-0 bottom-0 items-center justify-center">
         <BackArrowButton confirmExit={confirmExit || false} />
       </nav>
       {title && (

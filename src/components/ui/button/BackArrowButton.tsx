@@ -29,7 +29,7 @@ const BackArrowButton = ({ confirmExit }: { confirmExit?: boolean }) => {
     <div
       role="presentation"
       onClick={handleBackClick}
-      className="hover:opacity-20 cursor-pointer relative z-[50]"
+      className="relative z-[20]"
     >
       <Image
         src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/backArrow.svg"

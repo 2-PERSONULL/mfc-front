@@ -4,22 +4,22 @@ const PartnerMyPageMenuData: MenuType[] = [
   {
     id: 1,
     title: '프로필 관리',
-    url: '/partner/mypage/profile',
+    url: '/partner/management/profile',
   },
   {
     id: 2,
     title: '계정 설정',
-    url: '/partner/mypage/account',
+    url: '/partner/management/account',
   },
   {
     id: 3,
     title: '스케줄 관리',
-    url: '/partner/mypage/schedule',
+    url: '/partner/management/schedule',
   },
   {
     id: 4,
     title: '정산 관리',
-    url: '/partner/mypage/cash',
+    url: '/partner/management/cash',
   },
 ]
 

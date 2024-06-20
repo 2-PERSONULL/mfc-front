@@ -16,7 +16,7 @@ export default function PartnerCashBalanceBox() {
         <Image src="/icons/pig.svg" width={120} height={120} alt="cash" />
       </div>
       <div className="flex justify-center mb-4">
-        <Link href="/partner/mypage/cash/exchange">
+        <Link href="/partner/management/cash/exchange">
           <button
             type="button"
             className="bg-black w-[80vw] h-[50px] rounded-full text-[17px] text-white font-bold"

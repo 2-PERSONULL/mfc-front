@@ -7,13 +7,13 @@ export default function PartnerCashMenu() {
     {
       id: 1,
       title: '이용내역조회',
-      url: '/partner/mypage/cash/history',
+      url: '/partner/management/cash/history',
     },
 
     {
       id: 2,
       title: '정산 계좌 관리',
-      url: '/partner/mypage/cash/account',
+      url: '/partner/management/cash/bankaccount',
     },
   ]
 
