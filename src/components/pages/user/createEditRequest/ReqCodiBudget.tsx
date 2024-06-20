@@ -20,8 +20,7 @@ export default function ReqCodiBudget({ budget }: { budget?: string }) {
           value={value ? value.toLocaleString() : ''}
           onChange={handleChange}
           type="text"
-          className="form-input text-end"
-          style={{ width: '35%' }}
+          className="form-input text-end w-full"
         />
         <p>₩</p>
       </section>

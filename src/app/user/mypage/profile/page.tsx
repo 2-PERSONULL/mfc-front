@@ -33,10 +33,10 @@ export default function UserProfileManagement() {
     <main>
       {/* props로 이미지 정보 받아올 수 있게 수정할 것 */}
       <section>
-        <UserInfo />
+        <UserInfo editImg />
       </section>
       <ProfileAdvice describe />
-      <section className="w-full bg-white gridpy-3 px-6">
+      <section className="w-full min-h-full bg-white gridpy-3 px-6">
         <UserSingleDetailInfo title="성별" value="남" />
         {/* props로 정보 전달 */}
         <UserMultiDetailInfo

@@ -53,5 +53,9 @@ export default function NewRequest() {
     }
     return redirect('/user/mypage/reqlist')
   }
-  return <RequestForm action={handleSubmit} />
+  return (
+    <main>
+      <RequestForm action={handleSubmit} />
+    </main>
+  )
 }

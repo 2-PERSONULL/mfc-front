@@ -8,7 +8,7 @@ export default function ProfileAdvice({
   describe?: boolean
 }) {
   return (
-    <section className="px-6 pt-3 mb-10">
+    <section className="px-6 pt-3 mb-5">
       <p className="font-extrabold text-xl">{title}</p>
       {/* ↓ 임시로 입력한 부분 검토 필요 */}
       {describe && (

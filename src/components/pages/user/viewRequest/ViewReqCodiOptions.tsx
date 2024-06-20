@@ -7,7 +7,7 @@ export default function ViewReqCodiOptions({
 }) {
   return (
     <section>
-      <p className="text-base pb-3 text-gray-400">코디 옵션</p>
+      <p className="text-sm pb-3 text-black font-semibold">코디 옵션</p>
       <ul className="grid grid-cols-3">
         {categories.map((category) => (
           <li key={category}>

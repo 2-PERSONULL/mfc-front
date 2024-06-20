@@ -6,6 +6,7 @@ import { getRequestList } from '@/actions/user/UserRequest'
 import { BaseResponseType } from '@/types/baseResponseType'
 import EachRequest from '../requestList/EachRequest'
 import useObserver from '@/hooks/useObserver'
+import { Table, TableBody, TableRow } from '@/components/ui/table'
 
 interface RequestListType {
   requestId: string
@@ -39,24 +40,30 @@ export default function ReqListContents() {
   })
 
   return (
-    <div className="w-full min-h-screen pt-[50px]">
-      <section className="fixed top-[50px] w-full px-5 py-3 border border-t bg-white">
-        <button type="button" className="text-blue-600 font-bold text-sm">
+    <section className="w-full min-h-screen pt-[50px]">
+      <section className="fixed top-[50px] w-full px-5 py-3 border border-t bg-white z-[20]">
+        <div className="text-blue-600 font-bold text-sm">
           <Link href="/user/mypage/reqlist/newreq">+ 신규 요청서</Link>
-        </button>
+        </div>
       </section>
       <section>
-        {requestList.map((request: RequestListType) => (
-          <Link
-            href={`/user/mypage/reqlist/${request.requestId}`}
-            key={request.requestId}
-            className="w-full text-start"
-          >
-            <EachRequest title={request.title} />
-          </Link>
-        ))}
+        <Table>
+          <TableBody>
+            {requestList.map((request: RequestListType) => (
+              <TableRow key={request.requestId}>
+                <Link
+                  href={`/user/mypage/reqlist/${request.requestId}`}
+                  key={request.requestId}
+                  className="w-full text-start"
+                >
+                  <EachRequest title={request.title} />
+                </Link>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </section>
       <div ref={observerRef} />
-    </div>
+    </section>
   )
 }

@@ -7,8 +7,8 @@ export default function ViewRequestContents({
 }) {
   return (
     <section>
-      <p className="text-base pb-3 text-gray-400">요청 내용</p>
-      <p className="text-wrap">{contents}</p>
+      <p className="text-sm pb-3 text-black font-semibold">요청 내용</p>
+      <p className="text-wrap text-lg">{contents}</p>
     </section>
   )
 }
