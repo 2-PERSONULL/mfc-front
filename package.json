@@ -13,6 +13,7 @@
     "@aws-sdk/client-s3": "^3.577.0",
     "@ducanh2912/next-pwa": "^10.2.7",
     "@internationalized/date": "^3.5.3",
+    "@microsoft/fetch-event-source": "^2.0.1",
     "@nextui-org/date-input": "^2.0.3",
     "@portone/browser-sdk": "^0.0.7",
     "@radix-ui/react-menubar": "^1.0.4",

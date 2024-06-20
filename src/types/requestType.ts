@@ -29,7 +29,7 @@ export interface UserRequestDetailType {
   title: string
   description: string
   situation: string
-  budget: number
+  budget: string
   createdDate: string
   userImageUrl: string
   userNickName: string
@@ -39,4 +39,10 @@ export interface UserRequestDetailType {
   categoryIds: string[]
   referenceImageUrls: string[]
   myImageUrls: string[]
+  partner: {
+    partnerId: string
+    status: string
+    deadline: string
+    confirmedPrice: number | null
+  }
 }

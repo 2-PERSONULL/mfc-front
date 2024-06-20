@@ -3,6 +3,13 @@
 import { revalidateTag } from 'next/cache'
 import { getFetchHeader } from '@/utils/getFetchHeader'
 
+interface Partner {
+  partnerId: string
+  status: string
+  deadline: string
+  confirmedPrice: string
+}
+
 // 요청서 목록 조회
 export async function getChatList(page?: number, pageSize?: number) {
   console.log(page, pageSize)
@@ -58,6 +65,13 @@ export async function getRequestDetail(historyId: string) {
 
     const data = await response.json()
     if (data.isSuccess) {
+      // data.result 에서 partner에서 partnerId가 header.UUID와 같은것만 return
+      const myValue: Partner[] = data.result.partner.filter(
+        (item: Partner) => item.partnerId === header.UUID,
+      ) as Partner[]
+
+      ;[data.result.partner] = myValue
+
       return data.result
     }
     console.log(data)

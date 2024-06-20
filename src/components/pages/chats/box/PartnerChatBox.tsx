@@ -33,27 +33,29 @@ export default function PartnerChatBox({
     <div className="border-y-2 border-y-gray-100 bg-white relative">
       <div className="p-5">
         {/* 유저정보 */}
-        <section className="flex items-center">
+        <section className="flex items-center mb-8">
           <CircleProfile size={50} imageUrl={requestData.userImageUrl} />
-          <h1 className="ml-2 font-semibold">{requestData.userNickName}</h1>
-          <div className="ml-2 text-gray-500 flex gap-1">
-            <span>{requestData.userGender ? '여성' : '남성'}</span>
-            <span>|</span>
-            <span>{requestData.userAge}</span>
+          <div>
+            <p className="ml-2 font-semibold">{requestData.userNickName}</p>
+            <div className="ml-2 text-gray-500 text-[14px] flex gap-1">
+              <span>{requestData.userGender ? '여성' : '남성'}</span>
+              <span>|</span>
+              <span>{requestData.userAge}</span>
+            </div>
           </div>
-          <h1 className="text-gray-700 font-bold text-[20px] absolute right-4">
+          <p className="text-gray-700 font-bold text-[25px] absolute right-4">
             {formatDday(requestData.deadline)}
-          </h1>
+          </p>
         </section>
 
         {/* 진행률 */}
-        <section className="mt-3 mb-4">
+        <section className="mb-6">
           <Steps steps={steps} currentStep={currentStep} />
         </section>
 
         {/* 요청서명&일시 */}
         <div className="relative h-[50px]">
-          <p className="mb-3">{requestData.title}</p>
+          <p className="mb-3 break-words">{requestData.title}</p>
           <span className="text-gray-400 flex text-[14px] absolute right-0 bottom-0">
             요청일시: {formatRequestDate(requestData.createdDate)}
           </span>
