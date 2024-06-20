@@ -9,11 +9,18 @@ import useClientSession from '@/hooks/useClientSession'
 import CircleProfile from '@/components/ui/avatar/CircleProfile'
 import ChatImage from '@/components/pages/chats/ChatImage'
 import ChatCardMessage from '@/components/pages/chats/ChatCardMessage'
-import { CardMessageType } from '@/types/chatTypes'
+import { CardMessageType, MessageType } from '@/types/chatTypes'
 
-export default function Message() {
+export default function Message({
+  initData,
+  size,
+}: {
+  initData: MessageType[]
+  size: number
+}) {
+  console.log(size)
+  const { realTimeMessage, setRealTimeMessage } = useChat()
   const { uuid } = useClientSession()
-  const { realTimeMessage } = useChat()
   const { roomId } = useParams<{ roomId: string }>()
   const scrollRef = useRef<HTMLDivElement | null>(null)
 
@@ -27,6 +34,12 @@ export default function Message() {
   useEffect(() => {
     scrollToBottom()
   }, [realTimeMessage])
+
+  // 실시간 메시지 추가
+  useEffect(() => {
+    if (initData.length === 0) return
+    setRealTimeMessage([...initData, ...realTimeMessage])
+  }, [initData])
 
   return (
     <div

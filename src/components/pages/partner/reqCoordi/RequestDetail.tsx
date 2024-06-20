@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { actionCoordinate } from '@/actions/partner/PartnerRequest'
 import { UserRequestDetailType } from '@/types/requestType'
@@ -42,7 +43,14 @@ export default function RequestDetail({
   }
   return (
     <div className="w-full">
-      <section className="relative grid gap-6 w-full min-h-screen p-5 pb-4">
+      <section className="relative grid gap-6 w-full min-h-screen p-5 pb-[100px]">
+        <div className="flex items-center gap-3">
+          <Image src="/icons/hanger.svg" alt="icon" width={40} height={40} />
+          <p className="font-semibold text-[18px] text-gray-600">
+            코디 요청서가 도착했어요! <br />
+            상세 내용을 확인하고 응답해주세요:)
+          </p>
+        </div>
         <ViewRequestTitle title={requestDetail.title} />
         <ViewRequestContents contents={requestDetail.description} />
         <ViewReqSituation situation={requestDetail.situation} />
@@ -57,7 +65,7 @@ export default function RequestDetail({
       </section>
 
       {status === 'nonresponse' && (
-        <div className="fixed bottom-0 h-[100px] w-full flex items-center bg-white gap-2 px-2 pb-[10px]">
+        <div className="fixed bottom-0 h-[100px] w-full flex items-center bg-gradient-to-t from-white gap-2 px-2 pb-[10px]">
           <button
             type="button"
             onClick={() => actionHandler('RESPONSEREJECT')}

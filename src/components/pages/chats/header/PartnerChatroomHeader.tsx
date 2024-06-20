@@ -2,15 +2,24 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import BackArrowButton from '@/components/ui/button/BackArrowButton'
+import { useParams, useRouter } from 'next/navigation'
 import ChatRoomMenu from '@/components/pages/chats/ChatRoomMenu'
 import ConfirmModal from '@/components/pages/chats/confirm/ConfirmModal'
+import BackArrowIcon from '@/components/ui/icons/BackArrowIcon'
+import { leaveChatRoom } from '@/actions/chat/ChatMessage'
 
 export default function PartnerChatroomHeader() {
   // 요청 진행 상태에 따라 확정 제안 버튼 숨기기 처리 필요
 
+  const { roomId } = useParams<{ roomId: string }>()
+  const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false)
+
+  const leaveHandler = async () => {
+    await leaveChatRoom(roomId)
+    router.back()
+  }
 
   return (
     <>
@@ -19,10 +28,12 @@ export default function PartnerChatroomHeader() {
         isModalOpen={isConfirmOpen}
         setIsModalOpen={setIsConfirmOpen}
       />
-      <header className="absoulte top-0 h-[100px] w-full bg-white z-10 shadow-sm py-3 px-3 mb-2">
+      <header className="fixed top-0 h-[100px] w-full bg-white z-10 shadow-sm py-3 px-3 mb-2">
         <div className="flex mb-3 justify-between">
           <div className="flex gap-4">
-            <BackArrowButton />
+            <button type="button" onClick={leaveHandler}>
+              <BackArrowIcon />
+            </button>
             <span className="font-semibold text-[18px]">패션테러no1.</span>
           </div>
           <button type="button" onClick={() => setIsMenuOpen(true)}>

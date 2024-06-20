@@ -10,9 +10,9 @@ const useChat = () => {
   const { uuid, accessToken } = useClientSession()
   const { roomId } = useParams<{ roomId: string }>()
 
-  const [realTimeMessage, setRealTimeMessage] = useState<MessageType[]>([])
-  const [inputImage, setInputImage] = useState<string>('')
   const [inputMessage, setInputMessage] = useState<string>('')
+  const [inputImage, setInputImage] = useState<string>('')
+  const [realTimeMessage, setRealTimeMessage] = useState<MessageType[]>([])
 
   const sendMessage = async () => {
     if (!inputMessage) return
@@ -22,17 +22,15 @@ const useChat = () => {
       {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           Authorization: accessToken,
           UUID: uuid,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ type: 'msg', msg: inputMessage, roomId }),
       },
     )
 
-    if (response.ok) {
-      setInputMessage('')
-    }
+    if (response.ok) setInputMessage('')
   }
 
   const sendImage = async () => {
@@ -52,7 +50,7 @@ const useChat = () => {
     )
 
     if (response.ok) {
-      setInputMessage('')
+      setInputImage('')
     }
   }
 
@@ -102,11 +100,12 @@ const useChat = () => {
 
   return {
     realTimeMessage,
+    setRealTimeMessage,
+    sendMessage,
     inputMessage,
     setInputMessage,
-    sendMessage,
-    setInputImage,
     sendImage,
+    setInputImage,
     inputImage,
   }
 }
