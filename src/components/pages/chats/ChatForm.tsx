@@ -97,7 +97,7 @@ export default function ChatForm() {
           </button>
         </div>
       )}
-      <div className="bg-white w-full flex items-center pb-[10px]">
+      <div className="fixed bottom-0 bg-white w-full flex items-center pb-[10px]">
         <form
           className="my-3 mx-[12px] flex gap-4 items-center w-full"
           onSubmit={handleSubmit}

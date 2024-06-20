@@ -25,5 +25,6 @@ export default async function getChatRoomId(
   )
 
   const data = await response.json()
-  return data
+
+  return data.result
 }

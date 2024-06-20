@@ -42,7 +42,7 @@ export default function PartnerPostList({
       <div className="grid grid-cols-3 gap-2">
         <button
           type="button"
-          onClick={() => router.push('/partner/mypage/styles/edit')}
+          onClick={() => router.push('/partner/posts/edit')}
           className="w-full h-[110px] border-dashed border-[3px] object-cover rounded-[10px] flex items-center justify-center"
         >
           <p className="text-[#dbdcdf]">+ Add</p>
@@ -52,7 +52,7 @@ export default function PartnerPostList({
           postList.map((post) => (
             <Link
               key={post.postId}
-              href={`/partner/mypage/styles/${post.postId}`}
+              href={`/partner/posts/${post.postId}`}
               className="w-full h-[110px] relative"
             >
               <Image

@@ -15,7 +15,7 @@ export default function layout({
   return (
     <>
       <PartnerProfileHeader partnerId={partnerId} />
-      <main className="mt-[50px] w-full relative z-[20]">
+      <main className="mt-[50px] w-full bg-white ">
         <PartnerProfileTopInfo partnerId={partnerId} />
         <PartnerProfileTabs partnerId={partnerId} />
         {tabs}

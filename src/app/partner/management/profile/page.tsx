@@ -1,5 +1,4 @@
 import React from 'react'
-import GoBackHeader from '@/components/layouts/GoBackHeader'
 import ProfileImage from '@/components/pages/partner/mypage/profile/ProfileImage'
 import PartnerSns from '@/components/pages/partner/mypage/profile/PartnerSns'
 import PartnerCareer from '@/components/pages/partner/mypage/profile/career/PartnerCareer'
@@ -9,7 +8,6 @@ import PartnerIntroduction from '@/components/pages/partner/mypage/profile/Partn
 import PartnerChatTime from '@/components/pages/partner/mypage/profile/PartnerChatTime'
 import PartnerLeadTime from '@/components/pages/partner/mypage/profile/PartnerLeadTime'
 import ProfileProgress from '@/components/pages/partner/mypage/profile/PartnerProfileProgress'
-import PartnerProfilePreviewButton from '@/components/pages/partner/mypage/profile/PartnerProfilePreviewButton'
 import {
   getPartnerProfile,
   getSnsData,
@@ -46,13 +44,11 @@ export default async function PartnerMyPageProfile() {
   const progressPercent = Math.round((completedFields / totalFields) * 100)
 
   return (
-    <div>
-      <GoBackHeader title="프로필 관리" />
-      <div className="flex">
+    <>
+      <div className="flex mt-8 mb-4">
         <ProfileImage profileImage={profileImage} />
         <PartnerNickname nickName={nickname} />
       </div>
-      <PartnerProfilePreviewButton />
       <ProfileProgress progressPercent={progressPercent} />
       <div className="px-6 mb-[50px]">
         <PartnerIntroduction data={description} />
@@ -63,6 +59,6 @@ export default async function PartnerMyPageProfile() {
         <PartnerMainStyle styleList={styleList} favoritStyle={favoritStyle} />
         <PartnerPrice averagePrice={averagePrice} />
       </div>
-    </div>
+    </>
   )
 }

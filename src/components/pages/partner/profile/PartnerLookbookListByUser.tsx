@@ -7,14 +7,16 @@ import { PartnerPostListType } from '@/types/partnerPostTypes'
 import { getPartnerPost } from '@/actions/partner/PartnerPost'
 import useObserver from '@/hooks/useObserver'
 
-export default function PartnerLookbookList({
+export default function PartnerLookbookListByUser({
   initialData,
   isLast,
   fetchNum,
+  partnerId,
 }: {
   initialData: PartnerPostListType[]
   isLast: boolean
   fetchNum: number
+  partnerId: string
 }) {
   const router = useRouter()
   const pathName = usePathname()
@@ -57,7 +59,7 @@ export default function PartnerLookbookList({
   const loadMorePosts = async () => {
     if (isLastData) return
 
-    const { posts, last } = await getPartnerPost('', offset, fetchNum)
+    const { posts, last } = await getPartnerPost(partnerId, offset, fetchNum)
 
     setIsLastData(last)
     setPostList((prevPosts) => [...prevPosts, ...posts])
@@ -79,15 +81,7 @@ export default function PartnerLookbookList({
   }
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      <button
-        type="button"
-        onClick={() => router.push('/partner/posts/edit')}
-        className="w-full h-[190px] border-dashed border-[3px] object-cover rounded-[10px] flex items-center justify-center"
-      >
-        <p className="text-[#dbdcdf]">+ Add</p>
-      </button>
-
+    <section className="grid grid-cols-2 gap-2">
       {postList.map((post) => (
         <button
           key={post.postId}
@@ -105,6 +99,6 @@ export default function PartnerLookbookList({
         </button>
       ))}
       <div ref={observerRef} />
-    </div>
+    </section>
   )
 }

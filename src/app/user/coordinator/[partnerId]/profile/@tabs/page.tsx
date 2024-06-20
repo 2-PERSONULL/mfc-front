@@ -1,6 +1,6 @@
 import React from 'react'
 import { getPartnerPost } from '@/actions/partner/PartnerPost'
-import PartnerLookbookList from '@/components/pages/partner/profile/PartnerLookbookList'
+import PartnerLookbookListByUser from '@/components/pages/partner/profile/PartnerLookbookListByUser'
 
 const NUMBER_OF_FETCH = 10
 
@@ -13,7 +13,7 @@ export default async function LookBookTab({
   const { posts, last } = await getPartnerPost(partnerId, 0, NUMBER_OF_FETCH)
 
   return (
-    <PartnerLookbookList
+    <PartnerLookbookListByUser
       initialData={posts}
       isLast={last}
       fetchNum={NUMBER_OF_FETCH}

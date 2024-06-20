@@ -67,7 +67,7 @@ export default function AccountManagement({
             content: '저장되었습니다',
             type: 'success',
           })
-          router.replace('/partner/mypage/cash')
+          router.replace('/partner/management/cash')
           return
         }
 
