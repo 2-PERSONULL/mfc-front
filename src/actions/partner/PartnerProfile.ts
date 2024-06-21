@@ -4,6 +4,9 @@ import { getServerSession } from 'next-auth'
 import { getPartnerIdHeader } from '@/utils/getFetchHeader'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 
+const basicImage =
+  'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
+
 // 파트너 프로필 기본 정보(nickname, email, profileImage)
 export async function getPartnerProfileBasic(partnerCode?: string) {
   const header = await getPartnerIdHeader(partnerCode)
@@ -23,6 +26,9 @@ export async function getPartnerProfileBasic(partnerCode?: string) {
 
   const data = await response.json()
   if (data.isSuccess) {
+    if (!data.result.profileImage) {
+      data.result.profileImage = basicImage
+    }
     return data.result
   }
 

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import Modal from '@/components/common/Modal'
 import StyleGuideEditor from '@/components/pages/partner/styleGuide/StyleGuideEditor'
 import getChatRoomId from '@/actions/chat/Chatroom'
+import { enterChatRoom } from '@/actions/chat/ChatMessage'
 
 export default function PartnerChatBoxButton({
   status,
@@ -33,6 +34,11 @@ export default function PartnerChatBoxButton({
 
     getRoomId()
   }, [status])
+
+  const enterRoomHandler = async () => {
+    await enterChatRoom(roomNumber)
+    router.push(`/partner/chatroom/${roomNumber}`)
+  }
 
   return (
     <>
@@ -78,7 +84,7 @@ export default function PartnerChatBoxButton({
             </button>
             <button
               type="button"
-              onClick={() => router.push(`/partner/chatroom/${roomNumber}`)}
+              onClick={enterRoomHandler}
               className="flex justify-center items-center basis-1/3 h-full"
             >
               <Image

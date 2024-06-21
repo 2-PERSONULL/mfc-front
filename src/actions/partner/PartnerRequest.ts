@@ -83,11 +83,7 @@ export async function getRequestDetail(historyId: string) {
 }
 
 // 요청서에 대한 수락, 거절 처리
-export async function actionCoordinate(
-  historyId: string,
-  userId: string,
-  status: string,
-) {
+export async function actionCoordinate(historyId: string, status: string) {
   const header = await getFetchHeader()
 
   if (!header) {
@@ -96,7 +92,7 @@ export async function actionCoordinate(
   }
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/response/${historyId}/${userId}?status=${status}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/response/${historyId}?status=${status}`,
     {
       method: 'PUT',
       headers: {
@@ -110,5 +106,6 @@ export async function actionCoordinate(
   const data = await response.json()
   console.log(data)
   revalidateTag('partner-chatList')
+  revalidateTag('user-chatList')
   return data
 }

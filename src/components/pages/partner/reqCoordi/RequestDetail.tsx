@@ -3,30 +3,56 @@
 import React from 'react'
 import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
+import { Pagination } from 'swiper/modules'
+import SwiperCore from 'swiper'
 import { actionCoordinate } from '@/actions/partner/PartnerRequest'
-import { UserRequestDetailType } from '@/types/requestType'
+// import { UserRequestDetailType } from '@/types/requestType'
 import useToast from '@/stores/toast'
-import { formatRequestDate } from '@/utils/formatTime'
+// import RequestInformation from './RequestInformation'
+// import { Swiper, SwiperSlide } from 'swiper/react'
 
-import RequestDetailForm from './RequestDetailForm'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+
+// import RequestDetailForm from './RequestDetailForm'
+
+// interface Step {
+//   title: string
+//   content: JSX.Element
+// }
 
 export default function RequestDetail({
   historyId,
-  requestDetail,
 }: {
   historyId: string
-  requestDetail: UserRequestDetailType
+  // requestDetail: UserRequestDetailType
 }) {
   const status = useSearchParams().get('status')
   const router = useRouter()
+  // const [selectedStep, setSelectedStep] = React.useState(0)
+  // const [animation, setAnimation] = useState('')
   const { showToast } = useToast()
+  SwiperCore.use([Pagination])
+  // const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
+
+  // const steps: Step[] = [
+  //   {
+  //     title: '요청서 상세',
+  //     content: <RequestInformation requestDetail={requestDetail} />,
+  //   },
+  //   {
+  //     title: '참고 이미지',
+  //     content: <p>참고 이미지라궁</p>,
+  //   },
+  //   {
+  //     title: '요청자 정보',
+  //     content: <p>요청자 정보라궁</p>,
+  //   },
+  // ]
 
   const actionHandler = async (action: string) => {
-    const result = await actionCoordinate(
-      historyId,
-      requestDetail.userId,
-      action,
-    )
+    const result = await actionCoordinate(historyId, action)
 
     if (result.isSuccess) {
       showToast({ content: '요청을 수락했습니다.', type: 'success' })
@@ -36,6 +62,23 @@ export default function RequestDetail({
 
     showToast({ content: result.message, type: 'warning' })
   }
+
+  // const handleSlideChange = (swiper: any) => {
+  //   setCurrentSlideIndex(swiper.activeIndex)
+  // }
+
+  // const handleNavClick = (index: number) => {
+  //   if (index > selectedStep) {
+  //     setAnimation('animate-slideInRight')
+  //   } else if (index < selectedStep) {
+  //     setAnimation('animate-slideInLeft')
+  //   }
+  //   setTimeout(() => {
+  //     setSelectedStep(index)
+  //     setAnimation('')
+  //   }, 500) // Animation duration
+  // }
+
   return (
     <div className="w-full">
       <section className="relative grid gap-6 w-full min-h-screen p-5 pb-[140px]">
@@ -50,22 +93,42 @@ export default function RequestDetail({
             </span>
           </div>
         </div>
-
+        {/* 
         <nav>
-          <ul className="flex gap-3">
-            <li className="border border-gray-400 rounded-3xl px-3 py-1">
-              요청서 상세
-            </li>
-            <li className="border border-gray-400 rounded-3xl px-3 py-1">
-              참고 이미지
-            </li>
-            <li className="border border-gray-400 rounded-3xl px-3 py-1">
-              요청자 정보
-            </li>
+          <ul className="flex gap-3 text-[14px]">
+            {steps.map((step, index) => (
+              <li
+                key={index}
+                className={`border border-gray-400 rounded-3xl px-3 py-1 cursor-pointer ${
+                  selectedStep === index ? 'bg-gray-200' : ''
+                }`}
+                onClick={() => handleNavClick(index)}
+              >
+                {step.title}
+              </li>
+            ))}
           </ul>
-        </nav>
+        </nav> */}
 
-        <div className="flex flex-col gap-8">
+        {/* <div className="h-[373px] ">
+          <Swiper
+            className="mySwiper"
+            spaceBetween={30} // 슬라이스 사이 간격
+            slidesPerView={1} // 보여질 슬라이스 수
+            onSlideChange={handleSlideChange}
+            initialSlide={currentSlideIndex}
+          >
+            {steps.map((step: Step, index) => (
+              <SwiperSlide key={index}>{step.content}</SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        <div className={`h-[400px] ${animation}`}>
+          {steps[selectedStep].content}
+        </div> */}
+
+        {/* <div className="flex flex-col gap-8">
           <RequestDetailForm
             title="코디 제출 기한"
             value={formatRequestDate(requestDetail.partner.deadline)}
@@ -91,7 +154,7 @@ export default function RequestDetail({
             title="코디 예산"
             value={`${parseInt(requestDetail.budget, 10).toLocaleString()}원`}
           />
-        </div>
+        </div> */}
       </section>
 
       {status === 'nonresponse' && (

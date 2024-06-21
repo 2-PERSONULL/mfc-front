@@ -2,6 +2,7 @@ import React from 'react'
 import CircleProfile from '@/components/ui/avatar/CircleProfile'
 import Steps from '@/components/ui/step/Step'
 import { formatDday, formatRequestDate } from '@/utils/formatTime'
+import getCurrentStep from '@/utils/getCurrentStep'
 import { PartnerChatListType } from '@/types/requestType'
 import PartnerChatBoxButton from '@/components/pages/chats/box/PartnerChatBoxButton'
 
@@ -11,23 +12,6 @@ export default function PartnerChatBox({
   requestData: PartnerChatListType
 }) {
   const steps = ['요청', '거래대기', '거래확정', '코디완료']
-
-  const getCurrentStep = (status: string) => {
-    switch (status) {
-      case 'NONERESPONSE':
-        return 1
-      case 'RESPONSEACCEPT':
-        return 2
-      case 'CONFIRMED':
-        return 3
-      case 'CLOSING':
-        return 4
-      default:
-        return 0
-    }
-  }
-
-  const currentStep = getCurrentStep(requestData.status)
 
   return (
     <div className="border-y-2 border-y-gray-100 bg-white relative">
@@ -50,7 +34,10 @@ export default function PartnerChatBox({
 
         {/* 진행률 */}
         <section className="mb-6">
-          <Steps steps={steps} currentStep={currentStep} />
+          <Steps
+            steps={steps}
+            currentStep={getCurrentStep(requestData.status)}
+          />
         </section>
 
         {/* 요청서명&일시 */}

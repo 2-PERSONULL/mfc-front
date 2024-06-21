@@ -37,6 +37,7 @@ export default function Message({
 
   // 실시간 메시지 추가
   useEffect(() => {
+    if (!initData) return
     if (initData.length === 0) return
     setRealTimeMessage([...initData, ...realTimeMessage])
   }, [initData])
