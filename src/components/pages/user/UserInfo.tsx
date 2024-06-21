@@ -10,6 +10,7 @@ import {
 } from '@/utils/uploadImage'
 import { UserProfile } from '@/types/userProfileType'
 import { updateUserProfileImage } from '@/actions/user/UserProfile'
+import CircleProfile from '@/components/ui/avatar/CircleProfile'
 
 export default function UserInfo({
   info,
@@ -111,15 +112,7 @@ export default function UserInfo({
             onClick={() => setIsModalOpen(!isModalOpen)}
             className="relative"
           >
-            <Image
-              src={image}
-              alt="empty profile image"
-              width={0}
-              height={0}
-              style={{ width: '4.5rem', height: '4.5rem' }}
-              priority
-              className="relative rounded-full border"
-            />
+            <CircleProfile size={75} imageUrl={image} />
             <Image
               src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/edit.svg"
               alt="edit icon"
@@ -129,15 +122,7 @@ export default function UserInfo({
             />
           </button>
         ) : (
-          <Image
-            src={image}
-            alt="empty profile image"
-            width={0}
-            height={0}
-            style={{ width: '4.5rem', height: '4.5rem' }}
-            priority
-            className="rounded-full border"
-          />
+          <CircleProfile size={75} imageUrl={image} />
         )}
         <div className="flex flex-col justify-center">
           <p className="text-[18px] font-bold mr-2">{info?.nickname}</p>

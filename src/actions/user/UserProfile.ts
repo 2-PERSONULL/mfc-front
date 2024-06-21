@@ -74,6 +74,7 @@ const getPreferenceStyle = async () => {
           getUUID: header.UUID,
           Authorization: `${header.Authorization}`,
         },
+        cache: 'no-cache',
       },
     )
     const data: BaseResponseType = await response.json()
@@ -128,6 +129,7 @@ const getBodyInfo = async () => {
           userId: header.UUID,
           Authorization: `${header.Authorization}`,
         },
+        cache: 'no-cache',
       },
     )
     const data: BaseResponseType = await response.json()
@@ -182,6 +184,7 @@ const getClothesSize = async () => {
           userId: header.UUID,
           Authorization: `${header.Authorization}`,
         },
+        cache: 'no-cache',
       },
     )
     const data: BaseResponseType = await response.json()

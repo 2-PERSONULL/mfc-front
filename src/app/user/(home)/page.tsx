@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import { getServerSession } from 'next-auth'
-import SignOutButton from '@/components/pages/auth/SignOutButton'
 import { options } from '@/app/api/auth/[...nextauth]/options'
 
 export default async function UserHome() {
@@ -20,7 +19,6 @@ export default async function UserHome() {
           >
             코디 예약
           </Link>
-          <SignOutButton />
         </>
       ) : (
         <>
