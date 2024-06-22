@@ -29,7 +29,7 @@ export default function SpecifyDate({
   }, [])
 
   return (
-    <div className="bg-white py-6 px-6 grid gap-2">
+    <div className="bg-white py-6 grid gap-2">
       <p>날짜지정</p>
       <Calendar mode="single" selected={date} onSelect={handleSetDeadline} />
     </div>
