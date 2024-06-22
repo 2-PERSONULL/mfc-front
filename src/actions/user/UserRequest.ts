@@ -98,6 +98,7 @@ const getRequestDetail = async (
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'no-cache',
     },
   )
   const data: BaseResponseType = await response.json()

@@ -1,4 +1,10 @@
 import React from 'react'
+import Image from 'next/image'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel'
 
 export default function ViewReqMyImages({
   title,
@@ -8,21 +14,32 @@ export default function ViewReqMyImages({
   myImgs: string[]
 }) {
   return (
-    <section>
+    <section className="overflow-hidden">
       <p className="text-sm text-black font-semibold">{title}</p>
-      <div className="flex overflow-x-scroll whitespace-nowrap">
+      <section className="w-full">
         {myImgs ? (
-          <ul className="flex justify-start gap-2">
-            {myImgs.map((img, idx) => (
-              <li key={idx} className=" w-[112px] h-[110px]">
-                <p>이미지</p>
-              </li>
-            ))}
-          </ul>
+          <Carousel>
+            <CarouselContent>
+              {myImgs.map((img, idx) => (
+                <CarouselItem key={idx}>
+                  <div className="relative" style={{ width: 350, height: 350 }}>
+                    <Image
+                      src={img}
+                      alt="Reference Images"
+                      fill
+                      priority
+                      sizes="(max-width: 100%) 100vw, 100px"
+                      className="object-cover rounded-md"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         ) : (
-          <p>참고 스타일 이미지가 없습니다.</p>
+          <p>내 이미지가 없습니다.</p>
         )}
-      </div>
+      </section>
     </section>
   )
 }

@@ -2,11 +2,11 @@ export interface RequestType {
   title: string
   description: string
   situation: string
-  referenceImages: string[] | undefined
-  myImages: string[] | undefined
+  referenceImageUrls: string[] | undefined
+  myImageUrls: string[] | undefined
   budget: number
-  brand: string[] | undefined
-  category: string[]
+  brandIds: string[] | undefined
+  categoryIds: string[]
 }
 
 export interface PartnerChatListType {

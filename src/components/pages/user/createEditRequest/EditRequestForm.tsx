@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import type { ZodIssue } from 'zod'
 import RequestContents from '@/components/pages/user/createEditRequest/RequestContents'
-import ReqAddImage from '@/components/pages/user/createEditRequest/ReqAddImage'
 import ReqCodiBudget from '@/components/pages/user/createEditRequest/ReqCodiBudget'
 import ReqCodiOptions from '@/components/pages/user/createEditRequest/ReqCodiOptions'
 import ReqCodiSituation from '@/components/pages/user/createEditRequest/ReqCodiSituation'
@@ -11,6 +10,8 @@ import ReqPreferredBrands from '@/components/pages/user/createEditRequest/ReqPre
 import RequestTitle from './RequestTitle'
 import useToast from '@/stores/toast'
 import { RequestDetailProps } from '@/types/requestDetailType'
+import EditRefImg from './EditRefImg'
+import EditMyImg from './EditMyImg'
 
 export default function EditRequestForm({
   action,
@@ -69,10 +70,8 @@ export default function EditRequestForm({
           {errors?.situation[0].message}
         </p>
       )}
-      {/* 브랜드, 코디 옵션, 참고 이미지, 내 이미지는 추후에 수정 작업 진행 */}
-      <ReqPreferredBrands />
-      {/* 브랜드, 코디 옵션, 참고 이미지, 내 이미지는 추후에 수정 작업 진행 */}
-      <ReqCodiOptions />
+      <ReqPreferredBrands brands={contents.brandIds} />
+      <ReqCodiOptions options={contents.categoryIds} />
       {errors?.category && (
         <p className="text-xs text-red-500 font-bold -mt-6">
           {errors?.category[0].message}
@@ -84,10 +83,16 @@ export default function EditRequestForm({
           {errors?.budget[0].message}
         </p>
       )}
-      {/* 브랜드, 코디 옵션, 참고 이미지, 내 이미지는 추후에 수정 작업 진행 */}
-      <ReqAddImage title="참고 스타일" id="refImgFile" />
-      {/* 브랜드, 코디 옵션, 참고 이미지, 내 이미지는 추후에 수정 작업 진행 */}
-      <ReqAddImage title="내 이미지" id="userImgFile" />
+      <EditRefImg
+        title="참고 스타일"
+        id="refImgFile"
+        refImgs={contents.referenceImageUrls}
+      />
+      <EditMyImg
+        title="내 이미지"
+        id="userImgFile"
+        myImgs={contents.myImageUrls}
+      />
       <button
         type="submit"
         className="sticky bottom-5 rounded-full w-full h-[50px] bg-black"
