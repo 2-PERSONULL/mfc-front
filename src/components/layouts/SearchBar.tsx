@@ -5,7 +5,7 @@ import React from 'react'
 
 export default function ExploreSearchBar() {
   return (
-    <section className="w-full bg-white max-h-20 px-5">
+    <section className="w-full bg-white max-h-20">
       <div className="flex flex-row gap-3 items-center justify-between">
         <div className="relative grow">
           <input

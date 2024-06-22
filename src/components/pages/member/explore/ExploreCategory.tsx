@@ -3,7 +3,7 @@ import { Style, StyleCategoryListType } from '@/types/styleCategoryListType'
 
 export default function ExploreCategory({ data }: { data: Style }) {
   return (
-    <section className="w-full bg-white h-20 px-5 flex">
+    <section className="w-full bg-white h-20 flex">
       <section className="flex flex-row items-start overflow-x-scroll whitespace-nowrap">
         {data.styles.map((style: StyleCategoryListType) => (
           <div

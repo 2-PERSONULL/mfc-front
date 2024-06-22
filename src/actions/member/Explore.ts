@@ -21,4 +21,44 @@ const getStyleList = async () => {
   }
 }
 
-export default getStyleList
+const getPartnerPostsByCategory = async (
+  page: number,
+  size: number,
+  sort: string,
+) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/explore?page=${page}&size=${size}&sort=${sort}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    const data: BaseResponseType = await response.json()
+    return data.result
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const getPartnerPostsDetail = async (postId: number) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/${postId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    const data: BaseResponseType = await response.json()
+    return data.result
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export { getStyleList, getPartnerPostsByCategory, getPartnerPostsDetail }
