@@ -14,9 +14,9 @@ export default function ViewReqPreferredBrands({
         <ul className="flex flex-col gap-5">
           {brands.map((brand) => (
             <li key={brand}>
-              <p className="bg-gray-200 py-2 px-5 rounded-lg text-sm">
+              <span className="bg-gray-200 py-2 px-5 rounded-lg text-sm">
                 {brand}
-              </p>
+              </span>
             </li>
           ))}
         </ul>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { getRequestList } from '@/actions/user/UserRequest'
 import { BaseResponseType } from '@/types/baseResponseType'
 import EachRequest from '../requestList/EachRequest'
@@ -14,6 +15,7 @@ interface RequestListType {
 }
 
 export default function ReqListContents() {
+  const router = useRouter()
   const [page, setPage] = useState(0)
   const [isLast, setIsLast] = useState(false)
   const [requestList, setRequestList] = useState<RequestListType[]>([])
@@ -50,14 +52,14 @@ export default function ReqListContents() {
         <Table>
           <TableBody>
             {requestList.map((request: RequestListType) => (
-              <TableRow key={request.requestId}>
-                <Link
-                  href={`/user/mypage/reqlist/${request.requestId}`}
-                  key={request.requestId}
-                  className="w-full text-start"
-                >
-                  <EachRequest title={request.title} />
-                </Link>
+              <TableRow
+                key={request.requestId}
+                className="w-full flex cursor-pointer"
+                onClick={() =>
+                  router.push(`/user/mypage/reqlist/${request.requestId}`)
+                }
+              >
+                <EachRequest title={request.title} />
               </TableRow>
             ))}
           </TableBody>

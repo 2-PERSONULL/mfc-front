@@ -4,10 +4,10 @@ import React, { useState } from 'react'
 import TagBadge from '@/components/ui/TagBadge'
 import useToast from '@/stores/toast'
 
-export default function ReqPreferredBrands() {
-  const [count, setCount] = useState<number>(0)
+export default function ReqPreferredBrands({ brands }: { brands?: string[] }) {
+  const [count, setCount] = useState<number>(brands?.length || 0)
   const [inputText, setInputText] = useState<string>('')
-  const [tags, setTags] = useState<string[]>([])
+  const [tags, setTags] = useState<string[]>(brands || [])
   const { showToast } = useToast()
 
   const activeEnter = (e: React.KeyboardEvent) => {

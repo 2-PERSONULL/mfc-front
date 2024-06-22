@@ -1,24 +1,24 @@
 import React from 'react'
 import UserProfileEditButton from '@/components/ui/button/UserProfileEditButton'
-import { UserClothesSizeInfoType } from '@/types/userInfoType'
+import { UserBodyInfoType } from '@/types/userInfoType'
 
-export default function UserClothesSizeInfo({
+export default function UserBodyInfo({
   title,
   href,
   info,
 }: {
   title: string
   href: string
-  info: UserClothesSizeInfoType | null
+  info: UserBodyInfoType | null
 }) {
   const translateKey = (key: string) => {
     switch (key) {
-      case 'topSize':
-        return '상의'
-      case 'bottomSize':
-        return '하의'
-      case 'shoeSize':
-        return '신발'
+      case 'height':
+        return '키'
+      case 'weight':
+        return '체중'
+      case 'bodyType':
+        return '체형'
       default:
         return key
     }

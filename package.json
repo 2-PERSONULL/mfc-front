@@ -23,6 +23,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "embla-carousel-react": "^8.1.5",
     "event-source-polyfill": "^1.0.31",
     "firebase": "^10.12.2",
     "install": "^0.13.0",

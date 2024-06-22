@@ -5,19 +5,20 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { MemberStyleType } from '@/types/commonTypes'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
+import { updatePreferenceStyle } from '@/actions/user/UserProfile'
 
 export default function PreferrenceStyleList({
   styleList,
   favoriteStyle,
 }: {
   styleList: MemberStyleType[]
-  favoriteStyle: number[]
+  favoriteStyle: object[]
 }) {
   const router = useRouter()
   const [selectedStyle, setSelectedStyle] = useState<number[]>([])
 
   useEffect(() => {
-    setSelectedStyle(favoriteStyle)
+    setSelectedStyle(favoriteStyle.map(Number))
   }, [favoriteStyle])
 
   const handleStyleClick = (style: number) => {
@@ -26,13 +27,14 @@ export default function PreferrenceStyleList({
         selectedStyle.filter((selected: number) => selected !== style),
       )
     }
-    // 값 저장되는 부분 수정 필요
+    if (favoriteStyle.length + selectedStyle.length >= 3) {
+      return
+    }
     setSelectedStyle([...selectedStyle, style])
   }
 
-  const saveHandler = () => {
-    console.log('저장')
-    console.log(selectedStyle)
+  const saveHandler = async () => {
+    await updatePreferenceStyle({ favoriteStyles: selectedStyle })
     router.replace('/user/mypage/profile')
   }
   return (

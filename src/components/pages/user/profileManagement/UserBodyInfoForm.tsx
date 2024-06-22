@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import BodytypeList from './BodytypeList'
 
@@ -6,6 +8,7 @@ export default function UserBodyInfoForm({
 }: {
   handleSave: (formData: FormData) => void
 }) {
+  // const { showToast } = useToast(e)
   return (
     <form action={handleSave} className="w-full bg-white px-5">
       <section className="flex items-center gap-3 pb-5">
@@ -22,10 +25,10 @@ export default function UserBodyInfoForm({
             paddingLeft: '1.5rem',
           }}
         />
-        <span className="absolute left-11 text-sm font-bold top-44 text-gray-500">
+        <span className="absolute left-11 text-sm font-bold top-40 text-gray-500">
           키
         </span>
-        <span className="absolute right-12 top-[195px] text-gray-500">cm</span>
+        <span className="absolute right-12 top-[175px] text-gray-500">cm</span>
       </section>
       <section className="flex items-center gap-3">
         <input
@@ -41,10 +44,10 @@ export default function UserBodyInfoForm({
             paddingLeft: '1.5rem',
           }}
         />
-        <span className="absolute left-11 text-sm font-bold top-[248px] text-gray-500">
+        <span className="absolute left-11 text-sm font-bold top-[230px] text-gray-500">
           체중
         </span>
-        <span className="absolute right-12 top-[268px] text-gray-500">kg</span>
+        <span className="absolute right-12 top-[248px] text-gray-500">kg</span>
       </section>
       <BodytypeList />
       <button

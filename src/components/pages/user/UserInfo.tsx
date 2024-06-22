@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import SliderModal from '@/components/common/SliderModal'
 import {
@@ -8,14 +8,30 @@ import {
   deleteImage,
   uploadImage,
 } from '@/utils/uploadImage'
-import { updatePartnerProfileImage } from '@/actions/partner/PartnerProfileUpdate'
+import { UserProfile } from '@/types/userProfileType'
+import { updateUserProfileImage } from '@/actions/user/UserProfile'
+import CircleProfile from '@/components/ui/avatar/CircleProfile'
 
-export default function UserInfo({ editImg }: { editImg: boolean }) {
+export default function UserInfo({
+  info,
+  editImg,
+}: {
+  info: UserProfile | undefined
+  editImg: boolean
+}) {
   const basicImage =
     'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const [image, setImage] = useState<string>(basicImage)
+
+  useEffect(() => {
+    if (info && info.profileImage) {
+      setImage(info.profileImage)
+    } else {
+      setImage(basicImage)
+    }
+  }, [info?.profileImage])
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsModalOpen(false)
@@ -30,17 +46,17 @@ export default function UserInfo({ editImg }: { editImg: boolean }) {
       const fileName = await deleteAndUpdateImage(image, file, 'profile')
 
       setImage(fileName)
-      updatePartnerProfileImage(fileName)
+      updateUserProfileImage(fileName)
       return
     }
     const fileName = await uploadImage(file, 'profile')
     setImage(fileName)
-    updatePartnerProfileImage(fileName)
+    updateUserProfileImage(fileName)
   }
   const handleBasicImage = async () => {
     setImage(basicImage)
     await deleteImage(image)
-    updatePartnerProfileImage('')
+    updateUserProfileImage('')
     setIsModalOpen(false)
   }
   return (
@@ -91,37 +107,25 @@ export default function UserInfo({ editImg }: { editImg: boolean }) {
       )}
       <section className="w-full bg-white py-8 flex gap-5 px-6">
         {editImg ? (
-          <button type="button" onClick={() => setIsModalOpen(!isModalOpen)}>
-            <Image
-              src={image}
-              alt="empty profile image"
-              width={0}
-              height={0}
-              style={{ width: '4.5rem', height: '4.5rem' }}
-              priority
-              className="rounded-full border"
-            />
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(!isModalOpen)}
+            className="relative"
+          >
+            <CircleProfile size={75} imageUrl={image} />
             <Image
               src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/edit.svg"
               alt="edit icon"
               width={20}
               height={20}
-              className="absolute left-20 top-[6.8rem]"
+              className="absolute left-[58px] top-12"
             />
           </button>
         ) : (
-          <Image
-            src={image}
-            alt="empty profile image"
-            width={0}
-            height={0}
-            style={{ width: '4.5rem', height: '4.5rem' }}
-            priority
-            className="rounded-full border"
-          />
+          <CircleProfile size={75} imageUrl={image} />
         )}
         <div className="flex flex-col justify-center">
-          <p className="text-[18px] font-bold mr-2">유저 이름</p>
+          <p className="text-[18px] font-bold mr-2">{info?.nickname}</p>
         </div>
       </section>
     </>
