@@ -7,6 +7,7 @@ import FormPriceInput from '@/components/ui/input/FormPriceInput'
 import sendCard from '@/actions/chat/chatCard'
 import useToast from '@/stores/toast'
 import addConfirm from '@/actions/chat/Confirm'
+import { formatRequestDate } from '@/utils/formatTime'
 
 export default function ConfirmModal({
   isModalOpen,
@@ -40,13 +41,11 @@ export default function ConfirmModal({
       return
     }
 
-    // 확정 제안 api 전송 로직 -> 확정 제안 ID 받아오기
     await addConfirm({
-      partnerId: userId,
       userId,
       options: 0,
       totalPrice: amount,
-      dueDate: date.toISOString(),
+      dueDate: formatRequestDate(date.toISOString()),
       requestId,
     })
 

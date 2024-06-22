@@ -38,7 +38,6 @@ export default async function PartnerChatRoom({
           initData={chatList}
           size={FETCH_COUNT}
           profileImage={profileImage}
-          status={requestDetail.partner.status}
         />
         <ChatForm />
       </main>

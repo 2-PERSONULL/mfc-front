@@ -116,6 +116,7 @@ export async function getChatMessages(
     {
       method: 'GET',
       headers: header,
+      cache: 'no-store',
     },
   )
 

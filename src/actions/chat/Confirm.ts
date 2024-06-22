@@ -3,7 +3,6 @@
 import { getFetchHeader } from '@/utils/getFetchHeader'
 
 interface ConfirmProps {
-  partnerId: string
   userId: string
   options: 0
   totalPrice: number
@@ -12,19 +11,23 @@ interface ConfirmProps {
 }
 
 export default async function addConfirm(confirmProps: ConfirmProps) {
-  console.log(confirmProps)
   const header = await getFetchHeader()
   if (!header) {
     console.log('session not found')
     return null
   }
+  const requestBody = { ...confirmProps, partnerId: header.UUID }
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/trade`,
     {
       method: 'POST',
-      headers: header,
-      body: JSON.stringify(confirmProps),
+      headers: {
+        'Partner-UUID': header.UUID,
+        Authorization: header.Authorization,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
     },
   )
   const data = await response.json()

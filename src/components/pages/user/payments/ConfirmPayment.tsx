@@ -6,44 +6,60 @@ import { useRouter } from 'next/navigation'
 import Modal from '@/components/common/Modal'
 import CashCharge from './CashCharge'
 import sendCard from '@/actions/chat/chatCard'
+import { payCoordinating } from '@/actions/user/Payments'
+import useToast from '@/stores/toast'
 
 export default function ConfirmPayment({
   roomId,
   amount,
-  confirmId,
+  requestId,
   cashBalance,
+  partnerId,
 }: {
   roomId: number
   amount: number
-  confirmId: number
+  requestId: string
   cashBalance: number
+  partnerId: string
 }) {
+  console.log(partnerId)
+  const { showToast } = useToast()
   const router = useRouter()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const paymentHandler = () => {
+  const paymentHandler = async () => {
     // 코디네이팅 결제 로직(캐시 차감)
-    const cardMessage = {
-      requestId: confirmId.toString(),
-      title: '결제완료',
-      description:
-        '고객님이 결제를 완료하여 코디 거래가 확정되었습니다. 파트너님은 제출기한내에 코디를 제출해주세요:)',
-      target: 'all',
-      details: [],
-      actions: [],
-      type: 'information',
+    const response = await payCoordinating(requestId, partnerId, Number(amount))
+
+    if (response.isSuccess) {
+      const cardMessage = {
+        requestId,
+        title: '결제완료',
+        description:
+          '고객님이 결제를 완료하여 코디 거래가 확정되었습니다. 파트너님은 제출기한내에 코디를 제출해주세요:)',
+        target: 'all',
+        details: [],
+        actions: [],
+        type: 'information',
+      }
+
+      sendCard(cardMessage, roomId.toString())
+      router.replace(`/user/chatroom/${roomId}`)
     }
 
-    sendCard(cardMessage, roomId.toString())
-    router.replace(`/user/chatroom/${roomId}`)
+    // 결제 실패 시
+    showToast({ content: response.message, type: 'error' })
   }
 
   return (
     <>
       {isModalOpen && (
         <Modal title="캐시충전" closeModal={() => setIsModalOpen(false)}>
-          <CashCharge closeModal={() => setIsModalOpen(false)} />
+          <CashCharge
+            closeModal={() => setIsModalOpen(false)}
+            cashBalance={cashBalance}
+          />
         </Modal>
       )}
       <div className="flex flex-col justify-center items-center pt-20">
