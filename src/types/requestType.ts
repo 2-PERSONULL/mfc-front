@@ -24,7 +24,7 @@ export interface PartnerChatListType {
 }
 
 export interface UserRequestDetailType {
-  requestId: number
+  requestId: string
   userId: string
   title: string
   description: string

@@ -1,55 +1,73 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { Pagination } from 'swiper/modules'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore from 'swiper'
 import { actionCoordinate } from '@/actions/partner/PartnerRequest'
-// import { UserRequestDetailType } from '@/types/requestType'
+import { UserRequestDetailType } from '@/types/requestType'
 import useToast from '@/stores/toast'
-// import RequestInformation from './RequestInformation'
-// import { Swiper, SwiperSlide } from 'swiper/react'
+import RequestInformation from '@/components/pages/partner/reqCoordi/RequestInformation'
+import RequestUserInformation from '@/components/pages/partner/reqCoordi/userInfo/RequestUserInformation'
+import UserRequestImageList from '@/components/pages/partner/reqCoordi/userInfo/UserRequestImageList'
+import { UserBodyInfoType, UserClothesSizeInfoType } from '@/types/userInfoType'
+import { MemberFavoriteStyleType } from '@/types/commonTypes'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-// import RequestDetailForm from './RequestDetailForm'
-
-// interface Step {
-//   title: string
-//   content: JSX.Element
-// }
+interface Step {
+  title: string
+  content: JSX.Element
+}
 
 export default function RequestDetail({
   historyId,
+  requestDetail,
+  favoritStyle,
+  sizeInformation,
+  bodyType,
 }: {
   historyId: string
-  // requestDetail: UserRequestDetailType
+  requestDetail: UserRequestDetailType
+  favoritStyle: MemberFavoriteStyleType[]
+  sizeInformation: UserClothesSizeInfoType
+  bodyType: UserBodyInfoType
 }) {
   const status = useSearchParams().get('status')
   const router = useRouter()
-  // const [selectedStep, setSelectedStep] = React.useState(0)
-  // const [animation, setAnimation] = useState('')
+  const [selectedStep, setSelectedStep] = React.useState(0)
   const { showToast } = useToast()
-  SwiperCore.use([Pagination])
-  // const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
+  const [swiper, setSwiper] = useState<SwiperCore>()
 
-  // const steps: Step[] = [
-  //   {
-  //     title: '요청서 상세',
-  //     content: <RequestInformation requestDetail={requestDetail} />,
-  //   },
-  //   {
-  //     title: '참고 이미지',
-  //     content: <p>참고 이미지라궁</p>,
-  //   },
-  //   {
-  //     title: '요청자 정보',
-  //     content: <p>요청자 정보라궁</p>,
-  //   },
-  // ]
+  const steps: Step[] = [
+    {
+      title: '요청서 상세',
+      content: <RequestInformation requestDetail={requestDetail} />,
+    },
+    {
+      title: '요청자 정보',
+      content: (
+        <RequestUserInformation
+          favoritStyle={favoritStyle}
+          sizeInformation={sizeInformation}
+          bodyType={bodyType}
+        />
+      ),
+    },
+    {
+      title: '참고 이미지',
+      content: (
+        <UserRequestImageList
+          myImageList={requestDetail.myImageUrls}
+          referImageList={requestDetail.referenceImageUrls}
+        />
+      ),
+    },
+  ]
 
   const actionHandler = async (action: string) => {
     const result = await actionCoordinate(historyId, action)
@@ -63,102 +81,71 @@ export default function RequestDetail({
     showToast({ content: result.message, type: 'warning' })
   }
 
-  // const handleSlideChange = (swiper: any) => {
-  //   setCurrentSlideIndex(swiper.activeIndex)
-  // }
-
-  // const handleNavClick = (index: number) => {
-  //   if (index > selectedStep) {
-  //     setAnimation('animate-slideInRight')
-  //   } else if (index < selectedStep) {
-  //     setAnimation('animate-slideInLeft')
-  //   }
-  //   setTimeout(() => {
-  //     setSelectedStep(index)
-  //     setAnimation('')
-  //   }, 500) // Animation duration
-  // }
+  const handleNavClick = (index: number) => {
+    setSelectedStep(index)
+    swiper?.slideTo(index, 500)
+  }
 
   return (
-    <div className="w-full">
-      <section className="relative grid gap-6 w-full min-h-screen p-5 pb-[140px]">
-        <div className="flex items-center gap-2 pb-3 border-b border-b-gray-200">
-          <Image src="/icons/contract.svg" alt="icon" width={60} height={60} />
-          <div>
-            <p className="font-semibold text-[18px] text-gray-600">
-              코디 요청서가 도착했어요!
-            </p>
-            <span className="text-[15px] text-gray-500">
-              상세 내용을 확인하고 응답해주세요:)
-            </span>
+    <div className="w-[100vw]">
+      <div>
+        <section className="fixed z-10 top-[50px] bg-white w-full flex flex-col gap-6 p-5">
+          <div className="flex items-center gap-2 pb-3 border-b border-b-gray-200">
+            <Image
+              src="/icons/contract.svg"
+              alt="icon"
+              width={60}
+              height={60}
+            />
+            <div>
+              <p className="font-semibold text-[18px] text-gray-600">
+                코디 요청서가 도착했어요!
+              </p>
+              <span className="text-[15px] text-gray-500">
+                상세 내용을 확인하고 응답해주세요:)
+              </span>
+            </div>
           </div>
-        </div>
-        {/* 
-        <nav>
-          <ul className="flex gap-3 text-[14px]">
-            {steps.map((step, index) => (
-              <li
-                key={index}
-                className={`border border-gray-400 rounded-3xl px-3 py-1 cursor-pointer ${
-                  selectedStep === index ? 'bg-gray-200' : ''
-                }`}
-                onClick={() => handleNavClick(index)}
-              >
-                {step.title}
-              </li>
-            ))}
-          </ul>
-        </nav> */}
 
-        {/* <div className="h-[373px] ">
+          <nav>
+            <ul className="flex gap-3 text-[14px]">
+              {steps.map((step, index) => (
+                <li
+                  key={index}
+                  role="presentation"
+                  className={`px-3 py-2 cursor-pointer ${
+                    selectedStep === index
+                      ? 'border-b-[3px] border-b-black'
+                      : ''
+                  }`}
+                  onClick={() => handleNavClick(index)}
+                >
+                  {step.title}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </section>
+
+        <section className="px-6 mt-[180px] ">
           <Swiper
-            className="mySwiper"
-            spaceBetween={30} // 슬라이스 사이 간격
-            slidesPerView={1} // 보여질 슬라이스 수
-            onSlideChange={handleSlideChange}
-            initialSlide={currentSlideIndex}
+            spaceBetween={100}
+            slidesPerView={1}
+            allowTouchMove={false}
+            onSwiper={setSwiper}
+            onSlideChange={(s) => setSelectedStep(s.activeIndex)}
           >
-            {steps.map((step: Step, index) => (
-              <SwiperSlide key={index}>{step.content}</SwiperSlide>
-            ))}
+            <div className="max-h-[70vh] px-6 mt-[180px] overflow-hidden overflow-y-scroll no-scrollbar">
+              {steps.map((step: Step, index) => (
+                <SwiperSlide key={index}>{step.content}</SwiperSlide>
+              ))}
+            </div>
           </Swiper>
-        </div>
-
-        <div className={`h-[400px] ${animation}`}>
-          {steps[selectedStep].content}
-        </div> */}
-
-        {/* <div className="flex flex-col gap-8">
-          <RequestDetailForm
-            title="코디 제출 기한"
-            value={formatRequestDate(requestDetail.partner.deadline)}
-          />
-          <RequestDetailForm
-            title="코디 상황"
-            value={requestDetail.situation}
-          />
-          <RequestDetailForm
-            title="요청 내용"
-            value={requestDetail.description}
-          />
-          <RequestDetailForm title="코디 옵션" value="원피스" />
-          <RequestDetailForm
-            title="선호 브랜드"
-            value={
-              requestDetail.brandIds.length > 0
-                ? requestDetail.brandIds.join(', ')
-                : '선호 브랜드가 없습니다.'
-            }
-          />
-          <RequestDetailForm
-            title="코디 예산"
-            value={`${parseInt(requestDetail.budget, 10).toLocaleString()}원`}
-          />
-        </div> */}
-      </section>
+        </section>
+      </div>
 
       {status === 'nonresponse' && (
-        <div className="fixed bottom-0 h-[100px] w-full flex items-center bg-gradient-to-t from-white gap-2 px-2 pb-[10px]">
+        <div className="fixed bottom-0 h-[100px] w-full flex items-center bg-gradient-to-t from-white gap-2 px-2 pb-[10px] z-10">
           <button
             type="button"
             onClick={() => actionHandler('RESPONSEREJECT')}

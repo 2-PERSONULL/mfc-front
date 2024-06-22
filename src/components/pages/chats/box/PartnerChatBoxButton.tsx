@@ -37,7 +37,9 @@ export default function PartnerChatBoxButton({
 
   const enterRoomHandler = async () => {
     await enterChatRoom(roomNumber)
-    router.push(`/partner/chatroom/${roomNumber}`)
+    router.push(
+      `/partner/chatroom/${roomNumber}?userId=${userId}&requestId=${requestId}`,
+    )
   }
 
   return (

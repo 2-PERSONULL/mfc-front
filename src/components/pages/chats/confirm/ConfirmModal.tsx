@@ -6,13 +6,18 @@ import FormLabel from '@/components/ui/input/FormLabel'
 import FormPriceInput from '@/components/ui/input/FormPriceInput'
 import sendCard from '@/actions/chat/chatCard'
 import useToast from '@/stores/toast'
+import addConfirm from '@/actions/chat/Confirm'
 
 export default function ConfirmModal({
   isModalOpen,
   setIsModalOpen,
+  userId,
+  requestId,
 }: {
   isModalOpen: boolean
   setIsModalOpen: (isModalOpen: boolean) => void
+  userId: string
+  requestId: string
 }) {
   const { showToast } = useToast()
   const { roomId } = useParams<{ roomId: string }>()
@@ -23,7 +28,7 @@ export default function ConfirmModal({
     setDate(value)
   }
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (!date) {
@@ -36,11 +41,20 @@ export default function ConfirmModal({
     }
 
     // 확정 제안 api 전송 로직 -> 확정 제안 ID 받아오기
+    await addConfirm({
+      partnerId: userId,
+      userId,
+      options: 0,
+      totalPrice: amount,
+      dueDate: date.toISOString(),
+      requestId,
+    })
+
     const formattedDate = date?.toLocaleDateString()
     const formattedAmount = `${amount.toLocaleString()}원`
 
     const cardMessage = {
-      requestId: '123',
+      requestId,
       title: '확정제안',
       description:
         '협의한 코디 제출일과 금액이 맞는지 확인하고 결제를 진행해주세요.',

@@ -14,9 +14,11 @@ import { CardMessageType, MessageType } from '@/types/chatTypes'
 export default function Message({
   initData,
   size,
+  profileImage,
 }: {
   initData: MessageType[]
   size: number
+  profileImage: string
 }) {
   console.log(size)
   const { realTimeMessage, setRealTimeMessage } = useChat()
@@ -45,7 +47,7 @@ export default function Message({
   return (
     <div
       ref={scrollRef}
-      className="px-[10px] pt-2 bg-white overflow-y-auto no-scrollbar flex-grow"
+      className="px-[10px] bg-white overflow-y-auto no-scrollbar flex-grow pt-[80px]"
     >
       {realTimeMessage.map((message, index) => {
         const isOwnMessage = message.sender === uuid && message.type !== 'card'
@@ -86,7 +88,7 @@ export default function Message({
             {message.type === 'card' ? (
               <CircleProfile size={40} imageUrl="/icons/reminder.svg" />
             ) : (
-              <CircleProfile size={40} imageUrl={null} />
+              <CircleProfile size={40} imageUrl={profileImage} />
             )}
             {message.type === 'card' && (
               <ChatCardMessage

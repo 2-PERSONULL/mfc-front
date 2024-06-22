@@ -6,7 +6,7 @@ export interface MemberStyleType {
 }
 
 export interface MemberFavoriteStyleType {
-  favoriteId: number
-  styleId: number
-  name: string
+  favoriteId: number | null
+  styleId: number | null
+  name: string | null
 }

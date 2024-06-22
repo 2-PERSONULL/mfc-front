@@ -10,7 +10,7 @@ export default function RequestDetailForm({
   return (
     <div className="flex flex-col gap-2">
       <p className="font-semibold text-[17px]">{title}</p>
-      <p className="w-full p-3 text-[14px] rounded-[7px] bg-gray-100">
+      <p className="w-full p-3 text-[14px] rounded-[7px] bg-[#FAFAFA]">
         {value}
       </p>
     </div>
