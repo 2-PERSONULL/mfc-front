@@ -11,7 +11,7 @@ import ChatImage from '@/components/pages/chats/ChatImage'
 import ChatCardMessage from '@/components/pages/chats/ChatCardMessage'
 import { CardMessageType, MessageType } from '@/types/chatTypes'
 
-export default function MessageComponent({
+export default function Message({
   initData,
   size,
   profileImage,
