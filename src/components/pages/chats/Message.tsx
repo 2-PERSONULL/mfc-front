@@ -11,7 +11,7 @@ import ChatImage from '@/components/pages/chats/ChatImage'
 import ChatCardMessage from '@/components/pages/chats/ChatCardMessage'
 import { CardMessageType, MessageType } from '@/types/chatTypes'
 
-export default function Message({
+export default function MessageComponent({
   initData,
   size,
   profileImage,
@@ -32,17 +32,16 @@ export default function Message({
     }
   }
 
-  // 새로운 메시지가 추가될 때마다 스크롤을 맨 아래로 내림
   useEffect(() => {
+    // Scroll to bottom when realTimeMessage changes
     scrollToBottom()
   }, [realTimeMessage])
 
-  // 실시간 메시지 추가
   useEffect(() => {
     if (!initData) return
     if (initData.length === 0) return
     setRealTimeMessage([...initData, ...realTimeMessage])
-  }, [initData])
+  }, [initData, setRealTimeMessage]) // Added setRealTimeMessage to the dependency array to avoid warnings
 
   return (
     <div

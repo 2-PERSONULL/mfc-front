@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import Modal from '@/components/common/Modal'
 import StyleGuideEditor from '@/components/pages/partner/styleGuide/StyleGuideEditor'
 import getChatRoomId from '@/actions/chat/Chatroom'
-import { enterChatRoom } from '@/actions/chat/ChatMessage'
 
 export default function PartnerChatBoxButton({
   status,
@@ -22,6 +22,7 @@ export default function PartnerChatBoxButton({
   const [roomNumber, setRoomNumber] = useState<string>('')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const router = useRouter()
+  const availableStatus = ['CONFIRMED', 'CLOSING']
 
   useEffect(() => {
     if (status === 'NONERESPONSE') return
@@ -35,13 +36,6 @@ export default function PartnerChatBoxButton({
     getRoomId()
   }, [status])
 
-  const enterRoomHandler = async () => {
-    await enterChatRoom(roomNumber)
-    router.push(
-      `/partner/chatroom/${roomNumber}?userId=${userId}&requestId=${requestId}`,
-    )
-  }
-
   return (
     <>
       {isModalOpen && (
@@ -49,7 +43,10 @@ export default function PartnerChatBoxButton({
           title="스타일 가이드 작성"
           closeModal={() => setIsModalOpen(false)}
         >
-          <StyleGuideEditor userId={userId} requestId={requestId} />
+          <StyleGuideEditor
+            requestId={requestId}
+            closeModal={() => setIsModalOpen(false)}
+          />
         </Modal>
       )}
       <div className="h-[50px] w-full border-t">
@@ -77,16 +74,17 @@ export default function PartnerChatBoxButton({
             >
               요청 상세보기
             </button>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              type="button"
-              className="flex justify-center items-center border-r basis-1/3 h-full"
-            >
-              코디
-            </button>
-            <button
-              type="button"
-              onClick={enterRoomHandler}
+            {availableStatus.includes(status) && (
+              <button
+                onClick={() => setIsModalOpen(true)}
+                type="button"
+                className="flex justify-center items-center border-r basis-1/3 h-full"
+              >
+                코디
+              </button>
+            )}
+            <Link
+              href={`/partner/chatroom/${roomNumber}?userId=${userId}&requestId=${requestId}`}
               className="flex justify-center items-center basis-1/3 h-full"
             >
               <Image
@@ -95,7 +93,7 @@ export default function PartnerChatBoxButton({
                 width={23}
                 height={23}
               />
-            </button>
+            </Link>
           </div>
         )}
       </div>

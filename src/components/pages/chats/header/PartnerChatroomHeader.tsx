@@ -57,7 +57,8 @@ export default function PartnerChatroomHeader({
             />
           </button>
         </div>
-        {status !== 'WAITING' && (
+
+        {status === 'RESPONSEACCEPT' && (
           <div className="w-full flex">
             <button
               type="button"

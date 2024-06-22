@@ -2,6 +2,7 @@
 
 import { revalidateTag } from 'next/cache'
 import { getFetchHeader } from '@/utils/getFetchHeader'
+import { PartnerChatListType } from '@/types/requestType'
 
 interface Partner {
   partnerId: string
@@ -28,13 +29,17 @@ export async function getChatList(page?: number, pageSize?: number) {
           uuid: header.UUID,
           'Content-Type': 'application/json',
         },
+
         next: { tags: ['partner-chatList'] },
       },
     )
 
     const data = await response.json()
     if (data.isSuccess) {
-      return data.result
+      // 거절된 요청은 제외
+      return data.result.filter(
+        (item: PartnerChatListType) => item.status !== 'RESPONSEREJECT',
+      )
     }
     console.log(data)
     return null
@@ -60,6 +65,7 @@ export async function getRequestDetail(historyId: string) {
         headers: {
           'Content-Type': 'application/json',
         },
+        next: { tags: ['partner-requestDetail'] },
       },
     )
 
@@ -104,8 +110,8 @@ export async function actionCoordinate(historyId: string, status: string) {
   )
 
   const data = await response.json()
-  console.log(data)
   revalidateTag('partner-chatList')
   revalidateTag('user-chatList')
+
   return data
 }

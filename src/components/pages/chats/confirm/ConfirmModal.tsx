@@ -29,6 +29,7 @@ export default function ConfirmModal({
     setDate(value)
   }
 
+  // 확정 제안하기
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -40,14 +41,6 @@ export default function ConfirmModal({
       showToast({ content: '금액을 입력해주세요.', type: 'warning' })
       return
     }
-
-    await addConfirm({
-      userId,
-      options: 0,
-      totalPrice: amount,
-      dueDate: formatRequestDate(date.toISOString()),
-      requestId,
-    })
 
     const formattedDate = date?.toLocaleDateString()
     const formattedAmount = `${amount.toLocaleString()}원`
@@ -66,8 +59,21 @@ export default function ConfirmModal({
       type: 'confirm',
     }
 
-    sendCard(cardMessage, roomId)
-    setIsModalOpen(false)
+    await sendCard(cardMessage, roomId)
+
+    const response = await addConfirm({
+      userId,
+      options: 0,
+      totalPrice: amount,
+      dueDate: formatRequestDate(date.toISOString()),
+      requestId,
+    })
+
+    if (response.isSuccess) {
+      setIsModalOpen(false)
+    }
+
+    // showToast({ content: '서버에 오류가 발생했습니다.', type: 'warning' })
   }
 
   return (

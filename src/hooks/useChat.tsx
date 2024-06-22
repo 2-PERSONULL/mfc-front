@@ -75,11 +75,21 @@ const useChat = () => {
 
       eventSource.onmessage = (event) => {
         const data = JSON.parse(event.data)
-        setRealTimeMessage((prev) => [...prev, data])
+        console.log(data)
+
+        // data.id 중복 안되게 처리
+        setRealTimeMessage((prev) => {
+          if (prev.some((msg) => msg.id === data.id)) {
+            return prev
+          }
+          return [...prev, data]
+        })
+        // setRealTimeMessage((prev) => [...prev, data])
       }
 
       eventSource.onerror = () => {
         // console.error('EventSource failed:', error)
+        console.log('닫고 재연결합니당')
         eventSource.close()
 
         if (eventSource.readyState === 2 && !isUnmounted.current) {

@@ -1,10 +1,14 @@
 import React from 'react'
 import ChatForm from '@/components/pages/chats/ChatForm'
 import Message from '@/components/pages/chats/Message'
-import { getChatMessages } from '@/actions/chat/ChatMessage'
 import getUserProfile from '@/actions/partner/PartnerChats'
-import { getRequestDetail } from '@/actions/partner/PartnerRequest'
 import PartnerChatroomHeader from '@/components/pages/chats/header/PartnerChatroomHeader'
+import { getRequestDetail } from '@/actions/partner/PartnerRequest'
+import {
+  enterChatRoom,
+  getChatMessages,
+  leaveChatRoom,
+} from '@/actions/chat/ChatMessage'
 
 const FETCH_COUNT = 20
 
@@ -15,6 +19,8 @@ export default async function PartnerChatRoom({
   params: { roomId: string }
   searchParams?: { [key: string]: string | undefined }
 }) {
+  await leaveChatRoom(params.roomId)
+  await enterChatRoom(params.roomId)
   // 이전 채팅 메시지 조회
   const chatList = await getChatMessages(params.roomId, 0, FETCH_COUNT)
   chatList.shift()
@@ -25,6 +31,8 @@ export default async function PartnerChatRoom({
 
   const requestId = searchParams?.requestId || ''
   const requestDetail = await getRequestDetail(requestId)
+
+  console.log('부모 렌더')
 
   return (
     <>

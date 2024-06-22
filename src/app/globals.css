@@ -227,3 +227,20 @@ input[type='radio']:focus {
     transform: scale(1); /* 다시 원래 크기로 복원 */
   }
 }
+
+/* 요청서 이미지 슬라이드 커스텀 */
+.mySwiper .swiper-pagination-fraction {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 50px;
+  height: 22px;
+  border-radius: 11px;
+  background-color: rgba(34, 34, 34, 0.15);
+  color: white;
+  font-size: 12px;
+
+  display: inline;
+  align-content: center;
+}

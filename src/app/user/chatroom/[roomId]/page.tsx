@@ -1,7 +1,11 @@
 import React from 'react'
 import ChatForm from '@/components/pages/chats/ChatForm'
 import Message from '@/components/pages/chats/Message'
-import { getChatMessages } from '@/actions/chat/ChatMessage'
+import {
+  enterChatRoom,
+  leaveChatRoom,
+  getChatMessages,
+} from '@/actions/chat/ChatMessage'
 import UserChatroomHeader from '@/components/pages/chats/header/UserChatroomHeader'
 import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 
@@ -14,6 +18,9 @@ export default async function UserChatRoom({
   params: { roomId: string }
   searchParams?: { [key: string]: string | undefined }
 }) {
+  // 채팅방 입장 알림
+  await leaveChatRoom(params.roomId)
+  await enterChatRoom(params.roomId)
   // 이전 채팅 메시지 조회
   const chatList = await getChatMessages(params.roomId, 0, FETCH_COUNT)
   chatList.shift()

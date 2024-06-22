@@ -8,6 +8,7 @@ import CashCharge from './CashCharge'
 import sendCard from '@/actions/chat/chatCard'
 import { payCoordinating } from '@/actions/user/Payments'
 import useToast from '@/stores/toast'
+import LoadingModal from '@/components/common/LoadingModal'
 
 export default function ConfirmPayment({
   roomId,
@@ -27,8 +28,17 @@ export default function ConfirmPayment({
   const router = useRouter()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const paymentHandler = async () => {
+    // 잔액 있는지 확인
+    if (cashBalance < amount) {
+      showToast({ content: '캐시가 부족합니다', type: 'error' })
+      return
+    }
+
+    setLoading(true)
+
     // 코디네이팅 결제 로직(캐시 차감)
     const response = await payCoordinating(requestId, partnerId, Number(amount))
 
@@ -44,16 +54,22 @@ export default function ConfirmPayment({
         type: 'information',
       }
 
-      sendCard(cardMessage, roomId.toString())
-      router.replace(`/user/chatroom/${roomId}`)
+      // 카드 메시지 전송
+      await sendCard(cardMessage, roomId.toString())
+
+      setLoading(false)
+      router.replace(`/user/chatroom/${roomId}?partnerId=${partnerId}`)
+      return
     }
 
     // 결제 실패 시
+    setLoading(false)
     showToast({ content: response.message, type: 'error' })
   }
 
   return (
     <>
+      {loading && <LoadingModal message="잠시만 기다려주세요" />}
       {isModalOpen && (
         <Modal title="캐시충전" closeModal={() => setIsModalOpen(false)}>
           <CashCharge

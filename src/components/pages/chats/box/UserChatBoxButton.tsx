@@ -3,19 +3,17 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import Modal from '@/components/common/Modal'
 import StyleGuideEditor from '@/components/pages/partner/styleGuide/StyleGuideEditor'
 import getChatRoomId from '@/actions/chat/Chatroom'
-import { enterChatRoom } from '@/actions/chat/ChatMessage'
 
 export default function UserChatBoxButton({
   status,
-  userId,
   requestId,
   partnerId,
 }: {
   status: string
-  userId: string
   requestId: string
   partnerId: string
 }) {
@@ -35,11 +33,6 @@ export default function UserChatBoxButton({
     getRoomId()
   }, [status])
 
-  const enterRoomHandler = async () => {
-    await enterChatRoom(roomNumber)
-    router.push(`/user/chatroom/${roomNumber}?partnerId=${partnerId}`)
-  }
-
   return (
     <>
       {isModalOpen && (
@@ -47,7 +40,10 @@ export default function UserChatBoxButton({
           title="스타일 가이드 조회"
           closeModal={() => setIsModalOpen(false)}
         >
-          <StyleGuideEditor userId={userId} requestId={requestId} />
+          <StyleGuideEditor
+            requestId={requestId}
+            closeModal={() => setIsModalOpen(false)}
+          />
         </Modal>
       )}
       <div className="h-[50px] w-full border-t">
@@ -75,9 +71,8 @@ export default function UserChatBoxButton({
             >
               코디
             </button>
-            <button
-              type="button"
-              onClick={enterRoomHandler}
+            <Link
+              href={`/user/chatroom/${roomNumber}?partnerId=${partnerId}`}
               className="flex justify-center items-center basis-1/3 h-full"
             >
               <Image
@@ -86,7 +81,7 @@ export default function UserChatBoxButton({
                 width={23}
                 height={23}
               />
-            </button>
+            </Link>
           </div>
         )}
       </div>

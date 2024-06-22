@@ -59,7 +59,6 @@ export default function UserChatBox({
       {/* 액션 */}
       <UserChatBoxButton
         status={requestData.status}
-        userId={requestData.userId}
         requestId={requestData.requestId}
         partnerId={requestData.partnerId}
       />

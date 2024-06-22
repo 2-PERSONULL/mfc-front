@@ -128,12 +128,7 @@ export async function payCoordinating(
     console.log('session not found')
     return
   }
-  console.log({
-    requestId,
-    userUuid: header.UUID,
-    partnerUuid,
-    amount,
-  })
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment-service/cash/transfer`,
     {

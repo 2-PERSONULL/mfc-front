@@ -73,7 +73,10 @@ export default function RequestDetail({
     const result = await actionCoordinate(historyId, action)
 
     if (result.isSuccess) {
-      showToast({ content: '요청을 수락했습니다.', type: 'success' })
+      showToast({
+        content: `요청을 ${action === 'RESPONSEREJECT' ? '거절' : '수락'}했습니다.`,
+        type: 'success',
+      })
       router.push('/partner/chats')
       return
     }
