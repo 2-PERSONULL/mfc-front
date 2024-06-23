@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import getChatRoomId from '@/actions/chat/Chatroom'
+import { getStyleGuide } from '@/actions/partner/Coordinates'
 
 export default function PartnerChatBoxButton({
   status,
@@ -20,6 +21,7 @@ export default function PartnerChatBoxButton({
   const router = useRouter()
   const [roomNumber, setRoomNumber] = useState<string>('')
   const [unreadMessage, setUnreadMessage] = useState<number>(0)
+  const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const availableStatus = ['CONFIRMED', 'CLOSING']
 
   useEffect(() => {
@@ -31,7 +33,14 @@ export default function PartnerChatBoxButton({
       setRoomNumber(roomId)
     }
 
+    const getSubmitStatus = async () => {
+      const data = await getStyleGuide(requestId)
+      const submitStatus = !!data
+      setIsSubmit(submitStatus)
+    }
+
     getRoomId()
+    getSubmitStatus()
   }, [status])
 
   return (
@@ -60,7 +69,7 @@ export default function PartnerChatBoxButton({
           </button>
           {availableStatus.includes(status) && (
             <Link
-              href={`/partner/styleguide/${requestId}`}
+              href={`/partner/styleguide/${requestId}?type=${isSubmit ? 'view' : 'new'}`}
               className="flex justify-center items-center border-r basis-1/3 h-full"
             >
               코디

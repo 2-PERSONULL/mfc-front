@@ -1,17 +1,14 @@
+'use client'
+
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import StyleGuideTabs from './StyleGuideTabs'
 import StyleGuideInfo from '@/types/styleGuideTypes'
 import StyleGuideEditorForm from '@/components/pages/partner/styleGuide/StyleGuideForm'
 import useToast from '@/stores/toast'
 import submitStyleGuide from '@/actions/partner/Coordinates'
 
-export default function StyleGuideEditor({
-  requestId,
-  closeModal,
-}: {
-  requestId: string
-  closeModal: () => void
-}) {
+export default function StyleGuideEditor({ requestId }: { requestId: string }) {
   // 백엔드에서 받아올 데이터
   const optionList = [
     '상의',
@@ -24,6 +21,7 @@ export default function StyleGuideEditor({
     '코디리뷰',
   ]
 
+  const router = useRouter()
   const { showToast } = useToast()
   const [tabs, setTabs] = useState<number[]>([0])
   const [active, setActive] = useState<number>(0)
@@ -62,9 +60,9 @@ export default function StyleGuideEditor({
         content: '스타일 가이드가 제출되었습니다',
         type: 'success',
       })
-    } else showToast({ content: '제출 실패', type: 'error' })
 
-    closeModal()
+      router.replace(`/partner/chats`)
+    } else showToast({ content: '제출 실패', type: 'error' })
   }
 
   return (
