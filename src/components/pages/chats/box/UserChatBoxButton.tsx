@@ -4,9 +4,8 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import Modal from '@/components/common/Modal'
 import getChatRoomId from '@/actions/chat/Chatroom'
-import StyleGuideList from '@/components/pages/user/styleGuide/StyleGuideList'
+import { getStyleGuide } from '@/actions/partner/Coordinates'
 
 export default function UserChatBoxButton({
   status,
@@ -18,7 +17,7 @@ export default function UserChatBoxButton({
   partnerId: string
 }) {
   const [roomNumber, setRoomNumber] = useState<string>('')
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -30,62 +29,56 @@ export default function UserChatBoxButton({
       setRoomNumber(roomId)
     }
 
+    const getSubmitStatus = async () => {
+      const data = await getStyleGuide(requestId)
+      const submitStatus = !!data
+      setIsSubmit(submitStatus)
+    }
+
     getRoomId()
+    getSubmitStatus()
   }, [status])
 
   return (
-    <>
-      {isModalOpen && (
-        <Modal
-          title="스타일 가이드 조회"
-          closeModal={() => setIsModalOpen(false)}
-        >
-          <StyleGuideList
-
-          // requestId={requestId}
-          // closeModal={() => setIsModalOpen(false)}
-          />
-        </Modal>
-      )}
-      <div className="h-[50px] w-full border-t">
-        {status === 'NONERESPONSE' ? (
-          <div className="h-full flex items-center justify-center">
-            <button
-              type="button"
-              onClick={() => router.push(`/partner/reqcoordi/${requestId}`)}
-            >
-              요청 상세보기
-            </button>
-          </div>
-        ) : (
-          <div className="h-full flex items-center justify-around">
-            <button
-              type="button"
-              className="flex justify-center items-center border-r basis-1/3 h-full"
-            >
-              요청 상세보기
-            </button>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              type="button"
+    <div className="h-[50px] w-full border-t">
+      {status === 'NONERESPONSE' ? (
+        <div className="h-full flex items-center justify-center">
+          <button
+            type="button"
+            onClick={() => router.push(`/partner/reqcoordi/${requestId}`)}
+          >
+            요청 상세보기
+          </button>
+        </div>
+      ) : (
+        <div className="h-full flex items-center justify-around">
+          <button
+            type="button"
+            className="flex justify-center items-center border-r basis-1/3 h-full"
+          >
+            요청 상세보기
+          </button>
+          {isSubmit && (
+            <Link
+              href={`/user/styleguide/${requestId}`}
               className="flex justify-center items-center border-r basis-1/3 h-full"
             >
               코디
-            </button>
-            <Link
-              href={`/user/chatroom/${roomNumber}?partnerId=${partnerId}`}
-              className="flex justify-center items-center basis-1/3 h-full"
-            >
-              <Image
-                src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/square-chat.svg"
-                alt="chat"
-                width={23}
-                height={23}
-              />
             </Link>
-          </div>
-        )}
-      </div>
-    </>
+          )}
+          <Link
+            href={`/user/chatroom/${roomNumber}?partnerId=${partnerId}`}
+            className="flex justify-center items-center basis-1/3 h-full"
+          >
+            <Image
+              src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/square-chat.svg"
+              alt="chat"
+              width={23}
+              height={23}
+            />
+          </Link>
+        </div>
+      )}
+    </div>
   )
 }

@@ -15,35 +15,7 @@ import StyleGuideAction from '@/components/pages/user/styleGuide/StyleGuideActio
 import StyleGuideTitle from '@/components/pages/user/styleGuide/StyleGuideTitle'
 import StyleGuideInfo from '@/types/styleGuideTypes'
 
-const sampleData = [
-  {
-    category: '상의',
-    brand: '던스트',
-    budget: 100000,
-    url: 'https://dunststudio.com/product/detail.html?product_no=5220&cate_no=31&display_group=1',
-    comment:
-      'orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-    images: [
-      'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/style-guide/1717722692489',
-      'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/style-guide/1719074384447',
-    ],
-  },
-  {
-    category: '하의',
-    brand: '',
-    budget: 100000,
-    url: 'https://www.nike.com/kr/ko_kr/',
-    comment:
-      'orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-    images: [
-      //   'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/style-guide/1719074388647',
-      //   'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/style-guide/1719074384447',
-    ],
-  },
-]
-
-export default function StyleGuideList() {
-  const [data] = useState<StyleGuideInfo[]>(sampleData)
+export default function StyleGuideList({ data }: { data: StyleGuideInfo[] }) {
   const [swiper, setSwiper] = useState<SwiperCore>()
   const [currentCard, setCurrentCard] = useState<number>(0)
 
@@ -88,7 +60,7 @@ export default function StyleGuideList() {
             onSwiper={setSwiper}
             onSlideChange={(s) => setCurrentCard(s.activeIndex)}
           >
-            {sampleData.map((style, index) => (
+            {data.map((style, index) => (
               <SwiperSlide key={index}>
                 <StyleGuideItemDetail style={style} />
               </SwiperSlide>
