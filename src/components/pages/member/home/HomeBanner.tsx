@@ -19,7 +19,7 @@ export default function HomeBanner() {
   const [currentCard, setCurrentCard] = useState<number>(0)
 
   return (
-    <>
+    <section className="mb-14">
       <Swiper
         spaceBetween={15}
         slidesPerView={1.3}
@@ -37,7 +37,7 @@ export default function HomeBanner() {
       >
         {sampleBanner?.map((item, index) => {
           return (
-            <SwiperSlide key={index} className="banner min-h-[350px]">
+            <SwiperSlide key={index} className="banner min-h-[350px] mt-8">
               <div
                 className={`${currentCard === index ? 'h-[350px]' : 'h-[300px]'} rounded-[20px] w-full relative overflow-hidden`}
               >
@@ -46,7 +46,7 @@ export default function HomeBanner() {
                   alt="홈 배너"
                   fill
                   sizes="(max-width: 100px) 100vw, 100px"
-                  className="object-cover rounded-[20px]"
+                  className="relative object-cover rounded-[20px]"
                 />
               </div>
             </SwiperSlide>
@@ -54,6 +54,6 @@ export default function HomeBanner() {
         })}
       </Swiper>
       <div className="absolute top-10 h-[220px] w-full bg-black mt-[230px]" />
-    </>
+    </section>
   )
 }
