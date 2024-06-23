@@ -260,3 +260,7 @@ input[type='radio']:focus {
   font-size: 1.1rem !important;
   font-weight: 600 !important;
 }
+.banner .swiper-slide {
+  display: flex;
+  align-items: center;
+}
