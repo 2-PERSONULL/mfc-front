@@ -5,9 +5,9 @@ import React from 'react'
 
 export default function ExploreSearchBar() {
   return (
-    <section className="w-full bg-white max-h-20">
+    <section className="sticky top-0 w-full bg-white max-h-20 z-10">
       <div className="flex flex-row gap-3 items-center justify-between">
-        <div className="relative grow">
+        <div className="relative grow ">
           <input
             type="text"
             readOnly
@@ -18,7 +18,7 @@ export default function ExploreSearchBar() {
               height: '46px',
               paddingLeft: '2.5rem',
             }}
-            className="form-input my-3 rounded-md shadow-md"
+            className="form-input my-3 rounded-md bg-[#EFEFEF] pl-2"
           />
           <Image
             src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/nav/explore.svg"
@@ -29,12 +29,13 @@ export default function ExploreSearchBar() {
             className="absolute top-6 left-3 text-[#000000]"
           />
         </div>
+
         <Image
           src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/icon/options.svg"
           alt="search filter"
           width={38}
           height={38}
-          className="bg-white rounded-md py-[12px] pl-[7px] pr-[7px] shadow-md flex-none"
+          className="bg-[#EFEFEF] h-[46px] w-[46px] rounded-md py-[12px] px-[8px]"
         />
       </div>
     </section>

@@ -9,19 +9,21 @@ import {
   getStyleList,
 } from '@/actions/member/Explore'
 
+const FETCH_SIZE = 20
+
 export default async function Explore() {
   const styleData: Style = (await getStyleList()) as unknown as Style
   const allPartnerPostsData: PartnerPostsByCategoryType =
     (await getPartnerPostsByCategory(
       0,
-      1,
+      FETCH_SIZE,
       '',
     )) as unknown as PartnerPostsByCategoryType
   return (
     <main className="w-full px-5">
       <SearchBar />
       <ExploreCategory data={styleData} />
-      <ExplorePosts postsData={allPartnerPostsData} />
+      <ExplorePosts initData={allPartnerPostsData} fetchNum={FETCH_SIZE} />
     </main>
   )
 }

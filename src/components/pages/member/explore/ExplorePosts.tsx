@@ -3,21 +3,54 @@
 
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { PartnerPostsByCategoryType } from '@/types/partnerPostsByCategoryType'
+import useObserver from '@/hooks/useObserver'
+import {
+  PartnerPostsByCategoryType,
+  PartnerPostListType,
+} from '@/types/partnerPostsByCategoryType'
+import { getPartnerPostsByCategory } from '@/actions/member/Explore'
 
 export default function ExplorePosts({
-  postsData,
+  initData,
+  fetchNum,
 }: {
-  postsData: PartnerPostsByCategoryType
+  initData: PartnerPostsByCategoryType
+  fetchNum: number
 }) {
+  const [offset, setOffset] = useState(1)
+  const [postsData, setPostsData] = useState<PartnerPostListType[]>(
+    initData.posts,
+  )
+  const [isLastData, setIsLastData] = useState(initData.last)
+
+  const loadMorePosts = async () => {
+    console.log('loadMorePosts')
+    if (isLastData) return
+
+    const { posts, last } = await getPartnerPostsByCategory(
+      offset,
+      fetchNum,
+      '',
+    )
+    console.log(last)
+    setIsLastData(last)
+    setPostsData((prevPosts) => [...prevPosts, ...posts])
+    setOffset((prevOffset) => prevOffset + 1)
+  }
+
+  const observerRef = useObserver({
+    onIntersect: loadMorePosts,
+    enabled: !isLastData,
+  })
+
   return (
     <>
-      <section className="w-full min-h-screen mt-3">
-        <div className="grid grid-cols-2 w-full text-center gap-5">
-          {postsData.posts.map((post) => (
+      <section className="w-full min-h-screen pb-[120px]">
+        <div className="grid grid-cols-2 w-full text-center gap-2">
+          {postsData.map((post) => (
             <Link
               href={`/user/coordinator/${post.partnerId}/posts/${post.postId}`}
               key={post.postId}
@@ -33,6 +66,7 @@ export default function ExplorePosts({
             </Link>
           ))}
         </div>
+        <div ref={observerRef} />
       </section>
       {/* {isModalOpen && (
         <Modal title="탐색" closeModal={() => setIsModalOpen(false)}>
