@@ -15,7 +15,7 @@ export default function ChatListTabs({ userRole }: { userRole: string }) {
   }
 
   return (
-    <nav className="w-full sticky top-[60px] z-[100] bg-white mb-2">
+    <nav className="w-full sticky top-[50px] z-[100] bg-white mb-2">
       <ul className="flex w-full text-[16px] py-[1.5rem] justify-evenly bg-white">
         {tabs.map((tab) => (
           <li
