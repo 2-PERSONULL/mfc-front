@@ -1,7 +1,7 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { EventSourcePolyfill } from 'event-source-polyfill'
 import { MessageType } from '@/types/chatTypes'
 import useClientSession from '@/hooks/useClientSession'
@@ -13,6 +13,7 @@ const useChat = () => {
   const [realTimeMessage, setRealTimeMessage] = useState<MessageType[]>([])
   const [inputImage, setInputImage] = useState<string>('')
   const [inputMessage, setInputMessage] = useState<string>('')
+  const isUnmounted = useRef(false) // 컴포넌트 언마운트 상태를 추적하는 ref
 
   const sendMessage = async () => {
     if (!inputMessage) return
@@ -59,31 +60,38 @@ const useChat = () => {
   useEffect(() => {
     if (!uuid || !accessToken) return
 
-    const connectToSSE = () => {
-      const EventSource = EventSourcePolyfill
+    isUnmounted.current = false // 컴포넌트가 마운트되었음을 표시
 
-      const eventSource = new EventSource(
+    const connectToSSE = () => {
+      const eventSource = new EventSourcePolyfill(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/chatting-service/chat/stream/${roomId}`,
         {
           headers: {
             Authorization: accessToken,
             UUID: uuid,
           },
-          heartbeatTimeout: 86400000,
         },
       )
 
       eventSource.onmessage = (event) => {
         const data = JSON.parse(event.data)
-        setRealTimeMessage((prev) => [...prev, data])
+
+        // data.id 중복 안되게 처리
+        setRealTimeMessage((prev) => {
+          if (prev.some((msg) => msg.id === data.id)) {
+            return prev
+          }
+          return [...prev, data]
+        })
+        // setRealTimeMessage((prev) => [...prev, data])
       }
 
       eventSource.onerror = () => {
         // console.error('EventSource failed:', error)
+        console.log('닫고 재연결합니당')
         eventSource.close()
 
-        if (eventSource.readyState === 2) {
-          setRealTimeMessage([])
+        if (eventSource.readyState === 2 && !isUnmounted.current) {
           connectToSSE()
         }
       }
@@ -94,13 +102,16 @@ const useChat = () => {
     const eventSource = connectToSSE()
 
     return () => {
+      isUnmounted.current = true // 컴포넌트가 언마운트되었음을 표시
       if (eventSource) {
+        console.log('close event source')
         eventSource.close()
       }
     }
   }, [roomId, uuid, accessToken])
 
   return {
+    setRealTimeMessage,
     realTimeMessage,
     inputMessage,
     setInputMessage,

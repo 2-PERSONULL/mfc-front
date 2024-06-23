@@ -1,63 +1,154 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
+import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore from 'swiper'
 import { actionCoordinate } from '@/actions/partner/PartnerRequest'
 import { UserRequestDetailType } from '@/types/requestType'
 import useToast from '@/stores/toast'
-import ViewReqCodiBudget from '@/components/pages/user/viewRequest/ViewReqCodiBudget'
-import ViewReqCodiOptions from '@/components/pages/user/viewRequest/ViewReqCodiOptions'
-import ViewReqMyImages from '@/components/pages/user/viewRequest/ViewReqMyImages'
-import ViewReqPreferredBrands from '@/components/pages/user/viewRequest/ViewReqPreferredBrands'
-import ViewReqRefImages from '@/components/pages/user/viewRequest/ViewReqRefImages'
-import ViewReqSituation from '@/components/pages/user/viewRequest/ViewReqSituation'
-import ViewRequestContents from '@/components/pages/user/viewRequest/ViewRequestContents'
-import ViewRequestTitle from '@/components/pages/user/viewRequest/ViewRequestTitle'
+import RequestInformation from '@/components/pages/partner/reqCoordi/RequestInformation'
+import RequestUserInformation from '@/components/pages/partner/reqCoordi/userInfo/RequestUserInformation'
+import UserRequestImageList from '@/components/pages/partner/reqCoordi/userInfo/UserRequestImageList'
+import { UserBodyInfoType, UserClothesSizeInfoType } from '@/types/userInfoType'
+import { MemberFavoriteStyleType } from '@/types/commonTypes'
+
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+
+interface Step {
+  title: string
+  content: JSX.Element
+}
 
 export default function RequestDetail({
   historyId,
   requestDetail,
+  favoritStyle,
+  sizeInformation,
+  bodyType,
 }: {
   historyId: string
   requestDetail: UserRequestDetailType
+  favoritStyle: MemberFavoriteStyleType[]
+  sizeInformation: UserClothesSizeInfoType
+  bodyType: UserBodyInfoType
 }) {
   const status = useSearchParams().get('status')
   const router = useRouter()
+  const [selectedStep, setSelectedStep] = React.useState(0)
   const { showToast } = useToast()
+  const [swiper, setSwiper] = useState<SwiperCore>()
+
+  const steps: Step[] = [
+    {
+      title: '요청서 상세',
+      content: <RequestInformation requestDetail={requestDetail} />,
+    },
+    {
+      title: '요청자 정보',
+      content: (
+        <RequestUserInformation
+          favoritStyle={favoritStyle}
+          sizeInformation={sizeInformation}
+          bodyType={bodyType}
+        />
+      ),
+    },
+    {
+      title: '참고 이미지',
+      content: (
+        <UserRequestImageList
+          myImageList={requestDetail.myImageUrls}
+          referImageList={requestDetail.referenceImageUrls}
+        />
+      ),
+    },
+  ]
 
   const actionHandler = async (action: string) => {
-    const result = await actionCoordinate(
-      historyId,
-      requestDetail.userId,
-      action,
-    )
+    const result = await actionCoordinate(historyId, action)
 
     if (result.isSuccess) {
-      showToast({ content: '요청을 수락했습니다.', type: 'success' })
+      showToast({
+        content: `요청을 ${action === 'RESPONSEREJECT' ? '거절' : '수락'}했습니다.`,
+        type: 'success',
+      })
       router.push('/partner/chats')
       return
     }
 
     showToast({ content: result.message, type: 'warning' })
   }
+
+  const handleNavClick = (index: number) => {
+    setSelectedStep(index)
+    swiper?.slideTo(index, 500)
+  }
+
   return (
-    <div className="w-full">
-      <section className="relative grid gap-6 w-full min-h-screen p-5 pb-4">
-        <ViewRequestTitle title={requestDetail.title} />
-        <ViewRequestContents contents={requestDetail.description} />
-        <ViewReqSituation situation={requestDetail.situation} />
-        <ViewReqPreferredBrands brands={requestDetail.brandIds} />
-        <ViewReqCodiOptions categories={requestDetail.categoryIds} />
-        <ViewReqCodiBudget budget={requestDetail.budget.toString()} />
-        <ViewReqRefImages
-          title="참고 이미지"
-          refImgs={requestDetail.referenceImageUrls}
-        />
-        <ViewReqMyImages title="내 이미지" myImgs={requestDetail.myImageUrls} />
-      </section>
+    <div className="w-[100vw]">
+      <div>
+        <section className="fixed z-10 top-[50px] bg-white w-full flex flex-col gap-6 p-5">
+          <div className="flex items-center gap-2 pb-3 border-b border-b-gray-200">
+            <Image
+              src="/icons/contract.svg"
+              alt="icon"
+              width={60}
+              height={60}
+            />
+            <div>
+              <p className="font-semibold text-[18px] text-gray-600">
+                코디 요청서가 도착했어요!
+              </p>
+              <span className="text-[15px] text-gray-500">
+                상세 내용을 확인하고 응답해주세요:)
+              </span>
+            </div>
+          </div>
+
+          <nav>
+            <ul className="flex gap-3 text-[14px]">
+              {steps.map((step, index) => (
+                <li
+                  key={index}
+                  role="presentation"
+                  className={`px-3 py-2 cursor-pointer ${
+                    selectedStep === index
+                      ? 'border-b-[3px] border-b-black'
+                      : ''
+                  }`}
+                  onClick={() => handleNavClick(index)}
+                >
+                  {step.title}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </section>
+
+        <section className="px-6 mt-[180px] ">
+          <Swiper
+            spaceBetween={100}
+            slidesPerView={1}
+            allowTouchMove={false}
+            onSwiper={setSwiper}
+            onSlideChange={(s) => setSelectedStep(s.activeIndex)}
+          >
+            <div className="max-h-[70vh] px-6 mt-[180px] overflow-hidden overflow-y-scroll no-scrollbar">
+              {steps.map((step: Step, index) => (
+                <SwiperSlide key={index}>{step.content}</SwiperSlide>
+              ))}
+            </div>
+          </Swiper>
+        </section>
+      </div>
 
       {status === 'nonresponse' && (
-        <div className="fixed bottom-0 h-[100px] w-full flex items-center bg-white gap-2 px-2 pb-[10px]">
+        <div className="fixed bottom-0 h-[100px] w-full flex items-center bg-gradient-to-t from-white gap-2 px-2 pb-[10px] z-10">
           <button
             type="button"
             onClick={() => actionHandler('RESPONSEREJECT')}

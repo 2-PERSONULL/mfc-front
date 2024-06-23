@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import Image from 'next/image'
-import { StyleGuideInfo } from '@/types/styleGuideTypes'
+import StyleGuideInfo from '@/types/styleGuideTypes'
 
 interface StyleGuideTabsProps {
   guideList: StyleGuideInfo[]
@@ -32,7 +32,7 @@ export default function StyleGuideTabs({
         budget: 0,
         url: '',
         comment: '',
-        image: [],
+        images: [],
       },
     ])
     setActive(newTabIndex)

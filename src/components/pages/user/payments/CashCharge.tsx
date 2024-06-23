@@ -4,16 +4,19 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import BottomFixedButton from '@/components/ui/button/BottomFixedButton'
 import usePayment from '@/hooks/usePayment'
 
-export default function CashCharge({ closeModal }: { closeModal: () => void }) {
+export default function CashCharge({
+  closeModal,
+  cashBalance,
+}: {
+  closeModal: () => void
+  cashBalance: number
+}) {
   const callbackUrl = usePathname()
   const confirmId = useSearchParams().get('confirmId')
   const amount = useSearchParams().get('amount')
   const roomId = useSearchParams().get('roomId')
 
   const { requestPayment } = usePayment()
-
-  // 백엔드에서 받아온 캐시 정보
-  const cashBalance = 10000
 
   // 결제 수단
   const easyPayList = [

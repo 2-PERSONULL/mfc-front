@@ -21,8 +21,6 @@ const getFetchHeader = async () => {
   const header = {
     Authorization: `${session?.user.accessToken}`,
     UUID: `${session?.user.uuid}`,
-    // local storage에 저장된 role을 가져와서 사용
-    Role: 'PARTNER',
     'Content-Type': 'application/json',
   }
 

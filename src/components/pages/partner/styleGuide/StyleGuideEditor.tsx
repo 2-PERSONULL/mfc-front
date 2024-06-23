@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import StyleGuideTabs from './StyleGuideTabs'
-import { StyleGuideInfo } from '@/types/styleGuideTypes'
+import StyleGuideInfo from '@/types/styleGuideTypes'
 import StyleGuideEditorForm from '@/components/pages/partner/styleGuide/StyleGuideForm'
 import useToast from '@/stores/toast'
+import submitStyleGuide from '@/actions/partner/Coordinates'
 
 export default function StyleGuideEditor({
-  userId,
   requestId,
+  closeModal,
 }: {
-  userId: string
   requestId: string
+  closeModal: () => void
 }) {
   // 백엔드에서 받아올 데이터
   const optionList = [
@@ -33,7 +34,7 @@ export default function StyleGuideEditor({
       budget: 0,
       url: '',
       comment: '',
-      image: [],
+      images: [],
     },
   ])
 
@@ -43,7 +44,7 @@ export default function StyleGuideEditor({
     setGuideList(newGuideList)
   }
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     // 카테고리, 가격, 코멘트는 필수값
     if (
       guideList.some(
@@ -55,7 +56,15 @@ export default function StyleGuideEditor({
     }
 
     // 스타일 가이드 제출 fetch
-    return console.log(userId, requestId, guideList)
+    const response = await submitStyleGuide(guideList, requestId)
+    if (response.isSuccess) {
+      showToast({
+        content: '스타일 가이드가 제출되었습니다',
+        type: 'success',
+      })
+    } else showToast({ content: '제출 실패', type: 'error' })
+
+    closeModal()
   }
 
   return (

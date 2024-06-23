@@ -2,14 +2,7 @@ import React from 'react'
 import { CardMessageType } from '@/types/chatTypes'
 
 // 정보 전달 카드
-export default function InformationCard({
-  card,
-  roomId,
-}: {
-  card: CardMessageType
-  roomId: string
-}) {
-  console.log(roomId)
+export default function InformationCard({ card }: { card: CardMessageType }) {
   return (
     <div className="border-2 border-black w-[55vw] p-3 rounded-[14px] flex flex-col gap-3">
       <div className="text-[14px] text-gray-600 rounded-lg px-2 py-1 bg-gray-200 w-fit h-fit">
