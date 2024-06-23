@@ -40,3 +40,29 @@ export default async function submitStyleGuide(
     return null
   }
 }
+
+export async function getStyleGuide(requestId: string) {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/coordinates/${requestId}`,
+      {
+        cache: 'no-cache',
+      },
+    )
+
+    const data = await response.json()
+    console.log(data)
+    if (!data.isSuccess) console.log('submit style error:', data)
+    return data
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}

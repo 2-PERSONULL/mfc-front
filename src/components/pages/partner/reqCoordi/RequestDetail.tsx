@@ -130,7 +130,7 @@ export default function RequestDetail({
           </nav>
         </section>
 
-        <section className="px-6 mt-[180px] ">
+        <section className="px-6 mt-[190px] mb-[100px]">
           <Swiper
             spaceBetween={100}
             slidesPerView={1}

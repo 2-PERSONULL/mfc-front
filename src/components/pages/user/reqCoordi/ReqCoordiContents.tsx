@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { BaseResponseType } from '@/types/baseResponseType'
 import CommonSelectBox from '@/components/ui/select/CommonSelectBox'
 import { RequestListType } from './ReqListContents'
-import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
+import BottomFixedTransButton from '@/components/ui/button/BottomFixedTransButton'
 import SpecifyDate from './SpecifyDate'
 import sendCoordinationRequest from '@/actions/user/UserCoordinationRequest'
 import useToast from '@/stores/toast'
@@ -102,8 +102,8 @@ export default function ReqCoordiContents({
         </section>
         <SpecifyDate deadline={setDeadline} />
         <section className="fixed bottom-5 w-[90%]">
-          <StretchedRoundedButton
-            comment="코디 요청하기"
+          <BottomFixedTransButton
+            title="코디 요청하기"
             clickHandler={handleSendRequest}
           />
         </section>

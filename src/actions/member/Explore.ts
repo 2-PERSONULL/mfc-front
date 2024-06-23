@@ -36,7 +36,7 @@ const getPartnerPostsByCategory = async (
         },
       },
     )
-    const data: BaseResponseType = await response.json()
+    const data = await response.json()
     return data.result
   } catch (error) {
     console.log(error)

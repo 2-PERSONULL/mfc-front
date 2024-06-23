@@ -4,13 +4,7 @@ import { getPartnerPostDetail } from '@/actions/partner/PartnerPost'
 import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 import PartnerPostLikeCount from '@/components/pages/partner/mypage/style/PartnerPostLikeCount'
 import PartnerPostTagList from '@/components/pages/partner/mypage/style/PartnerPostTagList'
-import PartnerPostTop from '@/components/pages/partner/mypage/style/PartnerPostTop'
-import CoordiRequestButton from '@/components/ui/button/CoordiRequestButton'
-
-interface TagType {
-  tagId: number
-  value: string
-}
+import ExplorePostTop from '@/components/pages/member/explore/ExplorePostTop'
 
 export default async function PartnerPostDetailPage({
   params,
@@ -23,17 +17,14 @@ export default async function PartnerPostDetailPage({
 
   return (
     <>
-      <PartnerPostTop
+      <ExplorePostTop
         nickname={nickname}
         profileImage={profileImage}
-        postId={postId}
-        imageUrl={imageUrl}
-        tags={tags.map((tag: TagType) => tag.tagId)}
+        partnerId={partnerId}
       />
       <PartnerPostImage imageUrl={imageUrl} />
       <PartnerPostLikeCount likeCount={bookmarkCnt} postId={postId} />
       <PartnerPostTagList tags={tags} />
-      <CoordiRequestButton partnerId={partnerId} />
     </>
   )
 }
