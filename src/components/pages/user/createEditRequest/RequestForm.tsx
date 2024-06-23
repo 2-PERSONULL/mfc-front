@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import type { ZodIssue } from 'zod'
+import { useRouter, useSearchParams } from 'next/navigation'
 import RequestContents from '@/components/pages/user/createEditRequest/RequestContents'
 import ReqAddImage from '@/components/pages/user/createEditRequest/ReqAddImage'
 import ReqCodiBudget from '@/components/pages/user/createEditRequest/ReqCodiBudget'
@@ -16,10 +17,14 @@ export default function RequestForm({
 }: {
   action: (formData: FormData) => Promise<{ error: ZodIssue[] } | undefined>
 }) {
+  const router = useRouter()
+  const url = useSearchParams()
+  const callbackUrl = url.get('callbackUrl')
   const { showToast } = useToast()
   const [errors, setErrors] = useState<
     { [key: string]: ZodIssue[] } | undefined
   >(undefined)
+  console.log(url.get('callbackUrl'))
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -43,6 +48,11 @@ export default function RequestForm({
         content: '요청서가 성공적으로 등록되었습니다.',
         type: 'success',
       })
+      if (!callbackUrl) {
+        router.replace('/user/mypage/reqlist')
+      } else {
+        router.replace(callbackUrl)
+      }
     }
   }
 

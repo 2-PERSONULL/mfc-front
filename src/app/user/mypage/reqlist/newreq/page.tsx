@@ -1,5 +1,5 @@
 import React from 'react'
-import { redirect } from 'next/navigation'
+// import { redirect } from 'next/navigation'
 import { ZodError, ZodIssue } from 'zod'
 import createNewRequest from '@/actions/user/UserCreateRequest'
 import RequestSchema from '@/schema/requestSchema'
@@ -51,7 +51,6 @@ export default function NewRequest() {
         return { error: error.issues }
       }
     }
-    return redirect('/user/mypage/reqlist')
   }
   return (
     <main>

@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import { useParams, usePathname, useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { BaseResponseType } from '@/types/baseResponseType'
 import CommonSelectBox from '@/components/ui/select/CommonSelectBox'
 import { RequestListType } from './ReqListContents'
@@ -9,19 +10,38 @@ import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButto
 import SpecifyDate from './SpecifyDate'
 import sendCoordinationRequest from '@/actions/user/UserCoordinationRequest'
 import useToast from '@/stores/toast'
+import RequestCard from './RequestCard'
+import { getRequestDetail } from '@/actions/user/UserRequest'
+import { RequestDetailProps } from '@/types/requestDetailType'
 
 export default function ReqCoordiContents({
   requests,
 }: {
   requests: BaseResponseType | null
 }) {
+  const currentUrl = usePathname()
   const router = useRouter()
   const { showToast } = useToast()
+  const { partnerId } = useParams<{ partnerId: string }>()
   const [deadline, setDeadline] = useState('')
   const [request, setRequest] = useState('')
-  const { partnerId } = useParams<{ partnerId: string }>()
+  const [reqDetail, setReqDetail] = useState<RequestDetailProps | null>(null)
+  const [loading, setLoading] = useState(false)
+  console.log(currentUrl)
 
-  console.log(deadline, request)
+  useEffect(() => {
+    const fetchReqDetail = async () => {
+      if (request) {
+        setLoading(true)
+        const result: RequestDetailProps = (await getRequestDetail(
+          request,
+        )) as unknown as RequestDetailProps
+        setReqDetail(result)
+        setLoading(false)
+      }
+    }
+    fetchReqDetail()
+  }, [request])
 
   const titleToRequestId = Array.isArray(requests?.result)
     ? requests.result.reduce((acc, cur) => {
@@ -37,8 +57,9 @@ export default function ReqCoordiContents({
 
   const handleSendRequest = async () => {
     const result: BaseResponseType = (await sendCoordinationRequest(
-      partnerId,
       request,
+      partnerId,
+      deadline,
     )) as BaseResponseType
     if (result.isSuccess) {
       router.replace('/explore')
@@ -51,27 +72,41 @@ export default function ReqCoordiContents({
 
   return (
     <section>
-      <form className="w-full">
+      <form className="w-full h-full">
         <section className="w-full bg-white py-6 grid gap-2">
-          <p className="text-black">코디 요청서</p>
+          <div className="flex justify-between items-end">
+            <p className="text-black">코디 요청서</p>
+            <Link
+              href={`/user/mypage/reqlist/newreq?callbackUrl=${currentUrl}`}
+            >
+              <p className="text-sm">+ 신규 요청서 작성</p>
+            </Link>
+          </div>
           <CommonSelectBox
             optionList={
-              (requests?.result as RequestListType[]).map(
-                (value) => value.title,
-              ) as string[]
+              Array.isArray(requests?.result)
+                ? (requests.result as RequestListType[]).map(
+                    (value) => value.title,
+                  )
+                : []
             }
             selectedOption="요청서를 선택하세요."
             setSelectedOption={handleSelectOption}
           />
-          <p className="text-sm">+ 신규 요청서 작성</p>
+          {loading ? (
+            // 로딩 텍스트 수정 필요
+            <p>Loading...</p>
+          ) : (
+            reqDetail !== null && <RequestCard reqDetail={reqDetail} />
+          )}
         </section>
         <SpecifyDate deadline={setDeadline} />
-        <div className="bottom-5 w-full left-0 right-0">
+        <section className="fixed bottom-5 w-[90%]">
           <StretchedRoundedButton
             comment="코디 요청하기"
             clickHandler={handleSendRequest}
           />
-        </div>
+        </section>
       </form>
     </section>
   )

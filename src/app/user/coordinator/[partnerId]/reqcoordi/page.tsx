@@ -13,7 +13,6 @@ export default async function UserCoordinatingRequest({
   return (
     <main className="w-full min-h-full px-5">
       <PartnerInfo partnerId={params.partnerId} />
-      {/* 수정 필요 */}
       <ReqCoordiContents requests={requestList} />
     </main>
   )

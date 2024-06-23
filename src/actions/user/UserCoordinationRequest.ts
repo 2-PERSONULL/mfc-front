@@ -6,6 +6,7 @@ import { getFetchHeader } from '@/utils/getFetchHeader'
 const sendCoordinationRequest = async (
   requestId: string,
   partnerId: string,
+  deadline: string,
 ) => {
   const header = await getFetchHeader()
   if (!header) {
@@ -14,7 +15,7 @@ const sendCoordinationRequest = async (
   }
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/proposal/${requestId}/${partnerId}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/proposal/${requestId}/${partnerId}?deadline=${deadline}`,
       {
         method: 'PUT',
         headers: {
