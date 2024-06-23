@@ -26,7 +26,7 @@ export default function PartnerStyleGuidelayout({
   return (
     <>
       <GoBackHeader title={getTitle(type)} />
-      <main>{children}</main>
+      {children}
     </>
   )
 }

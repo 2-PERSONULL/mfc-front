@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import CommonSelectBox from '@/components/ui/select/CommonSelectBox'
 import StyleGuideImageUpload from '@/components/pages/partner/styleGuide/StyleGuideImageUpload'
 import StyleGuideInfo from '@/types/styleGuideTypes'
@@ -6,10 +6,11 @@ import FormLabel from '@/components/ui/input/FormLabel'
 import FormIntput from '@/components/ui/input/FormInput'
 import FormPriceInput from '@/components/ui/input/FormPriceInput'
 import FormTextArea from '@/components/ui/input/FormTextArea'
+import { CodiOptionType } from '@/types/codiOptionType'
 
 interface StyleGuideEditorFormProps {
   guide: StyleGuideInfo
-  optionList: string[]
+  optionList: CodiOptionType[]
   onUpdateGuide: (updatedGuide: StyleGuideInfo) => void
 }
 
@@ -18,7 +19,11 @@ export default function StyleGuideEditorForm({
   optionList,
   onUpdateGuide,
 }: StyleGuideEditorFormProps) {
-  const [description, setDescription] = React.useState(guide.comment)
+  const [description, setDescription] = useState(guide.comment)
+
+  useEffect(() => {
+    setDescription(guide.comment)
+  }, [guide.comment])
 
   const handleCategoryChange = (value: string) => {
     const updatedGuide = { ...guide, category: value }
@@ -43,7 +48,7 @@ export default function StyleGuideEditorForm({
       <div className="flex flex-col gap-2">
         <FormLabel text="카테고리" required />
         <CommonSelectBox
-          optionList={optionList}
+          optionList={optionList.map((option) => option.optionName)}
           selectedOption={guide.category}
           setSelectedOption={handleCategoryChange}
         />

@@ -1,6 +1,6 @@
 import React from 'react'
 import { getStyleGuide } from '@/actions/partner/Coordinates'
-import StyleGuideList from '@/components/pages/user/styleGuide/StyleGuideList'
+import StyleGuideNew from '@/components/pages/user/styleGuide/StyleGuideNew'
 
 export default async function StyleGuidePage({
   params,
@@ -10,5 +10,5 @@ export default async function StyleGuidePage({
   const { requestId } = params
   const data = await getStyleGuide(requestId)
 
-  return <StyleGuideList data={data} />
+  return <StyleGuideNew data={data} />
 }

@@ -6,6 +6,7 @@ import StyleGuideInfo from '@/types/styleGuideTypes'
 export default async function submitStyleGuide(
   guideList: StyleGuideInfo[],
   requestId: string,
+  method: string,
 ) {
   const header = await getFetchHeader()
 
@@ -26,7 +27,7 @@ export default async function submitStyleGuide(
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/coordinates`,
       {
-        method: 'POST',
+        method,
         headers: header,
         body: JSON.stringify(updatedGuideList),
       },

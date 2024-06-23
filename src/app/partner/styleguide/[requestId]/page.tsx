@@ -1,6 +1,7 @@
 import React from 'react'
-// import { getStyleGuide } from '@/actions/partner/Coordinates'
+import { getStyleGuide } from '@/actions/partner/Coordinates'
 import StyleGuideEditor from '@/components/pages/partner/styleGuide/StyleGuideEditor'
+import StyleGuideViewer from '@/components/pages/partner/styleGuide/StyleGuideViewr'
 
 export default async function PartnerStyleGuidePage({
   params,
@@ -12,12 +13,15 @@ export default async function PartnerStyleGuidePage({
   const { requestId } = params
   const type = searchParams?.type
 
-  // const data = await getStyleGuide(requestId)
-
-  // const isSubmit = data ? true : false
-  // console.log(isSubmit)
+  const data = await getStyleGuide(requestId)
 
   return (
-    <div>{type === 'new' && <StyleGuideEditor requestId={requestId} />}</div>
+    <main>
+      {type === 'view' ? (
+        <StyleGuideViewer data={data} requestId={requestId} />
+      ) : (
+        <StyleGuideEditor requestId={requestId} editData={data} />
+      )}
+    </main>
   )
 }
