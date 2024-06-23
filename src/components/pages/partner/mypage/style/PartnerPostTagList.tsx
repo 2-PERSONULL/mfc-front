@@ -11,7 +11,7 @@ export default function PartnerPostTagList({
   tags: TagBadgeProps[]
 }) {
   return (
-    <div className="p-3">
+    <section className="p-3 px-3">
       <ul className="flex flex-wrap w-full h-auto">
         {tags.map((tag) => (
           <li
@@ -24,6 +24,6 @@ export default function PartnerPostTagList({
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   )
 }

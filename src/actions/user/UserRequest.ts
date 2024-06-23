@@ -69,7 +69,7 @@ const getRequestList = async (
   }
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/my-requests?page=${page}&pageSize=10&sortType=LATEST`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/my-requests?page=${page}&pageSize=20&sortType=LATEST`,
       {
         method: 'GET',
         headers: {
@@ -78,6 +78,7 @@ const getRequestList = async (
           'Content-Type': 'application/json',
         },
         next: { tags: ['RequestList'] },
+        cache: 'no-cache',
       },
     )
     const data: BaseResponseType = await response.json()

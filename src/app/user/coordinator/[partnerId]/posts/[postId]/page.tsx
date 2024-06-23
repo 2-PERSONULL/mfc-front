@@ -5,6 +5,7 @@ import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 import PartnerPostLikeCount from '@/components/pages/partner/mypage/style/PartnerPostLikeCount'
 import PartnerPostTagList from '@/components/pages/partner/mypage/style/PartnerPostTagList'
 import PartnerPostTop from '@/components/pages/partner/mypage/style/PartnerPostTop'
+import CoordiRequestButton from '@/components/ui/button/CoordiRequestButton'
 
 interface TagType {
   tagId: number
@@ -32,6 +33,7 @@ export default async function PartnerPostDetailPage({
       <PartnerPostImage imageUrl={imageUrl} />
       <PartnerPostLikeCount likeCount={bookmarkCnt} postId={postId} />
       <PartnerPostTagList tags={tags} />
+      <CoordiRequestButton partnerId={partnerId} />
     </>
   )
 }

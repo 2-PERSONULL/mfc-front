@@ -9,7 +9,7 @@ import EachRequest from '../requestList/EachRequest'
 import useObserver from '@/hooks/useObserver'
 import { Table, TableBody, TableRow } from '@/components/ui/table'
 
-interface RequestListType {
+export interface RequestListType {
   requestId: string
   title: string
 }
