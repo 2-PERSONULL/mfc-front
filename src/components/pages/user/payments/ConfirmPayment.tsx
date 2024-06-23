@@ -6,44 +6,76 @@ import { useRouter } from 'next/navigation'
 import Modal from '@/components/common/Modal'
 import CashCharge from './CashCharge'
 import sendCard from '@/actions/chat/chatCard'
+import { payCoordinating } from '@/actions/user/Payments'
+import useToast from '@/stores/toast'
+import LoadingModal from '@/components/common/LoadingModal'
 
 export default function ConfirmPayment({
   roomId,
   amount,
-  confirmId,
+  requestId,
   cashBalance,
+  partnerId,
 }: {
   roomId: number
   amount: number
-  confirmId: number
+  requestId: string
   cashBalance: number
+  partnerId: string
 }) {
+  console.log(partnerId)
+  const { showToast } = useToast()
   const router = useRouter()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const paymentHandler = () => {
-    // 코디네이팅 결제 로직(캐시 차감)
-    const cardMessage = {
-      requestId: confirmId.toString(),
-      title: '결제완료',
-      description:
-        '고객님이 결제를 완료하여 코디 거래가 확정되었습니다. 파트너님은 제출기한내에 코디를 제출해주세요:)',
-      target: 'all',
-      details: [],
-      actions: [],
-      type: 'information',
+  const paymentHandler = async () => {
+    // 잔액 있는지 확인
+    if (cashBalance < amount) {
+      showToast({ content: '캐시가 부족합니다', type: 'error' })
+      return
     }
 
-    sendCard(cardMessage, roomId.toString())
-    router.replace(`/user/chatroom/${roomId}`)
+    setLoading(true)
+
+    // 코디네이팅 결제 로직(캐시 차감)
+    const response = await payCoordinating(requestId, partnerId, Number(amount))
+
+    if (response.isSuccess) {
+      const cardMessage = {
+        requestId,
+        title: '결제완료',
+        description:
+          '고객님이 결제를 완료하여 코디 거래가 확정되었습니다. 파트너님은 제출기한내에 코디를 제출해주세요:)',
+        target: 'all',
+        details: [],
+        actions: [],
+        type: 'information',
+      }
+
+      // 카드 메시지 전송
+      await sendCard(cardMessage, roomId.toString())
+
+      setLoading(false)
+      router.replace(`/user/chatroom/${roomId}?partnerId=${partnerId}`)
+      return
+    }
+
+    // 결제 실패 시
+    setLoading(false)
+    showToast({ content: response.message, type: 'error' })
   }
 
   return (
     <>
+      {loading && <LoadingModal message="잠시만 기다려주세요" />}
       {isModalOpen && (
         <Modal title="캐시충전" closeModal={() => setIsModalOpen(false)}>
-          <CashCharge closeModal={() => setIsModalOpen(false)} />
+          <CashCharge
+            closeModal={() => setIsModalOpen(false)}
+            cashBalance={cashBalance}
+          />
         </Modal>
       )}
       <div className="flex flex-col justify-center items-center pt-20">

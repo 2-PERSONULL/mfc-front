@@ -2,19 +2,19 @@
 
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
-import useChat from '@/hooks/useChat'
 import { uploadImage, deleteImage } from '@/utils/uploadImage'
+import useChat from '@/hooks/useChat'
 
 export default function ChatForm() {
   const {
-    inputMessage,
     setInputMessage,
+    inputMessage,
     sendMessage,
     setInputImage,
-    sendImage,
     inputImage,
+    sendImage,
   } = useChat()
-  const [images, setImages] = useState<string[]>([])
+  const [images, setImages] = useState<string[]>([]) // 미리보기 이미지
   const textarea = useRef<HTMLTextAreaElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -40,12 +40,13 @@ export default function ChatForm() {
   }
 
   const sendMessageHandler = () => {
+    // 메시지 전송
     sendMessage()
     sendImage()
 
+    // 미리보기 이미지 삭제
     setImages([])
-    // setInputMessage('')
-    // setInputImage('')
+
     if (textarea && textarea.current) {
       textarea.current.style.height = 'auto' // height 초기화
     }
@@ -71,6 +72,7 @@ export default function ChatForm() {
 
   const deleteImageHandler = async () => {
     setImages([])
+    setInputImage('')
     await deleteImage(inputImage)
   }
 

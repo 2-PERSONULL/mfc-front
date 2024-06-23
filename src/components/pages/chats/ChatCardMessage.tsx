@@ -15,5 +15,5 @@ export default function ChatCardMessage({
     return <ConfirmCard card={card} roomId={roomId} />
   }
 
-  return <InformationCard card={card} roomId={roomId} />
+  return <InformationCard card={card} />
 }

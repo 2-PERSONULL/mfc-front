@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { CardMessageType } from '@/types/chatTypes'
 
 // 확정 제안 카드
@@ -15,6 +16,7 @@ export default function ConfirmCard({
   const isTarget = card.target === role
   const amount =
     card.details && parseInt(card.details[1].value.replace(/,/g, ''), 10)
+  const partnerId = useSearchParams().get('partnerId')
 
   return (
     <div className="border-2 border-black w-[55vw] p-3 rounded-[14px] flex flex-col gap-3">
@@ -37,7 +39,7 @@ export default function ConfirmCard({
           {card.actions.map((action, index) => (
             <Link
               key={index}
-              href={`/user/confirm?confirmId=${1234}&amount=${amount}&roomId=${roomId}`}
+              href={`/user/confirm?requestId=${card.requestId}&amount=${amount}&roomId=${roomId}&partnerId=${partnerId}`}
               className="bg-black text-white text-center rounded-md py-2"
             >
               {action.label}

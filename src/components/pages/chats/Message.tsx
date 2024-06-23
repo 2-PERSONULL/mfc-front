@@ -9,11 +9,20 @@ import useClientSession from '@/hooks/useClientSession'
 import CircleProfile from '@/components/ui/avatar/CircleProfile'
 import ChatImage from '@/components/pages/chats/ChatImage'
 import ChatCardMessage from '@/components/pages/chats/ChatCardMessage'
-import { CardMessageType } from '@/types/chatTypes'
+import { CardMessageType, MessageType } from '@/types/chatTypes'
 
-export default function Message() {
+export default function Message({
+  initData,
+  size,
+  profileImage,
+}: {
+  initData: MessageType[]
+  size: number
+  profileImage: string
+}) {
+  console.log(size)
+  const { realTimeMessage, setRealTimeMessage } = useChat()
   const { uuid } = useClientSession()
-  const { realTimeMessage } = useChat()
   const { roomId } = useParams<{ roomId: string }>()
   const scrollRef = useRef<HTMLDivElement | null>(null)
 
@@ -23,15 +32,33 @@ export default function Message() {
     }
   }
 
-  // 새로운 메시지가 추가될 때마다 스크롤을 맨 아래로 내림
   useEffect(() => {
+    // 실시간 메시지가 추가되면 스크롤을 맨 아래로 이동
     scrollToBottom()
   }, [realTimeMessage])
+
+  useEffect(() => {
+    if (!initData) return
+    if (initData.length === 0) return
+
+    setRealTimeMessage((prevMessages) => {
+      // 필터링하여 이미 존재하지 않는 initData 메시지만 추가
+      const newMessages = initData.filter(
+        (initMsg) => !prevMessages.some((prevMsg) => prevMsg.id === initMsg.id),
+      )
+      // 새로운 메시지가 없다면 이전 상태 유지
+      if (newMessages.length === 0) return prevMessages
+      // 새로운 메시지가 있다면 이전 상태에 추가
+      return [...prevMessages, ...newMessages]
+    })
+
+    // setRealTimeMessage([...initData, ...realTimeMessage])
+  }, [initData, setRealTimeMessage])
 
   return (
     <div
       ref={scrollRef}
-      className="px-[10px] pt-2 bg-white overflow-y-auto no-scrollbar flex-grow"
+      className="px-[10px] bg-white overflow-y-auto no-scrollbar flex-grow pt-[80px]"
     >
       {realTimeMessage.map((message, index) => {
         const isOwnMessage = message.sender === uuid && message.type !== 'card'
@@ -72,7 +99,7 @@ export default function Message() {
             {message.type === 'card' ? (
               <CircleProfile size={40} imageUrl="/icons/reminder.svg" />
             ) : (
-              <CircleProfile size={40} imageUrl={null} />
+              <CircleProfile size={40} imageUrl={profileImage} />
             )}
             {message.type === 'card' && (
               <ChatCardMessage

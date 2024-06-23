@@ -8,22 +8,24 @@ export default async function UserConfirmPage({
   searchParams,
 }: {
   searchParams: {
-    confirmId: number
+    requestId: string
     amount: number
     roomId: number
+    partnerId: string
   }
 }) {
   const { balance } = await getCashBalance()
-  const { confirmId, amount, roomId } = searchParams
+  const { requestId, amount, roomId, partnerId } = searchParams
 
   return (
     <div>
       <GoBackHeader title="결제" />
       <ConfirmPayment
-        confirmId={confirmId}
-        amount={amount}
         roomId={roomId}
+        amount={amount}
+        requestId={requestId}
         cashBalance={balance}
+        partnerId={partnerId}
       />
     </div>
   )

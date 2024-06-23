@@ -1,7 +1,7 @@
 import React from 'react'
 import CommonSelectBox from '@/components/ui/select/CommonSelectBox'
 import StyleGuideImageUpload from '@/components/pages/partner/styleGuide/StyleGuideImageUpload'
-import { StyleGuideInfo } from '@/types/styleGuideTypes'
+import StyleGuideInfo from '@/types/styleGuideTypes'
 import FormLabel from '@/components/ui/input/FormLabel'
 import FormIntput from '@/components/ui/input/FormInput'
 import FormPriceInput from '@/components/ui/input/FormPriceInput'
@@ -26,7 +26,7 @@ export default function StyleGuideEditorForm({
   }
 
   const handleImageChange = (images: string[]) => {
-    const updatedGuide = { ...guide, image: images }
+    const updatedGuide = { ...guide, images }
     onUpdateGuide(updatedGuide)
   }
 
@@ -103,7 +103,7 @@ export default function StyleGuideEditorForm({
       <div className="flex flex-col gap-2">
         <FormLabel text="이미지 업로드" />
         <StyleGuideImageUpload
-          images={guide.image}
+          images={guide.images}
           setImages={handleImageChange}
         />
       </div>

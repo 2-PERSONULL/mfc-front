@@ -4,7 +4,6 @@ export interface MessageType {
   type: string
   msg: string
   sender: string
-  receiver: string
   createdAt: string
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import './style.css'
+import Image from 'next/image'
 
 export default function Step({
   steps,
@@ -9,21 +9,40 @@ export default function Step({
   currentStep: number
 }) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex justify-between w-full">
       {steps.map((step, index) => (
         <React.Fragment key={index}>
-          <div className="flex flex-col items-center px-2">
+          {index > 0 && (
             <div
-              className={`flex items-center justify-center w-4 h-4 rounded-full ${index + 1 <= currentStep ? 'bg-[#000000]' : 'bg-gray-300'}  text-white`}
-            />
-
-            <div className="text-center text-xs mt-1">{step}</div>
-          </div>
-          {index !== steps.length - 1 && (
-            <div
-              className={`flex-auto border-t-2  ${index + 1 < currentStep ? 'border-[#616161]' : 'border-gray-300'} `}
+              className={`flex-auto border-t-2 ${index + 1 <= currentStep ? 'border-t-gray-500' : 'border-t-gray-300'} mt-3`}
             />
           )}
+
+          <div className="flex items-center justify-center flex-col relative">
+            {index + 1 <= currentStep ? (
+              <Image
+                src="/icons/complete-top.svg"
+                alt="icon"
+                width={30}
+                height={30}
+                className="z-5"
+              />
+            ) : (
+              <Image
+                src="/icons/before-top.svg"
+                alt="icon"
+                width={30}
+                height={30}
+                className="z-5"
+              />
+            )}
+
+            <div
+              className={`text-[12px] mt-1 ${index + 1 === currentStep ? 'font-bold' : ''}`}
+            >
+              {step}
+            </div>
+          </div>
         </React.Fragment>
       ))}
     </div>

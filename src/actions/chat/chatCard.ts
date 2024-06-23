@@ -21,7 +21,9 @@ export default async function sendCard(card: CardMessageType, roomId: string) {
     },
   )
 
-  if (response.ok) {
+  const data = await response.json()
+
+  if (data.isSuccess) {
     console.log('send card success')
   }
 }

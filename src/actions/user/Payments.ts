@@ -63,10 +63,10 @@ export async function chargeCash(
   const data = await response.json()
   if (data.isSuccess) {
     revalidateTag('cash-balance')
-    console.log(data)
   } else {
     console.log('Failed to charge cash', data)
   }
+  return data
 }
 
 export async function checkPayment(value: number, paymentId: string) {
@@ -88,8 +88,9 @@ export async function checkPayment(value: number, paymentId: string) {
   // 2. 고객사 내부 주문 데이터의 가격과 실제 지불된 금액을 비교합니다.
   if (value === amount.total) {
     // 충전 내역 전송 api 호출
-    chargeCash(amount.total, paymentId, paidAt, status)
-    return 200
+    const res = await chargeCash(amount.total, paymentId, paidAt, status)
+    if (res.isSuccess) return 200
+    return 400
     // switch (status) {
     //   case 'VIRTUAL_ACCOUNT_ISSUED': {
     //     // 가상 계좌가 발급된 상태입니다.
@@ -112,4 +113,43 @@ export async function checkPayment(value: number, paymentId: string) {
   // 결제 금액이 불일치하여 위/변조 시도가 의심됩니다.
   console.log('결제 금액이 불일치하여 위/변조 시도가 의심됩니다.')
   return 400
+}
+
+export async function payCoordinating(
+  requestId: string,
+  partnerUuid: string,
+  amount: number,
+) {
+  // 코디네이팅 결제 로직(캐시 차감)
+
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return
+  }
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment-service/cash/transfer`,
+    {
+      method: 'PUT',
+      headers: {
+        Authorization: `${header.Authorization}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        requestId,
+        userUuid: header.UUID,
+        partnerUuid,
+        amount,
+      }),
+    },
+  )
+  const data = await response.json()
+  if (data.isSuccess) {
+    revalidateTag('cash-balance')
+  } else {
+    console.log('Failed to pay coordinating', data)
+  }
+  return data
 }
