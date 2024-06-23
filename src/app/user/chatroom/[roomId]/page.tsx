@@ -9,7 +9,7 @@ import {
 import UserChatroomHeader from '@/components/pages/chats/header/UserChatroomHeader'
 import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 
-const FETCH_COUNT = 20
+const FETCH_COUNT = 10
 
 export default async function UserChatRoom({
   params,

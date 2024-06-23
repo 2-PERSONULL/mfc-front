@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Modal from '@/components/common/Modal'
-import StyleGuideEditor from '@/components/pages/partner/styleGuide/StyleGuideEditor'
 import getChatRoomId from '@/actions/chat/Chatroom'
+import StyleGuideList from '@/components/pages/user/styleGuide/StyleGuideList'
 
 export default function UserChatBoxButton({
   status,
@@ -40,9 +40,10 @@ export default function UserChatBoxButton({
           title="스타일 가이드 조회"
           closeModal={() => setIsModalOpen(false)}
         >
-          <StyleGuideEditor
-            requestId={requestId}
-            closeModal={() => setIsModalOpen(false)}
+          <StyleGuideList
+
+          // requestId={requestId}
+          // closeModal={() => setIsModalOpen(false)}
           />
         </Modal>
       )}

@@ -75,7 +75,6 @@ const useChat = () => {
 
       eventSource.onmessage = (event) => {
         const data = JSON.parse(event.data)
-        console.log(data)
 
         // data.id 중복 안되게 처리
         setRealTimeMessage((prev) => {

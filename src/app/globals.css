@@ -244,3 +244,19 @@ input[type='radio']:focus {
   display: inline;
   align-content: center;
 }
+
+/* 스와이퍼 화살표 커스텀 */
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: #fff;
+  opacity: 0.5;
+  padding: 15px 5px;
+  border-radius: 20px;
+  color: black !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+}

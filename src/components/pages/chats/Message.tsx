@@ -33,15 +33,27 @@ export default function Message({
   }
 
   useEffect(() => {
-    // Scroll to bottom when realTimeMessage changes
+    // 실시간 메시지가 추가되면 스크롤을 맨 아래로 이동
     scrollToBottom()
   }, [realTimeMessage])
 
   useEffect(() => {
     if (!initData) return
     if (initData.length === 0) return
-    setRealTimeMessage([...initData, ...realTimeMessage])
-  }, [initData, setRealTimeMessage]) // Added setRealTimeMessage to the dependency array to avoid warnings
+
+    setRealTimeMessage((prevMessages) => {
+      // 필터링하여 이미 존재하지 않는 initData 메시지만 추가
+      const newMessages = initData.filter(
+        (initMsg) => !prevMessages.some((prevMsg) => prevMsg.id === initMsg.id),
+      )
+      // 새로운 메시지가 없다면 이전 상태 유지
+      if (newMessages.length === 0) return prevMessages
+      // 새로운 메시지가 있다면 이전 상태에 추가
+      return [...prevMessages, ...newMessages]
+    })
+
+    // setRealTimeMessage([...initData, ...realTimeMessage])
+  }, [initData, setRealTimeMessage])
 
   return (
     <div
