@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import SwiperCore from 'swiper'
@@ -11,12 +10,16 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
 import StyleGuideItem from '@/components/pages/user/styleGuide/StyleGuideItem'
-import StyleGuideItemDetail from '@/components/pages/user/styleGuide/StyleGuideItemDetail2'
+import StyleGuideItemDetailOld from '@/components/pages/user/styleGuide/StyleGuideItemDetailOld'
 import StyleGuideAction from '@/components/pages/user/styleGuide/StyleGuideAction'
-
+import StyleGuideTitle from '@/components/pages/user/styleGuide/StyleGuideTitle'
 import StyleGuideInfo from '@/types/styleGuideTypes'
 
-export default function StyleGuideNew({ data }: { data: StyleGuideInfo[] }) {
+export default function StyleGuideListOld({
+  data,
+}: {
+  data: StyleGuideInfo[]
+}) {
   const [swiper, setSwiper] = useState<SwiperCore>()
   const [currentCard, setCurrentCard] = useState<number>(0)
 
@@ -27,7 +30,8 @@ export default function StyleGuideNew({ data }: { data: StyleGuideInfo[] }) {
 
   return (
     <>
-      <div className="p-3 pb-[160px]">
+      <div className="p-3 pb-[120px]">
+        <StyleGuideTitle />
         <Swiper
           spaceBetween={10}
           slidesPerView={1.5}
@@ -50,12 +54,6 @@ export default function StyleGuideNew({ data }: { data: StyleGuideInfo[] }) {
             )
           })}
         </Swiper>
-        <Image
-          src={`/icons/look${currentCard + 1}.svg`}
-          alt="dd"
-          width={300}
-          height={300}
-        />
 
         {/* 선택된 아이템 */}
         <section className="w-full px-6 mt-5">
@@ -68,7 +66,7 @@ export default function StyleGuideNew({ data }: { data: StyleGuideInfo[] }) {
           >
             {data.map((style, index) => (
               <SwiperSlide key={index}>
-                <StyleGuideItemDetail style={style} />
+                <StyleGuideItemDetailOld style={style} />
               </SwiperSlide>
             ))}
           </Swiper>

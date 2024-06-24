@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import getChatRoomId from '@/actions/chat/Chatroom'
 import { getStyleGuide } from '@/actions/partner/Coordinates'
@@ -18,7 +17,6 @@ export default function UserChatBoxButton({
 }) {
   const [roomNumber, setRoomNumber] = useState<string>('')
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
-  const router = useRouter()
 
   useEffect(() => {
     if (status === 'NONERESPONSE') return
@@ -42,22 +40,20 @@ export default function UserChatBoxButton({
   return (
     <div className="h-[50px] w-full border-t">
       {status === 'NONERESPONSE' ? (
-        <div className="h-full flex items-center justify-center">
-          <button
-            type="button"
-            onClick={() => router.push(`/partner/reqcoordi/${requestId}`)}
-          >
-            요청 상세보기
-          </button>
-        </div>
+        <Link
+          href={`/user/mypage/reqlist/${requestId}?type=view`}
+          className="h-full flex items-center justify-center"
+        >
+          요청 상세보기
+        </Link>
       ) : (
         <div className="h-full flex items-center justify-around">
-          <button
-            type="button"
+          <Link
+            href={`/user/mypage/reqlist/${requestId}?type=view`}
             className="flex justify-center items-center border-r basis-1/3 h-full"
           >
             요청 상세보기
-          </button>
+          </Link>
           {isSubmit && (
             <Link
               href={`/user/styleguide/${requestId}`}

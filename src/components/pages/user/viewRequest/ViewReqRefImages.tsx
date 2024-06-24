@@ -15,7 +15,7 @@ export default function ViewReqRefImages({
 }) {
   return (
     <section className="overflow-hidden">
-      <p className="text-sm text-black font-semibold pb-3">{title}</p>
+      <p className="text-[17px] text-black font-semibold mb-5">{title}</p>
       <section className="w-full">
         {refImgs ? (
           <Carousel>

@@ -75,6 +75,7 @@ export async function getPartnerPostDetail(postId: number) {
     )
 
     const data = await response.json()
+    console.log(data)
     if (!data.isSuccess) console.log('get post detail error:', data)
     return data.result
   } catch (error) {

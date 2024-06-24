@@ -13,14 +13,18 @@ import ViewReqMyImages from './ViewReqMyImages'
 export default function ViewRequest({
   data,
   params,
+  type,
 }: {
   data: RequestDetailProps
   params: { requestid: string }
+  type?: string
 }) {
+  console.log(type)
+
   return (
     <>
       {/* 코디 옵션, 참고 이미지, 내 이미지는 추후에 DB 수정되면 추가 진행할 예정 */}
-      <section className="relative grid gap-6 w-full min-h-screen px-5 pb-4">
+      <section className="relative grid gap-8 w-full min-h-screen px-5 pb-4 mt-8 mb-[50px]">
         <ViewRequestTitle title={data.title} />
         <ViewRequestContents contents={data.description} />
         <ViewReqSituation situation={data.situation} />
@@ -33,7 +37,7 @@ export default function ViewRequest({
         />
         <ViewReqMyImages title="내 이미지" myImgs={data.myImageUrls} />
       </section>
-      <EditDeleteButton params={params} />
+      {type !== 'view' && <EditDeleteButton params={params} />}
     </>
   )
 }

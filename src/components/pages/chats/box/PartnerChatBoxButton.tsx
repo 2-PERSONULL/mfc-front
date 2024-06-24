@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import getChatRoomId from '@/actions/chat/Chatroom'
 import { getStyleGuide } from '@/actions/partner/Coordinates'
@@ -18,7 +17,6 @@ export default function PartnerChatBoxButton({
   requestId: string
   partnerId: string
 }) {
-  const router = useRouter()
   const [roomNumber, setRoomNumber] = useState<string>('')
   const [unreadMessage, setUnreadMessage] = useState<number>(0)
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
@@ -46,27 +44,20 @@ export default function PartnerChatBoxButton({
   return (
     <div className="h-[50px] w-full border-t">
       {status === 'NONERESPONSE' ? (
-        <div className="h-full flex items-center justify-center">
-          <button
-            type="button"
-            onClick={() =>
-              router.push(`/partner/reqcoordi/${requestId}?status=nonresponse`)
-            }
-          >
-            요청 상세보기
-          </button>
-        </div>
+        <Link
+          href={`/partner/reqcoordi/${requestId}?status=nonresponse`}
+          className="h-full flex items-center justify-center"
+        >
+          요청 상세보기
+        </Link>
       ) : (
         <div className="h-full flex items-center justify-around">
-          <button
-            type="button"
-            onClick={() =>
-              router.push(`/partner/reqcoordi/${requestId}?status=accept`)
-            }
+          <Link
+            href={`/partner/reqcoordi/${requestId}?status=accept`}
             className="flex justify-center items-center border-r basis-1/3 h-full"
           >
             요청 상세보기
-          </button>
+          </Link>
           {availableStatus.includes(status) && (
             <Link
               href={`/partner/styleguide/${requestId}?type=${isSubmit ? 'view' : 'new'}`}
