@@ -23,7 +23,7 @@ export async function getPartnerPost(
           UUID: header.partnerId,
           'Content-Type': 'application/json',
         },
-        next: { tags: ['post'] },
+        next: { tags: ['postList'] },
       },
     )
 
@@ -57,11 +57,10 @@ export async function addPartnerPost(imageUrl: string | null, tags: string[]) {
 
     const data = await response.json()
     if (!data.isSuccess) console.log('add post error:', data)
-    revalidateTag('post')
-    return null
+
+    return data
   } catch (error) {
     console.log(error)
-    return null
   }
 }
 
@@ -71,11 +70,12 @@ export async function getPartnerPostDetail(postId: number) {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/${postId}`,
       {
         headers: { 'Content-Type': 'application/json' },
+        cache: 'no-cache',
       },
     )
 
     const data = await response.json()
-    console.log(data)
+
     if (!data.isSuccess) console.log('get post detail error:', data)
     return data.result
   } catch (error) {
@@ -103,8 +103,10 @@ export async function deletePartnerPost(postId: number) {
     )
 
     const data = await response.json()
-    if (!data.isSuccess) console.log('delete post error:', data)
-    revalidateTag('post')
+    if (data.isSuccess) {
+      revalidateTag('postList')
+    }
+
     return data
   } catch (error) {
     console.log(error)
@@ -136,7 +138,7 @@ export async function updatePartnerPost(
 
     const data = await response.json()
     if (!data.isSuccess) console.log('update post error:', data)
-    revalidateTag('post')
+
     return null
   } catch (error) {
     console.log(error)

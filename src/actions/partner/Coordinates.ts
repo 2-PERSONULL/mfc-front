@@ -28,7 +28,11 @@ export default async function submitStyleGuide(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/coordinates`,
       {
         method,
-        headers: header,
+        headers: {
+          'Partner-UUID': header.UUID,
+          Authorization: header.Authorization,
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(updatedGuideList),
       },
     )

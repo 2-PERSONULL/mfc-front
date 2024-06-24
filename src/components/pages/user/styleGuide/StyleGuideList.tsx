@@ -16,7 +16,13 @@ import StyleGuideAction from '@/components/pages/user/styleGuide/StyleGuideActio
 
 import StyleGuideInfo from '@/types/styleGuideTypes'
 
-export default function StyleGuideList({ data }: { data: StyleGuideInfo[] }) {
+export default function StyleGuideList({
+  data,
+  requestId,
+}: {
+  data: StyleGuideInfo[]
+  requestId: string
+}) {
   const [swiper, setSwiper] = useState<SwiperCore>()
   const [currentCard, setCurrentCard] = useState<number>(0)
 
@@ -74,7 +80,7 @@ export default function StyleGuideList({ data }: { data: StyleGuideInfo[] }) {
           </Swiper>
         </section>
       </div>
-      <StyleGuideAction />
+      <StyleGuideAction requestId={requestId} />
     </>
   )
 }

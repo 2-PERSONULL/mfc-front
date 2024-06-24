@@ -10,5 +10,5 @@ export default async function StyleGuidePage({
   const { requestId } = params
   const data = await getStyleGuide(requestId)
 
-  return <StyleGuideList data={data} />
+  return <StyleGuideList data={data} requestId={requestId} />
 }

@@ -4,19 +4,19 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import getChatRoomId from '@/actions/chat/Chatroom'
-import { getStyleGuide } from '@/actions/partner/Coordinates'
 
 export default function UserChatBoxButton({
+  isSubmit,
   status,
   requestId,
   partnerId,
 }: {
+  isSubmit: boolean
   status: string
   requestId: string
   partnerId: string
 }) {
   const [roomNumber, setRoomNumber] = useState<string>('')
-  const [isSubmit, setIsSubmit] = useState<boolean>(false)
 
   useEffect(() => {
     if (status === 'NONERESPONSE') return
@@ -27,14 +27,7 @@ export default function UserChatBoxButton({
       setRoomNumber(roomId)
     }
 
-    const getSubmitStatus = async () => {
-      const data = await getStyleGuide(requestId)
-      const submitStatus = !!data
-      setIsSubmit(submitStatus)
-    }
-
     getRoomId()
-    getSubmitStatus()
   }, [status])
 
   return (

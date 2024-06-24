@@ -6,36 +6,24 @@ import MoreButton from '@/components/ui/button/MoreButton'
 import useConfirm from '@/stores/confirm'
 import useToast from '@/stores/toast'
 import { deletePartnerPost } from '@/actions/partner/PartnerPost'
-import useModal from '@/stores/modal'
-import StyleEditor from './StyleEditor'
 import CircleProfile from '@/components/ui/avatar/CircleProfile'
 
 export default function PartnerPostTop({
   nickname,
   profileImage,
   postId,
-  imageUrl,
-  tags,
 }: {
   nickname: string
   profileImage: string
   postId: number
-  imageUrl: string
-  tags: string[]
 }) {
   const role = usePathname().startsWith('/partner') ? 'partner' : 'user'
-  const { showModal } = useModal()
   const { openConfirmModal } = useConfirm()
   const { showToast } = useToast()
   const router = useRouter()
 
   const editHandler = () => {
-    showModal({
-      title: '스타일 수정',
-      content: (
-        <StyleEditor postId={postId} imageUrl={imageUrl} tagList={tags} />
-      ),
-    })
+    router.push(`/partner/posts/${postId}?type=edit`)
   }
 
   const deleteHandler = async () => {
@@ -49,7 +37,7 @@ export default function PartnerPostTop({
       const result = await deletePartnerPost(postId)
       if (result.isSuccess) {
         showToast({ content: '삭제되었습니다.', type: 'success' })
-        router.push('/partner/mypage')
+        router.replace('/partner/mypage')
       }
     }
   }

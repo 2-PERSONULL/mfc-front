@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import getChatRoomId from '@/actions/chat/Chatroom'
-import { getStyleGuide } from '@/actions/partner/Coordinates'
 
 export default function PartnerChatBoxButton({
   status,
@@ -19,8 +18,8 @@ export default function PartnerChatBoxButton({
 }) {
   const [roomNumber, setRoomNumber] = useState<string>('')
   const [unreadMessage, setUnreadMessage] = useState<number>(0)
-  const [isSubmit, setIsSubmit] = useState<boolean>(false)
-  const availableStatus = ['CONFIRMED', 'CLOSING']
+  const isSubmit = status === 'COORDINATE_RECEIVED'
+  const availableStatus = ['CONFIRMED', 'COORDINATE_RECEIVED', 'CLOSING']
 
   useEffect(() => {
     if (status === 'NONERESPONSE') return
@@ -31,14 +30,7 @@ export default function PartnerChatBoxButton({
       setRoomNumber(roomId)
     }
 
-    const getSubmitStatus = async () => {
-      const data = await getStyleGuide(requestId)
-      const submitStatus = !!data
-      setIsSubmit(submitStatus)
-    }
-
     getRoomId()
-    getSubmitStatus()
   }, [status])
 
   return (
