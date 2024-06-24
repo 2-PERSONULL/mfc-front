@@ -19,7 +19,7 @@ export default function HomeBanner() {
   const [currentCard, setCurrentCard] = useState<number>(0)
 
   return (
-    <section className="mb-14">
+    <section className="mb-16">
       <Swiper
         spaceBetween={15}
         slidesPerView={1.3}
