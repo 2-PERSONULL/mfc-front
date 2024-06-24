@@ -5,5 +5,5 @@ export default function PartnerChatListLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <div>{children}</div>
+  return <main className="mt-[50px] mb-[120px]">{children}</main>
 }
