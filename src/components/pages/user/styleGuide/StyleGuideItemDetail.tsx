@@ -30,22 +30,15 @@ export default function StyleGuideItemDetail({
       </div>
 
       {/* 첨부 스타일 이미지 */}
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full items-center gap-10">
         {style.images.map((image, index) => (
-          <div
-            key={index}
-            className={`w-full h-[350px] ${index % 2 === 0 ? 'items-start' : 'items-end'}`}
-            style={{
-              display: 'flex',
-              justifyContent: index % 2 === 0 ? 'flex-start' : 'flex-end',
-            }}
-          >
+          <div key={index}>
             <Image
               src={image}
               alt={`스타일 이미지 ${index + 1}`}
               width={240}
               height={240}
-              className="object-contain"
+              className="object-cover"
             />
           </div>
         ))}

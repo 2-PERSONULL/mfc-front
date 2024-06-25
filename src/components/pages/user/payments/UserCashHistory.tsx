@@ -19,15 +19,17 @@ const initialDate = {
 
 const buttonList = [
   { name: '전체', value: 'all' },
-  { name: '적립', value: 'add' },
-  { name: '환전', value: 'exchange' },
+  { name: '충전', value: 'add' },
+  { name: '결제', value: 'pay' },
 ]
 
-export default function PartnerCashHistory({
-  settlementHistory,
+export default function UserCashHistory({
+  chargeHistory,
+  paymentHistory,
   isLast,
 }: {
-  settlementHistory: CashChargeHistoryType[]
+  chargeHistory: CashChargeHistoryType[]
+  paymentHistory: CashChargeHistoryType[]
   isLast: boolean
 }) {
   console.log(isLast)
@@ -36,13 +38,25 @@ export default function PartnerCashHistory({
   const [selectedType, setSelectedType] = useState<string>('all')
   const [selectedHistory, setSelectedHistory] = useState<
     CashChargeHistoryType[]
-  >([...settlementHistory])
+  >([...chargeHistory, ...paymentHistory])
 
   useEffect(() => {
-    if (selectedType === 'all') setSelectedHistory([...settlementHistory])
-    if (selectedType === 'add') setSelectedHistory([...settlementHistory])
-    if (selectedType === 'exchange') setSelectedHistory([])
+    if (selectedType === 'all')
+      setSelectedHistory([...chargeHistory, ...paymentHistory])
+    if (selectedType === 'add') setSelectedHistory(chargeHistory)
+    if (selectedType === 'pay') setSelectedHistory(paymentHistory)
   }, [selectedType])
+
+  useEffect(() => {
+    // selectedHistory를 paymentDate 를 기준으로 내림차순 정렬
+    setSelectedHistory((prev) =>
+      prev.sort((a, b) => {
+        return (
+          new Date(b.paymentDate).getTime() - new Date(a.paymentDate).getTime()
+        )
+      }),
+    )
+  }, [selectedHistory])
 
   return (
     <>
@@ -88,9 +102,6 @@ export default function PartnerCashHistory({
 
         <div className="flex-grow overflow-y-auto no-scrollbar mb-10">
           <hr className="border-2 border-black mb-4" />
-          {selectedHistory.length === 0 && (
-            <div className="mt-10 text-center">조회 내역이 없습니다.</div>
-          )}
           <ul>
             {selectedHistory.map((history, index) => (
               <li
@@ -98,14 +109,15 @@ export default function PartnerCashHistory({
                 className="px-2 py-4 flex items-center justify-between border-b border-b-gray-200"
               >
                 <div className="flex flex-col">
-                  <h1 className="text-[17px] ">캐시적립</h1>
+                  <h1 className="text-[17px] ">
+                    {history.paymentStatus === 'PAID' ? '캐시충전' : '코디결제'}
+                  </h1>
                   <div className="text-[14px]">
-                    {' '}
                     {convertToKorWithTime(history.paymentDate)}
                   </div>
                 </div>
                 <div className="text-[17px] font-semibold">
-                  {history.paymentStatus === 'SETTLEMENT' ? '+' : '-'}
+                  {history.paymentStatus === 'PAID' ? '+' : '-'}
                   {history.amount.toLocaleString()}
                 </div>
               </li>

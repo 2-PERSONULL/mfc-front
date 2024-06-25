@@ -18,9 +18,11 @@ import BottomFixedTransButton from '@/components/ui/button/BottomFixedTransButto
 export default function StyleGuideList({
   data,
   requestId,
+  status,
 }: {
   data: StyleGuideInfo[]
   requestId: string
+  status: string
 }) {
   const [swiper, setSwiper] = useState<SwiperCore>()
   const [currentCard, setCurrentCard] = useState<number>(0)
@@ -61,7 +63,7 @@ export default function StyleGuideList({
         </Swiper>
 
         {/* 선택된 아이템 */}
-        <section className="w-full px-6 mt-5">
+        <section className="w-full px-6 mt-10">
           <Swiper
             spaceBetween={100}
             slidesPerView={1}
@@ -77,10 +79,12 @@ export default function StyleGuideList({
           </Swiper>
         </section>
       </div>
-      <BottomFixedTransButton
-        title="수정하기"
-        link={`/partner/styleguide/${requestId}?type=edit`}
-      />
+      {status !== 'CLOSED' && (
+        <BottomFixedTransButton
+          title="수정하기"
+          link={`/partner/styleguide/${requestId}?type=edit`}
+        />
+      )}
     </>
   )
 }

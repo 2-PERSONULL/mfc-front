@@ -18,7 +18,7 @@ const UserMyPageMenuData: MenuType[] = [
   },
   {
     id: 4,
-    title: '결제 내역',
+    title: '결제 관리',
     url: '/user/mypage/paymentlist',
   },
   {

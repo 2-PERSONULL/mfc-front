@@ -12,13 +12,17 @@ export default async function PartnerStyleGuidePage({
 }) {
   const { requestId } = params
   const type = searchParams?.type
-
+  const status = searchParams?.status
   const data = await getStyleGuide(requestId)
 
   return (
     <main>
       {type === 'view' ? (
-        <StyleGuideViewer data={data} requestId={requestId} />
+        <StyleGuideViewer
+          data={data}
+          requestId={requestId}
+          status={status || ''}
+        />
       ) : (
         <StyleGuideEditor requestId={requestId} editData={data} />
       )}

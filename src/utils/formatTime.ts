@@ -80,6 +80,12 @@ const formatRequestDate = (dateString: string): string => {
   return date.toISOString().split('T')[0]
 }
 
+const convertToKorWithTime = (dateString: string): string => {
+  const date = new Date(dateString)
+  date.setHours(date.getHours() + 9) // Assuming UTC to KST conversion (+9 hours)
+  return `${date.toISOString().split('T')[0]} ${date.toTimeString().split(' ')[0].substring(0, 5)}`
+}
+
 export {
   formatTime,
   formatChatTime,
@@ -87,4 +93,5 @@ export {
   formatCareerPeriod,
   formatDday,
   formatRequestDate,
+  convertToKorWithTime,
 }

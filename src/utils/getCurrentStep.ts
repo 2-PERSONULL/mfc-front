@@ -10,6 +10,8 @@ const getCurrentStep = (status: string) => {
       return 3
     case 'COORDINATE_RECEIVED':
       return 4
+    case 'CLOSED':
+      return 4
     default:
       return 0
   }

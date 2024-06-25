@@ -1,6 +1,8 @@
+'use client'
+
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import BottomFixedButton from '@/components/ui/button/BottomFixedButton'
 import usePayment from '@/hooks/usePayment'
 
@@ -8,9 +10,10 @@ export default function CashCharge({
   closeModal,
   cashBalance,
 }: {
-  closeModal: () => void
+  closeModal?: () => void
   cashBalance: number
 }) {
+  const router = useRouter()
   const callbackUrl = usePathname()
   const confirmId = useSearchParams().get('confirmId')
   const amount = useSearchParams().get('amount')
@@ -147,7 +150,7 @@ export default function CashCharge({
           requestPayment(
             chargeAmount,
             payMethod,
-            closeModal,
+            closeModal || (() => router.replace('/user/mypage/paymentlist')),
             `${callbackUrl}?confirmId=${confirmId}&amount=${amount}&roomId=${roomId}`,
           )
         }
