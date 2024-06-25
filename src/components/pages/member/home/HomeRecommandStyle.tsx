@@ -10,7 +10,7 @@ import { EffectCards, Pagination } from 'swiper/modules'
 import Image from 'next/image'
 import HomeSectionTitle from './HomeSectionTitle'
 
-interface RecommendPostType {
+export interface RecommendPostType {
   postId: number
   partnerId: string
   profileImage: string

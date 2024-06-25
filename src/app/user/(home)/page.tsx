@@ -1,17 +1,19 @@
 import React from 'react'
+import { getSession } from 'next-auth/react'
 import HomeBanner from '@/components/pages/member/home/HomeBanner'
 import HomePartnerPosts from '@/components/pages/member/home/HomePartnerPosts'
 import HomeRecommandStyle from '@/components/pages/member/home/HomeRecommandStyle'
 import HomeEventSection from '@/components/pages/member/home/HomeEventSection'
 import { getUserInfo } from '@/actions/user/UserProfile'
 import HomeTipSection from '@/components/pages/member/home/HomeTipSection'
-// import { getFetchHeader } from '@/utils/getFetchHeader'
 import {
   getPartnerPostBasedOnStyle,
   getPostsFollwedPartners,
 } from '@/actions/user/UserHome'
 
 export default async function UserHome() {
+  const session = await getSession()
+  console.log(session)
   const { nickname } = await getUserInfo()
   // const userInfo = await getFetchHeader()
   const { posts } = await getPostsFollwedPartners()

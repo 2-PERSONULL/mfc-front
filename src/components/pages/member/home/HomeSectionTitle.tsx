@@ -4,7 +4,7 @@ export default function HomeSectionTitle({
   username,
   text,
 }: {
-  username: string
+  username?: string
   text: string
 }) {
   return (

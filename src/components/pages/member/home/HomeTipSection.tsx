@@ -3,7 +3,7 @@ import Image from 'next/image'
 import HomeSectionTitle from './HomeSectionTitle'
 import DummyTips from '@/libs/tipData'
 
-export default function HomeEventSection({ username }: { username: string }) {
+export default function HomeEventSection({ username }: { username?: string }) {
   return (
     <section className="px-5 w-full min-h-full">
       <HomeSectionTitle username={username} text="님을 위한 소식" />
