@@ -5,21 +5,25 @@ export default function HomeEventSection() {
   return (
     <section className="px-5 w-full min-h-full">
       <p className="text-2xl text-start font-semibold pt-8 pb-2">
-        (유저 명)님을 위한 꿀팁
+        진행 중인 이벤트
       </p>
-      <div className="relative">
+      <figure className="relative w-full h-[300px]">
         <Image
-          src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/event-image/event-image-01.svg"
+          src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/event-image/event-image.svg"
           alt="event"
-          width={0}
-          height={0}
-          style={{ width: 'auto', height: 'auto' }}
-          className="relative"
+          fill
+          objectFit="cover"
+          className="relative rounded-lg"
         />
-        <p className="absolute text-white top-10 left-5 text-7xl font-bold">
-          신발, <br /> 어떻게 <br /> 관리해?
-        </p>
-      </div>
+        <section className="absolute shadow-xl rounded-b-lg bottom-0 w-full h-[80px] bg-white">
+          <p className="text-lg text-start font-semibold pt-3 pl-5">
+            MFC 오픈 기념 이벤트
+          </p>
+          <p className="text-sm text-start font-semibold pl-5 text-gray-500">
+            2024.07.01 ~ 2024.07.04
+          </p>
+        </section>
+      </figure>
     </section>
   )
 }

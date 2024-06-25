@@ -19,7 +19,7 @@ export default function HomeBanner() {
   const [currentCard, setCurrentCard] = useState<number>(0)
 
   return (
-    <section className="mb-16">
+    <section className="relative mb-10">
       <Swiper
         spaceBetween={15}
         slidesPerView={1.3}
@@ -37,9 +37,9 @@ export default function HomeBanner() {
       >
         {sampleBanner?.map((item, index) => {
           return (
-            <SwiperSlide key={index} className="banner min-h-[350px] mt-8">
+            <SwiperSlide key={index} className="banner min-h-[430px] mt-4">
               <div
-                className={`${currentCard === index ? 'h-[350px]' : 'h-[300px]'} rounded-[20px] w-full relative overflow-hidden`}
+                className={`${currentCard === index ? 'h-[430px]' : 'h-[350px]'} rounded-[20px] w-full relative overflow-hidden`}
               >
                 <Image
                   src={item}
@@ -53,7 +53,7 @@ export default function HomeBanner() {
           )
         })}
       </Swiper>
-      <div className="absolute top-10 h-[220px] w-full bg-black mt-[230px]" />
+      <div className="absolute top-5 h-[220px] w-full bg-black mt-[230px]" />
     </section>
   )
 }

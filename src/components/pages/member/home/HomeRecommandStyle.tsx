@@ -20,10 +20,10 @@ export default function HomeRecommandStyle() {
         grabCursor
         modules={[EffectCards, Pagination]}
         pagination
-        className="recommend-style absolute w-full"
+        className="recommend-style absolute w-full rounded-lg"
         style={{ overflow: 'hidden' }}
       >
-        <SwiperSlide className="swiper-slide relative min-h-[400px]">
+        <SwiperSlide className="swiper-slide relative min-h-[400px] rounded-lg">
           <div className="absolute bg-black top-0 right-0 bottom-0 left-0 z-[1] opacity-40" />
           <Image
             src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/style/1717317075010"
@@ -42,7 +42,7 @@ export default function HomeRecommandStyle() {
             </div>
           </div>
         </SwiperSlide>
-        <SwiperSlide className="relative min-h-[400px]">
+        <SwiperSlide className="relative min-h-[400px] rounded-lg">
           <div className="absolute bg-black top-0 right-0 bottom-0 left-0 z-10 opacity-45" />
           <Image
             src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/favorite-style/casual.jpg"
@@ -51,7 +51,7 @@ export default function HomeRecommandStyle() {
             alt="style"
           />
         </SwiperSlide>
-        <SwiperSlide className="min-h-[400px]">
+        <SwiperSlide className="min-h-[400px] rounded-lg">
           <Image
             src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/favorite-style/classic.jpg"
             objectFit="cover"
@@ -59,7 +59,7 @@ export default function HomeRecommandStyle() {
             alt="style"
           />
         </SwiperSlide>
-        <SwiperSlide className="min-h-[400px]">
+        <SwiperSlide className="min-h-[400px] rounded-lg">
           <Image
             src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/favorite-style/highteen.jpg"
             objectFit="cover"
@@ -67,7 +67,7 @@ export default function HomeRecommandStyle() {
             alt="style"
           />
         </SwiperSlide>
-        <SwiperSlide className="min-h-[400px]">
+        <SwiperSlide className="min-h-[400px] rounded-lg">
           <Image
             src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/favorite-style/sporty.jpg"
             objectFit="cover"
