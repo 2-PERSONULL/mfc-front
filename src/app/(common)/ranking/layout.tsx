@@ -1,6 +1,6 @@
 import React from 'react'
-import BottomNav from '@/components/layouts/BottomNav'
 import CommonHeader from '@/components/layouts/CommonHeader'
+import BottomNav from '@/components/layouts/BottomNav'
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (

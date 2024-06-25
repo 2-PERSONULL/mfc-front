@@ -2,10 +2,10 @@
 
 import { BaseResponseType } from '@/types/baseResponseType'
 import { UserBodyInfoType, UserClothesSizeInfoType } from '@/types/userInfoType'
-import { UserProfile } from '@/types/userProfileType'
+// import { UserProfile } from '@/types/userProfileType'
 import { getFetchHeader } from '@/utils/getFetchHeader'
 
-const getUserInfo = async (): Promise<UserProfile | undefined> => {
+const getUserInfo = async () => {
   const header = await getFetchHeader()
   if (!header) {
     console.log('session not found')
@@ -23,9 +23,9 @@ const getUserInfo = async (): Promise<UserProfile | undefined> => {
         },
       },
     )
-    const data: BaseResponseType = await response.json()
+    const data = await response.json()
     if (data.isSuccess) {
-      return data.result as UserProfile
+      return data.result
     }
   } catch (error) {
     console.error('Failed to get user info', error)

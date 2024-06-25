@@ -1,31 +1,38 @@
 import React from 'react'
 import Image from 'next/image'
+import HomeSectionTitle from './HomeSectionTitle'
+import DummyTips from '@/libs/tipData'
 
-export default function HomeEventSection({
-  title,
-  imageUrl,
-  text,
-}: {
-  title: string
-  imageUrl: string
-  text: string
-}) {
+export default function HomeEventSection({ username }: { username?: string }) {
   return (
     <section className="px-5 w-full min-h-full">
-      <p className="text-2xl text-start font-semibold pt-8 pb-2">{title}</p>
-      <div className="relative w-full">
-        <Image
-          src={imageUrl}
-          alt="event"
-          width={0}
-          height={0}
-          style={{ width: 'auto', height: 'auto' }}
-          className="relative rounded-lg"
-        />
-        <p className="absolute text-white top-10 left-5 text-7xl font-bold">
-          {text}
-        </p>
-      </div>
+      <HomeSectionTitle username={username} text="님을 위한 소식" />
+      <ul className="flex flex-col gap-5 pt-3">
+        {DummyTips.map((tip) => (
+          <>
+            <li
+              key={tip.id}
+              className="flex flex-row items-center justify-between gap-3"
+            >
+              <Image
+                src={tip.imageUrl}
+                alt={tip.title}
+                width={100}
+                height={100}
+              />
+              <div className="flex flex-col gap-5 items-start justify-center">
+                <h3 className="font-bold">{tip.title}</h3>
+                <p className="text-xs text-wrap">
+                  {tip.context.length > 50
+                    ? `${tip.context.substring(0, 50)}...`
+                    : tip.context}
+                </p>
+              </div>
+            </li>
+            <div className="bg-gray-200 w-full h-[2px]" />
+          </>
+        ))}
+      </ul>
     </section>
   )
 }
