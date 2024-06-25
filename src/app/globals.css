@@ -260,3 +260,18 @@ input[type='radio']:focus {
   font-size: 1.1rem !important;
   font-weight: 600 !important;
 }
+.banner .swiper-slide {
+  display: flex;
+  align-items: center;
+}
+
+.swiper-pagination {
+  top: 10px;
+  right: 10px;
+  width: auto !important;
+  left: auto !important;
+  margin: 0;
+}
+.recommend-style .swiper-pagination-bullet-active {
+  background: white;
+}
