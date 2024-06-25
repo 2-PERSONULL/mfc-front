@@ -3,7 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import CircularProgressBar from '@tomickigrzegorz/react-circular-progress-bar'
+import { CircularProgressBar } from '@tomickigrzegorz/react-circular-progress-bar'
 
 export default function ProfileProgress({
   progressPercent,
