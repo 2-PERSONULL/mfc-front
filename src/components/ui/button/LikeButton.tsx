@@ -23,17 +23,10 @@ export default function LikeButton({
   }
 
   if (role === 'partner')
-    return (
-      <Image
-        src={`${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}icon/heart.svg`}
-        alt="edit icon"
-        width={25}
-        height={25}
-      />
-    )
+    return <span className="font-semibold">좋아요 {likeNum}개</span>
 
   return (
-    <section className="w-full h-[55px] px-5 p-3 flex items-center">
+    <>
       <button
         type="button"
         onClick={onClickHandler}
@@ -49,6 +42,6 @@ export default function LikeButton({
         />
       </button>
       <span className="ml-3 font-semibold">좋아요 {likeNum}개</span>
-    </section>
+    </>
   )
 }
