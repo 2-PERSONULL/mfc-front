@@ -265,7 +265,7 @@ input[type='radio']:focus {
   align-items: center;
 }
 
-.swiper-pagination {
+.recommend-style .swiper-pagination {
   top: 10px;
   right: 10px;
   width: auto !important;
@@ -274,4 +274,24 @@ input[type='radio']:focus {
 }
 .recommend-style .swiper-pagination-bullet-active {
   background: white;
+}
+
+.style-gude-swiper .swiper-pagination-fraction {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 50px;
+  height: 22px;
+
+  display: inline;
+  align-content: center;
+}
+.style-gude-swiper .swiper-pagination-bullet-active {
+  border: 1px solid black;
+  background: black;
+}
+
+.style-gude-swiper .swiper-pagination-bullet {
+  border: 1px solid black;
 }

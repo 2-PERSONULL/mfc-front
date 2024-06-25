@@ -1,25 +1,32 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 import PricePad from '@/components/pages/partner/mypage/cash/PricePad'
 import useToast from '@/stores/toast'
+import settlement from '@/actions/partner/Cash'
 
-export default function PartnerExchangeCash() {
+export default function PartnerExchangeCash({
+  balance,
+  bank,
+  accountNumber,
+}: {
+  balance: number
+  bank: string
+  accountNumber: string
+}) {
   const { showToast } = useToast()
 
-  const [balance, setBalance] = useState<number>(0)
   const [exchangeable, setExchangeable] = useState<number>(0)
   const [amount, setAmount] = useState<number | null>(null)
 
   useEffect(() => {
-    // api 호출해서 balance, exchangeable 값 가져오기
-    // setBalance(100000)
-    // setExchangeable(50000)
-    setBalance(100000)
-    setExchangeable(50000)
-  }, [])
+    // balance를 1000원 단위로 환전 가능
+    setExchangeable(Math.floor(balance / 1000) * 1000)
+  }, [balance])
 
-  const clickHandler = () => {
+  const clickHandler = async () => {
     if (amount === null) return
     if (exchangeable < amount) {
       showToast({
@@ -29,6 +36,8 @@ export default function PartnerExchangeCash() {
     }
 
     // 환전 로직 api
+    const response = await settlement(amount, accountNumber, bank)
+    console.log(response)
   }
 
   const clickNumber = (num: string) => {
@@ -67,15 +76,35 @@ export default function PartnerExchangeCash() {
       <div className="flex  items-center justify-around gap-5 bg-white px-6 mt-3 mb-6">
         <div className="flex flex-col justify-center bg-gray-100 w-full h-[100px] rounded-[14px] p-3">
           <h1 className="font-medium text-gray-500 ">보유 캐시</h1>
-          <span className="font-bold text-lg">{balance}</span>
+          <span className="font-bold text-lg">{balance.toLocaleString()}</span>
         </div>
         <div className="flex flex-col justify-center bg-gray-100 w-full h-[100px] rounded-[14px] p-3">
           <h1 className="font-medium text-gray-500 ">환전 가능한 캐시</h1>
-          <span className="font-bold text-lg">{exchangeable}</span>
+          <span className="font-bold text-lg">
+            {exchangeable.toLocaleString()}
+          </span>
         </div>
       </div>
 
       <div className="flex flex-col gap-2 px-6">
+        {!bank ||
+          (!accountNumber && (
+            <div className="flex flex-col justify-center w-full h-[60px] rounded-[14px] mb-6 gap-2">
+              정산 계좌 정보를 먼저 등록해주세요 :)
+              <Link
+                href="/partner/management/cash/bankaccount"
+                className="flex items-center bg-gray-100 h-[55px] pl-5 py-3 rounded-[13px] text-gray-500 font-semibold"
+              >
+                <span>등록하러가기 </span>
+                <Image
+                  src="/icons/list-arrow.svg"
+                  alt="arrow-icon"
+                  width={24}
+                  height={24}
+                />
+              </Link>
+            </div>
+          ))}
         <div className="text-sm font-medium text-gray-500">내 정산 계좌로</div>
         {amount ? (
           <>

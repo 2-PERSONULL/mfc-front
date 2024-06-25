@@ -20,7 +20,7 @@ export default function UserChatBoxButton({
   const [unreadMessage, setUnreadMessage] = useState<number>(0)
 
   useEffect(() => {
-    if (status === 'NONERESPONSE') return
+    if (status === 'NONERESPONSE' || status === 'RESPONSEREJECT') return
 
     const getRoomId = async () => {
       const { roomId, unreadCount } = await getChatRoomId(requestId, partnerId)
@@ -32,9 +32,13 @@ export default function UserChatBoxButton({
     getRoomId()
   }, [status])
 
+  const isBefore = () => {
+    return status === 'NONERESPONSE' || status === 'RESPONSEREJECT'
+  }
+
   return (
     <div className="h-[50px] w-full border-t">
-      {status === 'NONERESPONSE' ? (
+      {isBefore() ? (
         <Link
           href={`/user/mypage/reqlist/${requestId}?type=view`}
           className="h-full flex items-center justify-center"
@@ -45,13 +49,13 @@ export default function UserChatBoxButton({
         <div className="h-full flex items-center justify-around">
           <Link
             href={`/user/mypage/reqlist/${requestId}?type=view`}
-            className="flex justify-center items-center border-r basis-1/3 h-full"
+            className={`flex justify-center items-center border-r ${isSubmit ? 'basis-1/3' : 'basis-1/2'} h-full`}
           >
             요청 상세보기
           </Link>
           {isSubmit && (
             <Link
-              href={`/user/styleguide/${requestId}`}
+              href={`/user/styleguide/${requestId}?status=${status}`}
               className="flex justify-center items-center border-r basis-1/3 h-full"
             >
               코디

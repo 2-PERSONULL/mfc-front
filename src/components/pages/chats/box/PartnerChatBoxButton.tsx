@@ -18,8 +18,8 @@ export default function PartnerChatBoxButton({
 }) {
   const [roomNumber, setRoomNumber] = useState<string>('')
   const [unreadMessage, setUnreadMessage] = useState<number>(0)
-  const isSubmit = status === 'COORDINATE_RECEIVED'
-  const availableStatus = ['CONFIRMED', 'COORDINATE_RECEIVED', 'CLOSING']
+  const isSubmit = status === 'COORDINATE_RECEIVED' || status === 'CLOSED'
+  const availableStatus = ['CONFIRMED', 'COORDINATE_RECEIVED', 'CLOSED']
 
   useEffect(() => {
     if (status === 'NONERESPONSE') return
@@ -52,7 +52,7 @@ export default function PartnerChatBoxButton({
           </Link>
           {availableStatus.includes(status) && (
             <Link
-              href={`/partner/styleguide/${requestId}?type=${isSubmit ? 'view' : 'new'}`}
+              href={`/partner/styleguide/${requestId}?type=${isSubmit ? 'view' : 'new'}&status=${status}`}
               className="flex justify-center items-center border-r basis-1/3 h-full"
             >
               코디

@@ -11,6 +11,9 @@ export default function PartnerChatBox({
 }: {
   requestData: PartnerChatListType
 }) {
+  const isSubmit =
+    requestData.status === 'COORDINATE_RECEIVED' ||
+    requestData.status === 'CLOSED'
   const steps = ['요청', '거래대기', '거래확정', '코디완료']
 
   return (
@@ -27,9 +30,21 @@ export default function PartnerChatBox({
               <span>{requestData.userAge}</span>
             </div>
           </div>
-          <p className="text-gray-700 font-bold text-[25px] absolute right-4">
-            {formatDday(requestData.deadline)}
-          </p>
+          {requestData.status === 'COORDINATE_RECEIVED' && (
+            <p className="text-[14px] text-gray-600 ml-2 absolute right-4 bg-gray-100 rounded-xl px-3 py-2">
+              확정대기
+            </p>
+          )}
+          {requestData.status === 'CLOSED' && (
+            <p className="text-[14px] text-gray-600 ml-2 absolute right-4 bg-gray-100 rounded-xl px-3 py-2">
+              확정완료
+            </p>
+          )}
+          {!isSubmit && (
+            <p className="text-gray-700 font-bold text-[25px] absolute right-4">
+              {formatDday(requestData.deadline)}
+            </p>
+          )}
         </section>
 
         {/* 진행률 */}

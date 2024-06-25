@@ -23,7 +23,6 @@ export default function ConfirmPayment({
   cashBalance: number
   partnerId: string
 }) {
-  console.log(partnerId)
   const { showToast } = useToast()
   const router = useRouter()
 

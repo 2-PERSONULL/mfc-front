@@ -34,6 +34,10 @@ export default function MyPageLayout({
     title = '신규 요청서 작성'
   } else if (search.endsWith('editrequest')) {
     title = '요청서 수정'
+  } else if (search.endsWith('paymentlist')) {
+    title = '결제 관리'
+  } else if (search.endsWith('charge')) {
+    title = '캐시 충전'
   } else if (search.includes('reqlist/') && /\/reqlist\/\d+$/.test(search)) {
     title = '요청서 상세'
   }

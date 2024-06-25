@@ -2,11 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function PartnerCashBalanceBox({
-  balance,
-}: {
-  balance: number
-}) {
+export default function UserBalanceBox({ balance }: { balance: number }) {
   return (
     <section className="p-4 border-b-2 border-b-gray-200">
       <div className="flex items-center justify-around">
@@ -21,10 +17,10 @@ export default function PartnerCashBalanceBox({
       </div>
       <div className="flex justify-center mb-4">
         <Link
-          href="/partner/management/cash/exchange"
+          href="/user/mypage/charge"
           className="bg-black w-[80vw] h-[50px] rounded-full text-[17px] text-white font-bold flex items-center justify-center"
         >
-          <span> 환전하기</span>
+          <span>충전하기</span>
         </Link>
       </div>
     </section>

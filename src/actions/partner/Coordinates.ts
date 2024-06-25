@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidateTag } from 'next/cache'
 import { getFetchHeader } from '@/utils/getFetchHeader'
 import StyleGuideInfo from '@/types/styleGuideTypes'
 
@@ -39,6 +40,7 @@ export default async function submitStyleGuide(
 
     const data = await response.json()
     if (!data.isSuccess) console.log('submit style error:', data)
+    revalidateTag('user-chatList')
     return data
   } catch (error) {
     console.log(error)

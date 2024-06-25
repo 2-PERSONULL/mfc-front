@@ -115,13 +115,12 @@ export async function checkPayment(value: number, paymentId: string) {
   return 400
 }
 
+// 코디네이팅 결제 로직(캐시 차감)
 export async function payCoordinating(
   requestId: string,
   partnerUuid: string,
   amount: number,
 ) {
-  // 코디네이팅 결제 로직(캐시 차감)
-
   const header = await getFetchHeader()
 
   if (!header) {
@@ -152,4 +151,60 @@ export async function payCoordinating(
     console.log('Failed to pay coordinating', data)
   }
   return data
+}
+
+// 캐시 충전 내역 조회
+export async function getChargeHistory() {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return
+  }
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment-service/payment/history`,
+    {
+      headers: {
+        uuid: header.UUID,
+        Authorization: `${header.Authorization}`,
+        'Content-Type': 'application/json',
+      },
+    },
+  )
+  const data = await response.json()
+  if (data.isSuccess) {
+    return data.result.paymentResponses
+  }
+  console.log('Failed to get payment history', data)
+}
+
+// 캐시 사용내역 조회
+export async function getPaymentHistory(
+  status: string,
+  month: string,
+  page: number,
+) {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return
+  }
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment-service/cash/history?status=${status}&month=${month}&page=${page}`,
+    {
+      headers: {
+        uuid: header.UUID,
+        Authorization: `${header.Authorization}`,
+        'Content-Type': 'application/json',
+      },
+    },
+  )
+  const data = await response.json()
+  if (data.isSuccess) {
+    return data.result
+  }
+  console.log('Failed to get payment history', data)
 }

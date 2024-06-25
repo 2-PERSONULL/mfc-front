@@ -43,7 +43,9 @@ const usePayment = () => {
       const validation = await checkPayment(amount, response?.paymentId ?? '')
       if (validation === 200) {
         showToast({ content: '결제가 완료되었습니다.', type: 'success' })
+
         closeModal()
+
         return
       }
       showToast({ content: '결제에 실패했습니다.', type: 'error' })

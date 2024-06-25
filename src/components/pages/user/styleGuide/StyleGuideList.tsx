@@ -19,9 +19,11 @@ import StyleGuideInfo from '@/types/styleGuideTypes'
 export default function StyleGuideList({
   data,
   requestId,
+  status,
 }: {
   data: StyleGuideInfo[]
   requestId: string
+  status?: string
 }) {
   const [swiper, setSwiper] = useState<SwiperCore>()
   const [currentCard, setCurrentCard] = useState<number>(0)
@@ -80,7 +82,7 @@ export default function StyleGuideList({
           </Swiper>
         </section>
       </div>
-      <StyleGuideAction requestId={requestId} />
+      {status !== 'CLOSED' && <StyleGuideAction requestId={requestId} />}
     </>
   )
 }

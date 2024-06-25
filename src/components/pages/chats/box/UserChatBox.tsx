@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import CircleProfile from '@/components/ui/avatar/CircleProfile'
 import Steps from '@/components/ui/step/Step'
-import { formatDday, formatRequestDate } from '@/utils/formatTime'
+import { formatRequestDate } from '@/utils/formatTime'
 import getCurrentStep from '@/utils/getCurrentStep'
 import UserChatBoxButton from '@/components/pages/chats/box/UserChatBoxButton'
 import { PartnerChatListType } from '@/types/requestType'
 import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
+import UserChatBoxStatus from '@/components/pages/chats/box/UserChatBoxStatus'
 
 export default function UserChatBox({
   requestData,
 }: {
   requestData: PartnerChatListType
 }) {
-  const isSubmit = requestData.status === 'COORDINATE_RECEIVED'
+  const isSubmit =
+    requestData.status === 'COORDINATE_RECEIVED' ||
+    requestData.status === 'CLOSED'
+
   const [partnerNickname, setPartnerNickname] = useState<string>('')
   const [partnerImageUrl, setPartnerImageUrl] = useState<string>('')
   const steps = ['요청', '거래대기', '거래확정', '코디완료']
@@ -36,9 +40,11 @@ export default function UserChatBox({
           <CircleProfile size={50} imageUrl={partnerImageUrl} />
           <h1 className="ml-2 font-semibold">{partnerNickname}</h1>
 
-          <p className="text-gray-700 font-bold text-[25px] absolute right-4">
-            {formatDday(requestData.deadline)}
-          </p>
+          {/* 요청상태 */}
+          <UserChatBoxStatus
+            status={requestData.status}
+            deadline={requestData.deadline}
+          />
         </section>
 
         {/* 진행률 */}
