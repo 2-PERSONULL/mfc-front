@@ -14,17 +14,26 @@ import {
 export default async function UserHome() {
   const session = await getSession()
   console.log(session)
-  const { nickname } = await getUserInfo()
+  const { nickname } = (await getUserInfo()) || {}
   // const userInfo = await getFetchHeader()
-  const { posts } = await getPostsFollwedPartners()
-  const recommendPosts = await getPartnerPostBasedOnStyle()
+  const { posts } = (await getPostsFollwedPartners()) || {}
+  const recommendPosts = (await getPartnerPostBasedOnStyle()) || {}
   // console.log(recommendPosts)
+  // const nonSignInP
 
   return (
     <main className="w-full min-h-dvh mb-[8rem]">
       <HomeBanner />
-      <HomePartnerPosts posts={posts} username={nickname} />
-      <HomeRecommandStyle posts={recommendPosts.posts} username={nickname} />
+      {nickname &&
+      posts &&
+      Object.keys(nickname).length > 0 &&
+      Object.keys(posts).length > 0 ? (
+        <HomePartnerPosts posts={posts} username={nickname} />
+      ) : null}
+      <HomeRecommandStyle
+        posts={recommendPosts?.posts || []}
+        username={nickname}
+      />
       <HomeTipSection username={nickname} />
       <HomeEventSection />
     </main>
