@@ -295,3 +295,17 @@ input[type='radio']:focus {
 .style-gude-swiper .swiper-pagination-bullet {
   border: 1px solid black;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 5s;
+}
