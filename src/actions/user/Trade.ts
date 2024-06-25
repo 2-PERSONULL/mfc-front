@@ -14,7 +14,7 @@ export default async function confirmTrade(requestId: string) {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/trade/${requestId}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/trade/user/${requestId}`,
       {
         method: 'PUT',
         headers: {

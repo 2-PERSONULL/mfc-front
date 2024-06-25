@@ -57,7 +57,7 @@ export async function updateLikeStatus(postId: number, method: string) {
     if (data.isSuccess) {
       revalidateTag('like')
     }
-    console.log(data)
+
     return data
   } catch (error) {
     console.log(error)

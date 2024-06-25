@@ -21,7 +21,7 @@ export default async function getChatRoomId(
         ...header,
         partnerId,
       },
-      next: { revalidate: 30 },
+      next: { revalidate: 3 },
     },
   )
 
