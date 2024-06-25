@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import SwiperCore from 'swiper'
@@ -12,9 +11,9 @@ import 'swiper/css/navigation'
 
 import StyleGuideItem from '@/components/pages/user/styleGuide/StyleGuideItem'
 import StyleGuideItemDetail from '@/components/pages/user/styleGuide/StyleGuideItemDetail'
-import StyleGuideAction from '@/components/pages/user/styleGuide/StyleGuideAction'
 
 import StyleGuideInfo from '@/types/styleGuideTypes'
+import BottomFixedTransButton from '@/components/ui/button/BottomFixedTransButton'
 
 export default function StyleGuideList({
   data,
@@ -26,6 +25,10 @@ export default function StyleGuideList({
   const [swiper, setSwiper] = useState<SwiperCore>()
   const [currentCard, setCurrentCard] = useState<number>(0)
 
+  // const editHandler = () => {
+  //   console.log('editHandler')
+  // }
+
   const handleSelect = (index: number) => {
     setCurrentCard(index)
     swiper?.slideTo(index, 500)
@@ -33,7 +36,7 @@ export default function StyleGuideList({
 
   return (
     <>
-      <div className="p-3 pb-[160px]">
+      <div className="p-3 pb-[120px]">
         <Swiper
           spaceBetween={10}
           slidesPerView={1.5}
@@ -56,12 +59,6 @@ export default function StyleGuideList({
             )
           })}
         </Swiper>
-        <Image
-          src={`/icons/look${currentCard + 1}.svg`}
-          alt="dd"
-          width={250}
-          height={250}
-        />
 
         {/* 선택된 아이템 */}
         <section className="w-full px-6 mt-5">
@@ -80,7 +77,10 @@ export default function StyleGuideList({
           </Swiper>
         </section>
       </div>
-      <StyleGuideAction requestId={requestId} />
+      <BottomFixedTransButton
+        title="수정하기"
+        link={`/partner/styleguide/${requestId}?type=edit`}
+      />
     </>
   )
 }

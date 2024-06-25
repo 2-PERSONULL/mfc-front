@@ -63,6 +63,11 @@ const formatDday = (date: string): string => {
   const targetDate = new Date(date)
   const diff = targetDate.getTime() - today.getTime()
   const diffDays = Math.ceil(diff / (1000 * 3600 * 24))
+
+  if (diffDays < 0) {
+    return `D+${Math.abs(diffDays)}`
+  }
+
   if (diffDays === 0) {
     return 'D-day'
   }

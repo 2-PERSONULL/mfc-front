@@ -9,7 +9,6 @@ import {
   updatePartnerPost,
 } from '@/actions/partner/PartnerPost'
 import useToast from '@/stores/toast'
-import useModal from '@/stores/modal'
 
 export default function StyleEditor({
   postId,
@@ -22,11 +21,10 @@ export default function StyleEditor({
 }) {
   const router = useRouter()
   const { showToast } = useToast()
-  const { closeModal } = useModal()
   const [image, setImage] = useState<string | null>(imageUrl || null)
   const [tags, setTags] = useState<string[]>(tagList || [])
 
-  const uploadStyle = (event: React.FormEvent<HTMLFormElement>) => {
+  const uploadStyle = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!image) {
       showToast({ content: '이미지를 업로드해주세요.', type: 'warning' })
@@ -35,16 +33,20 @@ export default function StyleEditor({
 
     if (postId) {
       // *** return 예외 처리 추가
-      updatePartnerPost(postId, image, tags)
-      // *** content, type 메시지 백엔드에서 받아서 처리하는 것을 추천
+
+      await updatePartnerPost(postId, image, tags)
+
+      // // *** content, type 메시지 백엔드에서 받아서 처리하는 것을 추천
       showToast({ content: '스타일이 수정되었습니다.', type: 'success' })
-      closeModal()
+      router.replace(`/partner/posts/${postId}`)
       return
     }
 
-    addPartnerPost(image, tags)
-    showToast({ content: '스타일이 업로드되었습니다.', type: 'success' })
-    router.replace('/partner/mypage')
+    const res = await addPartnerPost(image, tags)
+    if (res.isSuccess) {
+      showToast({ content: '스타일이 업로드되었습니다.', type: 'success' })
+      router.replace('/partner/mypage')
+    }
   }
 
   return (

@@ -12,9 +12,8 @@ export default async function PartnerPostLikeCount({
   const isLike = await getLikeStatus(postId)
 
   return (
-    <section className="w-full h-[55px] px-5 p-3 flex">
-      <LikeButton isLike={isLike} postId={postId} />
-      <span className="ml-2">{likeCount}</span>
+    <section className="w-full h-[55px] px-5 p-3 flex items-center">
+      <LikeButton isLike={isLike} postId={postId} likeCount={likeCount} />
     </section>
   )
 }

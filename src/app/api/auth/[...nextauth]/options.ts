@@ -44,7 +44,14 @@ export const options: NextAuthOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === 'update') {
+        // Role 변경시 jwt 업데이트
+        const { newToken } = session
+
+        if (!newToken) return token
+        return { ...newToken, expiresAt: Date.now() + 60 * 60 * 6 * 1000 }
+      }
       // 유효시간 6시간으로 설정
       if (user) {
         // 첫 로그인시에만 user가 존재

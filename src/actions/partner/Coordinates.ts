@@ -6,6 +6,7 @@ import StyleGuideInfo from '@/types/styleGuideTypes'
 export default async function submitStyleGuide(
   guideList: StyleGuideInfo[],
   requestId: string,
+  method: string,
 ) {
   const header = await getFetchHeader()
 
@@ -17,17 +18,21 @@ export default async function submitStyleGuide(
   // guideList에 모두 requestID를 추가
   const updatedGuideList = guideList.map((guide) => ({
     ...guide,
-    requestHistoryId: requestId,
+    requestId,
   }))
 
-  console.log(guideList)
+  console.log(updatedGuideList)
 
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/coordinates`,
       {
-        method: 'POST',
-        headers: header,
+        method,
+        headers: {
+          'Partner-UUID': header.UUID,
+          Authorization: header.Authorization,
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(updatedGuideList),
       },
     )
@@ -51,16 +56,16 @@ export async function getStyleGuide(requestId: string) {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/coordinates/${requestId}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/coordinates/request/${requestId}`,
       {
         cache: 'no-cache',
       },
     )
 
     const data = await response.json()
-    console.log(data)
+
     if (!data.isSuccess) console.log('submit style error:', data)
-    return data
+    return data.result
   } catch (error) {
     console.log(error)
     return null

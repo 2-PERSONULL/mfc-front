@@ -9,7 +9,7 @@ import {
 import UserChatroomHeader from '@/components/pages/chats/header/UserChatroomHeader'
 import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 
-const FETCH_COUNT = 10
+const FETCH_COUNT = 20
 
 export default async function UserChatRoom({
   params,
@@ -21,9 +21,10 @@ export default async function UserChatRoom({
   // 채팅방 입장 알림
   await leaveChatRoom(params.roomId)
   await enterChatRoom(params.roomId)
+
   // 이전 채팅 메시지 조회
-  const chatList = await getChatMessages(params.roomId, 0, FETCH_COUNT)
-  chatList.shift()
+  const { chats, last } = await getChatMessages(params.roomId, 0, FETCH_COUNT)
+  chats.shift()
 
   // 상대방 정보 가져오기(프로필 이미지, 닉네임)
   const partnerId = searchParams?.partnerId || ''
@@ -34,7 +35,8 @@ export default async function UserChatRoom({
       <UserChatroomHeader nickname={nickname} />
       <main className="flex flex-col h-[100dvh] pb-[80px]">
         <Message
-          initData={chatList}
+          initData={chats}
+          isLast={last}
           size={FETCH_COUNT}
           profileImage={profileImage}
         />

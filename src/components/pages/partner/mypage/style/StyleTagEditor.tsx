@@ -25,7 +25,10 @@ export default function StyleTagEditor({
 
     // 특수문자 체크
     if (inputText.match(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]/)) {
-      showToast({ content: '특수문자는 입력할 수 없습니다.', type: 'warning' })
+      showToast({
+        content: '특수문자와 공백은 입력할 수 없습니다.',
+        type: 'warning',
+      })
       setInputText('')
       return
     }

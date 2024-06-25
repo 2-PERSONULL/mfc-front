@@ -12,6 +12,7 @@ export default function UserChatBox({
 }: {
   requestData: PartnerChatListType
 }) {
+  const isSubmit = requestData.status === 'COORDINATE_RECEIVED'
   const [partnerNickname, setPartnerNickname] = useState<string>('')
   const [partnerImageUrl, setPartnerImageUrl] = useState<string>('')
   const steps = ['요청', '거래대기', '거래확정', '코디완료']
@@ -23,8 +24,9 @@ export default function UserChatBox({
       setPartnerNickname(partnerInfo.nickname)
       setPartnerImageUrl(partnerInfo.profileImage)
     }
+
     getPartnerInfo()
-  }, [])
+  }, [requestData])
 
   return (
     <div className="border-y-2 border-y-gray-100 bg-white relative">
@@ -43,7 +45,7 @@ export default function UserChatBox({
         <section className="mb-6">
           <Steps
             steps={steps}
-            currentStep={getCurrentStep(requestData.status)}
+            currentStep={isSubmit ? 4 : getCurrentStep(requestData.status)}
           />
         </section>
 
@@ -58,6 +60,7 @@ export default function UserChatBox({
 
       {/* 액션 */}
       <UserChatBoxButton
+        isSubmit={isSubmit}
         status={requestData.status}
         requestId={requestData.requestId}
         partnerId={requestData.partnerId}

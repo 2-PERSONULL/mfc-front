@@ -1,42 +1,44 @@
-import React, { useState } from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import StyleGuideTabs from './StyleGuideTabs'
 import StyleGuideInfo from '@/types/styleGuideTypes'
 import StyleGuideEditorForm from '@/components/pages/partner/styleGuide/StyleGuideForm'
 import useToast from '@/stores/toast'
 import submitStyleGuide from '@/actions/partner/Coordinates'
+import codiOptionData from '@/libs/codiOptionData'
+
+const initData = [
+  {
+    category: '상의',
+    brand: '',
+    budget: 0,
+    url: '',
+    comment: '',
+    images: [],
+  },
+]
 
 export default function StyleGuideEditor({
   requestId,
-  closeModal,
+  editData,
 }: {
   requestId: string
-  closeModal: () => void
+  editData?: StyleGuideInfo[]
 }) {
-  // 백엔드에서 받아올 데이터
-  const optionList = [
-    '상의',
-    '하의',
-    '원피스',
-    '아우터',
-    '신발',
-    '가방',
-    '액세서리',
-    '코디리뷰',
-  ]
-
+  const router = useRouter()
   const { showToast } = useToast()
   const [tabs, setTabs] = useState<number[]>([0])
   const [active, setActive] = useState<number>(0)
-  const [guideList, setGuideList] = useState<StyleGuideInfo[]>([
-    {
-      category: '상의',
-      brand: '',
-      budget: 0,
-      url: '',
-      comment: '',
-      images: [],
-    },
-  ])
+  const [guideList, setGuideList] = useState<StyleGuideInfo[]>(initData)
+
+  useEffect(() => {
+    if (editData) {
+      setGuideList(editData)
+      setTabs(editData.map((_, index) => index))
+    }
+  }, [editData])
 
   const handleUpdateGuide = (index: number, updatedGuide: StyleGuideInfo) => {
     const newGuideList = [...guideList]
@@ -56,15 +58,15 @@ export default function StyleGuideEditor({
     }
 
     // 스타일 가이드 제출 fetch
-    const response = await submitStyleGuide(guideList, requestId)
+    const response = await submitStyleGuide(guideList, requestId, 'POST')
     if (response.isSuccess) {
       showToast({
         content: '스타일 가이드가 제출되었습니다',
         type: 'success',
       })
-    } else showToast({ content: '제출 실패', type: 'error' })
 
-    closeModal()
+      router.replace(`/partner/chats`)
+    } else showToast({ content: '제출 실패', type: 'error' })
   }
 
   return (
@@ -87,7 +89,7 @@ export default function StyleGuideEditor({
         >
           <StyleGuideEditorForm
             guide={guide}
-            optionList={optionList}
+            optionList={codiOptionData}
             onUpdateGuide={(updatedGuide) =>
               handleUpdateGuide(index, updatedGuide)
             }

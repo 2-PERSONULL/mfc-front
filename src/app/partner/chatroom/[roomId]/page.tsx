@@ -22,8 +22,8 @@ export default async function PartnerChatRoom({
   await leaveChatRoom(params.roomId)
   await enterChatRoom(params.roomId)
   // 이전 채팅 메시지 조회
-  const chatList = await getChatMessages(params.roomId, 0, FETCH_COUNT)
-  chatList.shift()
+  const { chats, last } = await getChatMessages(params.roomId, 0, FETCH_COUNT)
+  chats.shift()
 
   // 상대방 정보 가져오기(프로필 이미지, 닉네임)
   const userId = searchParams?.userId || ''
@@ -31,8 +31,6 @@ export default async function PartnerChatRoom({
 
   const requestId = searchParams?.requestId || ''
   const requestDetail = await getRequestDetail(requestId)
-
-  console.log('부모 렌더')
 
   return (
     <>
@@ -43,7 +41,8 @@ export default async function PartnerChatRoom({
       />
       <main className="flex flex-col h-[100dvh] pb-[80px]">
         <Message
-          initData={chatList}
+          initData={chats}
+          isLast={last}
           size={FETCH_COUNT}
           profileImage={profileImage}
         />

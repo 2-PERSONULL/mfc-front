@@ -1,29 +1,33 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
-import Image from 'next/image'
+import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'next/navigation'
 import useChat from '@/hooks/useChat'
-import { formatChatTime } from '@/utils/formatTime'
 import useClientSession from '@/hooks/useClientSession'
-import CircleProfile from '@/components/ui/avatar/CircleProfile'
-import ChatImage from '@/components/pages/chats/ChatImage'
-import ChatCardMessage from '@/components/pages/chats/ChatCardMessage'
-import { CardMessageType, MessageType } from '@/types/chatTypes'
+import { MessageType } from '@/types/chatTypes'
+import useObserver from '@/hooks/useObserver'
+import { getChatMessages } from '@/actions/chat/ChatMessage'
+import MessageGroup from '@/components/pages/chats/message/MessageGroup'
 
 export default function Message({
   initData,
+  isLast,
   size,
   profileImage,
 }: {
   initData: MessageType[]
+  isLast: boolean
   size: number
   profileImage: string
 }) {
-  console.log(size)
-  const { realTimeMessage, setRealTimeMessage } = useChat()
+  const { realTimeMessage } = useChat()
+  const [fetchedMessages, setFetchedMessages] =
+    useState<MessageType[]>(initData)
+  const [offset, setOffset] = useState(1)
   const { uuid } = useClientSession()
   const { roomId } = useParams<{ roomId: string }>()
+  const [isLastData, setIsLastData] = useState(isLast)
+  const [scrollHeight, setScrollHeight] = useState(0)
   const scrollRef = useRef<HTMLDivElement | null>(null)
 
   const scrollToBottom = () => {
@@ -32,96 +36,53 @@ export default function Message({
     }
   }
 
+  // 실시간 메시지가 추가되면 스크롤을 맨 아래로 이동
   useEffect(() => {
-    // 실시간 메시지가 추가되면 스크롤을 맨 아래로 이동
     scrollToBottom()
   }, [realTimeMessage])
 
   useEffect(() => {
-    if (!initData) return
-    if (initData.length === 0) return
+    if (!scrollRef) return
+    if (scrollRef.current) {
+      const scrollTop = scrollRef.current.scrollHeight - scrollHeight
+      scrollRef.current.scrollTop = scrollTop
+      setScrollHeight(scrollRef.current.scrollHeight)
+    }
+  }, [fetchedMessages])
 
-    setRealTimeMessage((prevMessages) => {
-      // 필터링하여 이미 존재하지 않는 initData 메시지만 추가
-      const newMessages = initData.filter(
-        (initMsg) => !prevMessages.some((prevMsg) => prevMsg.id === initMsg.id),
-      )
-      // 새로운 메시지가 없다면 이전 상태 유지
-      if (newMessages.length === 0) return prevMessages
-      // 새로운 메시지가 있다면 이전 상태에 추가
-      return [...prevMessages, ...newMessages]
-    })
+  const loadMoreChats = async () => {
+    const { chats, last } = await getChatMessages(roomId, offset, size)
 
-    // setRealTimeMessage([...initData, ...realTimeMessage])
-  }, [initData, setRealTimeMessage])
+    setIsLastData(last)
+    setFetchedMessages((prevMessages) => [...chats, ...prevMessages])
+    setOffset((prevOffset) => prevOffset + 1)
+  }
+
+  const observerRef = useObserver({
+    onIntersect: loadMoreChats,
+    enabled: !isLastData,
+  })
 
   return (
     <div
       ref={scrollRef}
       className="px-[10px] bg-white overflow-y-auto no-scrollbar flex-grow pt-[80px]"
     >
-      {realTimeMessage.map((message, index) => {
-        const isOwnMessage = message.sender === uuid && message.type !== 'card'
-        const isFirstOwnMessage =
-          isOwnMessage &&
-          (index === 0 || realTimeMessage[index - 1].sender !== uuid)
-
-        return isOwnMessage ? (
-          <div
-            className={`flex justify-end mb-3 gap-1 text-[15px] ${isFirstOwnMessage ? 'mt-6' : ''}`} // 자신의 첫 번째 메시지에는 상단 마진 추가
-            key={message.id}
-          >
-            <div className="flex items-end text-xs text-[#959595]">
-              {formatChatTime(message.createdAt)}
-            </div>
-            {message.type === 'image' && <ChatImage imageUrl={message.msg} />}
-            {message.type === 'msg' && (
-              <div className="bg-[#FDF5D3] py-3 px-4 leading-5 rounded-[40px] sm:max-w-[350px] max-w-[260px]">
-                {message.msg.length > 500
-                  ? `${message.msg.substring(0, 500)}...`
-                  : message.msg}
-                {message.msg.length > 500 && (
-                  <button
-                    type="button"
-                    className="w-full my-2 py-2 border border-gray-300 rounded-md text-gray-500"
-                  >
-                    전체보기
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-        ) : (
-          <div
-            className={`flex gap-1 mb-3 ${realTimeMessage[index - 1]?.sender === uuid ? 'mt-6' : ''}`} // 이전 메시지가 자신의 메시지인 경우 상단 마진 추가
-            key={message.id}
-          >
-            {message.type === 'card' ? (
-              <CircleProfile size={40} imageUrl="/icons/reminder.svg" />
-            ) : (
-              <CircleProfile size={40} imageUrl={profileImage} />
-            )}
-            {message.type === 'card' && (
-              <ChatCardMessage
-                roomId={roomId}
-                card={message.msg as unknown as CardMessageType}
-              />
-            )}
-            {message.type === 'image' && (
-              <Image src={message.msg} width={200} height={200} alt="image" />
-            )}
-            {message.type === 'msg' && (
-              <div className="bg-[#f1f1f1] py-3 px-4 leading-5 rounded-[40px] sm:max-w-[330px] max-w-[260px] text-[15px]">
-                {message.msg}
-              </div>
-            )}
-
-            <div className="flex items-end text-xs text-[#959595]">
-              {formatChatTime(message.createdAt)}
-            </div>
-          </div>
-        )
-      })}
+      <div ref={observerRef} />
+      {/* 이전 채팅 메시지 */}
+      <MessageGroup
+        messageList={fetchedMessages}
+        uuid={uuid}
+        roomId={roomId}
+        profileImage={profileImage}
+      />
+      {/* 실시간 메시지 */}
+      <MessageGroup
+        messageList={realTimeMessage}
+        uuid={uuid}
+        roomId={roomId}
+        profileImage={profileImage}
+      />
     </div>
   )
 }

@@ -15,7 +15,7 @@ export default function ViewReqMyImages({
 }) {
   return (
     <section className="overflow-hidden">
-      <p className="text-sm text-black font-semibold">{title}</p>
+      <p className="text-[17px] text-black font-semibold mb-5">{title}</p>
       <section className="w-full">
         {myImgs ? (
           <Carousel>

@@ -8,7 +8,7 @@ const getCurrentStep = (status: string) => {
       return 2
     case 'CONFIRMED':
       return 3
-    case 'CLOSING':
+    case 'COORDINATE_RECEIVED':
       return 4
     default:
       return 0

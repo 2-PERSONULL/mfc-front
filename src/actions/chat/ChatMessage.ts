@@ -121,5 +121,16 @@ export async function getChatMessages(
   )
 
   const data = await response.json()
-  return data.reverse()
+
+  if (data.isSuccess) {
+    // 시간순으로 정렬
+    const reversedChats = [...data.result.chats].reverse()
+
+    return {
+      ...data.result,
+      chats: reversedChats,
+    }
+  }
+  console.log('get chat error: ', data.message)
+  return data.result
 }

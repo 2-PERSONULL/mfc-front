@@ -75,8 +75,9 @@ export default function PartnerPrice({
         clickHandler={() => setIsModalOpen(true)}
         content={
           <p className="text-[14px]">
-            {`${averagePrice.toLocaleString()} 원` ||
-              '코디 평균가를 등록해주세요'}
+            {averagePrice
+              ? `${averagePrice.toLocaleString()} 원`
+              : '코디 평균가를 등록해주세요'}
           </p>
         }
       />
