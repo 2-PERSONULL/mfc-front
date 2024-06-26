@@ -1,6 +1,6 @@
 import React from 'react'
 import BottomNav from '@/components/layouts/BottomNav'
-import HomeHeader from '@/components/pages/member/home/HomeHeader'
+import CommonHeader from '@/components/layouts/CommonHeader'
 
 export default async function UserHomelayout({
   children,
@@ -9,7 +9,7 @@ export default async function UserHomelayout({
 }) {
   return (
     <>
-      <HomeHeader />
+      <CommonHeader />
       {children}
       <BottomNav />
     </>

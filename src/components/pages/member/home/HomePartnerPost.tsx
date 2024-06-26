@@ -1,26 +1,44 @@
 import Link from 'next/link'
 import React from 'react'
+import Image from 'next/image'
+import { HomePostsType } from '@/types/HomePostsType'
 
-export default function HomePartnerPost() {
+export default function HomePartnerPost({
+  content,
+}: {
+  content: HomePostsType
+}) {
   return (
-    <Link
-      href="/user"
-      className="relative border border-black h-full rounded-lg"
-    >
-      <div className="bg-yellow-500 w-full h-[200px] pr-2 rounded-t-lg">
-        포스팅 이미지
-      </div>
+    <Link href="/user" className="relative h-full rounded-lg shadow-xl">
+      <figure className="relative w-full min-h-[200px] pr-2 rounded-t-lg">
+        <Image
+          src={content.imageUrl}
+          alt={content.imageAlt}
+          fill
+          style={{ objectFit: 'cover' }}
+          className="absolute rounded-t-lg"
+        />
+      </figure>
       <div className="flex pl-3 gap-2 items-center pt-2">
-        <div className="border border-black w-[30px] h-[30px] rounded-full bg-green-500" />
-        <p>파트너명</p>
+        <Image
+          src={content.profileImage}
+          alt={content.profileImage}
+          width={30}
+          height={30}
+          className="rounded-full"
+        />
+        <p>{content.nickname}</p>
       </div>
-      <div className="border w-[80%] h-[30px] bg-gray-400 ml-3 mt-2">
-        <p>포스팅 태그</p>
-      </div>
-      <div className="absolute top-2 right-3 bg-white rounded-full pt-2 px-2">
-        {/* <LikeButton /> */}
-        <span>하트</span>
-      </div>
+      <ul className="w-wull h-[30px] ml-3 mt-2 mb-2 flex flex-row items-center">
+        {content.tags.map((tag, idx) => (
+          <li
+            key={idx}
+            className="text-[10px] text-gray-600 bg-gray-200 rounded-full font-semibold mr-[5px] px-2 py-1"
+          >
+            {tag.value}
+          </li>
+        ))}
+      </ul>
     </Link>
   )
 }
