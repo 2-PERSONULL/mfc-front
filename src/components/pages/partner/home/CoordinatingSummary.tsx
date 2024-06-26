@@ -14,7 +14,7 @@ export default async function CoordinatingSummary({
   const nonResponseData = nonResponse[nonResponse.length - 1]
 
   return (
-    <div className="py-5 px-4 justify-between rounded-[24px] bg-white flex flex-col gap-5">
+    <section className="py-5 px-4 justify-between rounded-[24px] bg-white flex flex-col gap-5">
       <div>
         <p className="text-[18px] font-semibold">코디 매칭 현황</p>
         <p className="text-gray-600 text-[14px]">
@@ -78,6 +78,6 @@ export default async function CoordinatingSummary({
           </div>
         </Link>
       )}
-    </div>
+    </section>
   )
 }

@@ -11,7 +11,7 @@ export default function DeadlineReminder({
 }) {
   return (
     <>
-      <div className="py-5 px-4 rounded-[24px] bg-white">
+      <section className="py-5 px-4 rounded-[24px] bg-white">
         <div className="flex gap-3">
           <Image
             src="/icons/notice.svg"
@@ -27,7 +27,7 @@ export default function DeadlineReminder({
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {toBeSubmitted.map((data) => (
         <Link
