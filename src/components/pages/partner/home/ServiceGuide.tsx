@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function ServiceGuide() {
   return (
-    <div className="py-5 px-4 rounded-[24px] bg-white">
+    <section className="py-5 px-4 rounded-[24px] bg-white">
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3 relative">
           <Image
@@ -20,6 +20,6 @@ export default function ServiceGuide() {
           페널티가 3회 누적되면 파트너 활동이 제한될 수 있어요.
         </p>
       </div>
-    </div>
+    </section>
   )
 }

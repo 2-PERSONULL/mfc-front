@@ -1,5 +1,5 @@
 import React from 'react'
-import { getSession } from 'next-auth/react'
+// import { getSession } from 'next-auth/react'
 import HomeBanner from '@/components/pages/member/home/HomeBanner'
 import HomePartnerPosts from '@/components/pages/member/home/HomePartnerPosts'
 import HomeRecommandStyle from '@/components/pages/member/home/HomeRecommandStyle'
@@ -12,8 +12,8 @@ import {
 } from '@/actions/user/UserHome'
 
 export default async function UserHome() {
-  const session = await getSession()
-  console.log(session)
+  // const session = await getSession()
+
   const { nickname } = await getUserInfo()
   // const userInfo = await getFetchHeader()
   const { posts } = await getPostsFollwedPartners()

@@ -11,7 +11,7 @@ export default function ProfileProgress({
   progressPercent: number
 }) {
   return (
-    <div className="py-5 px-4 flex items-center justify-between rounded-[24px] bg-white">
+    <section className="py-5 px-4 flex items-center justify-between rounded-[24px] bg-white">
       <div className="flex flex-col gap-2">
         <p className="text-[18px] font-semibold">프로필 완성도</p>
         {progressPercent === 100 ? (
@@ -62,6 +62,6 @@ export default function ProfileProgress({
         fontSize="14px"
         size="125px"
       />
-    </div>
+    </section>
   )
 }

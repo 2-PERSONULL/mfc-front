@@ -1,11 +1,11 @@
 import React from 'react'
 import BottomNav from '@/components/layouts/BottomNav'
-import HomeHeader from '@/components/pages/member/home/HomeHeader'
+import CommonHeader from '@/components/layouts/CommonHeader'
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <HomeHeader />
+      <CommonHeader />
       {children}
       <BottomNav />
     </>
