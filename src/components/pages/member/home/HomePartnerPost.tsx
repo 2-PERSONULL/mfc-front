@@ -19,7 +19,7 @@ export default function HomePartnerPost({
           className="absolute rounded-t-lg"
         />
       </figure>
-      <div className="flex pl-3 gap-2 items-center pt-2">
+      <figure className="flex pl-3 gap-2 items-center pt-2">
         <Image
           src={content.profileImage}
           alt={content.profileImage}
@@ -28,7 +28,7 @@ export default function HomePartnerPost({
           className="rounded-full"
         />
         <p>{content.nickname}</p>
-      </div>
+      </figure>
       <ul className="w-wull h-[30px] ml-3 mt-2 mb-2 flex flex-row items-center">
         {content.tags.map((tag, idx) => (
           <li

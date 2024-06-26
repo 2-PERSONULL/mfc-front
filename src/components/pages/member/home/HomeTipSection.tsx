@@ -6,7 +6,7 @@ import DummyTips from '@/libs/tipData'
 export default function HomeEventSection({ username }: { username?: string }) {
   return (
     <section className="px-5 w-full min-h-full">
-      <HomeSectionTitle username={username} text="님을 위한 소식" />
+      <HomeSectionTitle username={username} text="을 위한 소식" />
       <ul className="flex flex-col gap-5 pt-3">
         {DummyTips.map((tip) => (
           <>
