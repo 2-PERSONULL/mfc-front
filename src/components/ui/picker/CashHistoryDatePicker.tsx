@@ -2,8 +2,8 @@ import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 interface DateProps {
-  year: number | null
-  month: number | null
+  year: number
+  month: number
 }
 
 export default function CashHistoryDatePicker({

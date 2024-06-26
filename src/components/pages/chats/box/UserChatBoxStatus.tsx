@@ -4,9 +4,11 @@ import { formatDday } from '@/utils/formatTime'
 export default function UserChatBoxStatus({
   status,
   deadline,
+  isExpired,
 }: {
   status: string
   deadline: string
+  isExpired: boolean
 }) {
   const showDateList = ['RESPONSEREJECT', 'COORDINATE_RECEIVED', 'CLOSED']
 
@@ -23,11 +25,6 @@ export default function UserChatBoxStatus({
     }
   }
 
-  const isExpired = () => {
-    // status CONFIRMED 인데 deadline 이 지났을 때
-    if (status === 'CONFIRMED' && new Date(deadline) < new Date()) return true
-  }
-
   return (
     <>
       <p className="text-[14px] text-gray-600 ml-2 absolute right-4 bg-gray-100 rounded-xl px-3 py-2">
@@ -39,9 +36,9 @@ export default function UserChatBoxStatus({
           {formatDday(deadline)}
         </p>
       )}
-      {isExpired() && (
+      {isExpired && (
         <p className="text-[14px] text-gray-600 ml-2 absolute right-4 bg-red-100 rounded-xl px-3 py-2">
-          환불신청
+          기간만료
         </p>
       )}
     </>

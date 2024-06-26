@@ -13,7 +13,7 @@ export default async function PartnerPostLikeCount({
 
   return (
     <section className="w-full h-[55px] px-5 p-3 flex items-center">
-      <LikeButton isLike={isLike} postId={postId} likeCount={likeCount} />
+      <LikeButton isLike={isLike} postId={postId} initialCount={likeCount} />
     </section>
   )
 }

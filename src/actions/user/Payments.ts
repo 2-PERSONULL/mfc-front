@@ -208,3 +208,41 @@ export async function getPaymentHistory(
   }
   console.log('Failed to get payment history', data)
 }
+
+// 코디네이팅 환불 요청
+export async function refundCash(
+  requestId: string,
+  partnerUuid: string,
+  amount: number,
+) {
+  const header = await getFetchHeader()
+
+  if (!header) {
+    console.log('session not found')
+    return
+  }
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment-service/cash/cancel`,
+    {
+      method: 'PUT',
+      headers: {
+        Authorization: `${header.Authorization}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        requestId,
+        userUuid: header.UUID,
+        partnerUuid,
+        amount,
+      }),
+    },
+  )
+  const data = await response.json()
+  if (data.isSuccess) {
+    revalidateTag('cash-balance')
+  } else {
+    console.log('Failed to refund', data)
+  }
+  return data
+}
