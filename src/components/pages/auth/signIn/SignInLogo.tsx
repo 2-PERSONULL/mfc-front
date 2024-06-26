@@ -1,17 +1,17 @@
 import Image from 'next/image'
 
-export default function SignInLogo({ title }: { title?: string }) {
+export default function SignInLogo() {
   return (
     <header className="flex flex-col items-center gap-2 bg-white w-full mb-14 mt-[45%]">
       <Image
-        src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/logo/signInLogo.svg"
+        src="/icons/mfc-2.svg"
         alt="signInLogo"
         priority
         width={0}
         height={0}
         style={{ width: 'auto', height: 'auto' }}
       />
-      <span className="font-black text-xl">{title}</span>
+      {/* <span className="font-black text-xl">{title}</span> */}
     </header>
   )
 }

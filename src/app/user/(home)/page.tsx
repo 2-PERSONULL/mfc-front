@@ -20,7 +20,7 @@ export default async function UserHome() {
   const recommendPosts = await getPartnerPostBasedOnStyle()
 
   return (
-    <main className="w-full min-h-dvh mb-[8rem]">
+    <main className="relative w-full min-h-dvh mb-[8rem]">
       <HomeBanner />
       {user && posts ? (
         <HomePartnerPosts posts={posts.posts} username={user.nickname} />
