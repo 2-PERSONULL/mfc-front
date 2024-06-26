@@ -313,3 +313,29 @@ input[type='radio']:focus {
 .fadeIn {
   animation: fadeIn 5s;
 }
+
+@keyframes slideIn {
+  from {
+    bottom: -100px; /* 시작 위치 */
+  }
+  to {
+    bottom: 8rem; /* 최종 위치 */
+  }
+}
+
+@keyframes slideOut {
+  from {
+    bottom: 8rem
+  }
+  to {
+    bottom: -100px
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.1s forwards
+}
+
+.slide-out {
+  animation: slideOut 0.1s backwards
+}

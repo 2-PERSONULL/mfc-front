@@ -21,7 +21,7 @@ export default function HomeEventSection({ username }: { username?: string }) {
                 height={100}
               />
               <div className="flex flex-col gap-5 items-start justify-center">
-                <h3 className="font-bold">{tip.title}</h3>
+                <p className="font-bold">{tip.title}</p>
                 <p className="text-xs text-wrap">
                   {tip.context.length > 50
                     ? `${tip.context.substring(0, 50)}...`

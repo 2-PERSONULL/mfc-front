@@ -32,8 +32,8 @@ export default function RecommendStyleSwiper({
           <Image
             src={post.imageUrl}
             alt={post.imageAlt}
-            objectFit="cover"
             fill
+            style={{ objectFit: 'cover' }}
             className="relative"
           />
           <div>
@@ -48,8 +48,8 @@ export default function RecommendStyleSwiper({
               <p className="text-white text-sm font-bold">{post.nickname}</p>
             </div>
             <ul className="absolute z-[2] bottom-8 left-6 flex flex-row">
-              {post.tags.map((tag, tagIdx) => (
-                <li key={tagIdx}>
+              {post.tags.map((tag) => (
+                <li key={tag.tagId}>
                   <span className="text-xs text-white bg-zinc-700 rounded-full  mr-[5px] px-2 py-1">
                     {tag.value}
                   </span>

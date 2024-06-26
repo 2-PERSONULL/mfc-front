@@ -3,6 +3,7 @@ import PartnerProfileHeader from '@/components/pages/partner/profile/PartnerProf
 import PartnerProfileTopInfo from '@/components/pages/partner/profile/PartnerProfileTopInfo'
 import CoordiRequestButton from '@/components/ui/button/CoordiRequestButton'
 import PartnerProfileTabs from '@/components/ui/tabs/PartnerProfileTabs'
+import FloatingButton from '@/components/common/FloatingButton'
 
 export default function layout({
   tabs,
@@ -19,6 +20,7 @@ export default function layout({
         <PartnerProfileTopInfo partnerId={partnerId} />
         <PartnerProfileTabs partnerId={partnerId} />
         {tabs}
+        <FloatingButton />
         <CoordiRequestButton partnerId={partnerId} />
       </main>
     </>

@@ -12,7 +12,7 @@ export default function HomeEventSection() {
           src="https://personull-bucket.s3.ap-northeast-2.amazonaws.com/event-image/event-image.svg"
           alt="event"
           fill
-          objectFit="cover"
+          style={{ objectFit: 'cover' }}
           className="relative rounded-lg"
         />
         <section className="absolute shadow-xl rounded-b-lg bottom-0 w-full h-[80px] bg-white">
