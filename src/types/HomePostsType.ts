@@ -8,8 +8,22 @@ export interface HomePostsType {
   imageAlt: string
   tags: [
     {
-      tagId: 0
+      tagId: number
       value: string
     },
   ]
+}
+
+export interface RecommendPostType {
+  postId: number
+  partnerId: string
+  profileImage: string
+  profileAlt: string
+  nickname: string
+  imageUrl: string
+  imageAlt: string
+  tags: Array<{
+    tagId: number
+    value: string
+  }>
 }

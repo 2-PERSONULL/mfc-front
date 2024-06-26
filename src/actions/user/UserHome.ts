@@ -4,7 +4,7 @@ const getPostsFollwedPartners = async () => {
   const header = await getFetchHeader()
   if (!header) {
     console.log('session not found')
-    return
+    return null
   }
 
   try {

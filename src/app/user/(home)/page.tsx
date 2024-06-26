@@ -1,8 +1,7 @@
 import React from 'react'
-import { getSession } from 'next-auth/react'
 import HomeBanner from '@/components/pages/member/home/HomeBanner'
 import HomePartnerPosts from '@/components/pages/member/home/HomePartnerPosts'
-import HomeRecommandStyle from '@/components/pages/member/home/HomeRecommandStyle'
+import HomeRecommendStyle from '@/components/pages/member/home/HomeRecommendStyle'
 import HomeEventSection from '@/components/pages/member/home/HomeEventSection'
 import { getUserInfo } from '@/actions/user/UserProfile'
 import HomeTipSection from '@/components/pages/member/home/HomeTipSection'
@@ -10,31 +9,34 @@ import {
   getPartnerPostBasedOnStyle,
   getPostsFollwedPartners,
 } from '@/actions/user/UserHome'
+import { getPartnerPostsByCategory } from '@/actions/member/Explore'
+import NonMemberPartnerPosts from '@/components/pages/member/home/NonMemberPartnerPosts'
+import NonMemberRecommendStyle from '@/components/pages/member/home/NonMemberRecommendStyle'
 
 export default async function UserHome() {
-  const session = await getSession()
-  console.log(session)
-  const { nickname } = (await getUserInfo()) || {}
-  // const userInfo = await getFetchHeader()
-  const { posts } = (await getPostsFollwedPartners()) || {}
-  const recommendPosts = (await getPartnerPostBasedOnStyle()) || {}
-  // console.log(recommendPosts)
-  // const nonSignInP
+  const user = await getUserInfo()
+  const posts = await getPostsFollwedPartners()
+  const nonMemberPartnerPost = await getPartnerPostsByCategory(0, 12, 'LATEST')
+  const recommendPosts = await getPartnerPostBasedOnStyle()
 
   return (
     <main className="w-full min-h-dvh mb-[8rem]">
       <HomeBanner />
-      {nickname &&
-      posts &&
-      Object.keys(nickname).length > 0 &&
-      Object.keys(posts).length > 0 ? (
-        <HomePartnerPosts posts={posts} username={nickname} />
-      ) : null}
-      <HomeRecommandStyle
-        posts={recommendPosts?.posts || []}
-        username={nickname}
-      />
-      <HomeTipSection username={nickname} />
+      {user && posts ? (
+        <HomePartnerPosts posts={posts.posts} username={user.nickname} />
+      ) : (
+        <NonMemberPartnerPosts posts={nonMemberPartnerPost.posts} />
+      )}
+      {recommendPosts ? (
+        <HomeRecommendStyle
+          posts={recommendPosts?.posts}
+          username={user.nickname}
+        />
+      ) : (
+        // 데이터 추가 후 로직 수정할 예정
+        <NonMemberRecommendStyle posts={nonMemberPartnerPost.posts} />
+      )}
+      <HomeTipSection username={user ? user.nickname : '당신만'} />
       <HomeEventSection />
     </main>
   )
