@@ -18,11 +18,16 @@ const UserMyPageMenuData: MenuType[] = [
   },
   {
     id: 4,
+    title: '팔로우 관리',
+    url: '/user/mypage/followlist',
+  },
+  {
+    id: 5,
     title: '결제 관리',
     url: '/user/mypage/paymentlist',
   },
   {
-    id: 5,
+    id: 6,
     title: '리뷰 관리',
     url: '/user/mypage/reviewlist',
   },

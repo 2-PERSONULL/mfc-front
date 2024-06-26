@@ -13,7 +13,7 @@ import {
 } from '@/types/partnerPostsByCategoryType'
 import { getPartnerPostsByCategory } from '@/actions/member/Explore'
 
-export default function ExplorePosts({
+export default function PostsList({
   initData,
   fetchNum,
 }: {
