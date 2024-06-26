@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import ViewRequestTitle from './ViewRequestTitle'
 import ViewRequestContents from './ViewRequestContents'
@@ -9,17 +11,23 @@ import EditDeleteButton from '@/components/ui/button/EditDeleteButton'
 import { RequestDetailProps } from '@/types/requestDetailType'
 import ViewReqRefImages from './ViewReqRefImages'
 import ViewReqMyImages from './ViewReqMyImages'
+import BottomFixedTransButton from '@/components/ui/button/BottomFixedTransButton'
 
 export default function ViewRequest({
   data,
   params,
   type,
+  expired,
 }: {
   data: RequestDetailProps
   params: { requestid: string }
   type?: string
+  expired?: string
 }) {
-  console.log(type)
+  const refundHandler = async () => {
+    // const response = await refundCash(params.requestid, data.price)
+    console.log('환불신청')
+  }
 
   return (
     <>
@@ -38,6 +46,10 @@ export default function ViewRequest({
         <ViewReqMyImages title="내 이미지" myImgs={data.myImageUrls} />
       </section>
       {type !== 'view' && <EditDeleteButton params={params} />}
+
+      {expired === 'true' && (
+        <BottomFixedTransButton title="환불신청" clickHandler={refundHandler} />
+      )}
     </>
   )
 }

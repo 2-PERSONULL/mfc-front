@@ -2,24 +2,51 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { updateLikeStatus } from '@/actions/user/Bookmark'
+import useClientSession from '@/hooks/useClientSession'
+import useConfirmStore from '@/stores/confirm'
 
 export default function LikeButton({
   isLike,
   postId,
-  likeCount,
+  initialCount,
 }: {
   isLike?: boolean
   postId: number
-  likeCount: number
+  initialCount: number
 }) {
-  const [likeNum, setLikeNum] = useState<number>(likeCount)
+  const { uuid } = useClientSession()
+  const path = usePathname()
+  const router = useRouter()
+  const [likeStatus, setLikeStatus] = useState<boolean | undefined>(isLike)
+  const [likeNum, setLikeNum] = useState<number>(initialCount)
   const role = usePathname().startsWith('/partner') ? 'partner' : 'user'
+  const { openConfirmModal } = useConfirmStore()
 
   const onClickHandler = async () => {
-    await updateLikeStatus(postId, isLike ? 'DELETE' : 'POST')
-    setLikeNum(isLike ? likeNum - 1 : likeNum + 1)
+    if (uuid) {
+      updateLikeStatus(postId, likeStatus ? 'DELETE' : 'POST')
+      // 개수 1분에 한번씩 갱신되어 임의로 화면을 바꿔줌
+
+      let newCount = likeNum
+      if (likeStatus) {
+        newCount = Math.max(0, likeNum - 1)
+      } else {
+        newCount += 1
+      }
+      setLikeNum(newCount)
+      setLikeStatus(!likeStatus)
+      return
+    }
+
+    const confirm = await openConfirmModal({
+      content: `로그인이 필요한 서비스입니다.\n 로그인 페이지로 이동하시겠습니까?`,
+    })
+
+    if (confirm) {
+      router.push(`/signin?callbackUrl=${path}`)
+    }
   }
 
   if (role === 'partner')

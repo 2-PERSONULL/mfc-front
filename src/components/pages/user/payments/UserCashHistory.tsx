@@ -7,8 +7,8 @@ import { CashChargeHistoryType } from '@/types/cashType'
 import { convertToKorWithTime } from '@/utils/formatTime'
 
 interface DateType {
-  year: number | null
-  month: number | null
+  year: number
+  month: number
 }
 
 // year는 올해 년도로 설정 month는 현재 달로 설정
@@ -36,6 +36,7 @@ export default function UserCashHistory({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [searchDate, setSearchDate] = useState<DateType>(initialDate)
   const [selectedType, setSelectedType] = useState<string>('all')
+  // const [last, setLast] = useState<boolean>(isLast)
   const [selectedHistory, setSelectedHistory] = useState<
     CashChargeHistoryType[]
   >([...chargeHistory, ...paymentHistory])

@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from 'react'
 import SliderModal from '@/components/common/SliderModal'
 import CashHistoryDatePicker from '@/components/ui/picker/CashHistoryDatePicker'
-import { CashChargeHistoryType } from '@/types/cashType'
+import { CashChargeHistoryType, PaymentHistoryType } from '@/types/cashType'
 import { convertToKorWithTime } from '@/utils/formatTime'
+import { getPaymentHistory } from '@/actions/user/Payments'
 
 interface DateType {
-  year: number | null
-  month: number | null
+  year: number
+  month: number
 }
 
 // year는 올해 년도로 설정 month는 현재 달로 설정
@@ -37,6 +38,25 @@ export default function PartnerCashHistory({
   const [selectedHistory, setSelectedHistory] = useState<
     CashChargeHistoryType[]
   >([...settlementHistory])
+
+  useEffect(() => {
+    const newDate = `${searchDate.year}-${searchDate.month < 10 ? `0${searchDate.month}` : searchDate.month}`
+
+    const getPaymentData = async () => {
+      const result = await getPaymentHistory('SETTLEMENT_COMPLETED', newDate, 0)
+      if (result.content) {
+        const newData = result.content.map((item: PaymentHistoryType) => ({
+          amount: item.amount,
+          paymentStatus: 'SETTLEMENT',
+          paymentDate: item.createdAt,
+        }))
+        return setSelectedHistory(newData)
+      }
+      return setSelectedHistory([])
+    }
+
+    getPaymentData()
+  }, [searchDate])
 
   useEffect(() => {
     if (selectedType === 'all') setSelectedHistory([...settlementHistory])

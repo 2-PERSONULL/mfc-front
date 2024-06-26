@@ -36,6 +36,8 @@ const usePayment = () => {
           email: 'pdg03092@gmail.com',
         },
       })
+
+      // pc 처리 로직
       if (!response || response.code != null) {
         showToast({ content: '결제에 실패했습니다.', type: 'error' })
         return

@@ -17,7 +17,7 @@ export default function UserBalanceBox({ balance }: { balance: number }) {
       </div>
       <div className="flex justify-center mb-4">
         <Link
-          href="/user/mypage/charge"
+          href="/user/mypage/charge?callbackUrl=/user/mypage/paymentlist"
           className="bg-black w-[80vw] h-[50px] rounded-full text-[17px] text-white font-bold flex items-center justify-center"
         >
           <span>충전하기</span>
