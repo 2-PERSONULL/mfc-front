@@ -4,6 +4,7 @@ import React from 'react'
 import { usePathname } from 'next/navigation'
 import GoBackHeader from '@/components/layouts/GoBackHeader'
 import BottomNav from '@/components/layouts/BottomNav'
+import FloatingButton from '@/components/common/FloatingButton'
 
 export default function MyPageLayout({
   children,
@@ -53,6 +54,7 @@ export default function MyPageLayout({
         </header>
       )}
       {children}
+      {search.endsWith('reqlist') && <FloatingButton />}
       {search.endsWith('mypage') && <BottomNav />}
     </>
   )

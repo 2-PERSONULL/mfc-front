@@ -25,8 +25,8 @@ export default async function NonMemberPartnerPosts({
     <section className="px-5 w-full min-h-full bg-white">
       <HomeSectionTitle text="금주의 인기 파트너" />
       <section className="grid grid-cols-2 gap-5 overflow-x-scroll pb-10">
-        {combinedInfo.map((info: HomePostsType, idx) => (
-          <HomePartnerPost key={idx} content={info} />
+        {combinedInfo.map((info: HomePostsType) => (
+          <HomePartnerPost key={info.postId} content={info} />
         ))}
       </section>
     </section>

@@ -38,7 +38,7 @@ export default function HomeBanner() {
         {sampleBanner?.map((item, index) => {
           return (
             <SwiperSlide key={index} className="banner min-h-[430px] mt-4">
-              <div
+              <figure
                 className={`${currentCard === index ? 'h-[430px]' : 'h-[350px]'} rounded-[20px] w-full relative overflow-hidden`}
               >
                 <Image
@@ -48,7 +48,7 @@ export default function HomeBanner() {
                   sizes="(max-width: 100px) 100vw, 100px"
                   className="relative object-cover rounded-[20px]"
                 />
-              </div>
+              </figure>
             </SwiperSlide>
           )
         })}
