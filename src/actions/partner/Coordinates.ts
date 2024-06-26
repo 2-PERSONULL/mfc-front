@@ -66,7 +66,7 @@ export async function getStyleGuide(requestId: string) {
 
     const data = await response.json()
 
-    if (!data.isSuccess) console.log('submit style error:', data)
+    if (!data.isSuccess) console.log('get style error:', data)
     return data.result
   } catch (error) {
     console.log(error)
