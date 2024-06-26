@@ -10,11 +10,13 @@ export default function UserChatBoxButton({
   status,
   requestId,
   partnerId,
+  isExpired,
 }: {
   isSubmit: boolean
   status: string
   requestId: string
   partnerId: string
+  isExpired: boolean
 }) {
   const [roomNumber, setRoomNumber] = useState<string>('')
   const [unreadMessage, setUnreadMessage] = useState<number>(0)
@@ -48,7 +50,7 @@ export default function UserChatBoxButton({
       ) : (
         <div className="h-full flex items-center justify-around">
           <Link
-            href={`/user/mypage/reqlist/${requestId}?type=view`}
+            href={`/user/mypage/reqlist/${requestId}?type=view&expired=${isExpired}`}
             className={`flex justify-center items-center border-r ${isSubmit ? 'basis-1/3' : 'basis-1/2'} h-full`}
           >
             요청 상세보기

@@ -7,6 +7,7 @@ import UserChatBoxButton from '@/components/pages/chats/box/UserChatBoxButton'
 import { PartnerChatListType } from '@/types/requestType'
 import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 import UserChatBoxStatus from '@/components/pages/chats/box/UserChatBoxStatus'
+// import { refundCash } from '@/actions/user/Payments'
 
 export default function UserChatBox({
   requestData,
@@ -20,6 +21,16 @@ export default function UserChatBox({
   const [partnerNickname, setPartnerNickname] = useState<string>('')
   const [partnerImageUrl, setPartnerImageUrl] = useState<string>('')
   const steps = ['요청', '거래대기', '거래확정', '코디완료']
+
+  const isExpired = () => {
+    // status CONFIRMED 인데 deadline 이 지났을 때
+    if (
+      requestData.status === 'CONFIRMED' &&
+      new Date(requestData.deadline) < new Date()
+    )
+      return true
+    return false
+  }
 
   // 파트너 아이디로 파트너 정보를 조회한다. (닉네임, 프로필 이미지)
   useEffect(() => {
@@ -44,6 +55,7 @@ export default function UserChatBox({
           <UserChatBoxStatus
             status={requestData.status}
             deadline={requestData.deadline}
+            isExpired={isExpired()}
           />
         </section>
 
@@ -70,6 +82,7 @@ export default function UserChatBox({
         status={requestData.status}
         requestId={requestData.requestId}
         partnerId={requestData.partnerId}
+        isExpired={isExpired()}
       />
     </div>
   )

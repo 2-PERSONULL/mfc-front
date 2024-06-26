@@ -30,9 +30,9 @@ export default function HomePartnerPost({
         <p>{content.nickname}</p>
       </figure>
       <ul className="w-wull h-[30px] ml-3 mt-2 mb-2 flex flex-row items-center">
-        {content.tags.map((tag, idx) => (
+        {content.tags.map((tag) => (
           <li
-            key={idx}
+            key={tag.tagId}
             className="text-[10px] text-gray-600 bg-gray-200 rounded-full font-semibold mr-[5px] px-2 py-1"
           >
             {tag.value}

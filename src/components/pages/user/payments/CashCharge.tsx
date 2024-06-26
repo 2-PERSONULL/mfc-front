@@ -9,12 +9,14 @@ import usePayment from '@/hooks/usePayment'
 export default function CashCharge({
   closeModal,
   cashBalance,
+  callbackUrl,
 }: {
   closeModal?: () => void
   cashBalance: number
+  callbackUrl?: string
 }) {
   const router = useRouter()
-  const callbackUrl = usePathname()
+  const pathName = usePathname()
   const confirmId = useSearchParams().get('confirmId')
   const amount = useSearchParams().get('amount')
   const roomId = useSearchParams().get('roomId')
@@ -151,7 +153,8 @@ export default function CashCharge({
             chargeAmount,
             payMethod,
             closeModal || (() => router.replace('/user/mypage/paymentlist')),
-            `${callbackUrl}?confirmId=${confirmId}&amount=${amount}&roomId=${roomId}`,
+            callbackUrl ||
+              `${pathName}?confirmId=${confirmId}&amount=${amount}&roomId=${roomId}`,
           )
         }
       />

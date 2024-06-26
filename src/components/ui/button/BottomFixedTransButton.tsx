@@ -13,7 +13,7 @@ export default function BottomFixedTransButton({
   clickHandler?: () => void
 }) {
   return (
-    <section className="fixed bottom-0 left-0 right-0 h-[100px] flex justify-center pt-5 z-10">
+    <section className="fixed bottom-0 left-0 right-0 h-[100px] flex justify-center pt-5 z-10 bg-gradient-to-t from-white">
       {clickHandler && (
         <button
           type="button"
