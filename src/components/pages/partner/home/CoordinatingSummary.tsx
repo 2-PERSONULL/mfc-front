@@ -1,20 +1,16 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getChatList } from '@/actions/partner/PartnerRequest'
 import { PartnerChatListType } from '@/types/requestType'
 import { formatRequestDate } from '@/utils/formatTime'
 
-export default async function CoordinatingSummary() {
-  const initialData = await getChatList()
-
-  const nonResponse = initialData.filter(
-    (data: PartnerChatListType) => data.status === 'NONERESPONSE',
-  )
-  const toBeSubmitted = initialData.filter(
-    (data: PartnerChatListType) => data.status === 'CONFIRMED',
-  )
-
+export default async function CoordinatingSummary({
+  nonResponse,
+  toBeSubmitted,
+}: {
+  nonResponse: PartnerChatListType[]
+  toBeSubmitted: PartnerChatListType[]
+}) {
   const nonResponseData = nonResponse[nonResponse.length - 1]
 
   return (

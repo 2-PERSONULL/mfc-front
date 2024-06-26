@@ -6,6 +6,8 @@ import {
   getFavoriteStyle,
   getCareer,
 } from '@/actions/partner/PartnerProfile'
+import { getChatList } from '@/actions/partner/PartnerRequest'
+import { PartnerChatListType } from '@/types/requestType'
 import PartnerWelcome from '@/components/pages/partner/home/PartnerWelcome'
 import ProfileProgress from '@/components/pages/partner/home/ProfileProgress'
 import CoordinatingSummary from '@/components/pages/partner/home/CoordinatingSummary'
@@ -39,14 +41,26 @@ export default async function PartnerHome() {
   const totalFields = 8
   const progressPercent = Math.round((completedFields / totalFields) * 100)
 
+  // 요청서 데이터 조회
+  const initialData = await getChatList()
+  const nonResponse = initialData.filter(
+    (data: PartnerChatListType) => data.status === 'NONERESPONSE',
+  )
+  const toBeSubmitted = initialData.filter(
+    (data: PartnerChatListType) => data.status === 'CONFIRMED',
+  )
+
   // const { fcmToken } = useFcmToken(
   return (
     <main className="min-h-screen w-full px-4 pt-5 flex flex-col bg-gradient-to-b from-white via-gray-200 to-white">
-      <div className="flex flex-col gap-4 flex-grow pb-[120px]">
+      <div className="flex flex-col gap-4 flex-grow pb-[140px]">
         <PartnerWelcome nickname={nickname} />
         <ProfileProgress progressPercent={progressPercent} />
-        <CoordinatingSummary />
-        <DeadlineReminder />
+        <CoordinatingSummary
+          nonResponse={nonResponse}
+          toBeSubmitted={toBeSubmitted}
+        />
+        <DeadlineReminder toBeSubmitted={toBeSubmitted} />
         <ServiceGuide />
       </div>
     </main>

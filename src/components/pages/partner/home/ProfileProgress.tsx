@@ -52,6 +52,7 @@ export default function ProfileProgress({
           </>
         )}
       </div>
+
       <CircularProgressBar
         colorCircle="#ededed"
         colorSlice="#424242"
