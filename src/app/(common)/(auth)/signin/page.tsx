@@ -1,9 +1,7 @@
 import { Suspense } from 'react'
-import Link from 'next/link'
 import SignInForm from '@/components/pages/auth/signIn/SignInForm'
-// import SignInAddOn from '@/components/pages/auth/signIn/SignInAddOn'
-// import SNSSignInButton from '@/components/pages/auth/SNSSignInButton'
 import LicenseInfo from '@/components/common/LicenseInfo'
+import SignUpButton from '@/components/pages/auth/signIn/SignUpButton'
 
 export default function SignIn() {
   return (
@@ -12,14 +10,7 @@ export default function SignIn() {
         <Suspense>
           <SignInForm />
         </Suspense>
-        {/* <SignInAddOn /> */}
-        <Link
-          href="/signup"
-          className="text-center bg-white text-black border-2 border-black font-bold w-full rounded-full py-3 mt-3"
-        >
-          이메일로 회원가입하기
-        </Link>
-        {/* <SNSSignInButton /> */}
+        <SignUpButton />
         <LicenseInfo />
       </section>
     </main>

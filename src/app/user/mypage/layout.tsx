@@ -41,7 +41,10 @@ export default function MyPageLayout({
     title = '캐시 충전'
   } else if (search.includes('reqlist/') && /\/reqlist\/\d+$/.test(search)) {
     title = '요청서 상세'
+  } else if (search.endsWith('likelist')) {
+    title = '좋아요 관리'
   }
+
   return (
     <>
       {!search.endsWith('mypage') ? (

@@ -3,7 +3,7 @@ import SearchBar from '@/components/layouts/SearchBar'
 import ExploreCategory from '@/components/pages/member/explore/ExploreCategory'
 import { Style } from '@/types/styleCategoryListType'
 import { PartnerPostsByCategoryType } from '@/types/partnerPostsByCategoryType'
-import ExplorePosts from '@/components/pages/member/explore/ExplorePosts'
+import PostsList from '@/components/pages/member/explore/PostsList'
 import {
   getPartnerPostsByCategory,
   getStyleList,
@@ -23,7 +23,7 @@ export default async function Explore() {
     <main className="w-full px-5">
       <SearchBar />
       <ExploreCategory data={styleData} />
-      <ExplorePosts initData={allPartnerPostsData} fetchNum={FETCH_SIZE} />
+      <PostsList initData={allPartnerPostsData} fetchNum={FETCH_SIZE} />
     </main>
   )
 }
