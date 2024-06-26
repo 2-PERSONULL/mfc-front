@@ -1,8 +1,6 @@
 import React from 'react'
-import SearchBar from '@/components/layouts/SearchBar'
+// import SearchBar from '@/components/layouts/SearchBar'
 import ExploreCategory from '@/components/pages/member/explore/ExploreCategory'
-import { Style } from '@/types/styleCategoryListType'
-import { PartnerPostsByCategoryType } from '@/types/partnerPostsByCategoryType'
 import PostsList from '@/components/pages/member/explore/PostsList'
 import {
   getPartnerPostsByCategory,
@@ -12,16 +10,11 @@ import {
 const FETCH_SIZE = 20
 
 export default async function Explore() {
-  const styleData: Style = (await getStyleList()) as unknown as Style
-  const allPartnerPostsData: PartnerPostsByCategoryType =
-    (await getPartnerPostsByCategory(
-      0,
-      FETCH_SIZE,
-      '',
-    )) as unknown as PartnerPostsByCategoryType
+  const styleData = await getStyleList()
+  const allPartnerPostsData = await getPartnerPostsByCategory(0, FETCH_SIZE, '')
   return (
     <main className="w-full px-5">
-      <SearchBar />
+      {/* <SearchBar /> */}
       <ExploreCategory data={styleData} />
       <PostsList initData={allPartnerPostsData} fetchNum={FETCH_SIZE} />
     </main>
