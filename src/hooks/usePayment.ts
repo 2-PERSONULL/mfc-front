@@ -18,8 +18,8 @@ const usePayment = () => {
     if (payMethod === 'CARD') {
       const response = await PortOne.requestPayment({
         isTestChannel: true,
-        storeId: `${process.env.NEXT_PUPLIC_STORE_ID}`,
-        channelKey: `${process.env.NEXT_PUBLIC_CHANNEL_KEY}`,
+        storeId: 'store-3817e375-0dc1-428b-b5b8-e3c33c8ae5b2',
+        channelKey: 'channel-key-f93be768-c800-46d6-b9f7-ef59d3ac5dda',
         paymentId,
         orderName: 'MFC 캐시충전',
         totalAmount: amount,
@@ -56,8 +56,8 @@ const usePayment = () => {
     if (payMethod === 'NAVERPAY') {
       const response = await PortOne.requestPayment({
         isTestChannel: true,
-        storeId: `${process.env.NEXT_PUPLIC_STORE_ID}`,
-        channelKey: `${process.env.NEXT_PUBLIC_CHANNEL_KEY}`,
+        storeId: 'store-3817e375-0dc1-428b-b5b8-e3c33c8ae5b2',
+        channelKey: 'channel-key-f93be768-c800-46d6-b9f7-ef59d3ac5dda',
         paymentId,
         orderName: 'MFC 캐시충전',
         totalAmount: amount,
@@ -91,8 +91,8 @@ const usePayment = () => {
     if (payMethod === 'KAKAOPAY') {
       const response = await PortOne.requestPayment({
         isTestChannel: true,
-        storeId: `${process.env.NEXT_PUPLIC_STORE_ID}`,
-        channelKey: `${process.env.NEXT_PUBLIC_CHANNEL_KEY}`,
+        storeId: 'store-3817e375-0dc1-428b-b5b8-e3c33c8ae5b2',
+        channelKey: 'channel-key-f93be768-c800-46d6-b9f7-ef59d3ac5dda',
         paymentId,
         orderName: 'MFC 캐시충전',
         totalAmount: amount,
@@ -126,8 +126,8 @@ const usePayment = () => {
     if (payMethod === 'TOSSPAY') {
       const response = await PortOne.requestPayment({
         isTestChannel: true,
-        storeId: `${process.env.NEXT_PUPLIC_STORE_ID}`,
-        channelKey: `${process.env.NEXT_PUBLIC_CHANNEL_KEY}`,
+        storeId: 'store-3817e375-0dc1-428b-b5b8-e3c33c8ae5b2',
+        channelKey: 'channel-key-f93be768-c800-46d6-b9f7-ef59d3ac5dda',
         paymentId,
         orderName: 'MFC 캐시충전',
         totalAmount: amount,
