@@ -17,7 +17,7 @@ export default function UserId({
   const [isEmailValid, setIsEmailValid] = useState(false)
   const [isDoubleCheck, setIsDoubleCheck] = useState(false)
 
-  const emailRegex = /^[a-zA-Z0-9]+@[a-z.]+\.[a-z]{2,}$/
+  const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/
 
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault()

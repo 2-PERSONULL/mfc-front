@@ -71,7 +71,7 @@ export default function SignUpFunnel({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     submit(registerData)
-    router.push('/signin')
+    router.replace('/signin')
     showToast({
       content: '회원가입이 완료되었습니다. ',
       type: 'success',
