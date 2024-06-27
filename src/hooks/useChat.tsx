@@ -53,7 +53,7 @@ const useChat = () => {
     )
 
     if (response.ok) {
-      setInputMessage('')
+      setInputImage('')
     }
   }
 
