@@ -1,17 +1,6 @@
 import React from 'react'
-import { MemberFavoriteStyleType } from '@/types/commonTypes'
 import RankingItem from '@/components/pages/member/ranking/RankingItem'
-
-export interface RankingType {
-  partnerId: string
-  nickname: string
-  profileImage: string
-  alt: string
-  ranking: number
-  styles: MemberFavoriteStyleType[]
-  followers: number
-  coordinating: number
-}
+import { RankingType } from '@/types/commonTypes'
 
 export default function RankingList({
   rankingList,
@@ -20,8 +9,8 @@ export default function RankingList({
 }) {
   return (
     <section className="flex flex-col gap-8">
-      {rankingList.map((ranking) => (
-        <RankingItem key={ranking.partnerId} ranking={ranking} />
+      {rankingList.map((item, index) => (
+        <RankingItem key={item.partnerId} ranking={index + 1} data={item} />
       ))}
     </section>
   )

@@ -25,7 +25,7 @@ export default function RankingFollowButton({
     <button
       type="button"
       onClick={followHandler}
-      className={`rounded-[8px] ${isFollow ? 'bg-gray-100 text-black' : 'bg-black text-white'} font-semibold w-[80px] h-[28px]`}
+      className={`rounded-[8px] ${isFollow ? 'bg-gray-200 text-black' : 'bg-black text-white'} font-semibold w-[80px] h-[28px]`}
     >
       <p className="text-[12px]">{isFollow ? 'Following' : 'Follow'}</p>
     </button>
