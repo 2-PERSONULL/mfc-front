@@ -6,7 +6,6 @@ export default async function getPartnerRanking() {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/partners/ranking`,
       {
-        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
