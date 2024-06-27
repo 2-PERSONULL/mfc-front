@@ -20,7 +20,7 @@ export default function PartnerChatList({
         ))}
 
       {!initialData && (
-        <div className="flex justify-center pt-[100px]">
+        <div className="flex justify-center pt-[100px] pb-[100px]">
           <p className="text-xl text-gray-400">조회 내역이 없습니다.</p>
         </div>
       )}

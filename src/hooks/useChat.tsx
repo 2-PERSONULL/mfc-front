@@ -88,7 +88,7 @@ const useChat = () => {
 
       eventSource.onerror = () => {
         // console.error('EventSource failed:', error)
-        console.log('닫고 재연결합니당')
+        console.log('reconnect')
         eventSource.close()
 
         if (eventSource.readyState === 2 && !isUnmounted.current) {

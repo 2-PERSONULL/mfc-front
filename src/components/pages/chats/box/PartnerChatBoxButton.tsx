@@ -46,13 +46,13 @@ export default function PartnerChatBoxButton({
         <div className="h-full flex items-center justify-around">
           <Link
             href={`/partner/reqcoordi/${requestId}?status=accept`}
-            className="flex justify-center items-center border-r basis-1/3 h-full"
+            className={`flex justify-center items-center border-r ${!availableStatus ? 'basis-1/3' : 'basis-1/2'} h-full`}
           >
             요청 상세보기
           </Link>
           {availableStatus.includes(status) && (
             <Link
-              href={`/partner/styleguide/${requestId}?type=${isSubmit ? 'view' : 'new'}&status=${status}`}
+              href={`/partner/styleguide/${requestId}?type=${isSubmit ? 'view' : 'new'}&status=${status}&roomNumber=${roomNumber}`}
               className="flex justify-center items-center border-r basis-1/3 h-full"
             >
               코디

@@ -79,6 +79,11 @@ export default function StyleGuideEditorForm({
             }
             onUpdateGuide(updatedGuide)
           }}
+          onFocus={(e) => {
+            if (e.target.value === '0') {
+              e.target.value = ''
+            }
+          }}
         />
       </div>
 

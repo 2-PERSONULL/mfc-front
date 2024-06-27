@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidateTag } from 'next/cache'
 import { getFetchHeader } from '@/utils/getFetchHeader'
 
 // 파트너가 제출한 코디네이팅을 확정
@@ -27,6 +28,7 @@ export default async function confirmTrade(requestId: string) {
 
     const data = await response.json()
     if (!data.isSuccess) console.log('confirm tradde error:', data)
+    revalidateTag('style-guide')
     return data
   } catch (error) {
     console.log(error)

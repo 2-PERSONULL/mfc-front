@@ -60,7 +60,7 @@ export async function getStyleGuide(requestId: string) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/coordinates/request/${requestId}`,
       {
-        cache: 'no-cache',
+        next: { tags: ['style-guide'] },
       },
     )
 

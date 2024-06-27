@@ -22,13 +22,19 @@ export default function UserChatBox({
   const [partnerImageUrl, setPartnerImageUrl] = useState<string>('')
   const steps = ['요청', '거래대기', '거래확정', '코디완료']
 
+  const isDeadlinePast = () => {
+    const deadlineDate = new Date(requestData.deadline)
+    const today = new Date()
+
+    deadlineDate.setHours(0, 0, 0, 0)
+    today.setHours(0, 0, 0, 0)
+
+    return deadlineDate < today
+  }
+
   const isExpired = () => {
     // status CONFIRMED 인데 deadline 이 지났을 때
-    if (
-      requestData.status === 'CONFIRMED' &&
-      new Date(requestData.deadline) < new Date()
-    )
-      return true
+    if (requestData.status === 'CONFIRMED' && isDeadlinePast()) return true
     return false
   }
 

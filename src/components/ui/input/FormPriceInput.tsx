@@ -5,6 +5,7 @@ interface InputProps {
   value: string | number
   placeholder?: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onFocus: (e: React.FocusEvent<HTMLInputElement>) => void
 }
 
 export default function FormPriceInput({
@@ -12,6 +13,7 @@ export default function FormPriceInput({
   value,
   placeholder,
   onChange,
+  onFocus,
 }: InputProps) {
   return (
     <div className="flex flex-wrap relative w-full items-center h-[45px] text-[14px]">
@@ -20,7 +22,9 @@ export default function FormPriceInput({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        onFocus={onFocus}
         min={0}
+        inputMode="numeric"
         className="border border-gray-300 rounded-[4px] h-[45px] py-2 pl-[12px] pr-[31px] w-full text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500"
       />
       <div className="absolute right-0 pr-[12px]">원</div>

@@ -11,9 +11,8 @@ interface Partner {
   confirmedPrice: string
 }
 
-// 요청서 목록 조회
-export async function getChatList(page?: number, pageSize?: number) {
-  console.log(page, pageSize)
+// 파트너 요청서 목록 조회
+export async function getChatList(status?: string) {
   const header = await getFetchHeader()
 
   if (!header) {
@@ -23,7 +22,7 @@ export async function getChatList(page?: number, pageSize?: number) {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/partner-requests`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/partner-requests?status=${status}`,
       {
         headers: {
           uuid: header.UUID,

@@ -82,7 +82,9 @@ export default function StyleGuideList({
           </Swiper>
         </section>
       </div>
-      {status !== 'CLOSED' && <StyleGuideAction requestId={requestId} />}
+      {status !== 'CLOSED' && (
+        <StyleGuideAction requestId={requestId} status={status || ''} />
+      )}
     </>
   )
 }

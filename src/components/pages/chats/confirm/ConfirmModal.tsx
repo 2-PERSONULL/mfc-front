@@ -102,6 +102,11 @@ export default function ConfirmModal({
                 const { value } = e.target
                 setAmount(Number(value.replace(/[^0-9]/g, '')))
               }}
+              onFocus={(e) => {
+                if (e.target.value === '0') {
+                  e.target.value = ''
+                }
+              }}
             />
           </div>
           <div className="absolute bottom-0 left-0 right-0 flex justify-center items-center bg-white h-[100px]">
