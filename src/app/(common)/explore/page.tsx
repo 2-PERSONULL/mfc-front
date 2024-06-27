@@ -1,22 +1,28 @@
 import React from 'react'
-// import SearchBar from '@/components/layouts/SearchBar'
-import ExploreCategory from '@/components/pages/member/explore/ExploreCategory'
-import PostsList from '@/components/pages/member/explore/PostsList'
 import {
   getPartnerPostsByCategory,
   getStyleList,
 } from '@/actions/member/Explore'
+import ExploreCategory from '@/components/pages/member/explore/ExploreCategory'
+import PostsList from '@/components/pages/member/explore/PostsList'
 
-const FETCH_SIZE = 20
-
-export default async function Explore() {
+export default async function Explore({
+  searchParams,
+}: {
+  searchParams?: {
+    category: number
+    sort: string
+  }
+}) {
+  const styleId = searchParams?.category ?? 0
+  const sort = searchParams?.sort ?? ''
   const styleData = await getStyleList()
-  const allPartnerPostsData = await getPartnerPostsByCategory(0, FETCH_SIZE, '')
+  const postsData = await getPartnerPostsByCategory(styleId, 20, sort)
+  console.log(postsData)
   return (
     <main className="w-full px-5">
-      {/* <SearchBar /> */}
       <ExploreCategory data={styleData} />
-      <PostsList initData={allPartnerPostsData} fetchNum={FETCH_SIZE} />
+      <PostsList initData={postsData} fetchNum={20} styleId={styleId} />
     </main>
   )
 }

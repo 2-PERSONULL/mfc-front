@@ -25,10 +25,11 @@ const getPartnerPostsByCategory = async (
   page: number,
   size: number,
   sort: string,
+  styleId?: number,
 ) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/explore?page=${page}&size=${size}&sort=${sort}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/explore?page=${page}&size=${size}&sort=${sort}${styleId ? `&styleId=${styleId}` : ''}`,
       {
         method: 'GET',
         headers: {

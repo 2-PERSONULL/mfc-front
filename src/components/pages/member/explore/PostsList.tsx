@@ -16,9 +16,11 @@ import { getPartnerPostsByCategory } from '@/actions/member/Explore'
 export default function PostsList({
   initData,
   fetchNum,
+  styleId,
 }: {
   initData: PartnerPostsByCategoryType
   fetchNum: number
+  styleId: number
 }) {
   const [offset, setOffset] = useState(1)
   const [postsData, setPostsData] = useState<PartnerPostListType[]>(
@@ -34,8 +36,8 @@ export default function PostsList({
       offset,
       fetchNum,
       '',
+      styleId,
     )
-    console.log(last)
     setIsLastData(last)
     setPostsData((prevPosts) => [...prevPosts, ...posts])
     setOffset((prevOffset) => prevOffset + 1)
@@ -47,32 +49,25 @@ export default function PostsList({
   })
 
   return (
-    <>
-      <section className="w-full min-h-screen pb-[120px]">
-        <div className="grid grid-cols-2 w-full text-center gap-2">
-          {postsData.map((post) => (
-            <Link
-              href={`/user/coordinator/${post.partnerId}/posts/${post.postId}`}
-              key={post.postId}
-              className="w-[100%] relative min-h-[200px] "
-            >
-              <Image
-                src={post.imageUrl}
-                alt={post.alt}
-                fill
-                objectFit="cover"
-                className="absolute rounded-md"
-              />
-            </Link>
-          ))}
-        </div>
-        <div ref={observerRef} />
-      </section>
-      {/* {isModalOpen && (
-        <Modal title="탐색" closeModal={() => setIsModalOpen(false)}>
-          <ExplorePostDetail partnerId={partnerId} postId={postId} />
-        </Modal>
-      )} */}
-    </>
+    <section className="w-full min-h-screen pb-[120px]">
+      <div className="grid grid-cols-2 w-full text-center gap-2">
+        {postsData.map((post) => (
+          <Link
+            href={`/user/coordinator/${post.partnerId}/posts/${post.postId}`}
+            key={post.postId}
+            className="w-[100%] relative min-h-[200px]"
+          >
+            <Image
+              src={post.imageUrl}
+              alt={post.alt}
+              fill
+              objectFit="cover"
+              className="absolute rounded-md"
+            />
+          </Link>
+        ))}
+      </div>
+      <div ref={observerRef} />
+    </section>
   )
 }

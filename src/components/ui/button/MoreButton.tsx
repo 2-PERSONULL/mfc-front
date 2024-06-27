@@ -14,9 +14,15 @@ interface MoreButtonType {
   clickHandler: () => void
 }
 
-export default function MoreButton({ actions }: { actions: MoreButtonType[] }) {
+export default function MoreButton({
+  id,
+  actions,
+}: {
+  id?: string
+  actions?: MoreButtonType[]
+}) {
   return (
-    <Menubar className="border-none">
+    <Menubar id={id} className="border-none">
       <MenubarMenu>
         <MenubarTrigger>
           <Image
