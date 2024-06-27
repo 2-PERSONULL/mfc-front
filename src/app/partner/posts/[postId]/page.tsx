@@ -5,6 +5,7 @@ import { getPartnerPostDetail } from '@/actions/partner/PartnerPost'
 import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 import PartnerPostLikeCount from '@/components/pages/partner/mypage/style/PartnerPostLikeCount'
 import PartnerPostTagList from '@/components/pages/partner/mypage/style/PartnerPostTagList'
+import PartnerPostCreatedDate from '@/components/pages/partner/mypage/style/PartnerPostCreatedDate'
 import PartnerPostTop from '@/components/pages/partner/mypage/style/PartnerPostTop'
 import StyleEditor from '@/components/pages/partner/mypage/style/StyleEditor'
 
@@ -22,7 +23,8 @@ export default async function PartnerPostDetailPage({
 }) {
   const type = searchParams?.type
   const { postId } = params
-  const { imageUrl, tags, bookmarkCnt } = await getPartnerPostDetail(postId)
+  const { imageUrl, tags, bookmarkCnt, createdAt } =
+    await getPartnerPostDetail(postId)
   const { nickname, profileImage } = await getPartnerProfileBasic()
 
   return (
@@ -43,6 +45,7 @@ export default async function PartnerPostDetailPage({
           />
           <PartnerPostImage imageUrl={imageUrl} />
           <PartnerPostLikeCount likeCount={bookmarkCnt} postId={postId} />
+          <PartnerPostCreatedDate createdAt={createdAt} />
           <PartnerPostTagList tags={tags} />
         </>
       )}

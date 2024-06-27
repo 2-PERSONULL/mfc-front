@@ -5,6 +5,7 @@ import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 import PartnerPostLikeCount from '@/components/pages/partner/mypage/style/PartnerPostLikeCount'
 import PartnerPostTagList from '@/components/pages/partner/mypage/style/PartnerPostTagList'
 import ExplorePostTop from '@/components/pages/member/explore/ExplorePostTop'
+import PartnerPostCreatedDate from '@/components/pages/partner/mypage/style/PartnerPostCreatedDate'
 
 export default async function PartnerPostDetailPage({
   params,
@@ -12,7 +13,8 @@ export default async function PartnerPostDetailPage({
   params: { postId: number; partnerId: string }
 }) {
   const { partnerId, postId } = params
-  const { imageUrl, tags, bookmarkCnt } = await getPartnerPostDetail(postId)
+  const { imageUrl, tags, bookmarkCnt, createdAt } =
+    await getPartnerPostDetail(postId)
   const { nickname, profileImage } = await getPartnerProfileBasic(partnerId)
 
   return (
@@ -24,6 +26,7 @@ export default async function PartnerPostDetailPage({
       />
       <PartnerPostImage imageUrl={imageUrl} />
       <PartnerPostLikeCount likeCount={bookmarkCnt} postId={postId} />
+      <PartnerPostCreatedDate createdAt={createdAt} />
       <PartnerPostTagList tags={tags} />
     </>
   )
