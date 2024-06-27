@@ -4,7 +4,7 @@ import React from 'react'
 import { updateFollow } from '@/actions/user/Follow'
 import useRole from '@/hooks/useRole'
 
-export default function PartnerFollowButton({
+export default function RankingFollowButton({
   partnerId,
   isFollow,
 }: {
@@ -30,9 +30,9 @@ export default function PartnerFollowButton({
     <button
       type="button"
       onClick={followHandler}
-      className={`rounded-full ${isFollow ? 'bg-gray-200 text-black' : 'bg-black text-white'} font-semibold w-[120px] h-[42px]`}
+      className={`rounded-[8px] ${isFollow ? 'bg-gray-200 text-black' : 'bg-black text-white'} font-semibold w-[80px] h-[28px]`}
     >
-      {isFollow ? 'Following' : 'Follow'}
+      <p className="text-[12px]">{isFollow ? 'Following' : 'Follow'}</p>
     </button>
   )
 }

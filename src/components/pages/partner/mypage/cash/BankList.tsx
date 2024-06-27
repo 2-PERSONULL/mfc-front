@@ -43,7 +43,7 @@ export default function BankList({
                 className="bg-gray-100 rounded-[14px] h-[90px] flex flex-col items-center justify-center"
               >
                 <Image
-                  src="/bank/032.svg"
+                  src={`/bank/${bank.code}.svg`}
                   alt="bank-icon"
                   width="40"
                   height="40"

@@ -1,5 +1,15 @@
 import React from 'react'
+import RankingList from '@/components/pages/member/ranking/RankingList'
+import RankingTitle from '@/components/pages/member/ranking/RankingTitle'
+import getPartnerRanking from '@/actions/member/Ranking'
 
-export default function Ranking() {
-  return <div>랭킹 페이지입니다.</div>
+export default async function Ranking() {
+  const rankingList = await getPartnerRanking()
+
+  return (
+    <main className="p-5">
+      <RankingTitle />
+      <RankingList rankingList={rankingList} />
+    </main>
+  )
 }

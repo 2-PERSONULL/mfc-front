@@ -314,6 +314,22 @@ input[type='radio']:focus {
   animation: fadeIn 5s;
 }
 
+/* 박스가 밑에서 위로 */
+@keyframes boxUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.boxUp {
+  animation: boxUp 0.5s ease-out forwards;
+}
+
 @keyframes slideIn {
   from {
     bottom: -100px; /* 시작 위치 */
@@ -325,17 +341,17 @@ input[type='radio']:focus {
 
 @keyframes slideOut {
   from {
-    bottom: 8rem
+    bottom: 8rem;
   }
   to {
-    bottom: -100px
+    bottom: -100px;
   }
 }
 
 .slide-in {
-  animation: slideIn 0.1s forwards
+  animation: slideIn 0.1s forwards;
 }
 
 .slide-out {
-  animation: slideOut 0.1s backwards
+  animation: slideOut 0.1s backwards;
 }
