@@ -23,10 +23,12 @@ export async function getCashBalance() {
   )
   const data = await response.json()
 
-  if (data.isSuccess) {
-    return data.result
+  if (!data.isSuccess) {
+    console.log('Failed to get cash balance', data)
+    return null
   }
-  console.log('Failed to get cash balance', data)
+
+  return data.result
 }
 
 // 캐시 충전 api
