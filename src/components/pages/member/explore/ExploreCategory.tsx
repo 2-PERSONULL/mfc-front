@@ -14,25 +14,31 @@ import {
 export default function ExploreCategory({ data }: { data: Style }) {
   const router = useRouter()
   const pathname = usePathname()
-  const [selectedCategory, setSelectedCategory] = useState<number>(0)
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null)
   const [selectedSort, setSelectedSort] = useState<string>('')
-  console.log(selectedSort)
 
-  const handleClickCtg = (value: number) => {
+  const handleClickCtg = (value: number | null) => {
     setSelectedCategory(value)
-    router.push(`${pathname}?category=${value}&sort=${selectedSort}`)
+    const url = new URLSearchParams()
+    if (value !== null) url.set('category', value.toString())
+    if (selectedSort) url.set('sort', selectedSort)
+    router.push(`${pathname}?${url.toString()}`)
   }
   const handleSort = (value: string) => {
     setSelectedSort(value)
-    router.push(`${pathname}?category=${selectedCategory}&sort=${value}`)
+    const url = new URLSearchParams()
+    if (selectedCategory !== null)
+      url.set('category', selectedCategory.toString())
+    url.set('sort', value)
+    router.push(`${pathname}?${url.toString()}`)
   }
   return (
     <section className="sticky top-0 z-[5] pt-1 pb-3 bg-white flex flex-col items-end gap-3">
       <section className="w-full bg-white flex flex-row items-start overflow-x-scroll no-scrollbar whitespace-nowrap">
         <div
           role="presentation"
-          onClick={() => handleClickCtg(0)}
-          className={`px-6 py-2 mt-2 mr-2 rounded-[14px] relative ${selectedCategory === 0 ? 'bg-[#000000] text-white' : 'text-black bg-[#f0f0f0]'}`}
+          onClick={() => handleClickCtg(null)}
+          className={`px-6 py-2 mt-2 mr-2 rounded-[14px] relative ${selectedCategory === null ? 'bg-[#000000] text-white' : 'text-black bg-[#f0f0f0]'}`}
         >
           All
         </div>

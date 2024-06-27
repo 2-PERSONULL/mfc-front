@@ -29,7 +29,7 @@ const getPartnerPostsByCategory = async (
 ) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/explore?page=${page}&size=${size}&sort=${sort}${styleId ? `&styleId=${styleId}` : ''}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/explore?page=${page}&size=${size}&sort=${sort}${styleId === undefined ? '' : `&styleId=${styleId}`}`,
       {
         method: 'GET',
         headers: {

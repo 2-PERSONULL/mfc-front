@@ -3,7 +3,7 @@
 
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import useObserver from '@/hooks/useObserver'
@@ -17,10 +17,12 @@ export default function PostsList({
   initData,
   fetchNum,
   styleId,
+  sort,
 }: {
   initData: PartnerPostsByCategoryType
   fetchNum: number
-  styleId: number
+  styleId: number | undefined
+  sort: string
 }) {
   const [offset, setOffset] = useState(1)
   const [postsData, setPostsData] = useState<PartnerPostListType[]>(
@@ -28,14 +30,28 @@ export default function PostsList({
   )
   const [isLastData, setIsLastData] = useState(initData.last)
 
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const { posts, last } = await getPartnerPostsByCategory(
+        0,
+        fetchNum,
+        sort,
+        styleId,
+      )
+      setPostsData(posts)
+      setIsLastData(last)
+      setOffset(1)
+    }
+    fetchPosts()
+  }, [sort, fetchNum])
+
   const loadMorePosts = async () => {
-    console.log('loadMorePosts')
     if (isLastData) return
 
     const { posts, last } = await getPartnerPostsByCategory(
-      offset,
+      offset + 1,
       fetchNum,
-      '',
+      sort,
       styleId,
     )
     setIsLastData(last)
