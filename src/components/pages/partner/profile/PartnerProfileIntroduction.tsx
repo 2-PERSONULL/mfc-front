@@ -10,9 +10,9 @@ export default async function PartnerProfileIntroduction({
 
   // const description = null
   return (
-    <p className="p-8 text-sm w-full break-words">
+    <div className="p-8 text-sm w-full break-words">
       {description || <NotData />}
-    </p>
+    </div>
   )
 }
 

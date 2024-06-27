@@ -4,12 +4,15 @@ import React from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import useConfirmStore from '@/stores/confirm'
 import useClientSession from '@/hooks/useClientSession'
+import useRole from '@/hooks/useRole'
 
 export default function CoordiRequestButton({
   partnerId,
 }: {
   partnerId?: string
 }) {
+  const role = useRole()
+
   const { uuid } = useClientSession()
   const path = usePathname()
   const router = useRouter()
@@ -30,6 +33,8 @@ export default function CoordiRequestButton({
       router.push(`/signin?callbackUrl=${path}`)
     }
   }
+
+  if (role === 'PARTNER') return null
 
   return (
     <section className="fixed bottom-0 left-0 right-0 h-[100px] flex justify-center pt-5">

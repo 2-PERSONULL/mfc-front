@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { updateFollow } from '@/actions/user/Follow'
+import useRole from '@/hooks/useRole'
 
 export default function RankingFollowButton({
   partnerId,
@@ -10,6 +11,8 @@ export default function RankingFollowButton({
   partnerId: string
   isFollow: boolean
 }) {
+  const role = useRole()
+
   const followHandler = async () => {
     // 팔로우중인 경우
     if (isFollow) {
@@ -20,6 +23,8 @@ export default function RankingFollowButton({
       await updateFollow(partnerId, 'POST')
     }
   }
+
+  if (role === 'PARTNER') return null
 
   return (
     <button
