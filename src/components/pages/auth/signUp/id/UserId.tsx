@@ -4,13 +4,15 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-import FormInput from '@/components/ui/input/FormInput'
 import useToast from '@/stores/toast'
+import { emailDoubleCheck } from '@/actions/member/Auth'
 
 export default function UserId({
   clickHandler,
+  onKeyDown,
 }: {
   clickHandler: (data: string) => void
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }) {
   const { showToast } = useToast()
   const [value, setValue] = useState('')
@@ -53,23 +55,13 @@ export default function UserId({
       })
       return
     }
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth-service/auth/email/${value}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-
-    const data = await response.json()
-    if (data.result === undefined) {
+    const data = await emailDoubleCheck(value)
+    if (data.result === false) {
       setIsEmailValid(false)
       setIsDoubleCheck(false)
       showToast({
-        content: '다시 시도해주세요.',
-        type: 'warning',
+        content: '사용할 수 없는 이메일입니다.',
+        type: 'error',
       })
     } else {
       setIsEmailValid(true)
@@ -85,13 +77,14 @@ export default function UserId({
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
       <SignUpTitle comment="아이디를 입력해주세요." />
       <div className="flex items-center justify-end mt-8">
-        <FormInput
-          inputmode="email"
+        <input
           disabled={isDoubleCheck}
           type="email"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="이메일을 입력하세요."
+          onKeyDown={onKeyDown}
+          className="form-input"
         />
         {isEmailValid && isDoubleCheck ? (
           <p className="absolute px-5 py-1 text-black font-bold">
