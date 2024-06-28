@@ -13,11 +13,6 @@ const PartnerMyPageMenuData: MenuType[] = [
   },
   {
     id: 3,
-    title: '스케줄 관리',
-    url: '/partner/management/schedule',
-  },
-  {
-    id: 4,
     title: '정산 관리',
     url: '/partner/management/cash',
   },
