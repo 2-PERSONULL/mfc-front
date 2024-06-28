@@ -18,11 +18,13 @@ export default function PostsList({
   fetchNum,
   styleId,
   sort,
+  search,
 }: {
   initData: PartnerPostsByCategoryType
   fetchNum: number
   styleId: number | undefined
   sort: string
+  search: string
 }) {
   const [offset, setOffset] = useState(1)
   const [postsData, setPostsData] = useState<PartnerPostListType[]>(
@@ -37,6 +39,7 @@ export default function PostsList({
         fetchNum,
         sort,
         styleId,
+        search,
       )
       setPostsData(posts)
       setIsLastData(last)
@@ -53,6 +56,7 @@ export default function PostsList({
       fetchNum,
       sort,
       styleId,
+      search,
     )
     setIsLastData(last)
     setPostsData((prevPosts) => [...prevPosts, ...posts])
