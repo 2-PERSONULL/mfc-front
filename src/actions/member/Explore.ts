@@ -13,7 +13,7 @@ const getStyleList = async () => {
         },
       },
     )
-    const data: BaseResponseType = await response.json()
+    const data = await response.json()
     return data.result
   } catch (error) {
     console.log(error)
@@ -25,10 +25,11 @@ const getPartnerPostsByCategory = async (
   page: number,
   size: number,
   sort: string,
+  styleId?: number,
 ) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/explore?page=${page}&size=${size}&sort=${sort}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/explore?page=${page}&size=${size}&sort=${sort}${styleId === undefined ? '' : `&styleId=${styleId}`}`,
       {
         method: 'GET',
         headers: {

@@ -36,7 +36,7 @@ export default async function UserHome() {
         // 데이터 추가 후 로직 수정할 예정
         <NonMemberRecommendStyle posts={nonMemberPartnerPost.posts} />
       )}
-      <HomeTipSection username={user ? user.nickname : '당신만'} />
+      <HomeTipSection username={user ? user.nickname : null} />
       <HomeEventSection />
     </main>
   )

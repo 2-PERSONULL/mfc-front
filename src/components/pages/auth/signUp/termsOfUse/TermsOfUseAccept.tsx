@@ -4,14 +4,7 @@ import React, { useEffect, useState } from 'react'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import useToast from '@/stores/toast'
-
-interface CheckboxState {
-  checkbox1: boolean
-  checkbox2: boolean
-  checkbox3: boolean
-  checkbox4: boolean
-  checkbox5: boolean
-}
+import { CheckboxState } from '@/types/SignUpCheckboxesType'
 
 export default function TermsOfUseAccept({
   clickHandler,

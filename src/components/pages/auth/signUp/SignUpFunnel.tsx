@@ -71,11 +71,17 @@ export default function SignUpFunnel({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     submit(registerData)
-    router.push('/signin')
+    router.replace('/signin')
     showToast({
       content: '회원가입이 완료되었습니다. ',
       type: 'success',
     })
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+    }
   }
 
   return (
@@ -94,6 +100,7 @@ export default function SignUpFunnel({
               setRegisterData((prev) => ({ ...prev, name: data }))
               setStep('UserId')
             }}
+            onKeyDown={handleKeyDown}
           />
         )}
         {step === 'UserId' && (
@@ -102,6 +109,7 @@ export default function SignUpFunnel({
               setRegisterData((prev) => ({ ...prev, email: data }))
               setStep('PhoneNumAuthentication')
             }}
+            onKeyDown={handleKeyDown}
           />
         )}
         {step === 'PhoneNumAuthentication' && (
@@ -110,6 +118,7 @@ export default function SignUpFunnel({
               setRegisterData((prev) => ({ ...prev, phone: data }))
               setStep('UserPassword')
             }}
+            onKeyDown={handleKeyDown}
           />
         )}
         {step === 'UserPassword' && (
@@ -118,6 +127,7 @@ export default function SignUpFunnel({
               setRegisterData((prev) => ({ ...prev, password: data }))
               setStep('UserBirthAndGender')
             }}
+            onKeyDown={handleKeyDown}
           />
         )}
         {step === 'UserBirthAndGender' && (
@@ -130,6 +140,7 @@ export default function SignUpFunnel({
               }))
               setStep('UserNickname')
             }}
+            onKeyDown={handleKeyDown}
           />
         )}
         {step === 'UserNickname' && (
@@ -138,6 +149,7 @@ export default function SignUpFunnel({
               setRegisterData((prev) => ({ ...prev, nickname: data }))
               setStep('PreferredStyle')
             }}
+            onKeyDown={handleKeyDown}
           />
         )}
         {step === 'PreferredStyle' && (

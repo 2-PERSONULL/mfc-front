@@ -3,6 +3,7 @@ import PartnerProfileHeader from '@/components/pages/partner/profile/PartnerProf
 import PartnerProfilePreviewTabs from '@/components/pages/partner/mypage/preview/PartnerProfilePreviewTabs'
 import PartnerProfileTopInfo from '@/components/pages/partner/profile/PartnerProfileTopInfo'
 import BottomNav from '@/components/layouts/BottomNav'
+import FloatingButton from '@/components/common/FloatingButton'
 
 export default function layout({ tabs }: { tabs: React.ReactNode }) {
   return (
@@ -12,6 +13,7 @@ export default function layout({ tabs }: { tabs: React.ReactNode }) {
         <PartnerProfileTopInfo />
         <PartnerProfilePreviewTabs />
         {tabs}
+        <FloatingButton />
       </main>
       <BottomNav />
     </>

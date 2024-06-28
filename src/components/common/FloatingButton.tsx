@@ -26,8 +26,8 @@ export default function FloatingButton() {
     <button
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className={`z-[29] fixed w-12 h-12 right-0 bg-black rounded-full mr-5 ${
-        end ? 'slide-in' : 'slide-out'
+      className={`z-[29] fixed w-12 h-12 -right-5 bottom-28 bg-black rounded-full mr-5 drop-shadow-xl transition-transform duration-100 ${
+        end ? '-translate-x-5' : 'translate-x-[100px]'
       }`}
     >
       <Image

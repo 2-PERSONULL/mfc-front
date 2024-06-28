@@ -4,12 +4,13 @@ import React, { useState } from 'react'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 import useToast from '@/stores/toast'
-import FormInput from '@/components/ui/input/FormInput'
 
 export default function UserPassword({
   clickHandler,
+  onKeyDown,
 }: {
   clickHandler: (data: string) => void
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }) {
   const { showToast } = useToast()
   const [password, setPassword] = useState('')
@@ -41,10 +42,12 @@ export default function UserPassword({
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
       <SignUpTitle comment="비밀번호를 입력해주세요." />
       <div className="grid mt-8 gap-5">
-        <FormInput
+        <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="form-input"
+          onKeyDown={onKeyDown}
           placeholder="대소문자 / 숫자 / 특수문자 / 8~20자 이내"
         />
         {!isValidPs && (
@@ -52,9 +55,11 @@ export default function UserPassword({
             부적합한 비밀번호입니다.
           </p>
         )}
-        <FormInput
+        <input
           type="password"
           value={checkPassword}
+          className="form-input"
+          onKeyDown={onKeyDown}
           onChange={(e) => setCheckPassword(e.target.value)}
           placeholder="비밀번호를 한번 더 입력해주세요."
         />
@@ -65,7 +70,6 @@ export default function UserPassword({
         )}
       </div>
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">
-        {/* <SeperatedBeforeAfterButton /> */}
         <StretchedRoundedButton comment="다음으로" clickHandler={handleNext} />
       </div>
     </div>
