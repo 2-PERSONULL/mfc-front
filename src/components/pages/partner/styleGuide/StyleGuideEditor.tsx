@@ -8,6 +8,7 @@ import StyleGuideEditorForm from '@/components/pages/partner/styleGuide/StyleGui
 import useToast from '@/stores/toast'
 import submitStyleGuide from '@/actions/partner/Coordinates'
 import codiOptionData from '@/libs/codiOptionData'
+import sendCard from '@/actions/chat/chatCard'
 
 const initData = [
   {
@@ -23,9 +24,11 @@ const initData = [
 export default function StyleGuideEditor({
   requestId,
   editData,
+  roomNumber,
 }: {
   requestId: string
   editData?: StyleGuideInfo[]
+  roomNumber?: string
 }) {
   const router = useRouter()
   const { showToast } = useToast()
@@ -46,6 +49,28 @@ export default function StyleGuideEditor({
     setGuideList(newGuideList)
   }
 
+  // 채팅방 카드 메시지 전송
+  const sendStyleGuideCardAlert = async () => {
+    const cardMessage = {
+      requestId,
+      title: '스타일 가이드 도착',
+      description:
+        '파트너님이 스타일 가이드를 제출했어요:) 가이드 확인 후 확정을 진행해주세요.',
+      details: [],
+      actions: [
+        {
+          label: '가이드 바로가기',
+          action: 'click',
+          url: `/user/styleguide/${requestId}`,
+        },
+      ],
+      target: 'USER',
+      type: 'information',
+    }
+
+    await sendCard(cardMessage, roomNumber ?? '')
+  }
+
   const submitHandler = async () => {
     // 카테고리, 가격, 코멘트는 필수값
     if (
@@ -64,6 +89,8 @@ export default function StyleGuideEditor({
         content: '스타일 가이드가 제출되었습니다',
         type: 'success',
       })
+
+      await sendStyleGuideCardAlert()
 
       router.replace(`/partner/chats`)
     } else showToast({ content: '제출 실패', type: 'error' })

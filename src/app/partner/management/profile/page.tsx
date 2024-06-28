@@ -18,6 +18,9 @@ import {
 import getStyleCategory from '@/actions/partner/Common'
 import PartnerNickname from '@/components/pages/partner/mypage/profile/PartnerNickname'
 
+const BASIC_IMAGE =
+  'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
+
 export default async function PartnerMyPageProfile() {
   const styleList = await getStyleCategory()
   const favoritStyle = await getFavoriteStyle()
@@ -30,7 +33,7 @@ export default async function PartnerMyPageProfile() {
 
   // 프로필이미지, 소개, 채팅시간, 리드타임, SNS, 경력, 주력스타일, 가격
   const fields = [
-    profileImage,
+    profileImage === BASIC_IMAGE ? null : profileImage,
     description,
     startTime && endTime,
     averageDate,
@@ -49,7 +52,10 @@ export default async function PartnerMyPageProfile() {
         <ProfileImage profileImage={profileImage} />
         <PartnerNickname nickName={nickname} />
       </div>
-      <ProfileProgress progressPercent={progressPercent} />
+      <ProfileProgress
+        progressPercent={progressPercent}
+        leftLength={totalFields - completedFields}
+      />
       <div className="px-6 mb-[50px]">
         <PartnerIntroduction data={description} />
         <PartnerChatTime startChatTime={startTime} endChatTime={endTime} />

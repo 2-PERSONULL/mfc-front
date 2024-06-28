@@ -56,6 +56,7 @@ export default function MessageGroup({
             className={`flex gap-1 mb-3 ${messageList[index - 1]?.sender === uuid ? 'mt-6' : ''}`} // 이전 메시지가 자신의 메시지인 경우 상단 마진 추가
             key={message.id}
           >
+            {/* 메시지 타입에 따른 프로필 이미지 구분 */}
             {message.type === 'card' ? (
               <CircleProfile size={40} imageUrl="/icons/reminder.svg" />
             ) : (

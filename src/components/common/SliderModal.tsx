@@ -37,7 +37,7 @@ function SliderModal({
         role="presentation"
         onClick={backgroundClose ? onChangeModal : () => {}}
         className={`
-                    fixed top-0 left-0  z-[300]
+                    fixed top-0 left-0 z-[300]
                     w-full h-full 
                     bg-[#747474] bg-opacity-50 
                     transition-all

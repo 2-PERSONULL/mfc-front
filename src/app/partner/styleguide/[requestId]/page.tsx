@@ -13,6 +13,7 @@ export default async function PartnerStyleGuidePage({
   const { requestId } = params
   const type = searchParams?.type
   const status = searchParams?.status
+  const roomNumber = searchParams?.roomNumber
   const data = await getStyleGuide(requestId)
 
   return (
@@ -24,7 +25,11 @@ export default async function PartnerStyleGuidePage({
           status={status || ''}
         />
       ) : (
-        <StyleGuideEditor requestId={requestId} editData={data} />
+        <StyleGuideEditor
+          requestId={requestId}
+          editData={data}
+          roomNumber={roomNumber}
+        />
       )}
     </main>
   )

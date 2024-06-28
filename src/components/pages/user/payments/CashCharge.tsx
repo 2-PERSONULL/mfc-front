@@ -27,16 +27,11 @@ export default function CashCharge({
   const easyPayList = [
     {
       id: 1,
-      image: '/icons/npay.svg',
-      value: 'NAVERPAY',
-    },
-    {
-      id: 2,
       image: '/icons/kakaopay.svg',
       value: 'KAKAOPAY',
     },
     {
-      id: 3,
+      id: 2,
       image: '/icons/tosspay.svg',
       value: 'TOSSPAY',
     },

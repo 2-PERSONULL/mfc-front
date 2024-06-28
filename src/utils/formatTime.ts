@@ -9,6 +9,16 @@ const formatChatTime = (timeString: string): string => {
   return `${ampm} ${formattedHours}:${formattedMinutes}`
 }
 
+// export const formatChatDate = (dateString: string) => {
+//   const date = new Date(dateString)
+//   const options: Intl.DateTimeFormatOptions = {
+//     year: 'numeric',
+//     month: 'long',
+//     day: 'numeric',
+//   }
+//   return date.toLocaleDateString(undefined, options)
+// }
+
 const formatTime = (hour: number): string => {
   if (hour === 0) {
     return `오전 12시`
@@ -86,6 +96,12 @@ const convertToKorWithTime = (dateString: string): string => {
   return `${date.toISOString().split('T')[0]} ${date.toTimeString().split(' ')[0].substring(0, 5)}`
 }
 
+const convertToKorDate = (dateString: string): string => {
+  const date = new Date(dateString)
+  date.setHours(date.getHours() + 9) // Assuming UTC to KST conversion (+9 hours)
+  return date.toISOString().split('T')[0]
+}
+
 export {
   formatTime,
   formatChatTime,
@@ -94,4 +110,5 @@ export {
   formatDday,
   formatRequestDate,
   convertToKorWithTime,
+  convertToKorDate,
 }

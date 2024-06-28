@@ -15,7 +15,7 @@ import DeadlineReminder from '@/components/pages/partner/home/DeadlineReminder'
 import ServiceGuide from '@/components/pages/partner/home/ServiceGuide'
 
 // import useFcmToken from '@/hooks/useFcmToken'
-const basicImage =
+const BASIC_IMAGE =
   'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
 
 export default async function PartnerHome() {
@@ -28,7 +28,7 @@ export default async function PartnerHome() {
 
   // 프로필이미지, 소개, 채팅시간, 리드타임, SNS, 경력, 주력스타일, 가격 총8개
   const fields = [
-    profileImage === basicImage ? null : profileImage,
+    profileImage === BASIC_IMAGE ? null : profileImage,
     description,
     startTime && endTime,
     averageDate,

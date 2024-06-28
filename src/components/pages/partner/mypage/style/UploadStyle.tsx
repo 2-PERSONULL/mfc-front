@@ -81,13 +81,13 @@ export default function UploadStyle({
         {!image ? (
           renderContent()
         ) : (
-          <div className="rounded-[10px] w-[90%] h-[300px] relative">
+          <div className="rounded-[10px] w-[90%] h-[450px] relative">
             <Image
               src={image}
               alt="스타일 이미지"
               fill
               sizes="(max-width: 100px) 100vw, 100px"
-              className="object-contain"
+              className="object-cover"
             />
             <button type="button" onClick={() => inputRef.current?.click()}>
               <input
@@ -102,7 +102,7 @@ export default function UploadStyle({
                 alt="edit icon"
                 width={26}
                 height={26}
-                className="absolute top-[-10px] right-5"
+                className="absolute top-[-10px] right-0"
               />
             </button>
           </div>

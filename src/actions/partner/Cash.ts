@@ -14,18 +14,8 @@ export default async function settlement(
     return null
   }
 
-  console.log({
-    partnerId: header.UUID,
-    amount,
-    feeAmount: amount * 0.1,
-    accountNumber,
-    accountName,
-    status: 'PENDING',
-    settlementDate: new Date().toISOString(),
-  })
-
   try {
-    const response = await fetch(
+    await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/settlement-service/settlement/settlement-requests`,
       {
         method: 'POST',
@@ -42,9 +32,10 @@ export default async function settlement(
       },
     )
 
-    const result = await response.json()
+    // await response.json()
+
     revalidateTag('cash-balance')
-    return result
+    return null
   } catch (error) {
     console.log(error)
     return null

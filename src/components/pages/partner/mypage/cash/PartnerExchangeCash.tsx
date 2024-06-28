@@ -6,6 +6,8 @@ import Link from 'next/link'
 import PricePad from '@/components/pages/partner/mypage/cash/PricePad'
 import useToast from '@/stores/toast'
 import settlement from '@/actions/partner/Cash'
+import GrayModal from '@/components/common/GrayModal'
+import PartnerExchangeSuccess from './PartnerExchangeSuccess'
 
 export default function PartnerExchangeCash({
   balance,
@@ -20,6 +22,7 @@ export default function PartnerExchangeCash({
 
   const [exchangeable, setExchangeable] = useState<number>(0)
   const [amount, setAmount] = useState<number | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   useEffect(() => {
     // balance를 1000원 단위로 환전 가능
@@ -28,16 +31,28 @@ export default function PartnerExchangeCash({
 
   const clickHandler = async () => {
     if (amount === null) return
+
+    // 1000원 단위로 환전 가능
+    if (amount % 1000 !== 0) {
+      showToast({
+        content: '1000원 단위로 환전 가능합니다.',
+        type: 'warning',
+      })
+      return
+    }
+
     if (exchangeable < amount) {
       showToast({
         content: '환전 가능한 금액을 초과했습니다.',
         type: 'warning',
       })
+
+      return
     }
 
     // 환전 로직 api
-    const response = await settlement(amount, accountNumber, bank)
-    console.log(response)
+    await settlement(amount, accountNumber, bank)
+    setIsModalOpen(true)
   }
 
   const clickNumber = (num: string) => {
@@ -73,6 +88,14 @@ export default function PartnerExchangeCash({
 
   return (
     <div>
+      {isModalOpen && (
+        <GrayModal>
+          <PartnerExchangeSuccess
+            amount={amount}
+            closeModal={() => setIsModalOpen(false)}
+          />
+        </GrayModal>
+      )}
       <div className="flex  items-center justify-around gap-5 bg-white px-6 mt-3 mb-6">
         <div className="flex flex-col justify-center bg-gray-100 w-full h-[100px] rounded-[14px] p-3">
           <h1 className="font-medium text-gray-500 ">보유 캐시</h1>
