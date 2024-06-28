@@ -10,3 +10,14 @@ export interface MemberFavoriteStyleType {
   styleId: number
   name: string
 }
+
+export interface RankingType {
+  partnerId: string
+  nickname: string
+  profileImage: string
+  alt: string
+  followerCnt: number
+  coordinateCnt: number
+  averageStar: number
+  styles: MemberFavoriteStyleType[]
+}
