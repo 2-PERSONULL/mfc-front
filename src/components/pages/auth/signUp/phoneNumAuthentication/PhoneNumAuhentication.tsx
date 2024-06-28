@@ -5,40 +5,42 @@ import Image from 'next/image'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 import useToast from '@/stores/toast'
-import FormInput from '@/components/ui/input/FormInput'
+import { phoneNumSubmit, getVerifyAuthCode } from '@/actions/member/Auth'
 
 export default function PhoneNumAuthentication({
   clickHandler,
+  onKeyDown,
 }: {
   clickHandler: (data: string) => void
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }) {
   const { showToast } = useToast()
-  const [second, setSecond] = useState(0)
-  const [minutes, setMinutes] = useState(5)
+  const [totalSeconds, setTotalSeconds] = useState(300)
   const [phoneNumber, setPhoneNumber] = useState('')
   const [requestSMS, setRequestSMS] = useState(false)
   const [verificationCode, setVerificationCode] = useState('')
   const [isVerified, setIsVerified] = useState(false)
 
-  useEffect(() => {
+  const startTimer = () => {
     const timer = setInterval(() => {
-      if (second > 0) {
-        setSecond(second - 1)
-      }
-      if (second === 0) {
-        if (minutes === 0) {
-          clearInterval(timer)
-          setIsVerified(true)
-        } else {
-          setMinutes(minutes - 1)
-          setSecond(59)
+      setTotalSeconds((prevTotalSeconds) => {
+        if (prevTotalSeconds > 0) {
+          return prevTotalSeconds - 1
         }
-      }
+        clearInterval(timer)
+        setIsVerified(false)
+        return 0
+      })
     }, 1000)
-    return () => {
-      clearInterval(timer)
+
+    return () => clearInterval(timer)
+  }
+
+  useEffect(() => {
+    if (requestSMS) {
+      startTimer()
     }
-  }, [requestSMS, minutes, second])
+  }, [requestSMS])
 
   const phoneNumberRegex = /^010[0-9]{4}[0-9]{4}$/
 
@@ -49,36 +51,29 @@ export default function PhoneNumAuthentication({
         content: '전화번호 형식에 맞게 입력해주세요.',
         type: 'warning',
       })
-    } else if (!isVerified) {
+    }
+    if (!isVerified) {
       e.preventDefault()
       showToast({
         content: '휴대전화 인증번호가 필요합니다.',
         type: 'warning',
       })
-    } else if (phoneNumber.length === 0) {
+    }
+    if (phoneNumber.length === 0) {
       e.preventDefault()
       showToast({
         content: '전화번호를 입력해주세요.',
         type: 'warning',
       })
-    } else if (isVerified && phoneNumber.length > 0) {
+    }
+    if (isVerified && phoneNumber.length > 0) {
       clickHandler(phoneNumber)
     }
+    startTimer()
   }
 
   const handlePhoneNumSubmit = async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth-service/auth/sms/send`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ phone: phoneNumber, code: verificationCode }),
-      },
-    )
-
-    const data = await response.json()
+    const data = await phoneNumSubmit(phoneNumber, verificationCode)
     if (data.isSuccess) {
       console.log('인증번호 발송 성공')
       showToast({
@@ -97,18 +92,7 @@ export default function PhoneNumAuthentication({
   }
 
   const handleVerifyAuthCode = async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth-service/auth/sms/verify`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ phone: phoneNumber, code: verificationCode }),
-      },
-    )
-
-    const data = await response.json()
+    const data = await getVerifyAuthCode(phoneNumber, verificationCode)
     if (data.isSuccess) {
       console.log('인증번호 확인 성공')
       showToast({
@@ -126,20 +110,24 @@ export default function PhoneNumAuthentication({
     }
   }
 
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+
   return (
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
       <SignUpTitle comment="휴대전화번호를 입력해주세요." />
       <div className="grid  mt-8 gap-3">
         <div className="flex items-center justify-end">
-          <FormInput
-            inputmode="tel"
+          <input
             disabled={requestSMS}
-            type="text"
+            type="tel"
             value={phoneNumber}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setPhoneNumber(e.target.value)
             }
+            className="form-input"
             placeholder="전화번호를 입력하세요."
+            onKeyDown={onKeyDown}
           />
           {requestSMS ? (
             <p className="absolute px-5 py-1 text-black font-bold">
@@ -163,16 +151,17 @@ export default function PhoneNumAuthentication({
         </div>
         {requestSMS ? (
           <div className="flex items-center justify-end">
-            <FormInput
-              autocomplete="one-time-code"
-              inputmode="numeric"
+            <input
+              autoComplete="one-time-code"
               disabled={isVerified}
-              type="text"
+              type="numeric"
               value={verificationCode}
+              className="form-input"
+              onKeyDown={onKeyDown}
               onChange={(e) => setVerificationCode(e.target.value)}
               placeholder="인증번호를 입력하세요."
             />
-            {minutes === 0 && second === 0 ? (
+            {minutes === 0 && seconds === 0 ? (
               <span className="absolute mr-3">❌</span>
             ) : (
               <div className="flex items-center justify-end">
@@ -191,7 +180,7 @@ export default function PhoneNumAuthentication({
                     <div className="absolute pr-14">
                       <span className="text-gray-600">{minutes}</span>:
                       <span className="text-gray-600">
-                        {String(second).padStart(2, '0')}
+                        {String(seconds).padStart(2, '0')}
                       </span>
                     </div>
                     <button
@@ -209,7 +198,6 @@ export default function PhoneNumAuthentication({
         ) : null}
       </div>
       <div className="fixed bottom-5 w-full left-0 right-0 px-6">
-        {/* <SeperatedBeforeAfterButton /> */}
         <StretchedRoundedButton comment="다음으로" clickHandler={handleNext} />
       </div>
     </div>

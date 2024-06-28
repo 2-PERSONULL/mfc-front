@@ -16,9 +16,9 @@ export default function ChooseRole({
   }
 
   return (
-    <div className="flex flex-col gap-4 max-h-full max-w-full px-6 pt-28 content-around justify-between">
+    <section className="flex flex-col gap-4 max-h-full max-w-full px-6 pt-28 content-around justify-between">
       <p className="text-2xl font-black text-center">역할을 선택하세요.</p>
-      <div className="flex items-center justify-center">
+      <section className="flex items-center justify-center">
         <div className="mt-5 w-[80%] h-16 bg-black rounded-full flex items-center justify-center text-center font-bold">
           <button
             onClick={() => setRole('USER')}
@@ -37,7 +37,7 @@ export default function ChooseRole({
             <p>파트너</p>
           </button>
         </div>
-      </div>
+      </section>
       <p className="whitespace-pre-wrap text-center text-gray-400 text-sm">
         지금 바로 마.패.코에서
         <br />
@@ -45,7 +45,7 @@ export default function ChooseRole({
           ? '나만의 코디네이터를 만나 보세요.'
           : '당신의 능력에 날개를 달아보세요.'}
       </p>
-      <div className="flex items-end justify-center mt-12">
+      <figure className="flex items-end justify-center mt-12">
         {role === 'USER' ? (
           <>
             <Image
@@ -75,7 +75,7 @@ export default function ChooseRole({
             style={{ width: 'auto', height: 'auto' }}
           />
         )}
-      </div>
+      </figure>
       <div className="absolute bottom-40 left-1/4 w-2/4 px-6">
         <button
           type="submit"
@@ -85,6 +85,6 @@ export default function ChooseRole({
           <p>시작하기</p>
         </button>
       </div>
-    </div>
+    </section>
   )
 }

@@ -9,7 +9,7 @@ export default async function LikeList() {
   return (
     <main className="w-full px-5">
       {/* 탐색 페이지의 컴포넌트와 동일 하나의 컴포넌트로 수정 가능할 듯 */}
-      <LikedPostsList initData={likeList} fetchNum={10} />
+      <LikedPostsList initData={likeList} fetchNum={FETCH_SIZE} />
     </main>
   )
 }

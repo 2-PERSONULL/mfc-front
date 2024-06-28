@@ -313,7 +313,6 @@ input[type='radio']:focus {
 .fadeIn {
   animation: fadeIn 5s;
 }
-
 /* 박스가 밑에서 위로 */
 @keyframes boxUp {
   from {

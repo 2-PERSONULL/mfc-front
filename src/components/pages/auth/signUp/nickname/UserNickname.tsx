@@ -3,14 +3,14 @@
 import React, { useState } from 'react'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-import FormInput from '@/components/ui/input/FormInput'
 import useToast from '@/stores/toast'
-// import SeperatedBeforeAfterButton from '@/components/ui/button/SeperatedBeforeAfterButton'
 
 export default function UserNickname({
   clickHandler,
+  onKeyDown,
 }: {
   clickHandler: (data: string) => void
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }) {
   const { showToast } = useToast()
   const [value, setValue] = useState('')
@@ -76,11 +76,13 @@ export default function UserNickname({
       <SignUpTitle comment="활동명을 입력해주세요." />
       <p className="font-bold text-gray-400">(최소 2자 ~ 최대 20자)</p>
       <div className="flex items-center justify-end mt-8">
-        <FormInput
+        <input
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="활동명을 입력하세요."
+          onKeyDown={onKeyDown}
+          className="form-input"
         />
         <button
           type="button"

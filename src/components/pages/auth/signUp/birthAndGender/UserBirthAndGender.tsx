@@ -10,8 +10,10 @@ import SliderModal from '@/components/common/SliderModal'
 
 export default function UserBirthAndGender({
   clickHandler,
+  onKeyDown,
 }: {
   clickHandler: (data: { birth: string; gender: number }) => void
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }) {
   const today = new Date()
   const [date, setDate] = useState({
@@ -74,6 +76,7 @@ export default function UserBirthAndGender({
         <input
           type="text"
           readOnly
+          onKeyDown={onKeyDown}
           value={`${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`}
           onClick={() => setBirthPickerOpen(true)}
           className="w-full py-2 px-3 border border-gray-300 rounded-md cursor-pointer"

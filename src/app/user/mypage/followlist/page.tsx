@@ -8,7 +8,7 @@ export default async function FollowList() {
   const followedList = await getFollowList(0, FETCH_SIZE, '')
   return (
     <main className="w-full px-5">
-      <FollowedPartnerList initData={followedList} fetchNum={10} />
+      <FollowedPartnerList initData={followedList} fetchNum={FETCH_SIZE} />
     </main>
   )
 }

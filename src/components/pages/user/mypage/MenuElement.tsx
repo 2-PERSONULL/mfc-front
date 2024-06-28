@@ -7,7 +7,7 @@ export default function MenuElement({ data }: { data: MenuType }) {
   return (
     <Link
       href={data.url}
-      className="flex items-center justify-between px-5 py-7 border border-b-slate-100"
+      className="flex items-center justify-between px-5 py-7"
     >
       <span>{data.title}</span>
       <Image
