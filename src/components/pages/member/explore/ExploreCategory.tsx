@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { Style, StyleCategoryListType } from '@/types/styleCategoryListType'
 import {
   Select,
@@ -14,12 +14,14 @@ import {
 export default function ExploreCategory({ data }: { data: Style }) {
   const router = useRouter()
   const pathname = usePathname()
+  const search = useSearchParams().get('search')
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null)
   const [selectedSort, setSelectedSort] = useState<string>('')
 
   const handleClickCtg = (value: number | null) => {
     setSelectedCategory(value)
     const url = new URLSearchParams()
+    if (search) url.set('search', search)
     if (value !== null) url.set('category', value.toString())
     if (selectedSort) url.set('sort', selectedSort)
     router.push(`${pathname}?${url.toString()}`)
@@ -27,6 +29,7 @@ export default function ExploreCategory({ data }: { data: Style }) {
   const handleSort = (value: string) => {
     setSelectedSort(value)
     const url = new URLSearchParams()
+    if (search) url.set('search', search)
     if (selectedCategory !== null)
       url.set('category', selectedCategory.toString())
     url.set('sort', value)

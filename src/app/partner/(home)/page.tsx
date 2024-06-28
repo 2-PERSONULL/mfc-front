@@ -43,10 +43,10 @@ export default async function PartnerHome() {
 
   // 요청서 데이터 조회
   const initialData = await getChatList()
-  const nonResponse = initialData.filter(
+  const nonResponse = initialData?.filter(
     (data: PartnerChatListType) => data.status === 'NONERESPONSE',
   )
-  const toBeSubmitted = initialData.filter(
+  const toBeSubmitted = initialData?.filter(
     (data: PartnerChatListType) => data.status === 'CONFIRMED',
   )
 
@@ -60,7 +60,9 @@ export default async function PartnerHome() {
           nonResponse={nonResponse}
           toBeSubmitted={toBeSubmitted}
         />
-        <DeadlineReminder toBeSubmitted={toBeSubmitted} />
+        {toBeSubmitted && toBeSubmitted.length > 0 && (
+          <DeadlineReminder toBeSubmitted={toBeSubmitted} />
+        )}
         <ServiceGuide />
       </div>
     </main>
