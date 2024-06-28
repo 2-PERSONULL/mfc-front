@@ -9,34 +9,29 @@ import {
   getPartnerPostBasedOnStyle,
   getPostsFollwedPartners,
 } from '@/actions/user/UserHome'
-import { getPartnerPostsByCategory } from '@/actions/member/Explore'
-import NonMemberPartnerPosts from '@/components/pages/member/home/NonMemberPartnerPosts'
-import NonMemberRecommendStyle from '@/components/pages/member/home/NonMemberRecommendStyle'
+import { getPartnerPostRanking } from '@/actions/member/Ranking'
+import getRandomPartnersPosts from '@/actions/user/allRandomPartnerPosts'
 
 export default async function UserHome() {
   const user = await getUserInfo()
   const posts = await getPostsFollwedPartners()
-  const nonMemberPartnerPost = await getPartnerPostsByCategory(0, 12, 'LATEST')
+  const popularPartnerPosts = await getPartnerPostRanking()
+  const allRandomPartnerPosts = await getRandomPartnersPosts()
   const recommendPosts = await getPartnerPostBasedOnStyle()
-
   return (
     <main className="relative w-full min-h-dvh mb-[8rem]">
       <HomeBanner />
-      {user && posts ? (
-        <HomePartnerPosts posts={posts.posts} username={user.nickname} />
-      ) : (
-        <NonMemberPartnerPosts posts={nonMemberPartnerPost.posts} />
-      )}
-      {recommendPosts ? (
-        <HomeRecommendStyle
-          posts={recommendPosts?.posts}
-          username={user.nickname}
-        />
-      ) : (
-        // 데이터 추가 후 로직 수정할 예정
-        <NonMemberRecommendStyle posts={nonMemberPartnerPost.posts} />
-      )}
-      <HomeTipSection username={user ? user.nickname : ''} />
+      <HomePartnerPosts
+        posts={user && posts ? posts.posts : popularPartnerPosts}
+        username={(user && user.nickname) || undefined}
+      />
+      <HomeRecommendStyle
+        posts={
+          user && recommendPosts ? recommendPosts?.posts : allRandomPartnerPosts
+        }
+        username={(user && user.nickname) || undefined}
+      />
+      <HomeTipSection username={(user && user.nickname) || undefined} />
       <HomeEventSection />
     </main>
   )
