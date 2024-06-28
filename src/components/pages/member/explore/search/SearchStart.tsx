@@ -44,7 +44,7 @@ export default function SearchStart() {
         <input
           type="text"
           className="h-[40px] w-full rounded-full bg-[#F5F5F5] pl-[15px] font-Pretendard text-[14px] text-black focus:outline-none focus:border-gray-500 focus:ring-2 focus:ring-gray-500"
-          placeholder="Search"
+          placeholder="#스타일 태그로 검색하기"
           name="searchValue"
           ref={inputRef}
           value={searchValue}
