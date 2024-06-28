@@ -149,6 +149,7 @@ export async function payCoordinating(
   const data = await response.json()
   if (data.isSuccess) {
     revalidateTag('cash-balance')
+    revalidateTag('request-status')
   } else {
     console.log('Failed to pay coordinating', data)
   }

@@ -25,10 +25,12 @@ export default function StyleGuideEditor({
   requestId,
   editData,
   roomNumber,
+  partnerId,
 }: {
   requestId: string
   editData?: StyleGuideInfo[]
   roomNumber?: string
+  partnerId?: string
 }) {
   const router = useRouter()
   const { showToast } = useToast()
@@ -61,7 +63,7 @@ export default function StyleGuideEditor({
         {
           label: '가이드 바로가기',
           action: 'click',
-          url: `/user/styleguide/${requestId}`,
+          url: `/user/styleguide/${requestId}?partnerId=${partnerId}`,
         },
       ],
       target: 'USER',

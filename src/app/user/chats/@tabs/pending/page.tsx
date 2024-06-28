@@ -1,5 +1,9 @@
 import React from 'react'
+import UserChatList from '@/components/pages/chats/list/UserChatList'
+import getUserChatList from '@/actions/user/UserChatList'
 
-export default function page() {
-  return <div>거래대기</div>
+export default async function UserChatListPending() {
+  const initialData = await getUserChatList('TRADE_CREATED')
+
+  return <UserChatList initialData={initialData} />
 }

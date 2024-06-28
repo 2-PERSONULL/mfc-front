@@ -57,7 +57,7 @@ export default function UserChatBoxButton({
           </Link>
           {isSubmit && (
             <Link
-              href={`/user/styleguide/${requestId}?status=${status}`}
+              href={`/user/styleguide/${requestId}?partnerId=${partnerId}`}
               className="flex justify-center items-center border-r basis-1/3 h-full"
             >
               코디

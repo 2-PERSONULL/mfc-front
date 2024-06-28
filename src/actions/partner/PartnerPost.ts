@@ -56,6 +56,7 @@ export async function addPartnerPost(imageUrl: string | null, tags: string[]) {
     )
 
     const data = await response.json()
+    revalidateTag('postList')
     if (!data.isSuccess) console.log('add post error:', data)
 
     return data
@@ -70,7 +71,7 @@ export async function getPartnerPostDetail(postId: number) {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/${postId}`,
       {
         headers: { 'Content-Type': 'application/json' },
-        cache: 'no-cache',
+        next: { tags: ['postDetail'] },
       },
     )
 
@@ -137,6 +138,8 @@ export async function updatePartnerPost(
     )
 
     const data = await response.json()
+    revalidateTag('postList')
+    revalidateTag('postDetail')
     if (!data.isSuccess) console.log('update post error:', data)
 
     return null

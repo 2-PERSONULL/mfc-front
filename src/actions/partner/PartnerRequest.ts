@@ -22,7 +22,7 @@ export async function getChatList(status?: string) {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/partner-requests?status=${status}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/partner-requests${status ? `?status=${status}` : ''}`,
       {
         headers: {
           uuid: header.UUID,

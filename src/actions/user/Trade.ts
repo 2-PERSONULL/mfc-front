@@ -27,8 +27,8 @@ export default async function confirmTrade(requestId: string) {
     )
 
     const data = await response.json()
-    if (!data.isSuccess) console.log('confirm tradde error:', data)
-    revalidateTag('style-guide')
+    if (!data.isSuccess) console.log('confirm trade error:', data)
+    revalidateTag('request-status')
     return data
   } catch (error) {
     console.log(error)

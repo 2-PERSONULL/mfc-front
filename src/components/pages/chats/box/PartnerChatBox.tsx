@@ -6,7 +6,7 @@ import getCurrentStep from '@/utils/getCurrentStep'
 import { PartnerChatListType } from '@/types/requestType'
 import PartnerChatBoxButton from '@/components/pages/chats/box/PartnerChatBoxButton'
 
-export default function PartnerChatBox({
+export default async function PartnerChatBox({
   requestData,
 }: {
   requestData: PartnerChatListType
