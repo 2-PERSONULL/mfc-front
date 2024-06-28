@@ -1,22 +1,26 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import BackArrowButton from '@/components/ui/button/BackArrowButton'
 import DeleteInput from '@/components/ui/icons/DeleteInput'
 
 export default function SearchStart() {
-  const pathName = usePathname()
+  const search = useSearchParams().get('search')
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
   const [searchValue, setSearchValue] = useState<string>('')
 
-  console.log(pathName)
-
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
+
+  useEffect(() => {
+    if (search) {
+      setSearchValue(search)
+    }
+  }, [search])
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value)
@@ -29,6 +33,7 @@ export default function SearchStart() {
 
   const searchSubmit = (event: React.FormEvent) => {
     event.preventDefault()
+    if (searchValue === '') return
     router.push(`/explore?search=${searchValue}`)
   }
 

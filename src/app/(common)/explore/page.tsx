@@ -21,10 +21,11 @@ export default async function Explore({
     search: string
   }
 }) {
-  const styleId = searchParams?.category || undefined
+  const styleId = searchParams?.category
   const sort = searchParams?.sort || ''
   const search = searchParams?.search || ''
   const styleData = await getStyleList()
+
   const postsData = await getPartnerPostsByCategory(
     0,
     FECTH_NUM,
@@ -32,8 +33,6 @@ export default async function Explore({
     styleId,
     search,
   )
-
-  console.log(postsData)
 
   return (
     <>

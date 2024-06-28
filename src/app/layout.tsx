@@ -22,6 +22,14 @@ export const metadata: Metadata = {
   description: 'My Fashion Coordinator',
   manifest: '/manifest.json',
   icons: { icon: '/images/mfc-logo.png' },
+  metadataBase: new URL('https://myfaco.site'),
+  openGraph: {
+    url: 'https://myfaco.site',
+    title: '나를 입다 MFC',
+    description:
+      '당신만의 스타일을 찾아주는 맞춤형 패션 코디네이팅 플랫폼 MFC에서 나만의 스타일을 발견하는 즐거움을 경험하세요.',
+    images: '/og_image.png',
+  },
 }
 
 export const viewport: Viewport = {

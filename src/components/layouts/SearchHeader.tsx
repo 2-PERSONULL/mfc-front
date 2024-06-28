@@ -16,7 +16,10 @@ export default function SearchHeader({ searchValue }: { searchValue: string }) {
       >
         <Image src="/icons/mfc-2.svg" alt="logo" width={55} height={55} />
       </Link>
-      <Link href="/explore/start" className="relative w-full">
+      <Link
+        href={`/explore/start?search=${searchValue}`}
+        className="relative w-full"
+      >
         <input
           readOnly
           className="h-[40px] w-full rounded-full bg-[#F5F5F5] pl-[15px] font-Pretendard text-[14px] text-black focus:outline-none focus:border-gray-500 focus:ring-2 focus:ring-gray-500"
