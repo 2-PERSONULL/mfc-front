@@ -9,7 +9,10 @@ export default function HomePartnerPost({
   content: HomePostsType
 }) {
   return (
-    <Link href="/user" className="relative h-full rounded-lg shadow-xl">
+    <Link
+      href={`/user/coordinator/${content.partnerId}/posts/${content.postId}`}
+      className="relative h-full rounded-lg shadow-xl"
+    >
       <figure className="relative w-full min-h-[200px] pr-2 rounded-t-lg">
         <Image
           src={content.imageUrl}
