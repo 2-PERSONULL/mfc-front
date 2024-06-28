@@ -9,6 +9,16 @@ const formatChatTime = (timeString: string): string => {
   return `${ampm} ${formattedHours}:${formattedMinutes}`
 }
 
+// export const formatChatDate = (dateString: string) => {
+//   const date = new Date(dateString)
+//   const options: Intl.DateTimeFormatOptions = {
+//     year: 'numeric',
+//     month: 'long',
+//     day: 'numeric',
+//   }
+//   return date.toLocaleDateString(undefined, options)
+// }
+
 const formatTime = (hour: number): string => {
   if (hour === 0) {
     return `오전 12시`
