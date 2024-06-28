@@ -18,11 +18,13 @@ export default function PostsList({
   fetchNum,
   styleId,
   sort,
+  search,
 }: {
   initData: PartnerPostsByCategoryType
   fetchNum: number
   styleId: number | undefined
   sort: string
+  search: string
 }) {
   const [offset, setOffset] = useState(1)
   const [postsData, setPostsData] = useState<PartnerPostListType[]>(
@@ -31,12 +33,19 @@ export default function PostsList({
   const [isLastData, setIsLastData] = useState(initData.last)
 
   useEffect(() => {
+    setPostsData(initData.posts)
+    setIsLastData(initData.last)
+    setOffset(1)
+  }, [initData])
+
+  useEffect(() => {
     const fetchPosts = async () => {
       const { posts, last } = await getPartnerPostsByCategory(
         0,
         fetchNum,
         sort,
         styleId,
+        search,
       )
       setPostsData(posts)
       setIsLastData(last)
@@ -53,6 +62,7 @@ export default function PostsList({
       fetchNum,
       sort,
       styleId,
+      search,
     )
     setIsLastData(last)
     setPostsData((prevPosts) => [...prevPosts, ...posts])
@@ -83,6 +93,11 @@ export default function PostsList({
           </Link>
         ))}
       </div>
+      {postsData.length === 0 && (
+        <p className="w-full text-center text-md mt-10">
+          조건과 일치하는 게시물이 없습니다.
+        </p>
+      )}
       <div ref={observerRef} />
     </section>
   )

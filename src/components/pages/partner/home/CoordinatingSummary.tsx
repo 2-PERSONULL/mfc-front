@@ -11,7 +11,9 @@ export default async function CoordinatingSummary({
   nonResponse: PartnerChatListType[]
   toBeSubmitted: PartnerChatListType[]
 }) {
-  const nonResponseData = nonResponse[nonResponse.length - 1]
+  const nonResponseData = nonResponse
+    ? nonResponse[nonResponse.length - 1]
+    : null
 
   return (
     <section className="py-5 px-4 justify-between rounded-[24px] bg-white flex flex-col gap-5">
@@ -25,16 +27,21 @@ export default async function CoordinatingSummary({
       <div className="flex justify-around w-full h-full tracking-tight">
         <div className="flex flex-col items-center">
           <p className="text-[1.6rem] font-bold">
-            {nonResponse.length + toBeSubmitted.length}
+            {(nonResponse ? nonResponse.length : 0) +
+              (toBeSubmitted ? toBeSubmitted.length : 0)}
           </p>
           <span className="text-[12px] text-gray-500">전체</span>
         </div>
         <div className="flex flex-col items-center">
-          <h1 className="text-[1.6rem] font-bold">{nonResponse.length}</h1>
+          <h1 className="text-[1.6rem] font-bold">
+            {nonResponse ? nonResponse.length : 0}
+          </h1>
           <span className="text-[12px] text-gray-500">미응답 요청</span>
         </div>
         <div className="flex flex-col items-center">
-          <h1 className="text-[1.6rem] font-bold">{toBeSubmitted.length}</h1>
+          <h1 className="text-[1.6rem] font-bold">
+            {toBeSubmitted ? toBeSubmitted.length : 0}
+          </h1>
           <span className="text-[12px] text-gray-500">제출 예정</span>
         </div>
       </div>
