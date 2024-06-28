@@ -42,7 +42,7 @@ export default function PhoneNumAuthentication({
     }
   }, [requestSMS])
 
-  const phoneNumberRegex = /^010[0-9]{4}[0-9]{4}$/
+  const phoneNumberRegex = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/
 
   const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!phoneNumberRegex.test(phoneNumber)) {

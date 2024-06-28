@@ -80,4 +80,28 @@ const getVerifyAuthCode = async (phoneNum: string, value: string) => {
     console.log(error)
   }
 }
-export { postSignUp, emailDoubleCheck, phoneNumSubmit, getVerifyAuthCode }
+
+const nicknameDoubleCheck = async (nickname: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/members/nickname/${nickname}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+export {
+  postSignUp,
+  emailDoubleCheck,
+  phoneNumSubmit,
+  getVerifyAuthCode,
+  nicknameDoubleCheck,
+}

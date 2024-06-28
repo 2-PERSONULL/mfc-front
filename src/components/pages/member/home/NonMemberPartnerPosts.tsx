@@ -4,6 +4,7 @@ import { getPartnerProfileBasic } from '@/actions/partner/PartnerProfile'
 import { getPartnerPostsDetail } from '@/actions/member/Explore'
 import HomePartnerPost from './HomePartnerPost'
 import { HomePostsType } from '@/types/HomePostsType'
+import { PopularPartnerPostsType } from '@/types/popularPartnerPostsType'
 
 export default async function NonMemberPartnerPosts({
   posts,
