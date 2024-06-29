@@ -22,16 +22,20 @@ export default async function UserHome() {
     <main className="relative w-full min-h-dvh mb-[8rem]">
       <HomeBanner />
       <HomePartnerPosts
-        posts={user && posts ? posts.posts : popularPartnerPosts}
-        username={(user && user.nickname) || undefined}
+        posts={
+          user !== null && posts !== null ? posts.posts : popularPartnerPosts
+        }
+        username={user !== null ? user.username : null}
       />
       <HomeRecommendStyle
         posts={
-          user && recommendPosts ? recommendPosts?.posts : allRandomPartnerPosts
+          user !== null && recommendPosts !== null
+            ? recommendPosts?.posts
+            : allRandomPartnerPosts
         }
-        username={(user && user.nickname) || undefined}
+        username={user !== null ? user.username : null}
       />
-      <HomeTipSection username={(user && user.nickname) || undefined} />
+      <HomeTipSection username={user !== null ? user.username : null} />
       <HomeEventSection />
     </main>
   )

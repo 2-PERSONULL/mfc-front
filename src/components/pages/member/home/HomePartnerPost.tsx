@@ -8,6 +8,8 @@ export default function HomePartnerPost({
 }: {
   content: HomePostsType
 }) {
+  const defaultImage =
+    'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
   return (
     <Link
       href={`/user/coordinator/${content.partnerId}/posts/${content.postId}`}
@@ -24,8 +26,10 @@ export default function HomePartnerPost({
       </figure>
       <figure className="flex pl-3 gap-2 items-center pt-2">
         <Image
-          src={content.profileImage}
-          alt={content.profileAlt}
+          src={
+            content.profileImage !== null ? content.profileImage : defaultImage
+          }
+          alt={content.profileAlt !== null ? content.profileAlt : 'profile'}
           width={30}
           height={30}
           className="rounded-full"

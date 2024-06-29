@@ -11,7 +11,7 @@ export default function HomePartnerPosts({
   username,
 }: {
   posts: HomePostsType[] | PopularPartnerPostsType[]
-  username?: string
+  username?: string | null
 }) {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [isScrollable, setIsScrollable] = useState(false)
@@ -49,7 +49,7 @@ export default function HomePartnerPosts({
   return (
     <section className="px-5 w-full min-h-full bg-white">
       <HomeSectionTitle
-        username={username || undefined}
+        username={username || null}
         text={username ? '님이 팔로우한 파트너' : '금주의 인기 파트너'}
       />
       <div className="relative">
@@ -59,11 +59,8 @@ export default function HomePartnerPosts({
         >
           {posts.length !== 0 ? (
             <ul className="flex gap-5 whitespace-nowrap">
-              {posts.map((info: HomePostsType) => (
-                <li
-                  key={info.postId}
-                  className="min-w-[200px] shadow-lg rounded-lg"
-                >
+              {posts.map((info: HomePostsType, idx) => (
+                <li key={idx} className="min-w-[200px] shadow-lg rounded-lg">
                   <HomePartnerPost content={info} />
                 </li>
               ))}

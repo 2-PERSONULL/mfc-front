@@ -15,6 +15,8 @@ export default function RecommendStyleSwiper({
 }: {
   posts: HomePostsType[]
 }) {
+  const defaultImage =
+    'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
   return (
     <Swiper
       effect="cards"
@@ -41,8 +43,12 @@ export default function RecommendStyleSwiper({
             <div>
               <div className="absolute bottom-16 left-5 z-[2] flex items-center gap-2">
                 <Image
-                  src={post.profileImage}
-                  alt={post.profileAlt}
+                  src={
+                    post.profileImage !== null
+                      ? post.profileImage
+                      : defaultImage
+                  }
+                  alt={post.profileAlt !== null ? post.profileAlt : 'profile'}
                   width={30}
                   height={30}
                   className="rounded-full"
@@ -50,7 +56,7 @@ export default function RecommendStyleSwiper({
                 <p className="text-white text-sm font-bold">{post.nickname}</p>
               </div>
               <ul className="absolute z-[2] bottom-8 left-6 flex flex-row">
-                {post.tags.map((tag) => (
+                {post.tags.slice(0, 3).map((tag) => (
                   <li key={tag.tagId}>
                     <span className="text-xs text-white bg-zinc-700 rounded-full  mr-[5px] px-2 py-1">
                       {tag.value}

@@ -7,7 +7,7 @@ export default function HomeEventSection({ username }: { username: string }) {
   return (
     <section className="px-5 w-full min-h-full">
       <HomeSectionTitle
-        username={username}
+        username={username || null}
         text={username === '' ? '을 위한 소식' : '다양한 소식을 확인해보세요'}
       />
       <ul className="flex flex-col gap-5 pt-3">

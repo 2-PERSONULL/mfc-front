@@ -38,7 +38,8 @@ export default function UserBirthAndGender({
 
     if (
       date.year === today.getFullYear() &&
-      date.month === today.getMonth() + 1
+      date.month === today.getMonth() + 1 &&
+      date.day === today.getDate()
     ) {
       e.preventDefault()
       showToast({
