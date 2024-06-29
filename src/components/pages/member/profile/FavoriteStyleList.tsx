@@ -45,7 +45,7 @@ export default function FavoriteStyleList({
   }
 
   return (
-    <div className="m-5">
+    <div className="m-5 pb-[110px]">
       <h1 className="font-semibold">
         선호하는 스타일을 선택해주세요. (최대 3개)
       </h1>
@@ -76,7 +76,7 @@ export default function FavoriteStyleList({
         ))}
       </div>
 
-      <div className="fixed bottom-0 h-[90px] w-full left-0 right-0 px-6 bg-white">
+      <div className="fixed bottom-0 h-[90px] w-full left-0 right-0 px-6 bg-gradient-to-t from-white">
         <StretchedRoundedButton comment="저장" clickHandler={saveHandler} />
       </div>
     </div>
