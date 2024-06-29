@@ -2,14 +2,6 @@
 
 import { revalidateTag } from 'next/cache'
 import { getFetchHeader } from '@/utils/getFetchHeader'
-import { actionCoordinate } from '@/actions/partner/PartnerRequest'
-
-interface Partner {
-  partnerId: string
-  status: string
-  deadline: string
-  confirmedPrice: string
-}
 
 interface ConfirmProps {
   userId: string
@@ -43,21 +35,17 @@ export default async function addConfirm(confirmProps: ConfirmProps) {
   const data = await response.json()
 
   if (data.isSuccess) {
-    // WAITING 상태로 업데이트
-    const res = await actionCoordinate(confirmProps.requestId, 'WAITING')
+    revalidateTag('request-status')
 
-    if (res.isSuccess) {
-      revalidateTag('partner-requestDetail')
-      return res
-    }
     return data
   }
+
   console.log('add confirm error', data)
   return data
 }
 
 // 요청서 상태 가져오기
-export async function getRequestStatus(requestId: string) {
+export async function getRequestStatus(requestId: string, partnerId?: string) {
   const header = await getFetchHeader()
 
   if (!header) {
@@ -67,26 +55,20 @@ export async function getRequestStatus(requestId: string) {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/${requestId}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/${requestId}/status/${partnerId || header.UUID}`,
       {
         headers: {
           'Content-Type': 'application/json',
         },
+        next: { tags: ['request-status'] },
       },
     )
 
     const data = await response.json()
     if (data.isSuccess) {
-      // data.result 에서 partner에서 partnerId가 header.UUID와 같은것만 return
-      const myValue: Partner[] = data.result.partner.filter(
-        (item: Partner) => item.partnerId === header.UUID,
-      ) as Partner[]
-
-      ;[data.result.partner] = myValue
-
-      return data.result.partner.status
+      return data.result
     }
-    console.log(data)
+    console.log('get request status error', data)
     return null
   } catch (error) {
     console.log(error)

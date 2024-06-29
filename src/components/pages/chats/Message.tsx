@@ -36,6 +36,10 @@ export default function Message({
     }
   }
 
+  useEffect(() => {
+    setFetchedMessages(initData)
+  }, [initData])
+
   // 실시간 메시지가 추가되면 스크롤을 맨 아래로 이동
   useEffect(() => {
     scrollToBottom()

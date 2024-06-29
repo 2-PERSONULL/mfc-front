@@ -1,12 +1,12 @@
 import React from 'react'
 import CircleProfile from '@/components/ui/avatar/CircleProfile'
 import Steps from '@/components/ui/step/Step'
-import { formatDday, formatRequestDate } from '@/utils/formatTime'
+import { formatDday } from '@/utils/formatTime'
 import getCurrentStep from '@/utils/getCurrentStep'
 import { PartnerChatListType } from '@/types/requestType'
 import PartnerChatBoxButton from '@/components/pages/chats/box/PartnerChatBoxButton'
 
-export default function PartnerChatBox({
+export default async function PartnerChatBox({
   requestData,
 }: {
   requestData: PartnerChatListType
@@ -58,9 +58,9 @@ export default function PartnerChatBox({
         {/* 요청서명&일시 */}
         <div className="relative h-[50px]">
           <p className="mb-3 break-words">{requestData.title}</p>
-          <span className="text-gray-400 flex text-[14px] absolute right-0 bottom-0">
+          {/* <span className="text-gray-400 flex text-[14px] absolute right-0 bottom-0">
             요청일시: {formatRequestDate(requestData.createdDate)}
-          </span>
+          </span> */}
         </div>
       </div>
 

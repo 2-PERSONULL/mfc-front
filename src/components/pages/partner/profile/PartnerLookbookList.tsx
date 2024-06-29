@@ -23,6 +23,12 @@ export default function PartnerLookbookList({
   const [isLastData, setIsLastData] = useState(isLast)
   const [isScrollable, setIsScrollable] = useState(false)
 
+  useEffect(() => {
+    setPostList(initialData)
+    setIsLastData(isLast)
+    setOffset(1)
+  }, [initialData])
+
   const setStoredData = async () => {
     const savedPosts = sessionStorage.getItem('POSTS')
     const savedCurrentPage = sessionStorage.getItem('CURRENT_PAGE')

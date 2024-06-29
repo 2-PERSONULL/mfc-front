@@ -1,12 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function PartnerExchangeSuccess({
   amount = 0,
-  closeModal,
 }: {
   amount?: number | null
-  closeModal: () => void
 }) {
   return (
     <div className="bg-white w-[80vw] h-[50vh] relative">
@@ -38,13 +37,12 @@ export default function PartnerExchangeSuccess({
           </div>
         </div>
         <div className="flex justify-center mt-8">
-          <button
-            type="button"
-            onClick={closeModal}
+          <Link
+            href="/partner/management/cash"
             className="h-[50px] w-[50vw] py-2 text-white bg-black rounded-[14px] flex items-center justify-center font-semibold"
           >
             확인
-          </button>
+          </Link>
         </div>
       </div>
     </div>

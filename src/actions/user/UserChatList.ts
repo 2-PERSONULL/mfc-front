@@ -3,11 +3,7 @@
 import { getFetchHeader } from '@/utils/getFetchHeader'
 
 // 유저 채팅 목록 조회
-export default async function getUserChatList(
-  page?: number,
-  pageSize?: number,
-) {
-  console.log(page, pageSize)
+export default async function getUserChatList(status?: string) {
   const header = await getFetchHeader()
 
   if (!header) {
@@ -17,7 +13,7 @@ export default async function getUserChatList(
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/user-requests`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coordinating-service/requests/user-requests${status ? `?status=${status}` : ''}`,
       {
         headers: {
           uuid: header.UUID,

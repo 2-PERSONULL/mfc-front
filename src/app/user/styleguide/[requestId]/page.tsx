@@ -1,5 +1,6 @@
 import React from 'react'
 import { getStyleGuide } from '@/actions/partner/Coordinates'
+import { getRequestStatus } from '@/actions/chat/Confirm'
 import StyleGuideList from '@/components/pages/user/styleGuide/StyleGuideList'
 
 export default async function StyleGuidePage({
@@ -11,7 +12,8 @@ export default async function StyleGuidePage({
 }) {
   const { requestId } = params
   const data = await getStyleGuide(requestId)
-  const status = searchParams?.status
+  const partnerId = searchParams?.partnerId
+  const status = await getRequestStatus(requestId, partnerId)
 
   return <StyleGuideList data={data} requestId={requestId} status={status} />
 }

@@ -70,6 +70,7 @@ export async function enterChatRoom(roomId: string) {
     console.log('enter chat room success')
     return
   }
+
   console.log('error: ', data.message)
 }
 

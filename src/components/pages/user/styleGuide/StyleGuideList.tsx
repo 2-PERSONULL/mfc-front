@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
@@ -23,10 +23,15 @@ export default function StyleGuideList({
 }: {
   data: StyleGuideInfo[]
   requestId: string
-  status?: string
+  status: string
 }) {
+  const [requestStatus, setRequestStatus] = useState<string>(status)
   const [swiper, setSwiper] = useState<SwiperCore>()
   const [currentCard, setCurrentCard] = useState<number>(0)
+
+  useEffect(() => {
+    setRequestStatus(status)
+  }, [status])
 
   const handleSelect = (index: number) => {
     setCurrentCard(index)
@@ -58,15 +63,15 @@ export default function StyleGuideList({
             )
           })}
         </Swiper>
-        <Image
-          src={`/icons/look${currentCard + 1}.svg`}
-          alt="dd"
-          width={250}
-          height={250}
-        />
 
         {/* 선택된 아이템 */}
         <section className="w-full px-6 mt-5">
+          <Image
+            src={`/icons/look${currentCard + 1}.svg`}
+            alt="dd"
+            width={250}
+            height={250}
+          />
           <Swiper
             spaceBetween={100}
             slidesPerView={1}
@@ -82,9 +87,7 @@ export default function StyleGuideList({
           </Swiper>
         </section>
       </div>
-      {status !== 'CLOSED' && (
-        <StyleGuideAction requestId={requestId} status={status || ''} />
-      )}
+      {requestStatus !== 'CLOSED' && <StyleGuideAction requestId={requestId} />}
     </>
   )
 }

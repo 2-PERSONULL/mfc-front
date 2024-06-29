@@ -149,6 +149,7 @@ export async function payCoordinating(
   const data = await response.json()
   if (data.isSuccess) {
     revalidateTag('cash-balance')
+    revalidateTag('request-status')
   } else {
     console.log('Failed to pay coordinating', data)
   }
@@ -212,11 +213,7 @@ export async function getPaymentHistory(
 }
 
 // 코디네이팅 환불 요청
-export async function refundCash(
-  requestId: string,
-  partnerUuid: string,
-  amount: number,
-) {
+export async function refundCash(partnerUuid: string) {
   const header = await getFetchHeader()
 
   if (!header) {
@@ -225,19 +222,14 @@ export async function refundCash(
   }
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment-service/cash/cancel`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment-service/cash/cancel?partnerUuid=${partnerUuid}`,
     {
       method: 'PUT',
       headers: {
+        uuid: header.UUID,
         Authorization: `${header.Authorization}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        requestId,
-        userUuid: header.UUID,
-        partnerUuid,
-        amount,
-      }),
     },
   )
   const data = await response.json()

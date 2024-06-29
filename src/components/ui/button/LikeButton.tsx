@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { updateLikeStatus } from '@/actions/user/Bookmark'
 import useClientSession from '@/hooks/useClientSession'
 import useConfirmStore from '@/stores/confirm'
+import useRole from '@/hooks/useRole'
 
 export default function LikeButton({
   isLike,
@@ -16,12 +17,12 @@ export default function LikeButton({
   postId: number
   initialCount: number
 }) {
+  const role = useRole()
   const { uuid } = useClientSession()
   const path = usePathname()
   const router = useRouter()
   const [likeStatus, setLikeStatus] = useState<boolean | undefined>(isLike)
   const [likeNum, setLikeNum] = useState<number>(initialCount)
-  const role = usePathname().startsWith('/partner') ? 'partner' : 'user'
   const { openConfirmModal } = useConfirmStore()
 
   const onClickHandler = async () => {
@@ -49,7 +50,7 @@ export default function LikeButton({
     }
   }
 
-  if (role === 'partner')
+  if (role === 'PARTNER')
     return <span className="font-semibold">좋아요 {likeNum}개</span>
 
   return (

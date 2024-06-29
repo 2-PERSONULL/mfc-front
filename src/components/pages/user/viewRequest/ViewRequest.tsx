@@ -25,7 +25,6 @@ export default function ViewRequest({
   expired?: string
 }) {
   const refundHandler = async () => {
-    // const response = await refundCash(params.requestid, data.price)
     console.log('환불신청')
   }
 

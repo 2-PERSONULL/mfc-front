@@ -25,8 +25,6 @@ export default async function PartnerChatRoom({
   const { chats, last } = await getChatMessages(params.roomId, 0, FETCH_COUNT)
   chats.shift()
 
-  console.log(chats)
-
   // 상대방 정보 가져오기(프로필 이미지, 닉네임)
   const userId = searchParams?.userId || ''
   const { nickname, profileImage } = await getUserProfile(userId)
