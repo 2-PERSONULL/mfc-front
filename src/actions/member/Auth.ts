@@ -37,7 +37,7 @@ const emailDoubleCheck = async (email: string) => {
     const data = await response.json()
     return data
   } catch (error) {
-    console.error(error)
+    console.error()
   }
 }
 

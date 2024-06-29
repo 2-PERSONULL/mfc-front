@@ -22,12 +22,12 @@ export default function UserBirthAndGender({
     day: today.getDate(),
   })
   const { showToast } = useToast()
-  const [gender, setGender] = useState('none')
+  const [gender, setGender] = useState<number | null>(null)
   const [isBirthPickerOpen, setBirthPickerOpen] = useState(false)
   const [tempDate, setTempDate] = useState(date)
 
   const handleNext = (e: React.FormEvent) => {
-    if (gender === 'none') {
+    if (gender === null) {
       e.preventDefault()
       showToast({
         content: '성별을 선택해주세요.',
@@ -67,7 +67,15 @@ export default function UserBirthAndGender({
           optionList={['남성', '여성']}
           selectedOption="성별을 선택하세요."
           setSelectedOption={(value: string) => {
-            setGender(value)
+            let genderValue
+            if (value === '남성') {
+              genderValue = 0
+            } else if (value === '여성') {
+              genderValue = 1
+            } else {
+              genderValue = null
+            }
+            setGender(genderValue)
           }}
         />
       </div>
