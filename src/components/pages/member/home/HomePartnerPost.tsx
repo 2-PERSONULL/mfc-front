@@ -33,7 +33,7 @@ export default function HomePartnerPost({
         <p>{content.nickname}</p>
       </figure>
       <div className="w-wull h-[30px] ml-3 mt-2 mb-2 flex flex-row items-center">
-        {content.tags.map((tag) => (
+        {content.tags.slice(0, 3).map((tag) => (
           <p
             key={tag.tagId}
             className="text-[10px] text-gray-600 bg-gray-200 rounded-full font-semibold mr-[5px] px-2 py-1"

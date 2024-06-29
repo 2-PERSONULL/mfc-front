@@ -28,24 +28,18 @@ export default function HomePartnerPosts({
     }
   }
   useEffect(() => {
-    const scrollContainer = scrollContainerRef.current // 이 줄은 유지
+    const scrollContainer = scrollContainerRef.current
     if (scrollContainer) {
-      // 초기 스크롤 상태를 계산
       const maxScrollLeft =
         scrollContainer.scrollWidth - scrollContainer.clientWidth
       const initialScrollPercentage =
         (scrollContainer.scrollLeft / maxScrollLeft) * 100
       setScrollProgress(initialScrollPercentage)
-
-      // 스크롤 가능 여부를 설정
       setIsScrollable(maxScrollLeft > 0)
-
-      // 스크롤 이벤트 리스너 추가
       scrollContainer.addEventListener('scroll', handleScroll)
     }
 
     return () => {
-      // 이 부분에서는 scrollContainer 변수를 새로 선언할 필요가 없습니다.
       if (scrollContainer) {
         scrollContainer.removeEventListener('scroll', handleScroll)
       }
@@ -63,16 +57,22 @@ export default function HomePartnerPosts({
           className="flex flex-col gap-5 overflow-x-scroll pb-5"
           ref={scrollContainerRef}
         >
-          <ul className="flex gap-5 whitespace-nowrap">
-            {posts.map((info: HomePostsType) => (
-              <li
-                key={info.postId}
-                className="min-w-[200px] shadow-lg rounded-lg"
-              >
-                <HomePartnerPost content={info} />
-              </li>
-            ))}
-          </ul>
+          {posts.length !== 0 ? (
+            <ul className="flex gap-5 whitespace-nowrap">
+              {posts.map((info: HomePostsType) => (
+                <li
+                  key={info.postId}
+                  className="min-w-[200px] shadow-lg rounded-lg"
+                >
+                  <HomePartnerPost content={info} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-center mt-8 text-gray-500">
+              조회된 데이터가 없습니다.
+            </p>
+          )}
         </section>
         {isScrollable && (
           <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-300">
