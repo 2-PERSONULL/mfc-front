@@ -19,13 +19,14 @@ export default function PartnerExchangeCash({
   accountNumber: string
 }) {
   const { showToast } = useToast()
-
+  const [cashBalance, setCashBalance] = useState<number>(balance)
   const [exchangeable, setExchangeable] = useState<number>(0)
   const [amount, setAmount] = useState<number | null>(null)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   useEffect(() => {
     // balance를 1000원 단위로 환전 가능
+    setCashBalance(balance)
     setExchangeable(Math.floor(balance / 1000) * 1000)
   }, [balance])
 
@@ -90,16 +91,15 @@ export default function PartnerExchangeCash({
     <div>
       {isModalOpen && (
         <GrayModal>
-          <PartnerExchangeSuccess
-            amount={amount}
-            closeModal={() => setIsModalOpen(false)}
-          />
+          <PartnerExchangeSuccess amount={amount} />
         </GrayModal>
       )}
       <div className="flex  items-center justify-around gap-5 bg-white px-6 mt-3 mb-6">
         <div className="flex flex-col justify-center bg-gray-100 w-full h-[100px] rounded-[14px] p-3">
           <h1 className="font-medium text-gray-500 ">보유 캐시</h1>
-          <span className="font-bold text-lg">{balance.toLocaleString()}</span>
+          <span className="font-bold text-lg">
+            {cashBalance.toLocaleString()}
+          </span>
         </div>
         <div className="flex flex-col justify-center bg-gray-100 w-full h-[100px] rounded-[14px] p-3">
           <h1 className="font-medium text-gray-500 ">환전 가능한 캐시</h1>
