@@ -55,6 +55,11 @@ export default function PartnerPrice({
                 inputMode="numeric"
                 value={formatPrice(price)}
                 onChange={handleChange}
+                onFocus={(e) => {
+                  if (e.target.value === '0') {
+                    e.target.value = ''
+                  }
+                }}
                 min={0}
                 className="mt-5 border border-[#b6b6b6] rounded-[4px] py-2 pl-[12px] pr-[31px] w-full text-right"
               />

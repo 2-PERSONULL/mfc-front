@@ -9,6 +9,7 @@ import {
 } from '@/utils/uploadImage'
 import SliderModal from '@/components/common/SliderModal'
 import { updatePartnerProfileImage } from '@/actions/partner/PartnerProfileUpdate'
+import useToast from '@/stores/toast'
 
 export default function ProfileImage({
   profileImage,
@@ -17,6 +18,7 @@ export default function ProfileImage({
 }) {
   const basicImage =
     'https://personull-bucket.s3.ap-northeast-2.amazonaws.com/profile/default-profile.svg'
+  const { showToast } = useToast()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const [image, setImage] = useState<string>(
@@ -37,18 +39,21 @@ export default function ProfileImage({
 
       setImage(fileName)
       updatePartnerProfileImage(fileName)
+      showToast({ content: '프로필 이미지가 변경되었습니다.', type: 'success' })
       return
     }
 
     const fileName = await uploadImage(file, 'profile')
     setImage(fileName)
     updatePartnerProfileImage(fileName)
+    showToast({ content: '프로필 이미지가 변경되었습니다.', type: 'success' })
   }
 
   const handleBasicImage = async () => {
     setImage(basicImage)
     await deleteImage(image)
     updatePartnerProfileImage('')
+    showToast({ content: '프로필 이미지가 변경되었습니다.', type: 'success' })
     setIsModalOpen(false)
   }
 
@@ -72,15 +77,15 @@ export default function ProfileImage({
               accept="image/*"
               style={{ display: 'none' }}
             />
-            <li className="w-full px-5 py-3 border-b-2 border-b-gray-200">
+            <li
+              className={`w-full px-5 py-3 ${image !== basicImage ? 'border-b-2 border-b-gray-200' : ''}`}
+            >
               사진 등록하기
             </li>
           </button>
           {image !== basicImage && (
             <button type="button" onClick={handleBasicImage}>
-              <li className="w-full px-5 py-3 border-b-2 border-b-gray-200">
-                기본 이미지로 변경
-              </li>
+              <li className="w-full px-5 py-3">기본 이미지로 변경</li>
             </button>
           )}
         </ul>

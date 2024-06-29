@@ -9,7 +9,7 @@ export default function StyleTagEditor({
   setTags,
 }: {
   tags: string[]
-  setTags: React.Dispatch<React.SetStateAction<string[]>>
+  setTags: (tags: string[]) => void
 }) {
   const [inputText, setInputText] = useState('')
   const { showToast } = useToast()

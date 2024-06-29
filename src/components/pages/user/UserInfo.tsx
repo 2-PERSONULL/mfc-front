@@ -80,7 +80,9 @@ export default function UserInfo({
                 accept="image/*"
                 style={{ display: 'none' }}
               />
-              <li className="w-full px-5 py-3 border-b-2 border-b-gray-200">
+              <li
+                className={`w-full px-5 py-3 ${image !== basicImage ? 'border-b-2 border-b-gray-200' : ''}`}
+              >
                 사진 등록하기
               </li>
             </button>
