@@ -4,7 +4,7 @@ import Image from 'next/image'
 export default function HomeEventSection() {
   return (
     <section className="px-5 w-full min-h-full">
-      <p className="text-2xl text-start font-semibold pt-8 pb-2">
+      <p className="text-xl text-start font-semibold pt-8 pb-2">
         진행 중인 이벤트
       </p>
       <figure className="relative w-full h-[300px]">
