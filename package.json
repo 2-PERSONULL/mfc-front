@@ -12,6 +12,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.577.0",
     "@ducanh2912/next-pwa": "^10.2.7",
+    "@heroicons/react": "^2.1.4",
     "@internationalized/date": "^3.5.3",
     "@nextui-org/date-input": "^2.0.3",
     "@portone/browser-sdk": "^0.0.7",

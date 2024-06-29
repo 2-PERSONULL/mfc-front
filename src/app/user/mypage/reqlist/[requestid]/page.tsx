@@ -13,10 +13,11 @@ export default async function RequestDetail({
   const result = await getRequestDetail(params.requestid)
   const data: RequestDetailProps = result as unknown as RequestDetailProps
   const type = searchParams?.type || ''
+  const expired = searchParams?.expired || ''
 
   return (
     <main>
-      <ViewRequest data={data} params={params} type={type} />
+      <ViewRequest data={data} params={params} type={type} expired={expired} />
     </main>
   )
 }

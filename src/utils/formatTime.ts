@@ -69,9 +69,11 @@ const formatCareerPeriod = (
 
 const formatDday = (date: string): string => {
   // 오늘로 부터 data까지 몇일이 남았는지 D-7 형태로 반환
+  const deadline = new Date(date)
+  // deadline.setHours(deadline.getHours() + 9)
+
   const today = new Date()
-  const targetDate = new Date(date)
-  const diff = targetDate.getTime() - today.getTime()
+  const diff = deadline.getTime() - today.getTime()
   const diffDays = Math.ceil(diff / (1000 * 3600 * 24))
 
   if (diffDays < 0) {

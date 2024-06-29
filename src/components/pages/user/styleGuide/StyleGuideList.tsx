@@ -63,15 +63,15 @@ export default function StyleGuideList({
             )
           })}
         </Swiper>
-        <Image
-          src={`/icons/look${currentCard + 1}.svg`}
-          alt="dd"
-          width={250}
-          height={250}
-        />
 
         {/* 선택된 아이템 */}
         <section className="w-full px-6 mt-5">
+          <Image
+            src={`/icons/look${currentCard + 1}.svg`}
+            alt="dd"
+            width={250}
+            height={250}
+          />
           <Swiper
             spaceBetween={100}
             slidesPerView={1}
