@@ -1,10 +1,12 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import GoBackHeader from '@/components/layouts/GoBackHeader'
 import BottomNav from '@/components/layouts/BottomNav'
 import FloatingButton from '@/components/common/FloatingButton'
+import { TitleMapKey } from '@/types/titleMapType'
+import titleMap from '@/libs/myPageTitleMap'
 
 export default function MyPageLayout({
   children,
@@ -12,38 +14,30 @@ export default function MyPageLayout({
   children: React.ReactNode
 }) {
   const search = usePathname()
-  let title = '마이페이지'
+  const [title, setTitle] = useState('')
+  const [confirmCheck, setConfirmCheck] = useState(false)
 
-  const confirmCheck =
-    search.endsWith('editstyle') ||
-    search.endsWith('editbodytype') ||
-    search.endsWith('editsize') ||
-    search.endsWith('newreq') ||
-    search.endsWith('editrequest')
+  useEffect(() => {
+    const keys = Object.keys(titleMap) as TitleMapKey[]
+    keys.forEach((key) => {
+      if (search.endsWith(key)) {
+        setTitle(titleMap[key])
+        setConfirmCheck(
+          [
+            'editstyle',
+            'editbodyinfo',
+            'editsize',
+            'newreq',
+            'editrequest',
+          ].includes(key),
+        )
+      }
+    })
 
-  if (search.endsWith('profile')) {
-    title = '프로필 관리'
-  } else if (search.endsWith('editstyle')) {
-    title = '선호 스타일 수정'
-  } else if (search.endsWith('editbodyinfo')) {
-    title = '신체 정보 수정'
-  } else if (search.endsWith('editsize')) {
-    title = '옷 사이즈 수정'
-  } else if (search.endsWith('reqlist')) {
-    title = '요청서 관리'
-  } else if (search.endsWith('newreq')) {
-    title = '신규 요청서 작성'
-  } else if (search.endsWith('editrequest')) {
-    title = '요청서 수정'
-  } else if (search.endsWith('paymentlist')) {
-    title = '결제 관리'
-  } else if (search.endsWith('charge')) {
-    title = '캐시 충전'
-  } else if (search.includes('reqlist/') && /\/reqlist\/\d+$/.test(search)) {
-    title = '요청서 상세'
-  } else if (search.endsWith('likelist')) {
-    title = '좋아요 관리'
-  }
+    if (search.includes('reqlist/') && /\/reqlist\/\d+$/.test(search)) {
+      setTitle('요청서 상세')
+    }
+  }, [search])
 
   return (
     <>
@@ -57,7 +51,9 @@ export default function MyPageLayout({
         </header>
       )}
       {children}
-      {search.endsWith('reqlist') && <FloatingButton />}
+      {search.endsWith('reqlist' || 'likelist' || 'followlist') && (
+        <FloatingButton />
+      )}
       {search.endsWith('mypage') && <BottomNav />}
     </>
   )

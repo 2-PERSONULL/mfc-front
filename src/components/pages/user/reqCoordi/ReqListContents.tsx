@@ -42,28 +42,37 @@ export default function ReqListContents() {
   })
 
   return (
-    <section className="w-full min-h-screen pt-[50px]">
-      <section className="fixed top-[50px] w-full px-5 py-3 border border-t bg-white z-[20]">
-        <div className="text-blue-600 font-bold text-sm">
-          <Link href="/user/mypage/reqlist/newreq">+ 신규 요청서</Link>
-        </div>
+    <section className="w-full min-h-full pt-[50px]">
+      <section className="fixed top-[50px] w-full px-5 py-3 border border-t border-black bg-black z-[20]">
+        <Link
+          href="/user/mypage/reqlist/newreq"
+          className="text-white font-medium text-sm text-center tracking-widest"
+        >
+          <p>+ 신규 요청서 작성</p>
+        </Link>
       </section>
       <section>
-        <Table>
-          <TableBody>
-            {requestList.map((request: RequestListType) => (
-              <TableRow
-                key={request.requestId}
-                className="w-full flex cursor-pointer"
-                onClick={() =>
-                  router.push(`/user/mypage/reqlist/${request.requestId}`)
-                }
-              >
-                <EachRequest title={request.title} />
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        {requestList.length !== 0 ? (
+          <Table>
+            <TableBody>
+              {requestList.map((request: RequestListType) => (
+                <TableRow
+                  key={request.requestId}
+                  className="w-full flex cursor-pointer"
+                  onClick={() =>
+                    router.push(`/user/mypage/reqlist/${request.requestId}`)
+                  }
+                >
+                  <EachRequest title={request.title} />
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          <p className="text-center mt-10 text-gray-500">
+            조회된 데이터가 없습니다.
+          </p>
+        )}
       </section>
       <div ref={observerRef} />
     </section>
