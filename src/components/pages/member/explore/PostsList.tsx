@@ -87,7 +87,7 @@ export default function PostsList({
               src={post.imageUrl}
               alt={post.alt}
               fill
-              objectFit="cover"
+              style={{ objectFit: 'cover' }}
               className="absolute rounded-md"
             />
           </Link>

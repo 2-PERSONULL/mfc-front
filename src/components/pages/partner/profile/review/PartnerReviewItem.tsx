@@ -43,8 +43,8 @@ export default function PartnerReviewItem({ review }: { review: ReviewType }) {
               <Image
                 src={`/review/${image}`}
                 alt={`Review image ${index + 1}`}
-                layout="fill"
-                objectFit="cover"
+                fill
+                style={{ objectFit: 'cover' }}
                 className="rounded-md"
               />
             </div>
