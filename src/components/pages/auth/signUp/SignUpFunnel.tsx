@@ -19,11 +19,9 @@ import { StyleCategoryListType } from '@/types/styleCategoryListType'
 export default function SignUpFunnel({
   submit,
   styleData,
-  isLoading,
 }: {
   submit: (data: SignUpType) => void
   styleData: StyleCategoryListType[]
-  isLoading: boolean
 }) {
   const router = useRouter()
   const { showToast } = useToast()
@@ -164,7 +162,6 @@ export default function SignUpFunnel({
               setRegisterData((prev) => ({ ...prev, favoriteStyles: data }))
               setStep('ChooseRole')
             }}
-            isLoading={isLoading}
           />
         )}
         {step === 'ChooseRole' && (

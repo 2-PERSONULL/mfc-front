@@ -6,7 +6,6 @@ import { getStyleList } from '@/actions/member/Explore'
 
 export default async function SignUp() {
   const styleData = await getStyleList()
-  const isLoading = !styleData
   const handleSignUp = async (data: SignUpType) => {
     'use server'
 
@@ -15,11 +14,7 @@ export default async function SignUp() {
 
   return (
     <main>
-      <SignUpFunnel
-        submit={handleSignUp}
-        styleData={styleData.styles}
-        isLoading={isLoading}
-      />
+      <SignUpFunnel submit={handleSignUp} styleData={styleData.styles} />
     </main>
   )
 }

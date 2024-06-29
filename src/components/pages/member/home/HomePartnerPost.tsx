@@ -30,8 +30,9 @@ export default function HomePartnerPost({
             content.profileImage !== null ? content.profileImage : defaultImage
           }
           alt={content.profileAlt !== null ? content.profileAlt : 'profile'}
-          width={30}
-          height={30}
+          width={0}
+          height={0}
+          style={{ width: '30px', height: '30px' }}
           className="rounded-full"
         />
         <p>{content.nickname}</p>

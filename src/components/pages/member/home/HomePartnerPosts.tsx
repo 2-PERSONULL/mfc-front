@@ -54,7 +54,7 @@ export default function HomePartnerPosts({
       />
       <div className="relative">
         <section
-          className="flex flex-col gap-5 overflow-x-scroll pb-5"
+          className="no-scrollbar flex flex-col gap-5 overflow-x-scroll pb-5"
           ref={scrollContainerRef}
         >
           {posts.length !== 0 ? (

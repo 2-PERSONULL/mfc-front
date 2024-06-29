@@ -5,6 +5,7 @@ import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 import useToast from '@/stores/toast'
 import { emailDoubleCheck } from '@/actions/member/Auth'
+import { BaseResponseType } from '@/types/baseResponseType'
 
 export default function UserId({
   clickHandler,
@@ -22,7 +23,7 @@ export default function UserId({
 
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault()
-    e.stopPropagation()
+    // e.stopPropagation()
     if (value.length === 0) {
       showToast({
         content: '이메일을 입력해주세요.',
@@ -55,15 +56,15 @@ export default function UserId({
         type: 'warning',
       })
     }
-    const data = await emailDoubleCheck(value)
-    if (data.result === false) {
+    const data: BaseResponseType = await emailDoubleCheck(value)
+    if (!data.result) {
       setIsEmailValid(false)
       setIsDoubleCheck(false)
       showToast({
         content: '사용할 수 없는 이메일입니다.',
         type: 'error',
       })
-    } else {
+    } else if (data.result) {
       setIsEmailValid(true)
       setIsDoubleCheck(true)
       showToast({
