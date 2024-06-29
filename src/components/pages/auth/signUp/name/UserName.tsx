@@ -14,15 +14,25 @@ export default function UserName({
 }) {
   const { showToast } = useToast()
   const [value, setValue] = useState('')
+  const nameRegex = /^[가-힣a-zA-Z\s]{2,10}$/
 
-  const handleNext = () => {
-    if (value.length > 1 && value.length <= 10) {
+  const handleNext = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (value.length > 1 && value.length <= 10 && nameRegex.test(value)) {
       clickHandler(value)
     } else {
-      showToast({
-        content: '최소 2자 이상 10자 이하로 입력해주세요.',
-        type: 'warning',
-      })
+      if (!(value.length > 1 && value.length <= 10)) {
+        showToast({
+          content: '최소 2자 이상 10자 이하로 입력해주세요.',
+          type: 'warning',
+        })
+      }
+      if (!nameRegex.test(value)) {
+        showToast({
+          content: '이름은 한글, 영문 대소문자만 입력 가능합니다.',
+          type: 'error',
+        })
+      }
     }
   }
 

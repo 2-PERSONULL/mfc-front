@@ -2,8 +2,11 @@ import React from 'react'
 import SignUpFunnel from '@/components/pages/auth/signUp/SignUpFunnel'
 import { SignUpType } from '@/types/signupTypes'
 import { postSignUp } from '@/actions/member/Auth'
+import { getStyleList } from '@/actions/member/Explore'
 
 export default async function SignUp() {
+  const styleData = await getStyleList()
+  const isLoading = !styleData
   const handleSignUp = async (data: SignUpType) => {
     'use server'
 
@@ -12,7 +15,11 @@ export default async function SignUp() {
 
   return (
     <main>
-      <SignUpFunnel submit={handleSignUp} />
+      <SignUpFunnel
+        submit={handleSignUp}
+        styleData={styleData.styles}
+        isLoading={isLoading}
+      />
     </main>
   )
 }

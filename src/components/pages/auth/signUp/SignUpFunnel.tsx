@@ -14,11 +14,16 @@ import UserBirthAndGender from '@/components/pages/auth/signUp/birthAndGender/Us
 import { SignUpType } from '@/types/signupTypes'
 import ProgressBar from '@/components/ui/progress/ProgressBar'
 import useToast from '@/stores/toast'
+import { StyleCategoryListType } from '@/types/styleCategoryListType'
 
 export default function SignUpFunnel({
   submit,
+  styleData,
+  isLoading,
 }: {
   submit: (data: SignUpType) => void
+  styleData: StyleCategoryListType[]
+  isLoading: boolean
 }) {
   const router = useRouter()
   const { showToast } = useToast()
@@ -87,7 +92,7 @@ export default function SignUpFunnel({
   return (
     <section>
       <ProgressBar
-        className="w-[100%] absolute top-0 left-0 h-1 rounded-none"
+        className="w-full absolute top-0 left-0 h-1 rounded-none"
         value={parseInt(handleProgressBar(), 10)}
       />
       <form onSubmit={handleSubmit}>
@@ -154,10 +159,12 @@ export default function SignUpFunnel({
         )}
         {step === 'PreferredStyle' && (
           <PreferredStyle
+            styleData={styleData}
             clickHandler={(data: number[]) => {
               setRegisterData((prev) => ({ ...prev, favoriteStyles: data }))
               setStep('ChooseRole')
             }}
+            isLoading={isLoading}
           />
         )}
         {step === 'ChooseRole' && (

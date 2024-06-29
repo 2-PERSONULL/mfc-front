@@ -1,14 +1,20 @@
 'use client'
 
 import React, { useState } from 'react'
+import Image from 'next/image'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
-import styleInfo from '@/libs/styleData'
+import { StyleCategoryListType } from '@/types/styleCategoryListType'
+import Skeleton from '@/components/ui/skeleton'
 
 export default function PreferredStyle({
+  styleData,
   clickHandler,
+  isLoading,
 }: {
+  styleData: StyleCategoryListType[]
   clickHandler: (data: number[]) => void
+  isLoading: boolean
 }) {
   const [selectedStyle, setSelectedStyle] = useState<number[]>([])
 
@@ -25,30 +31,40 @@ export default function PreferredStyle({
   }
 
   return (
-    <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
+    <div className="flex flex-col min-h-full max-w-full mb-32 px-6 pt-28 content-around">
       <SignUpTitle comment="선호하는 스타일을 선택해주세요. (최대 3개)" />
       <p className="text-xs text-gray-500">
         - 마이페이지를 통해 수정이 가능합니다.
       </p>
       <div className="grid grid-cols-3 gap-6 mt-8">
-        {styleInfo.map((style) => (
+        {styleData.map((style) => (
           <div
-            key={style.id}
+            key={style.styleId}
             role="button"
             tabIndex={0}
             onKeyDown={(event) => {
-              if (event.key === 'Enter') handleStyleClick(style.id)
+              if (event.key === 'Enter') handleStyleClick(style.styleId)
             }}
             className="avatar flex flex-col justify-center items-center"
-            onClick={() => handleStyleClick(style.id)}
+            onClick={() => handleStyleClick(style.styleId)}
           >
-            <div
-              className={`w-20 h-20 rounded-full bg-gray-300 text-center ${selectedStyle.includes(style.id) ? 'ring ring-black ring-offset-base-100 ring-offset-2' : ''}`}
-            >
-              {/* 실제 이미지 추가 필요 */}
-              이미지
-            </div>
-            <span className="font-semibold text-sm">{style.style}</span>
+            {isLoading ? (
+              <>
+                <Skeleton className="w-20 h-20 rounded-full" />
+                <Skeleton className="w-[50%] h-5" />
+              </>
+            ) : (
+              <>
+                <Image
+                  src={style.imageUrl}
+                  alt={style.alt}
+                  width={50}
+                  height={50}
+                  className={`w-20 h-20 rounded-full bg-gray-300 text-center ${selectedStyle.includes(style.styleId) ? 'ring ring-black ring-offset-base-100 ring-offset-2' : ''}`}
+                />
+                <span className="font-semibold text-sm">{style.name}</span>
+              </>
+            )}
           </div>
         ))}
       </div>
