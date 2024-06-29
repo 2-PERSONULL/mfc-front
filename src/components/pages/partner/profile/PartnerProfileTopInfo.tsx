@@ -17,7 +17,7 @@ export default async function PartnerProfileTopInfo({
 
   const { coordinateCnt, followerCnt, averageStar } =
     await getPartnerSummary(partnerId)
-  console.log(coordinateCnt, followerCnt, averageStar)
+
   const isFollow = await getFollowStatus(partnerId)
   const imageUrl = profileImage || basicImage
 
