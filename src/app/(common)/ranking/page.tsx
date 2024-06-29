@@ -7,7 +7,7 @@ export default async function Ranking() {
   const rankingList = await getPartnerRanking()
 
   return (
-    <main className="p-5">
+    <main className="min-h-screen p-5 pb-[140px]">
       <RankingTitle />
       <RankingList rankingList={rankingList} />
     </main>

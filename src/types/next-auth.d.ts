@@ -7,6 +7,7 @@ declare module 'next-auth' {
       accessToken: string | unknown
       refreshToken: string | unknown
     } & DefaultSession['user']
+    error?: 'RefreshAccessTokenError'
   }
 }
 
@@ -15,5 +16,6 @@ declare module 'next-auth/jwt' {
     uuid: string
     accessToken: string
     refreshToken: string
+    error?: 'RefreshAccessTokenError'
   }
 }

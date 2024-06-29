@@ -14,7 +14,7 @@ interface LoginFormType {
 export default function SignInForm() {
   let role = null
   if (typeof window !== 'undefined') {
-    role = localStorage.getItem('role')
+    role = localStorage.getItem('role')?.toLowerCase()
   }
 
   const param = useSearchParams()
@@ -48,7 +48,18 @@ export default function SignInForm() {
           type: 'error',
         })
       } else if (role) {
-        window.location.href = callbackUrl || `/${role.toLowerCase()}`
+        if (role === 'partner' && callbackUrl?.includes('user')) {
+          const redirectUrl = callbackUrl.replace('user', 'partner')
+          window.location.href = redirectUrl
+          return
+        }
+        if (role === 'user' && callbackUrl?.includes('partner')) {
+          const redirectUrl = callbackUrl.replace('partner', 'user')
+          window.location.href = redirectUrl
+          return
+        }
+
+        window.location.href = callbackUrl || `/${role}`
       } else {
         window.location.href = '/selectrole'
       }
