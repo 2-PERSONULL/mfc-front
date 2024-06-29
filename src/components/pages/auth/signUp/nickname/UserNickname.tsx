@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import SignUpTitle from '@/components/pages/auth/signUp/SignUpTitle'
 import StretchedRoundedButton from '@/components/ui/button/StretchedRoundedButton'
 import useToast from '@/stores/toast'
+import { nicknameDoubleCheck } from '@/actions/member/Auth'
 
 export default function UserNickname({
   clickHandler,
@@ -16,11 +17,20 @@ export default function UserNickname({
   const [value, setValue] = useState('')
   const [isNicknameValid, setIsNicknameValid] = useState(false)
 
+  const nicknameRegex = /^[가-힣a-zA-Z0-9_-]{2,20}$/
+
   const handleNext = (e: React.FormEvent) => {
-    if (value.length < 2) {
+    if (value.length < 2 || value.length > 20) {
       e.preventDefault()
       showToast({
-        content: '활동명은 최소 2자 이상 입력해주세요.',
+        content: '활동명은 최소 2자 이상, 최대 20자 이하로 입력해주세요.',
+        type: 'warning',
+      })
+    } else if (!nicknameRegex.test(value)) {
+      e.preventDefault()
+      showToast({
+        content:
+          '활동명은 알파벳 대소문자, 숫자, 언더스코어(_) 및 하이픈(-)만 포함해야 합니다.',
         type: 'warning',
       })
     } else if (!isNicknameValid) {
@@ -37,24 +47,21 @@ export default function UserNickname({
   const handleNicknameDoubleCheck = async (
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
-    if (value.length < 2) {
+    if (value.length < 2 || value.length > 20) {
       e.preventDefault()
       showToast({
-        content: '활동명은 최소 2자 이상 입력해주세요.',
+        content: '활동명은 최소 2자 이상, 최대 20자 이하로 입력해주세요.',
+        type: 'warning',
+      })
+    } else if (!nicknameRegex.test(value)) {
+      e.preventDefault()
+      showToast({
+        content:
+          '활동명은 알파벳 대소문자, 숫자, 언더스코어(_) 및 하이픈(-)만 포함해야 합니다.',
         type: 'warning',
       })
     } else {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/member-service/members/nickname/${value}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-
-      const data = await response.json()
+      const data = await nicknameDoubleCheck(value)
       if (data.result) {
         setIsNicknameValid(true)
         showToast({

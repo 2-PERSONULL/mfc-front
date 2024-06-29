@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function SignInLogo() {
   return (
-    <header className="flex flex-col items-center gap-2 bg-white w-full mb-14 mt-[45%]">
+    <header className="flex flex-col items-center gap-2 bg-white w-full mb-20 mt-[45%]">
       <Image
         src="/icons/mfc-2.svg"
         alt="signInLogo"
@@ -11,7 +11,6 @@ export default function SignInLogo() {
         height={0}
         style={{ width: 'auto', height: 'auto' }}
       />
-      {/* <span className="font-black text-xl">{title}</span> */}
     </header>
   )
 }
