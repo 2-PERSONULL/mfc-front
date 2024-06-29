@@ -12,7 +12,11 @@ interface LoginFormType {
 }
 
 export default function SignInForm() {
-  const role = localStorage.getItem('role')
+  let role = null
+  if (typeof window !== 'undefined') {
+    role = localStorage.getItem('role')
+  }
+
   const param = useSearchParams()
   const callbackUrl = param.get('callbackUrl')
   const { showToast } = useToast()
