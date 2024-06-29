@@ -64,10 +64,16 @@ export const options: NextAuthOptions = {
       }
       // 유효시간 만료시 refresh token으로 재발급하는 로직 추가
       console.log('error: 유효시간 만료')
-
-      return token
+      return {
+        ...token,
+        error: 'RefreshAccessTokenError',
+      }
     },
     async session({ session, token }) {
+      if (token.error) {
+        return { ...session, error: token.error }
+      }
+
       const updatedSession = {
         ...session,
         user: {
