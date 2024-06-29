@@ -1,5 +1,10 @@
 import React from 'react'
+import PartnerReviewList from '@/components/pages/partner/profile/review/PartnerReviewList'
 
 export default function page() {
-  return <div>리뷰</div>
+  return (
+    <div className="px-4">
+      <PartnerReviewList />
+    </div>
+  )
 }
