@@ -12,6 +12,7 @@ interface LoginFormType {
 }
 
 export default function SignInForm() {
+  const role = localStorage.getItem('role')
   const param = useSearchParams()
   const callbackUrl = param.get('callbackUrl')
   const { showToast } = useToast()
@@ -42,8 +43,8 @@ export default function SignInForm() {
           content: '이메일 또는 비밀번호가 일치하지 않습니다.',
           type: 'error',
         })
-      } else if (localStorage.getItem('role')) {
-        window.location.href = callbackUrl || '/user'
+      } else if (role) {
+        window.location.href = callbackUrl || `/${role.toLowerCase()}`
       } else {
         window.location.href = '/selectrole'
       }
