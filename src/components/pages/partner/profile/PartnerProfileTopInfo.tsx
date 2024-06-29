@@ -17,6 +17,7 @@ export default async function PartnerProfileTopInfo({
 
   const { coordinateCnt, followerCnt, averageStar } =
     await getPartnerSummary(partnerId)
+
   const isFollow = await getFollowStatus(partnerId)
   const imageUrl = profileImage || basicImage
 
@@ -44,13 +45,13 @@ export default async function PartnerProfileTopInfo({
       <div className="mt-7 flex justify-around w-full h-full tracking-tight">
         <div className="flex flex-col items-center">
           <p className="text-[1.6rem] font-bold">
-            {coordinateCnt > 0 ? coordinateCnt.toLocalString() : 0}
+            {coordinateCnt > 0 ? coordinateCnt : 0}
           </p>
           <span className="text-[12px] text-gray-500">코디매칭</span>
         </div>
         <div className="flex flex-col items-center">
           <h1 className="text-[1.6rem] font-bold">
-            {followerCnt > 0 ? followerCnt.toLocalString() : 0}
+            {followerCnt > 0 ? followerCnt : 0}
           </h1>
           <span className="text-[12px] text-gray-500">팔로워</span>
         </div>
