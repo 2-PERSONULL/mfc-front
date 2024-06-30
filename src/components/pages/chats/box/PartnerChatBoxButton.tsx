@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import useChatStore from '@/stores/chat'
+import getChatRoomId from '@/actions/chat/Chatroom'
 
 export default function PartnerChatBoxButton({
   status,
@@ -18,12 +18,18 @@ export default function PartnerChatBoxButton({
 }) {
   const isSubmit = status === 'COORDINATE_RECEIVED' || status === 'CLOSED'
   const availableStatus = ['CONFIRMED', 'COORDINATE_RECEIVED', 'CLOSED']
-  const { roomId, unreadCount, fetchRoomId } = useChatStore()
+  const [roomNumber, setRoomNumber] = useState<string>('')
+  const [unreadMessage, setUnreadMessage] = useState<number>(0)
 
   useEffect(() => {
-    if (status !== 'NONERESPONSE') {
-      fetchRoomId(requestId, partnerId)
+    if (status === 'NONERESPONSE') return
+    const getRoomId = async () => {
+      const { roomId, unreadCount } = await getChatRoomId(requestId, partnerId)
+
+      setUnreadMessage(unreadCount)
+      setRoomNumber(roomId)
     }
+    getRoomId()
   }, [status])
 
   return (
@@ -45,7 +51,7 @@ export default function PartnerChatBoxButton({
           </Link>
           {availableStatus.includes(status) && (
             <Link
-              href={`/partner/styleguide/${requestId}?type=${isSubmit ? 'view' : 'new'}&partnerId=${partnerId}&roomNumber=${roomId}`}
+              href={`/partner/styleguide/${requestId}?type=${isSubmit ? 'view' : 'new'}&partnerId=${partnerId}&roomNumber=${roomNumber}`}
               className="flex justify-center items-center border-r basis-1/3 h-full"
             >
               코디
@@ -54,7 +60,7 @@ export default function PartnerChatBoxButton({
 
           {/* 채팅 버튼 */}
           <Link
-            href={`/partner/chatroom/${roomId}?userId=${userId}&requestId=${requestId}`}
+            href={`/partner/chatroom/${roomNumber}?userId=${userId}&requestId=${requestId}`}
             className="flex justify-center items-center basis-1/3 h-full"
           >
             <div className="relative">
@@ -65,7 +71,7 @@ export default function PartnerChatBoxButton({
                 height={23}
               />
               {/* 안 읽음 표시 추가 */}
-              {unreadCount > 0 && (
+              {unreadMessage > 0 && (
                 <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full h-4 w-4" />
               )}
             </div>
