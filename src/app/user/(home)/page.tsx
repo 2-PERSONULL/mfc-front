@@ -18,6 +18,7 @@ export default async function UserHome() {
   const popularPartnerPosts = await getPartnerPostRanking()
   const allRandomPartnerPosts = await getRandomPartnersPosts()
   const recommendPosts = await getPartnerPostBasedOnStyle()
+  console.log(user)
   return (
     <main className="relative w-full min-h-dvh mb-[8rem]">
       <HomeBanner />
@@ -25,7 +26,7 @@ export default async function UserHome() {
         posts={
           user !== null && posts !== null ? posts.posts : popularPartnerPosts
         }
-        username={user !== null ? user.username : null}
+        username={user !== null ? user.nickname : null}
       />
       <HomeRecommendStyle
         posts={
@@ -33,9 +34,9 @@ export default async function UserHome() {
             ? recommendPosts?.posts
             : allRandomPartnerPosts
         }
-        username={user !== null ? user.username : null}
+        username={user !== null ? user.nickname : null}
       />
-      <HomeTipSection username={user !== null ? user.username : null} />
+      <HomeTipSection username={user !== null ? user.nickname : null} />
       <HomeEventSection />
     </main>
   )

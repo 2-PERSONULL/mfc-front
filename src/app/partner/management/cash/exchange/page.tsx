@@ -7,9 +7,11 @@ export default async function PartnerCashExchangePage() {
   const { balance } = await getCashBalance()
   const { bank, account } = await getAccountInfo()
   const bankList = await getBankCodeList()
-  const bankCode = bankList.find(
-    (item: { code: string; name: string }) => item.code === bank,
-  )
+  const bankCode = bank
+    ? bankList.find(
+        (item: { code: string; name: string }) => item.code === bank,
+      )
+    : { name: '', code: '' }
 
   return (
     <PartnerExchangeCash

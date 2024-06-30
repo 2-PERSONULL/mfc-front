@@ -58,12 +58,13 @@ export default function PostsList({
     if (isLastData) return
 
     const { posts, last } = await getPartnerPostsByCategory(
-      offset + 1,
+      offset,
       fetchNum,
       sort,
       styleId,
       search,
     )
+
     setIsLastData(last)
     setPostsData((prevPosts) => [...prevPosts, ...posts])
     setOffset((prevOffset) => prevOffset + 1)

@@ -50,7 +50,7 @@ export default function HomePartnerPosts({
     <section className="px-5 w-full min-h-full bg-white">
       <HomeSectionTitle
         username={username || null}
-        text={username ? '님이 팔로우한 파트너' : '금주의 인기 파트너'}
+        text={username !== null ? '님이 팔로우한 파트너' : '금주의 인기 파트너'}
       />
       <div className="relative">
         <section

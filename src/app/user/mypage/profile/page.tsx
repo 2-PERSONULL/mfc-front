@@ -16,9 +16,13 @@ import {
   UserClothesSizeInfoType,
   UserStyleType,
 } from '@/types/userInfoType'
+import { getBirthGender } from '@/actions/member/Auth'
+import { UserBirthGenderType } from '@/types/userBirthGenderType'
 
 export default async function UserProfileManagement() {
   const userInfo = await getUserInfo()
+  const userBirthGenderData: UserBirthGenderType =
+    (await getBirthGender()) as UserBirthGenderType
   const preferenceStyleData: UserStyleType =
     (await getPreferenceStyle()) as UserStyleType
   const bodyTypeInfoData: UserBodyInfoType =
@@ -31,9 +35,11 @@ export default async function UserProfileManagement() {
         <UserInfo info={userInfo} editImg />
       </section>
       <ProfileAdvice describe />
-      {/* <UserDetailInfo /> */}
       <section className="w-full min-h-full bg-white gridpy-3 px-6">
-        <UserSingleDetailInfo title="성별" value="남" />
+        <UserSingleDetailInfo
+          title="성별"
+          value={userBirthGenderData.userGender}
+        />
         <UserPreferenceStyleInfo
           title="선호 스타일"
           href="/user/mypage/profile/editstyle"

@@ -31,6 +31,13 @@ export default function PartnerExchangeCash({
   }, [balance])
 
   const clickHandler = async () => {
+    if (!accountNumber) {
+      showToast({
+        content: '정산 계좌 정보를 먼저 등록해주세요',
+        type: 'warning',
+      })
+      return
+    }
     if (amount === null) return
 
     // 1000원 단위로 환전 가능
@@ -110,24 +117,23 @@ export default function PartnerExchangeCash({
       </div>
 
       <div className="flex flex-col gap-2 px-6">
-        {!bank ||
-          (!accountNumber && (
-            <div className="flex flex-col justify-center w-full h-[60px] rounded-[14px] mb-6 gap-2">
-              정산 계좌 정보를 먼저 등록해주세요 :)
-              <Link
-                href="/partner/management/cash/bankaccount"
-                className="flex items-center bg-gray-100 h-[55px] pl-5 py-3 rounded-[13px] text-gray-500 font-semibold"
-              >
-                <span>등록하러가기 </span>
-                <Image
-                  src="/icons/list-arrow.svg"
-                  alt="arrow-icon"
-                  width={24}
-                  height={24}
-                />
-              </Link>
-            </div>
-          ))}
+        {!accountNumber && (
+          <div className="flex flex-col justify-center w-full h-[60px] rounded-[14px] mb-6 gap-2">
+            정산 계좌 정보를 먼저 등록해주세요 :)
+            <Link
+              href="/partner/management/cash/bankaccount"
+              className="flex items-center bg-gray-100 h-[55px] pl-5 py-3 rounded-[13px] text-gray-500 font-semibold"
+            >
+              <span>등록하러가기 </span>
+              <Image
+                src="/icons/list-arrow.svg"
+                alt="arrow-icon"
+                width={24}
+                height={24}
+              />
+            </Link>
+          </div>
+        )}
         <div className="text-sm font-medium text-gray-500">내 정산 계좌로</div>
         {amount ? (
           <>
