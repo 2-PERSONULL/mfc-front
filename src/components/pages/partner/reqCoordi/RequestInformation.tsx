@@ -16,7 +16,10 @@ export default function RequestInformation({
       />
       <RequestDetailForm title="코디 상황" value={requestDetail.situation} />
       <RequestDetailForm title="요청 내용" value={requestDetail.description} />
-      <RequestDetailForm title="코디 옵션" value="원피스" />
+      <RequestDetailForm
+        title="코디 옵션"
+        value={requestDetail.categoryIds.join(', ')}
+      />
       <RequestDetailForm
         title="선호 브랜드"
         value={
