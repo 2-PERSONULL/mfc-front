@@ -33,7 +33,7 @@ export default function ErrorPage() {
         <br />
       </p>
 
-      <div className="mt-[30px] justify-center flex">
+      <div className="mt-[30px] justify-center flex flex-col items-center gap-4">
         <button
           type="button"
           onClick={() => router.back()}
