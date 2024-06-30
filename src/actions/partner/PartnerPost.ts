@@ -71,7 +71,7 @@ export async function getPartnerPostDetail(postId: number) {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/sns-service/posts/${postId}`,
       {
         headers: { 'Content-Type': 'application/json' },
-        next: { tags: ['postDetail'] },
+        cache: 'no-cache',
       },
     )
 
