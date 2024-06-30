@@ -32,7 +32,9 @@ export default async function PartnerChatTimeAndLeadTimeBox({
 
       <section className="mb-10">
         <h1 className="text-[16px] font-semibold mb-1">코디 평균가</h1>
-        <p className="text-[15px] text-gray-700">{averagePrice}</p>
+        <p className="text-[15px] text-gray-700">
+          {averagePrice.toLocaleString()}원
+        </p>
       </section>
     </>
   )
