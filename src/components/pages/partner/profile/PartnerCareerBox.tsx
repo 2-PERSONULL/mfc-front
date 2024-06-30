@@ -13,6 +13,7 @@ export default async function PartnerCareerBox({
   return (
     <section className="mb-10">
       <h1 className="text-[16px] font-semibold mb-1">경력</h1>
+      {careers.length === 0 && '정보없음'}
       <ul>
         {careers.map((career: PartnerCareerFetchType, idx: number) => (
           <li

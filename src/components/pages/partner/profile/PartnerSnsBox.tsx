@@ -13,6 +13,7 @@ export default async function PartnerSnsBox({
   return (
     <section className="mb-10">
       <h1 className="text-[16px] font-semibold mb-1">SNS</h1>
+      {snsList.length === 0 && '정보없음'}
       <ul className="flex flex-wrap w-full h-auto">
         {snsList.map((sns: PartnerSnsType) => (
           <li key={sns.id}>

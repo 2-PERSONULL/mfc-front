@@ -21,19 +21,23 @@ export default async function PartnerChatTimeAndLeadTimeBox({
       <section className="mb-10">
         <h1 className="text-[16px] font-semibold mb-1">채팅 가능시간</h1>
         <p className="text-[15px] text-gray-700">
-          {startTime ? `${formatTime(startTime)} ~ ${formatTime(endTime)}` : ''}
+          {startTime
+            ? `${formatTime(startTime)} ~ ${formatTime(endTime)}`
+            : '정보없음'}
         </p>
       </section>
 
       <section className="mb-10">
         <h1 className="text-[16px] font-semibold mb-1">평균 코디 소요기간</h1>
-        <p className="text-[15px] text-gray-700">{getLeadTime()}</p>
+        <p className="text-[15px] text-gray-700">
+          {getLeadTime() ? getLeadTime() : '정보없음'}
+        </p>
       </section>
 
       <section className="mb-10">
         <h1 className="text-[16px] font-semibold mb-1">코디 평균가</h1>
         <p className="text-[15px] text-gray-700">
-          {averagePrice.toLocaleString()}원
+          {averagePrice ? averagePrice.toLocaleString() : '정보없음'}
         </p>
       </section>
     </>
