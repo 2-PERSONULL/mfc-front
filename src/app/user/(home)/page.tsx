@@ -18,7 +18,7 @@ export default async function UserHome() {
   const popularPartnerPosts = await getPartnerPostRanking()
   const allRandomPartnerPosts = await getRandomPartnersPosts()
   const recommendPosts = await getPartnerPostBasedOnStyle()
-  console.log(user)
+
   return (
     <main className="relative w-full min-h-dvh mb-[8rem]">
       <HomeBanner />
