@@ -23,6 +23,7 @@ export async function updatePartnerProfileImage(image: string) {
     )
 
     const data = await response.json()
+    revalidateTag('profile-image')
     if (!data.isSuccess) console.log('profile iamge update error:', data)
     return data
   } catch (error) {

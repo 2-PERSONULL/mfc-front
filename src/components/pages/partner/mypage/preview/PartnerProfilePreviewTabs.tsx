@@ -13,7 +13,7 @@ export default function PartnerProfilePreviewTabs() {
   }
 
   return (
-    <div className="sticky top-[0px] bg-white z-[100] flex w-full justify-around text-[16px] font-semibold py-5">
+    <div className="sticky top-[0px] bg-white z-[20] flex w-full justify-around text-[16px] font-semibold py-5">
       <Link
         replace
         href="/partner/mypage"
