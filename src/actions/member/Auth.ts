@@ -1,4 +1,5 @@
 import { SignUpType } from '@/types/signupTypes'
+import { getFetchHeader } from '@/utils/getFetchHeader'
 
 const postSignUp = async (data: SignUpType) => {
   try {
@@ -98,10 +99,36 @@ const nicknameDoubleCheck = async (nickname: string) => {
     console.log(error)
   }
 }
+
+const getBirthGender = async () => {
+  const header = await getFetchHeader()
+  if (!header) {
+    console.log('session not found')
+    return null
+  }
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth-service/members/birth-gender/${header.UUID}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+
+    const data = await response.json()
+    return data.result
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   postSignUp,
   emailDoubleCheck,
   phoneNumSubmit,
   getVerifyAuthCode,
   nicknameDoubleCheck,
+  getBirthGender,
 }

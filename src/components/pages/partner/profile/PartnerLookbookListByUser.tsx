@@ -81,23 +81,27 @@ export default function PartnerLookbookListByUser({
   }
 
   return (
-    <section className="grid grid-cols-2 gap-2">
-      {postList.map((post) => (
-        <button
-          key={post.postId}
-          type="button"
-          onClick={() => onClickPost(post.postId)}
-          className="relative h-[190px] mb-1"
-        >
-          <Image
-            src={post.imageUrl}
-            alt={post.alt}
-            fill
-            sizes="(max-width: 100px) 100vw, 100px"
-            className="object-cover rounded-[12px] h-full w-full"
-          />
-        </button>
-      ))}
+    <section className={postList.length !== 0 ? 'grid grid-cols-2 gap-2' : ''}>
+      {postList.length !== 0 ? (
+        postList.map((post) => (
+          <button
+            key={post.postId}
+            type="button"
+            onClick={() => onClickPost(post.postId)}
+            className="relative h-[190px] mb-1"
+          >
+            <Image
+              src={post.imageUrl}
+              alt={post.alt}
+              fill
+              sizes="(max-width: 100px) 100vw, 100px"
+              className="object-cover rounded-[12px] h-full w-full"
+            />
+          </button>
+        ))
+      ) : (
+        <p className="text-center text-gray-500">조회된 포스팅이 없습니다.</p>
+      )}
       <div ref={observerRef} />
     </section>
   )

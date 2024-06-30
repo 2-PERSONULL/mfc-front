@@ -8,10 +8,17 @@ export default function UserSingleDetailInfo({
   edit,
 }: {
   title: string
-  value: string
+  value: string | number
   href?: string
   edit?: boolean
 }) {
+  const renderValue = (data: string | number) => {
+    if (typeof data === 'number') {
+      if (value === 0) return '남'
+      if (value === 1) return '여'
+    }
+    return value
+  }
   return (
     <section className="w-full bg-white border-b border-b-gray-200 py-8">
       {edit ? (
@@ -22,7 +29,7 @@ export default function UserSingleDetailInfo({
       ) : (
         <p className="text-[18px] font-bold mr-2 mb-2">{title}</p>
       )}
-      <p className="text-sm">{value}</p>
+      <p className="text-sm">{renderValue(value)}</p>
     </section>
   )
 }
