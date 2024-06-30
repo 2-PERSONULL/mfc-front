@@ -4,6 +4,8 @@ const getCurrentStep = (status: string) => {
       return 1
     case 'RESPONSEACCEPT':
       return 2
+    case 'TRADE_CREATED':
+      return 2
     case 'WAITING':
       return 2
     case 'CONFIRMED':
