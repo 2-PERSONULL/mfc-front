@@ -11,7 +11,7 @@ export default function StyleTagEditor({
   tags: string[]
   setTags: (tags: string[]) => void
 }) {
-  const [inputText, setInputText] = useState('')
+  const [inputText, setInputText] = useState<string>('')
   const { showToast } = useToast()
 
   const activeEnter = (e: React.KeyboardEvent) => {

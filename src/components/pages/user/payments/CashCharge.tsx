@@ -17,9 +17,10 @@ export default function CashCharge({
 }) {
   const router = useRouter()
   const pathName = usePathname()
-  const confirmId = useSearchParams().get('confirmId')
+  const requestId = useSearchParams().get('requestId')
   const amount = useSearchParams().get('amount')
   const roomId = useSearchParams().get('roomId')
+  const partnerId = useSearchParams().get('partnerId')
 
   const { requestPayment } = usePayment()
 
@@ -149,7 +150,7 @@ export default function CashCharge({
             payMethod,
             closeModal || (() => router.replace('/user/mypage/paymentlist')),
             callbackUrl ||
-              `${pathName}?confirmId=${confirmId}&amount=${amount}&roomId=${roomId}`,
+              `${pathName}?requestId=${requestId}&amount=${amount}&roomId=${roomId}&partnerId=${partnerId}`,
           )
         }
       />

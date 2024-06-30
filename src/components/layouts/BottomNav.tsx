@@ -1,26 +1,24 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { NavigationType } from '@/types/navigationTypes'
 import NavigationData from '@/libs/navigationData'
-import useRole from '@/hooks/useRole'
 
 const BottomNav = () => {
-  const role = useRole().toLowerCase()
-  // const [role, setRole] = useState<string>('user')
+  const [role, setRole] = useState<string>('user')
 
-  // useEffect(() => {
-  //   const memberRole = localStorage.getItem('role')?.toLowerCase()
+  useEffect(() => {
+    const memberRole = localStorage.getItem('role')?.toLowerCase()
 
-  //   if (memberRole) {
-  //     setRole(memberRole)
-  //   } else {
-  //     setRole(role)
-  //   }
-  // }, [])
+    if (memberRole) {
+      setRole(memberRole)
+    } else {
+      setRole(role)
+    }
+  }, [])
 
   const pathname = usePathname()
   const active = pathname.replace(/\/(partner|user)/, '')
