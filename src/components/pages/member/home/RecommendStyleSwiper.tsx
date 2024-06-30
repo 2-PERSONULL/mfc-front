@@ -49,8 +49,9 @@ export default function RecommendStyleSwiper({
                       : defaultImage
                   }
                   alt={post.profileAlt !== null ? post.profileAlt : 'profile'}
-                  width={30}
-                  height={30}
+                  width={0}
+                  height={0}
+                  style={{ width: '30px', height: '30px' }}
                   className="rounded-full"
                 />
                 <p className="text-white text-sm font-bold">{post.nickname}</p>
