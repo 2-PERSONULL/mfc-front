@@ -13,10 +13,7 @@ export default function HomeEventSection({ username }: { username: string }) {
       <ul className="flex flex-col gap-5 pt-3">
         {DummyTips.map((tip) => (
           <>
-            <li
-              key={tip.id}
-              className="flex flex-row items-center justify-between gap-3"
-            >
+            <li key={tip.id} className="flex justify-start items-center gap-5">
               <Image
                 src={tip.imageUrl}
                 alt={tip.title}

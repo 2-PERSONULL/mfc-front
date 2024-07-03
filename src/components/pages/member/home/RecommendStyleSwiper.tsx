@@ -29,7 +29,7 @@ export default function RecommendStyleSwiper({
       {posts.map((post, idx) => (
         <SwiperSlide
           key={idx}
-          className="swiper-slide relative min-h-[400px] rounded-lg"
+          className="swiper-slide relative min-h-[75dvh] rounded-lg"
         >
           <Link href={`/user/coordinator/${post.partnerId}/profile`}>
             <div className="absolute bg-black top-0 right-0 bottom-0 left-0 z-[1] opacity-20" />
