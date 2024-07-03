@@ -23,27 +23,28 @@ export default function UserId({
 
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault()
-    // e.stopPropagation()
     if (value.length === 0) {
       showToast({
         content: '이메일을 입력해주세요.',
         type: 'warning',
       })
+      return
     }
     if (!emailRegex.test(value)) {
       showToast({
         content: '이메일 형식에 맞게 다시 입력해주세요.',
         type: 'warning',
       })
+      return
     }
     if (!isDoubleCheck && !isEmailValid) {
       showToast({
         content: '아이디 중복 검사를 진행해주세요.',
         type: 'warning',
       })
-    } else {
-      clickHandler(value)
+      return
     }
+    clickHandler(value)
   }
 
   const handleIdDoubleCheck = async (
@@ -55,6 +56,7 @@ export default function UserId({
         content: '이메일 형식에 맞게 다시 입력해주세요.',
         type: 'warning',
       })
+      return
     }
     const data: BaseResponseType = await emailDoubleCheck(value)
     if (!data.result) {
@@ -64,7 +66,9 @@ export default function UserId({
         content: '사용할 수 없는 이메일입니다.',
         type: 'error',
       })
-    } else if (data.result) {
+      return
+    }
+    if (data.result) {
       setIsEmailValid(true)
       setIsDoubleCheck(true)
       showToast({
@@ -76,7 +80,7 @@ export default function UserId({
 
   return (
     <div className="flex flex-col max-h-screen h-screen max-w-full px-6 pt-28 content-around">
-      <SignUpTitle comment="아이디를 입력해주세요." />
+      <SignUpTitle comment="이메일을 입력해주세요." />
       <div className="flex items-center justify-end mt-8">
         <input
           type="email"
