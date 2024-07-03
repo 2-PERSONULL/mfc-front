@@ -15,7 +15,7 @@ export default function HomeRecommendStyle({
 }) {
   console.log(username)
   return (
-    <section className="relative px-5 w-full h-[500px] ">
+    <section className="relative px-5 w-full min-h-full ">
       <HomeSectionTitle
         username={username || null}
         text={username !== null ? '님에게 추천하는 스타일' : '추천 스타일'}

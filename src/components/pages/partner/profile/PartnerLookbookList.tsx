@@ -99,7 +99,7 @@ export default function PartnerLookbookList({
           key={post.postId}
           type="button"
           onClick={() => onClickPost(post.postId)}
-          className="relative h-[190px] mb-1"
+          className="relative min-h-[190px] mb-1"
         >
           <Image
             src={post.imageUrl}
