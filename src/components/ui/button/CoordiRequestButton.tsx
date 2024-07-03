@@ -37,7 +37,7 @@ export default function CoordiRequestButton({
   if (role === 'PARTNER') return null
 
   return (
-    <section className="fixed bottom-0 left-0 right-0 h-[100px] flex justify-center pt-5">
+    <section className="fixed bottom-0 left-0 right-0 h-[100px] flex justify-center pt-5 z-[50]">
       <div
         role="presentation"
         onClick={requestCoordiHandler}

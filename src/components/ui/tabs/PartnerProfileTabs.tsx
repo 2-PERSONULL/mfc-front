@@ -17,7 +17,7 @@ export default function PartnerProfileTabs({
   }
 
   return (
-    <div className="sticky top-[0px] bg-white z-[100] flex w-full justify-around text-[16px] font-semibold py-5">
+    <div className="sticky top-[0px] bg-white z-[10] flex w-full justify-around text-[16px] font-semibold py-5">
       <Link
         replace
         href={`/user/coordinator/${partnerId}/profile`}
